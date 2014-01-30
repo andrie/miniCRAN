@@ -16,18 +16,18 @@ Important functions:
 
 Installation and example:
 
-library(devtools)
-install_github("miniCRAN", username="andrie")
-
-library("miniCRAN")
-
-pkgs <- c("ggplot2", "plyr", "reshape2")
-
-pkgDep(pkgs)
-
-## NOT RUN
-
-pth <- "C:/Users/Andrie/Downloads/miniCRAN"
-makeRepo(pkgDep(pkgs), path=pth, download=TRUE)
-
-## END NOT RUN
+    library(devtools)
+    install_github("miniCRAN", username="andrie")
+    
+    library("miniCRAN")
+    
+    pkgs <- c("ggplot2", "plyr", "reshape2")
+    
+    pkgDep(pkgs)
+    
+    ## NOT RUN
+    
+    pth <- "C:/Users/Andrie/Downloads/miniCRAN"
+    makeRepo(pkgDep(pkgs), path=pth, download=TRUE)
+    
+    ## END NOT RUN
