@@ -11,3 +11,23 @@ Important functions:
 
 * Find package dependencies: `pkgDep()`
 * Make repository (with or without downloading packages): `makeRepo()`
+
+---
+
+Installation and example:
+
+library(devtools)
+install_github("miniCRAN", username="andrie")
+
+library("miniCRAN")
+
+pkgs <- c("ggplot2", "plyr", "reshape2")
+
+pkgDep(pkgs)
+
+## NOT RUN
+
+pth <- "C:/Users/Andrie/Downloads/miniCRAN"
+makeRepo(pkgDep(pkgs), path=pth, download=TRUE)
+
+## END NOT RUN
