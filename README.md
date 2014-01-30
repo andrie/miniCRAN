@@ -14,10 +14,16 @@ Important functions:
 
 ---
 
-Installation and example:
+Installation:
+
+    # Use `devtools` to install directly from github
 
     library(devtools)
     install_github("miniCRAN", username="andrie")
+    
+Example:
+
+    # Determine and download the packages `ggplot2`, `plyr` and `reshape2`, including their dependencies:
     
     library("miniCRAN")
     
