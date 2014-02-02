@@ -1,3 +1,2 @@
 export(makeRepo)
 export(pkgDep)
-importFrom(tools,write_PACKAGES)

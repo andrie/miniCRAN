@@ -12,7 +12,7 @@
 #' @examples
 #' pkgDep(c("ggplot2", "plyr", "reshape2"))
 
-pkgDep <- function(pkg, availPkgs = available.packages()){
+pkgDep <- function(pkg, availPkgs = available.packages(contriburl="http://cran.revolutionanalytics.com")){
   x <- tools::package_dependencies(pkg, availPkgs, recursive=TRUE)
   x1 <- unique(unname(unlist(x)))
   x <- tools::package_dependencies(pkg, availPkgs, which="Suggests", recursive=FALSE)
