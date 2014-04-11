@@ -9,9 +9,6 @@ LazyData: true
 LazyLoad: true
 Description: Tools to create a internally consistent, mini version of CRAN with
     selected packages only.
-Version: 0.0-01
+Version: 0.0-02
 URL: https://github.com/andrie/miniCRAN
-Date: 2014-01-30
-Collate:
-    'minicran-package.R'
-    'minicran.R'
+Date: 2014-04-10
