@@ -20,7 +20,7 @@ pkgDep <- function(pkg, availPkgs, contriburl=getOption("repos"), type=getOption
   if(missing(pkg) || !is.character(pkg)) stop("pkg should be a character vector with package names")
   if(contriburl["CRAN"] == "@CRAN@") warning("It seems that your CRAN mirror is set incorrectly")
   if(is.na(type)) type <- "source"
-  if(missing(availPkgs)) availPkgs = available.packages(contriburl=contriburl, type=type, ...)
+  if(missing(availPkgs)) availPkgs = available.packages(contriburl=contrib.url(contriburl, type=type), ...)
   if(nrow(availPkgs) == 0) stop("Unable to retrieve available packages from CRAN")
   
   pkgInAvail <- pkg %in% availPkgs[, "Package"]
