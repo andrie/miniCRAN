@@ -16,7 +16,8 @@
 #' pkgDep(c("ggplot2", "plyr", "reshape2"))
 #' }
 
-pkgDep <- function(pkg, availPkgs, contriburl=getOption("repos"), type=getOption("pkgType"), ...){
+pkgDep <- function(pkg, availPkgs, contriburl=getOption("repos"), type=getOption("pkgType"), ...)
+{
   if(missing(pkg) || !is.character(pkg)) stop("pkg should be a character vector with package names")
   if(contriburl["CRAN"] == "@CRAN@") warning("It seems that your CRAN mirror is set incorrectly")
   if(is.na(type)) type <- "source"
@@ -55,9 +56,10 @@ makeRepo <- function(pkg, path, download=FALSE, type="source"){
   if(!file.exists(path)) stop("Download path does not exist")
   wd <- getwd()
   on.exit(setwd(wd))
-  setwd(path)
+  setwd(normalizePath(path))
+  message(getwd())
   if(download) download.packages(pkg, destdir=path, type=type)
-  tools::write_PACKAGES() 
+  tools::write_PACKAGES(dir=".", type=type) 
 }
 
 
