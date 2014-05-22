@@ -25,12 +25,16 @@ Performs recursive retrieve for \code{Depends},
 \code{Imports} and \code{LinkLibrary}. Performs
 non-recursive retrieve for \code{Suggests}.
 }
+\details{
+This
+}
 \examples{
 \dontrun{
 pkgDep(c("ggplot2", "plyr", "reshape2"))
 }
 }
 \seealso{
-Other Package.dependency: \code{\link{makeRepo}}
+Other miniCRAN: \code{\link{makeRepo}};
+\code{\link{pkgAvail}}
 }
 

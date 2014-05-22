@@ -20,9 +20,10 @@ downloading only this subset.
 
 Important functions:
 
-\itemize{ \item Find package dependencies:
-\code{\link{pkgDep}} \item Make repository:
-\code{\link{makeRepo}} }
+\itemize{ \item \code{\link{pkgDep}}: Find (recursive)
+package dependencies \item \code{\link{makeRepo}} : Make
+repository \item \code{\link{pkgAvail}}: Read local
+repository and determine available packages }
 }
 \author{
 Andrie de Vries \email{apdevries@gmail.com}
