@@ -1,9 +1,21 @@
+miniCRAN v0.0-05 (Release date: 2013-05-22)
+==============
+
+Enhancements:
+
+* Enhanced error checking for pkgDep(), e.g. checking for non-existent top-level packages.
+* Modified pkgDep() to selectively includes suggests dependencies
+* Improved error messages
+* New function pkgAvail(), a wrapper around available.packages()
+
+
 miniCRAN v0.0-01 (Release date: 2013-01-30)
 ==============
 
 First commit.
 
 New functionality:
+
 * pkgDep()
 * makeRepo()
 

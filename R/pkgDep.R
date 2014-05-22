@@ -8,6 +8,7 @@
 #' @param availPkgs Vector of available packages.  Defaults to reading this list from CRAN, using \code{\link{available.packages}}
 #' @param repos URL(s) of the 'contrib' sections of the repositories. Passed to \code{\link{available.packages}}
 #' @param type Passed to \code{\link{available.packages}}
+#' @param depends If TRUE, retrieves Depends, Imports and LinkingTo dependencies (non-recursively)
 #' @param suggests If TRUE, retrieves Suggests dependencies (non-recursively)
 #' @param ... Other arguments passed to \code{\link{available.packages}}
 #' 
@@ -68,7 +69,6 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkg
 #' This is a thin wrapper around \code{\link{available.packages}}.  If the argument \code{path} is supplied, then the function attempts to read from a local repository, otherwise attempts to read from a CRAN mirror at the \code{repos} url.
 #' 
 #' @param path If supplied, locates available packages from local path
-#' @param repos 
 #' @inheritParams pkgDep
 #' @export
 #' @family miniCRAN
