@@ -8,7 +8,8 @@ pkgAvail(path, repos = getOption("repos"), type = getOption("pkgType"), ...)
   \item{path}{If supplied, locates available packages from
   local path}
 
-  \item{repos}{}
+  \item{repos}{URL(s) of the 'contrib' sections of the
+  repositories. Passed to \code{\link{available.packages}}}
 
   \item{type}{Passed to \code{\link{available.packages}}}
 

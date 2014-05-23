@@ -8,6 +8,7 @@
 #' @param availPkgs Vector of available packages.  Defaults to reading this list from CRAN, using \code{\link{available.packages}}
 #' @param repos URL(s) of the 'contrib' sections of the repositories. Passed to \code{\link{available.packages}}
 #' @param type Passed to \code{\link{available.packages}}
+#' @param depends If TRUE, retrieves Depends, Imports and LinkingTo dependencies (non-recursively)
 #' @param suggests If TRUE, retrieves Suggests dependencies (non-recursively)
 #' @param ... Other arguments passed to \code{\link{available.packages}}
 #' 
@@ -19,7 +20,7 @@
 #' pkgDep(c("ggplot2", "plyr", "reshape2"))
 #' }
 
-pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkgType"), depends=TRUE, suggests=FALSE, ...){
+pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkgType"), depends=TRUE, suggests=FALSE, path, ...){
   if(!depends & !suggests) {
     warning("Returning nothing, since depends and suggests are both FALSE")
     return(character(0))
@@ -33,7 +34,7 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkg
   }
   if(is.na(type)) type <- "source"
   if(missing(availPkgs)){
-    availPkgs <- available.packages(contriburl=contrib.url(repos, type=type), ...)
+    availPkgs <- pkgAvail(path=path, repos=repos, type=type, ...)
   }
   if(nrow(availPkgs) == 0){
     stop("Unable to retrieve available packages from CRAN")
@@ -68,7 +69,6 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkg
 #' This is a thin wrapper around \code{\link{available.packages}}.  If the argument \code{path} is supplied, then the function attempts to read from a local repository, otherwise attempts to read from a CRAN mirror at the \code{repos} url.
 #' 
 #' @param path If supplied, locates available packages from local path
-#' @param repos 
 #' @inheritParams pkgDep
 #' @export
 #' @family miniCRAN

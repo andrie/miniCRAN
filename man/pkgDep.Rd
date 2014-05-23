@@ -17,6 +17,12 @@ pkgDep(pkg, availPkgs, repos = getOption("repos"),
 
   \item{type}{Passed to \code{\link{available.packages}}}
 
+<<<<<<< HEAD
+=======
+  \item{depends}{If TRUE, retrieves Depends, Imports and
+  LinkingTo dependencies (non-recursively)}
+
+>>>>>>> master
   \item{suggests}{If TRUE, retrieves Suggests dependencies
   (non-recursively)}
 

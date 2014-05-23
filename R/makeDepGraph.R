@@ -6,12 +6,15 @@
 #' @export
 #' @family graph
 #' @seealso pkgDep
-makeDepGraph <- function(repos, type="source") {
+makeDepGraph <- function(pkg, repos=getOption("repos"), type="source", path, pkgs = pkgDep(pkg, repos=repos, type=type)) {
   stopifnot(require(igraph))
   suggests.only <- FALSE
   keep.builtin <- FALSE
   dosize <- TRUE
-  pkgs <- available.packages(contrib.url(repos, type=type))
+  availPkgs <- available.packages(contrib.url(repos, type=type))
+#   depPkgs <- pkgDep(pkg=pkg, repos=repos, type=type)
+  depPkgs <- pkgs[pkgs %in% rownames(availPkgs)]
+  pkgs <- availPkgs[depPkgs, ]
   if (!keep.builtin)
     baseOrRecPkgs <- rownames(installed.packages(priority="high"))
   allPkgs <- rownames(pkgs)
