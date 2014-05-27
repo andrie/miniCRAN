@@ -20,6 +20,11 @@ makeDepGraph(pkg, repos = getOption("repos"), type = "source", path,
 \description{
 Each package is a node, and a dependency is an edge
 }
+\examples{
+p <- makeDepGraph(c("ggplot2", "forecast"), repos=c(CRAN="http://cran.revolutionanalytics.com"), type="source")
+library(igraph)
+plot(p)
+}
 \seealso{
 pkgDep
 }

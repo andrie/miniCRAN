@@ -7,13 +7,17 @@
 #' @export
 #' @family graph
 #' @seealso pkgDep
+#' @examples
+#' p <- makeDepGraph(c("ggplot2", "forecast"), repos=c(CRAN="http://cran.revolutionanalytics.com"), type="source")
+#' library(igraph)
+#' plot(p)
 makeDepGraph <- function(pkg, repos=getOption("repos"), type="source", path, pkgs = pkgDep(pkg, repos=repos, type=type)) {
-#   stopifnot(require(igraph))
+  #   stopifnot(require(igraph))
   suggests.only <- FALSE
-  keep.builtin <- FALSE
+  keep.builtin <- TRUE
   dosize <- TRUE
   availPkgs <- available.packages(contrib.url(repos, type=type))
-#   depPkgs <- pkgDep(pkg=pkg, repos=repos, type=type)
+  #   depPkgs <- pkgDep(pkg=pkg, repos=repos, type=type)
   depPkgs <- pkgs[pkgs %in% rownames(availPkgs)]
   pkgs <- availPkgs[depPkgs, ]
   if (!keep.builtin)
@@ -21,9 +25,10 @@ makeDepGraph <- function(pkg, repos=getOption("repos"), type="source", path, pkg
   allPkgs <- rownames(pkgs)
   if (!length(allPkgs))
     stop("no packages in specified repositories")
-  edges <- lapply(rownames(pkgs), function(p) {
-    deps <- cleanPkgField(pkgs[p, "Depends"])
-    deps <- c(deps, cleanPkgField(pkgs[p, "Imports"]))
+  edges <- lapply(allPkgs, function(p) {
+    deps <- cleanPkgField(pkgs[p, "Imports"])
+    deps <- c(deps, cleanPkgField(pkgs[p, "Depends"]))
+    deps <- c(deps, cleanPkgField(pkgs[p, "LinkingTo"]))
     deps <- unique(deps)
     if (length(deps) && !keep.builtin)
       deps <- deps[!(deps %in% baseOrRecPkgs)]
@@ -31,10 +36,10 @@ makeDepGraph <- function(pkg, repos=getOption("repos"), type="source", path, pkg
   }
   )
   edges <- do.call(rbind, edges)
-#   vertices <- data.frame(pkgs=pkgs, pkgs)
-  vertices <- data.frame(pkgs)
+  #   vertices <- data.frame(pkgs, stringsAsFactors=FALSE)
 #   graph.data.frame(d=edges, vertices=vertices, directed=TRUE)
-  list(edges=edges, vertices=vertices)
-
+  graph.data.frame(d=edges, directed=TRUE)
+  #   list(edges=edges, vertices=vertices)
+  
 }
 
