@@ -23,7 +23,9 @@ Important functions:
 \itemize{ \item \code{\link{pkgDep}}: Find (recursive)
 package dependencies \item \code{\link{makeRepo}} : Make
 repository \item \code{\link{pkgAvail}}: Read local
-repository and determine available packages }
+repository and determine available packages \item
+\code{\link{makeDepGraph}}: Create graph of selected
+package dependencies }
 }
 \author{
 Andrie de Vries \email{apdevries@gmail.com}
