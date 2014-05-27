@@ -4,24 +4,24 @@
 #' 
 #' Uses \code{\link{download.packages}} and \code{\link[tools]{write_PACKAGES}}
 #' 
-#' @param pkg Character vector of packages to download
-#' @param path Destination download path
+#' @inheritParams pkgDep
+#' @param pkgs Character vector of packages to download
 #' @param download If TRUE downloads packages, otherwise just creates PACKAGES file
 #' @param type Passed to \code{\link{download.packages}}
 #' 
 #' @export
 #' @family miniCRAN
-makeRepo <- function(pkg, path, download=FALSE, type="source"){
+makeRepo <- function(pkgs, path, download=FALSE, type="source"){
   if(!file.exists(path)) stop("Download path does not exist")
   wd <- getwd()
   on.exit(setwd(wd))
   setwd(normalizePath(path))
   message(getwd())
-  if(download) download.packages(pkg, destdir=path, type=type)
+  if(download) download.packages(pkgs, destdir=path, type=type)
   tools::write_PACKAGES(dir=".", type=type) 
 }
 
-makeLibrary <- function(pkg, path, download=FALSE, type="source"){
+makeLibrary <- function(pkgs, path, download=FALSE, type="source"){
   
 }
 

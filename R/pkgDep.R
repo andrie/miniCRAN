@@ -10,15 +10,18 @@
 #' @param type Passed to \code{\link{available.packages}}
 #' @param depends If TRUE, retrieves Depends, Imports and LinkingTo dependencies (non-recursively)
 #' @param suggests If TRUE, retrieves Suggests dependencies (non-recursively)
+#' @param path Destination download path
 #' @param ... Other arguments passed to \code{\link{available.packages}}
 #' 
 #' @export
+#' @seealso makeDepGraph
 #' @family miniCRAN
 #' 
 #' @examples
-#' \dontrun{
-#' pkgDep(c("ggplot2", "plyr", "reshape2"))
-#' }
+#' pkgDep(pkg=
+#'   c("ggplot2", "plyr", "reshape2"), 
+#'   repos=c(CRAN="http://cran.revolutionanalytics.com")
+#' )
 
 pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkgType"), depends=TRUE, suggests=FALSE, path, ...){
   if(!depends & !suggests) {

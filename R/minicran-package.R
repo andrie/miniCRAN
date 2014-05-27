@@ -40,5 +40,6 @@
 #' @author Andrie de Vries \email{apdevries@@gmail.com}
 #' @keywords package
 #' @seealso \code{\link{minicran}}
+#' @import igraph
 NULL
 

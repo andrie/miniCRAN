@@ -1,4 +1,12 @@
-miniCRAN v0.0-05 (Release date: 2013-05-22)
+miniCRAN v0.0-06 (Release date: 2014-05-27)
+==============
+
+New functionality:
+
+* New function makeDepGraph() to create an igraph representation of the selected package dependencies
+* New function makeRsyncInclude() to create include file for use with rsync (experimental)
+
+miniCRAN v0.0-05 (Release date: 2014-05-22)
 ==============
 
 Enhancements:
@@ -9,7 +17,7 @@ Enhancements:
 * New function pkgAvail(), a wrapper around available.packages()
 
 
-miniCRAN v0.0-01 (Release date: 2013-01-30)
+miniCRAN v0.0-01 (Release date: 2014-01-30)
 ==============
 
 First commit.

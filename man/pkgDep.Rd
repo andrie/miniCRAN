@@ -3,7 +3,8 @@
 \title{Retrieves package dependencies.}
 \usage{
 pkgDep(pkg, availPkgs, repos = getOption("repos"),
-  type = getOption("pkgType"), depends = TRUE, suggests = FALSE, ...)
+  type = getOption("pkgType"), depends = TRUE, suggests = FALSE, path,
+  ...)
 }
 \arguments{
   \item{pkg}{Character vector of packages.}
@@ -17,14 +18,13 @@ pkgDep(pkg, availPkgs, repos = getOption("repos"),
 
   \item{type}{Passed to \code{\link{available.packages}}}
 
-<<<<<<< HEAD
-=======
   \item{depends}{If TRUE, retrieves Depends, Imports and
   LinkingTo dependencies (non-recursively)}
 
->>>>>>> master
   \item{suggests}{If TRUE, retrieves Suggests dependencies
   (non-recursively)}
+
+  \item{path}{Destination download path}
 
   \item{...}{Other arguments passed to
   \code{\link{available.packages}}}
@@ -38,11 +38,14 @@ non-recursive retrieve for \code{Suggests}.
 This
 }
 \examples{
-\dontrun{
-pkgDep(c("ggplot2", "plyr", "reshape2"))
-}
+pkgDep(pkg=
+  c("ggplot2", "plyr", "reshape2"),
+  repos=c(CRAN="http://cran.revolutionanalytics.com")
+)
 }
 \seealso{
+makeDepGraph
+
 Other miniCRAN: \code{\link{makeRepo}};
 \code{\link{pkgAvail}}
 }

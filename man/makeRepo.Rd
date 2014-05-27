@@ -2,17 +2,17 @@
 \alias{makeRepo}
 \title{Downloads packages from CRAN to specified path.}
 \usage{
-makeRepo(pkg, path, download = FALSE, type = "source")
+makeRepo(pkgs, path, download = FALSE, type = "source")
 }
 \arguments{
-  \item{pkg}{Character vector of packages to download}
-
-  \item{path}{Destination download path}
+  \item{pkgs}{Character vector of packages to download}
 
   \item{download}{If TRUE downloads packages, otherwise
   just creates PACKAGES file}
 
   \item{type}{Passed to \code{\link{download.packages}}}
+
+  \item{path}{Destination download path}
 }
 \description{
 Given a list of packages, downloads to a specified

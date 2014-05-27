@@ -1,0 +1,25 @@
+\name{makeRsyncInclude}
+\alias{makeRsyncInclude}
+\title{Create include file for use with rsync.}
+\usage{
+makeRsyncInclude(pkg, file = NULL, pkgs = pkgDep(pkg, ...), ...)
+}
+\arguments{
+  \item{file}{Name of file where results are saved.  If
+  NULL, the function returns a vector.}
+
+  \item{pkg}{Character vector of packages.}
+
+  \item{...}{Other arguments passed to
+  \code{\link{available.packages}}}
+
+  \item{pkgs}{Character vector of packages to download}
+}
+\description{
+Create include file for use with rsync.
+}
+\examples{
+pkgs <- c("ggplot2", "plyr", "reshape2")
+makeRsyncInclude(pkgs, type="source", repos=c(CRAN="http://cran.revolutionanalytics.com"))
+}
+
