@@ -24,7 +24,7 @@ from a local repository, otherwise attempts to read from a
 CRAN mirror at the \code{repos} url.
 }
 \seealso{
-Other miniCRAN: \code{\link{makeRepo}};
-\code{\link{pkgDep}}
+Other miniCRAN: \code{\link{getCranDescription}};
+\code{\link{makeRepo}}; \code{\link{pkgDep}}
 }
 

@@ -23,7 +23,7 @@ Uses \code{\link{download.packages}} and
 \code{\link[tools]{write_PACKAGES}}
 }
 \seealso{
-Other miniCRAN: \code{\link{pkgAvail}};
-\code{\link{pkgDep}}
+Other miniCRAN: \code{\link{getCranDescription}};
+\code{\link{pkgAvail}}; \code{\link{pkgDep}}
 }
 

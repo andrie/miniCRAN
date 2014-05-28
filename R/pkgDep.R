@@ -84,3 +84,35 @@ pkgAvail <- function(path, repos=getOption("repos"), type=getOption("pkgType"), 
   }
   available.packages(contriburl=contriburl, type=type, ...)
 }
+
+#' Scrape DESCRIPTION from CRAN for each pkg.
+#' 
+#' @inheritParams pkgDep
+#' @inheritParams makeRepo
+#' @import XML
+#' @export
+#' @family miniCRAN
+#' @examples
+#' 
+#' getCranDescription(c("igraph", "ggplot2", "XML"), 
+#'   repos=c(CRAN="http://cran.revolutionanalytics.com")
+#' )
+getCranDescription <- function(pkg, repos=getOption("repos"), type="source", path, pkgs = pkgDep(pkg, repos=repos, type=type)){
+  
+  getOne <- function(package){
+    tryCatch({
+      url <- sprintf("http://cran.r-project.org/web/packages/%s/index.html", package)
+      x <- readHTMLTable(url, header=FALSE, which=1, stringsAsFactors=FALSE)
+      names(x) <- c("Field", "Value")
+      x$Field <- gsub(":", "", x$Field)
+      x$Package <- package
+      x
+    }, error=function(e) message(e)
+    )
+  }
+  ret <- do.call(rbind, lapply(pkgs, getOne))
+  ret <- reshape(ret, direction="wide", timevar="Field", idvar="Package", v.names="Value")
+  names(ret) <- gsub("Value.", "", names(ret))
+  rownames(ret) <- ret$Package
+  ret
+}

@@ -46,7 +46,7 @@ pkgDep(pkg=
 \seealso{
 makeDepGraph
 
-Other miniCRAN: \code{\link{makeRepo}};
-\code{\link{pkgAvail}}
+Other miniCRAN: \code{\link{getCranDescription}};
+\code{\link{makeRepo}}; \code{\link{pkgAvail}}
 }
 

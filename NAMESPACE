@@ -1,6 +1,8 @@
+export(getCranDescription)
 export(makeDepGraph)
 export(makeRepo)
 export(makeRsyncInclude)
 export(pkgAvail)
 export(pkgDep)
+import(XML)
 import(igraph)
