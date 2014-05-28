@@ -1,3 +1,10 @@
+miniCRAN v0.0-07 (Release date: 2014-05-28)
+==============
+
+New functionality:
+
+* New function getCranDescription() that scrapes information from the CRAN website for each package.
+
 miniCRAN v0.0-06 (Release date: 2014-05-27)
 ==============
 
