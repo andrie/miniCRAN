@@ -26,7 +26,8 @@ getCranDescription(c("igraph", "ggplot2", "XML"),
 )
 }
 \seealso{
-Other miniCRAN: \code{\link{makeRepo}};
-\code{\link{pkgAvail}}; \code{\link{pkgDep}}
+Other miniCRAN: \code{\link{makeLibrary}},
+\code{\link{makeRepo}}; \code{\link{pkgAvail}};
+\code{\link{pkgDep}}
 }
 

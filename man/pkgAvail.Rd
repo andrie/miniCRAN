@@ -25,6 +25,7 @@ CRAN mirror at the \code{repos} url.
 }
 \seealso{
 Other miniCRAN: \code{\link{getCranDescription}};
-\code{\link{makeRepo}}; \code{\link{pkgDep}}
+\code{\link{makeLibrary}}, \code{\link{makeRepo}};
+\code{\link{pkgDep}}
 }
 

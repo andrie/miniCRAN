@@ -1,5 +1,6 @@
 export(getCranDescription)
 export(makeDepGraph)
+export(makeLibrary)
 export(makeRepo)
 export(makeRsyncInclude)
 export(pkgAvail)
