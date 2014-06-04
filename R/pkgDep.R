@@ -10,6 +10,7 @@
 #' @param type Passed to \code{\link{available.packages}}
 #' @param depends If TRUE, retrieves Depends, Imports and LinkingTo dependencies (non-recursively)
 #' @param suggests If TRUE, retrieves Suggests dependencies (non-recursively)
+#' @param enhances If TRUE, retrieves Enhances dependencies (non-recursively)
 #' @param path Destination download path
 #' @param ... Other arguments passed to \code{\link{available.packages}}
 #' 
@@ -23,9 +24,9 @@
 #'   repos=c(CRAN="http://cran.revolutionanalytics.com")
 #' )
 
-pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkgType"), depends=TRUE, suggests=FALSE, path, ...){
-  if(!depends & !suggests) {
-    warning("Returning nothing, since depends and suggests are both FALSE")
+pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkgType"), depends=TRUE, suggests=FALSE, enhances=FALSE, path, ...){
+  if(!depends & !suggests & !enhances) {
+    warning("Returning nothing, since depends, suggests and enhances are all FALSE")
     return(character(0))
   }
   
@@ -64,7 +65,13 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkg
   } else {
     x2 <- character(0)
   }
-  sort(unique(c(pkgAvail, x1, x2)))
+  if(enhances){
+    x <- tools::package_dependencies(pkgAvail, availPkgs, which="Enhances", recursive=FALSE)
+    x3 <- unique(unname(unlist(x)))
+  } else {
+    x3 <- character(0)
+  }
+  sort(unique(c(pkgAvail, x1, x2, x3)))
 }
 
 #' Reads available packages from CRAN repository.
