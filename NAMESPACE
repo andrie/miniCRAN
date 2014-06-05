@@ -1,4 +1,5 @@
 export(getCranDescription)
+export(getRversion)
 export(makeDepGraph)
 export(makeLibrary)
 export(makeRepo)
