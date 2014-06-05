@@ -64,12 +64,18 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source", Rversi
   if(writePACKAGES) tools::write_PACKAGES(dir=pkgPath, type=type) 
 }
 
+
+
+
 #' @rdname makeRepo
 #' @export
 getRversion <- function(){
   R <- R.version
   paste(R$major, strsplit(R$minor, ".", fixed = TRUE)[[1L]][1L], sep = ".")
 }
+
+
+
 
 #' @rdname makeRepo
 #' @export
