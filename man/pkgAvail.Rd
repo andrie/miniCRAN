@@ -2,12 +2,9 @@
 \alias{pkgAvail}
 \title{Reads available packages from CRAN repository.}
 \usage{
-pkgAvail(path, repos = getOption("repos"), type = getOption("pkgType"), ...)
+pkgAvail(repos = getOption("repos"), type = getOption("pkgType"), ...)
 }
 \arguments{
-  \item{path}{If supplied, locates available packages from
-  local path}
-
   \item{repos}{URL(s) of the 'contrib' sections of the
   repositories. Passed to \code{\link{available.packages}}}
 
@@ -25,6 +22,6 @@ CRAN mirror at the \code{repos} url.
 }
 \seealso{
 Other miniCRAN: \code{\link{getCranDescription}};
-\code{\link{makeRepo}}; \code{\link{pkgDep}}
+\code{\link{pkgDep}}
 }
 

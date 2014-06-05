@@ -1,29 +1,75 @@
 \name{makeRepo}
+\alias{getRversion}
+\alias{makeLibrary}
 \alias{makeRepo}
-\title{Downloads packages from CRAN to specified path.}
+\title{Downloads packages from CRAN to specified path and creates repository or library.}
 \usage{
-makeRepo(pkgs, path, download = FALSE, type = "source")
+makeRepo(pkgs, path, repos = getOption("repos"), type = "source",
+  Rversion = getRversion(), download = FALSE, writePACKAGES = TRUE)
+
+getRversion()
+
+makeLibrary(pkgs, path, type = "source")
 }
 \arguments{
   \item{pkgs}{Character vector of packages to download}
 
+  \item{type}{Passed to \code{\link{download.packages}}}
+
+  \item{Rversion}{String of format "<major R
+  version>.<minor R version>", e.g. "3.2". Only used if
+  \code{type} is not "source"}
+
   \item{download}{If TRUE downloads packages, otherwise
   just creates PACKAGES file}
 
-  \item{type}{Passed to \code{\link{download.packages}}}
+  \item{writePACKAGES}{If TRUE, calls
+  \code{\link[tools]{write_PACKAGES}} to update the
+  repository PACKAGES file}
 
   \item{path}{Destination download path}
+
+  \item{repos}{URL(s) of the 'contrib' sections of the
+  repositories. Passed to \code{\link{available.packages}}}
 }
 \description{
 Given a list of packages, downloads to a specified
 destination folder, then creates PACKAGES file.
 }
 \details{
+The function \code{makeRepo} creates a repository, similar
+in structure to CRAN.  It optionally updates the PACKAGES
+file.  If done correctly, it is possible to use this folder
+as a repository, i.e. it will support functions like
+\code{install.packages}.
+
+The function \code{makeLibrary} downloads the packages into
+a single folder, i.e. similar to a library on a machine.
+
 Uses \code{\link{download.packages}} and
 \code{\link[tools]{write_PACKAGES}}
 }
-\seealso{
-Other miniCRAN: \code{\link{getCranDescription}};
-\code{\link{pkgAvail}}; \code{\link{pkgDep}}
+\examples{
+# Specify list of packages to download
+revolution <- c(CRAN="http://cran.revolutionanalytics.com")
+pkgs <- "colorspace"
+pkgList <- pkgDep(pkgs, repos=revolution, type="source")
+
+# Create temporary folder for miniCRAN
+dir.create(pth <- file.path(tempdir(), "miniCRAN"))
+
+# Make repo for source and win.binary
+makeRepo(pkgList, path=pth, repos=revolution, download=TRUE, writePACKAGES=TRUE, type="source")
+makeRepo(pkgList, path=pth, repos=revolution, download=TRUE, writePACKAGES=TRUE, type="win.binary")
+
+# List all files in miniCRAN
+list.files(pth, recursive = TRUE)
+
+# Check for available packages
+pkgAvail(repos=pth, type="source")
+pkgAvail(repos=pth, type="win.binary")
+
+# Delete temporary folder
+unlink(pth, recursive = TRUE)
 }
 

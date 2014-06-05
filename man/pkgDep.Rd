@@ -3,8 +3,8 @@
 \title{Retrieves package dependencies.}
 \usage{
 pkgDep(pkg, availPkgs, repos = getOption("repos"),
-  type = getOption("pkgType"), depends = TRUE, suggests = FALSE, path,
-  ...)
+  type = getOption("pkgType"), depends = TRUE, suggests = FALSE,
+  enhances = FALSE, path, ...)
 }
 \arguments{
   \item{pkg}{Character vector of packages.}
@@ -22,6 +22,9 @@ pkgDep(pkg, availPkgs, repos = getOption("repos"),
   LinkingTo dependencies (non-recursively)}
 
   \item{suggests}{If TRUE, retrieves Suggests dependencies
+  (non-recursively)}
+
+  \item{enhances}{If TRUE, retrieves Enhances dependencies
   (non-recursively)}
 
   \item{path}{Destination download path}
@@ -47,6 +50,6 @@ pkgDep(pkg=
 makeDepGraph
 
 Other miniCRAN: \code{\link{getCranDescription}};
-\code{\link{makeRepo}}; \code{\link{pkgAvail}}
+\code{\link{pkgAvail}}
 }
 
