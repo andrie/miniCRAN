@@ -78,17 +78,13 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkg
 #' 
 #' This is a thin wrapper around \code{\link{available.packages}}.  If the argument \code{path} is supplied, then the function attempts to read from a local repository, otherwise attempts to read from a CRAN mirror at the \code{repos} url.
 #' 
-#' @param path If supplied, locates available packages from local path
 #' @inheritParams pkgDep
 #' @export
 #' @family miniCRAN
-pkgAvail <- function(path, repos=getOption("repos"), type=getOption("pkgType"), ...){
-  if(!missing("path")) {
-    if(!file.exists(path)) stop("path does not exist")
-    contriburl <- contrib.url(paste0("file:///", path), type=type)
-  } else {
-    contriburl <- contrib.url(repos, type=type)
+pkgAvail <- function(repos=getOption("repos"), type=getOption("pkgType"), ...){
+  if(!grepl("^file", repos) && file.exists(repos)) {
+    repos <- paste0("file:///", repos)
   }
-  available.packages(contriburl=contriburl, type=type, ...)
+  available.packages(contrib.url(repos, type=type))
 }
 

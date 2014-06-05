@@ -11,38 +11,69 @@
 #' @inheritParams pkgDep
 #' @param pkgs Character vector of packages to download
 #' @param type Passed to \code{\link{download.packages}}
+#' @param Rversion String of format "<major R version>.<minor R version>", e.g. "3.2". Only used if \code{type} is not "source"
 #' @param download If TRUE downloads packages, otherwise just creates PACKAGES file
 #' @param writePACKAGES If TRUE, calls \code{\link[tools]{write_PACKAGES}} to update the repository PACKAGES file
 #' 
 #' @export
-#' @family miniCRAN
-makeRepo <- function(pkgs, path, type="source", download=FALSE, writePACKAGES=TRUE){
+#' @family makeRepo
+#' @examples
+#' # Specify list of packages to download
+#' revolution <- c(CRAN="http://cran.revolutionanalytics.com")
+#' pkgs <- "colorspace"
+#' pkgList <- pkgDep(pkgs, repos=revolution, type="source")
+#' 
+#' # Create temporary folder for miniCRAN
+#' dir.create(pth <- file.path(tempdir(), "miniCRAN"))
+#' 
+#' # Make repo for source and win.binary
+#' makeRepo(pkgList, path=pth, repos=revolution, download=TRUE, writePACKAGES=TRUE, type="source")
+#' makeRepo(pkgList, path=pth, repos=revolution, download=TRUE, writePACKAGES=TRUE, type="win.binary")
+#' 
+#' # List all files in miniCRAN
+#' list.files(pth, recursive = TRUE)
+#' 
+#' # Check for available packages
+#' pkgAvail(repos=pth, type="source")
+#' pkgAvail(repos=pth, type="win.binary")
+#' 
+#' # Delete temporary folder
+#' unlink(pth, recursive = TRUE)
+
+makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source", Rversion=getRversion(), download=FALSE, writePACKAGES=TRUE){
   if(!file.exists(path)) stop("Download path does not exist")
-  if(type != "source") stop("At this time, only type=\"source\" is supported")
-  wd <- getwd()
-  on.exit(setwd(wd))
-  setwd(normalizePath(path))
+#   wd <- getwd()
+#   on.exit(setwd(wd))
   
   folder <- switch(type,
                    "source" = "src/contrib",
-                   "win.binary" = "bin/windows/contrib/x.y",
-                   "mac.binary" = "bin/macosx/contrib/3.y",
-                   "mac.binary.mavericks" =  "bin/macosx/mavericks/contrib/3.y",
-                   "mac.binary.leopard"= "bin/macosx/leopard/contrib/2.y"
+                   "win.binary" = sprintf("bin/windows/contrib/%s", Rversion),
+                   "mac.binary" = sprintf("bin/macosx/contrib/%s", Rversion),
+                   "mac.binary.mavericks" =  sprintf("bin/macosx/mavericks/contrib/%s", Rversion),
+                   "mac.binary.leopard"= sprintf("bin/macosx/leopard/contrib/%s", Rversion),
+                   stop("Type ", type, "not recognised.")
   )
   pkgPath <- file.path(path, folder)
   if(!file.exists(pkgPath)) {
     result <- dir.create(pkgPath, recursive=TRUE)
-    if(result) message("Creating new folders: ", pkgPath) else stop("Unable to create repo path: ", pkgPath)
-
+#     setwd(pkgPath)
+    if(result) message("Created new folder: ", pkgPath) else stop("Unable to create repo path: ", pkgPath)
   }
-  
-  if(download) download.packages(pkgs, destdir=pkgPath, type=type)
+
+  if(download) download.packages(pkgs, destdir=pkgPath, repos=repos, type=type)
   if(writePACKAGES) tools::write_PACKAGES(dir=pkgPath, type=type) 
 }
 
 #' @rdname makeRepo
 #' @export
+getRversion <- function(){
+  R <- R.version
+  paste(R$major, strsplit(R$minor, ".", fixed = TRUE)[[1L]][1L], sep = ".")
+}
+
+#' @rdname makeRepo
+#' @export
+#' @family makeRepo
 makeLibrary <- function(pkgs, path, type="source"){
   if(!file.exists(path)) stop("Download path does not exist")
   wd <- getwd()
