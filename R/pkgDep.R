@@ -24,7 +24,7 @@
 #'   repos=c(CRAN="http://cran.revolutionanalytics.com")
 #' )
 
-pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkgType"), depends=TRUE, suggests=FALSE, enhances=FALSE, path, ...){
+pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkgType"), depends=TRUE, suggests=FALSE, enhances=FALSE, path, includeBase=FALSE, ...){
   if(!depends & !suggests & !enhances) {
     warning("Returning nothing, since depends, suggests and enhances are all FALSE")
     return(character(0))
@@ -71,7 +71,9 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkg
   } else {
     x3 <- character(0)
   }
-  sort(unique(c(pkgAvail, x1, x2, x3)))
+  ret <- sort(unique(c(pkgAvail, x1, x2, x3)))
+  if(!includeBase) ret <- ret[ret %in% rownames(availPkgs)]
+  ret
 }
 
 #' Reads available packages from CRAN repository.

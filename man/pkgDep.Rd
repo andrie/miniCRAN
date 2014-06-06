@@ -4,7 +4,7 @@
 \usage{
 pkgDep(pkg, availPkgs, repos = getOption("repos"),
   type = getOption("pkgType"), depends = TRUE, suggests = FALSE,
-  enhances = FALSE, path, ...)
+  enhances = FALSE, path, includeBase = FALSE, ...)
 }
 \arguments{
   \item{pkg}{Character vector of packages.}

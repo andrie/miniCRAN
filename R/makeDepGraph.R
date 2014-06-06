@@ -14,7 +14,7 @@
 makeDepGraph <- function(pkg, repos=getOption("repos"), type="source", path, pkgs = pkgDep(pkg, repos=repos, type=type)) {
   #   stopifnot(require(igraph))
   suggests.only <- FALSE
-  keep.builtin <- TRUE
+  keep.builtin <- FALSE
   dosize <- TRUE
   availPkgs <- available.packages(contrib.url(repos, type=type))
   #   depPkgs <- pkgDep(pkg=pkg, repos=repos, type=type)
