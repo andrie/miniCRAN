@@ -9,9 +9,9 @@ LazyData: true
 LazyLoad: true
 Description: Tools to create a internally consistent, mini version of CRAN with
     selected packages only.
-Version: 0.0-08
+Version: 0.0-09
 URL: https://github.com/andrie/miniCRAN
-Date: 2014-06-05
+Date: 2014-07-01
 Imports:
     igraph,
     XML
