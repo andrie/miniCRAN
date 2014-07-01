@@ -16,4 +16,5 @@ Imports:
     igraph,
     XML
 Suggests:
-    RCurl
+    RCurl,
+    testthat
