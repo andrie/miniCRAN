@@ -17,33 +17,10 @@
 #' 
 #' @export
 #' @family makeRepo
-#' @examples
-#' # Specify list of packages to download
-#' revolution <- c(CRAN="http://cran.revolutionanalytics.com")
-#' pkgs <- "colorspace"
-#' pkgList <- pkgDep(pkgs, repos=revolution, type="source")
-#' 
-#' # Create temporary folder for miniCRAN
-#' dir.create(pth <- file.path(tempdir(), "miniCRAN"))
-#' 
-#' # Make repo for source and win.binary
-#' makeRepo(pkgList, path=pth, repos=revolution, download=TRUE, writePACKAGES=TRUE, type="source")
-#' makeRepo(pkgList, path=pth, repos=revolution, download=TRUE, writePACKAGES=TRUE, type="win.binary")
-#' 
-#' # List all files in miniCRAN
-#' list.files(pth, recursive = TRUE)
-#' 
-#' # Check for available packages
-#' pkgAvail(repos=pth, type="source")
-#' pkgAvail(repos=pth, type="win.binary")
-#' 
-#' # Delete temporary folder
-#' unlink(pth, recursive = TRUE)
+#' @example /inst/examples/example-makeRepo.R
 
-makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source", Rversion=getRversion(), download=FALSE, writePACKAGES=TRUE){
+makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source", Rversion=twodigitRversion(), download=FALSE, writePACKAGES=TRUE){
   if(!file.exists(path)) stop("Download path does not exist")
-#   wd <- getwd()
-#   on.exit(setwd(wd))
   
   folder <- switch(type,
                    "source" = "src/contrib",
@@ -56,7 +33,6 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source", Rversi
   pkgPath <- file.path(path, folder)
   if(!file.exists(pkgPath)) {
     result <- dir.create(pkgPath, recursive=TRUE)
-#     setwd(pkgPath)
     if(result) message("Created new folder: ", pkgPath) else stop("Unable to create repo path: ", pkgPath)
   }
 
@@ -69,8 +45,8 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source", Rversi
 
 #' @rdname makeRepo
 #' @export
-getRversion <- function(){
-  R <- R.version
+twodigitRversion <- function(){
+  R <- base::R.version
   paste(R$major, strsplit(R$minor, ".", fixed = TRUE)[[1L]][1L], sep = ".")
 }
 

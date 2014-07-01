@@ -12,19 +12,16 @@
 #' @param suggests If TRUE, retrieves Suggests dependencies (non-recursively)
 #' @param enhances If TRUE, retrieves Enhances dependencies (non-recursively)
 #' @param path Destination download path
+#' @param includeBasePkgs If TRUE, include base R packages in results
 #' @param ... Other arguments passed to \code{\link{available.packages}}
 #' 
 #' @export
 #' @seealso makeDepGraph
 #' @family miniCRAN
 #' 
-#' @examples
-#' pkgDep(pkg=
-#'   c("ggplot2", "plyr", "reshape2"), 
-#'   repos=c(CRAN="http://cran.revolutionanalytics.com")
-#' )
+#' @example /inst/examples/example-pkgDep.R
 
-pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkgType"), depends=TRUE, suggests=FALSE, enhances=FALSE, path, includeBase=FALSE, ...){
+pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkgType"), depends=TRUE, suggests=FALSE, enhances=FALSE, path, includeBasePkgs=FALSE, ...){
   if(!depends & !suggests & !enhances) {
     warning("Returning nothing, since depends, suggests and enhances are all FALSE")
     return(character(0))
@@ -33,11 +30,11 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkg
   if(missing(pkg) || !is.character(pkg)){
     stop("pkg should be a character vector with package names")
   }
-  if(repos["CRAN"] == "@CRAN@"){
-    warning("It seems that your CRAN mirror is set incorrectly")
-  }
-  if(is.na(type)) type <- "source"
   if(missing(availPkgs)){
+    if(!is.null(names(repos)) & repos["CRAN"] == "@CRAN@"){
+      repos <- c(CRAN="http://cran.revolutionanalytics.com")
+    }
+    if(is.na(type)) type <- "source"
     availPkgs <- pkgAvail(path=path, repos=repos, type=type, ...)
   }
   if(nrow(availPkgs) == 0){
@@ -72,7 +69,7 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkg
     x3 <- character(0)
   }
   ret <- sort(unique(c(pkgAvail, x1, x2, x3)))
-  if(!includeBase) ret <- ret[ret %in% rownames(availPkgs)]
+  if(!includeBasePkgs) ret <- ret[ret %in% rownames(availPkgs)]
   ret
 }
 
@@ -84,9 +81,15 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkg
 #' @export
 #' @family miniCRAN
 pkgAvail <- function(repos=getOption("repos"), type=getOption("pkgType"), ...){
-  if(!grepl("^file", repos) && file.exists(repos)) {
+  if(!grepl("^file", repos) & file.exists(repos)) {
     repos <- paste0("file:///", repos)
+  } else {
+    if(!is.null(names(repos)) & repos["CRAN"] == "@CRAN@"){
+      repos <- c(CRAN="http://cran.revolutionanalytics.com")
+    }
   }
+
+  
   available.packages(contrib.url(repos, type=type))
 }
 
