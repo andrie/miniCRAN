@@ -81,10 +81,10 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkg
 #' @export
 #' @family miniCRAN
 pkgAvail <- function(repos=getOption("repos"), type=getOption("pkgType"), ...){
-  if(!grepl("^file", repos) & file.exists(repos)) {
-    repos <- paste0("file:///", repos)
+  if(!grepl("^file", repos[1]) && file.exists(repos[1])) {
+    repos <- paste0("file:///", repos[1])
   } else {
-    if(!is.null(names(repos)) & repos["CRAN"] == "@CRAN@"){
+    if(!is.null(names(repos)) && repos["CRAN"] == "@CRAN@"){
       repos <- c(CRAN="http://cran.revolutionanalytics.com")
     }
   }
