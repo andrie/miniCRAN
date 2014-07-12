@@ -51,6 +51,6 @@ if(require(igraph)) plot(p)
 
 }
 \seealso{
-pkgDep
+pkgDep plot.pkgDepGraph
 }
 
