@@ -5,11 +5,7 @@
 \usage{
 pkgDep(pkg, availPkgs, repos = getOption("repos"),
   type = getOption("pkgType"), depends = TRUE, suggests = FALSE,
-<<<<<<< HEAD
-  enhances = FALSE, path, ...)
-=======
   enhances = FALSE, path, includeBasePkgs = FALSE, ...)
->>>>>>> master
 }
 \arguments{
 \item{pkg}{Character vector of packages.}
@@ -24,14 +20,7 @@ pkgDep(pkg, availPkgs, repos = getOption("repos"),
 
 \item{suggests}{If TRUE, retrieves Suggests dependencies (non-recursively)}
 
-<<<<<<< HEAD
-  \item{enhances}{If TRUE, retrieves Enhances dependencies
-  (non-recursively)}
-
-  \item{path}{Destination download path}
-=======
 \item{enhances}{If TRUE, retrieves Enhances dependencies (non-recursively)}
->>>>>>> master
 
 \item{path}{Destination download path}
 
@@ -59,10 +48,6 @@ pkgDep(pkg=c("ggplot2", "plyr", "reshape2"), pdb)
 makeDepGraph
 
 Other miniCRAN: \code{\link{getCranDescription}};
-<<<<<<< HEAD
-\code{\link{pkgAvail}}
-=======
   \code{\link{pkgAvail}}
->>>>>>> master
 }
 

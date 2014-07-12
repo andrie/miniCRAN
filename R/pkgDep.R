@@ -21,11 +21,7 @@
 #' 
 #' @example /inst/examples/example-pkgDep.R
 
-<<<<<<< HEAD
-pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkgType"), depends=TRUE, suggests=FALSE, enhances=FALSE, path, ...){
-=======
 pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkgType"), depends=TRUE, suggests=FALSE, enhances=FALSE, path, includeBasePkgs=FALSE, ...){
->>>>>>> master
   if(!depends & !suggests & !enhances) {
     warning("Returning nothing, since depends, suggests and enhances are all FALSE")
     return(character(0))
@@ -72,13 +68,9 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkg
   } else {
     x3 <- character(0)
   }
-<<<<<<< HEAD
-  sort(unique(c(pkgAvail, x1, x2, x3)))
-=======
   ret <- sort(unique(c(pkgAvail, x1, x2, x3)))
   if(!includeBasePkgs) ret <- ret[ret %in% rownames(availPkgs)]
   ret
->>>>>>> master
 }
 
 #' Reads available packages from CRAN repository.
@@ -89,11 +81,6 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkg
 #' @export
 #' @family miniCRAN
 pkgAvail <- function(repos=getOption("repos"), type=getOption("pkgType"), ...){
-<<<<<<< HEAD
-  if(!grepl("^file", repos) && file.exists(repos)) {
-    repos <- paste0("file:///", repos)
-  }
-=======
   if(!grepl("^file", repos[1]) && file.exists(repos[1])) {
     repos <- paste0("file:///", repos[1])
   } else {
@@ -101,9 +88,6 @@ pkgAvail <- function(repos=getOption("repos"), type=getOption("pkgType"), ...){
       repos <- c(CRAN="http://cran.revolutionanalytics.com")
     }
   }
-
-  
->>>>>>> master
   available.packages(contrib.url(repos, type=type))
 }
 

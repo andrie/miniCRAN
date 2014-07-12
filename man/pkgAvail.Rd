@@ -6,14 +6,9 @@
 pkgAvail(repos = getOption("repos"), type = getOption("pkgType"), ...)
 }
 \arguments{
-<<<<<<< HEAD
-  \item{repos}{URL(s) of the 'contrib' sections of the
-  repositories. Passed to \code{\link{available.packages}}}
-=======
 \item{repos}{URL(s) of the 'contrib' sections of the repositories. Passed to \code{\link{available.packages}}}
 
 \item{type}{Passed to \code{\link{available.packages}}}
->>>>>>> master
 
 \item{...}{Other arguments passed to \code{\link{available.packages}}}
 }
@@ -22,10 +17,6 @@ This is a thin wrapper around \code{\link{available.packages}}.  If the argument
 }
 \seealso{
 Other miniCRAN: \code{\link{getCranDescription}};
-<<<<<<< HEAD
-\code{\link{pkgDep}}
-=======
   \code{\link{pkgDep}}
->>>>>>> master
 }
 

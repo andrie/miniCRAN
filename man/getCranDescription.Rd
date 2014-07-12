@@ -27,10 +27,6 @@ getCranDescription(c("igraph", "ggplot2", "XML"),
 }
 \seealso{
 Other miniCRAN: \code{\link{pkgAvail}};
-<<<<<<< HEAD
-\code{\link{pkgDep}}
-=======
   \code{\link{pkgDep}}
->>>>>>> master
 }
 
