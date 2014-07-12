@@ -14,6 +14,7 @@
 #' @param Rversion String of format "<major R version>.<minor R version>", e.g. "3.2". Only used if \code{type} is not "source"
 #' @param download If TRUE downloads packages, otherwise just creates PACKAGES file
 #' @param writePACKAGES If TRUE, calls \code{\link[tools]{write_PACKAGES}} to update the repository PACKAGES file
+<<<<<<< HEAD
 #' 
 #' @export
 #' @family makeRepo
@@ -25,6 +26,8 @@
 #' 
 #' # Create temporary folder for miniCRAN
 #' dir.create(pth <- file.path(tempdir(), "miniCRAN"))
+=======
+>>>>>>> master
 #' 
 #' # Make repo for source and win.binary
 #' makeRepo(pkgList, path=pth, repos=revolution, download=TRUE, writePACKAGES=TRUE, type="source")
@@ -80,6 +83,48 @@ getRversion <- function(){
 #' @rdname makeRepo
 #' @export
 #' @family makeRepo
+<<<<<<< HEAD
+=======
+#' @example /inst/examples/example-makeRepo.R
+
+makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source", Rversion=twodigitRversion(), download=FALSE, writePACKAGES=TRUE){
+  if(!file.exists(path)) stop("Download path does not exist")
+  
+  folder <- switch(type,
+                   "source" = "src/contrib",
+                   "win.binary" = sprintf("bin/windows/contrib/%s", Rversion),
+                   "mac.binary" = sprintf("bin/macosx/contrib/%s", Rversion),
+                   "mac.binary.mavericks" =  sprintf("bin/macosx/mavericks/contrib/%s", Rversion),
+                   "mac.binary.leopard"= sprintf("bin/macosx/leopard/contrib/%s", Rversion),
+                   stop("Type ", type, "not recognised.")
+  )
+  pkgPath <- file.path(path, folder)
+  if(!file.exists(pkgPath)) {
+    result <- dir.create(pkgPath, recursive=TRUE)
+    if(result) message("Created new folder: ", pkgPath) else stop("Unable to create repo path: ", pkgPath)
+  }
+
+  if(download) download.packages(pkgs, destdir=pkgPath, repos=repos, type=type)
+  if(writePACKAGES) tools::write_PACKAGES(dir=pkgPath, type=type) 
+}
+
+
+
+
+#' @rdname makeRepo
+#' @export
+twodigitRversion <- function(){
+  R <- base::R.version
+  paste(R$major, strsplit(R$minor, ".", fixed = TRUE)[[1L]][1L], sep = ".")
+}
+
+
+
+
+#' @rdname makeRepo
+#' @export
+#' @family makeRepo
+>>>>>>> master
 makeLibrary <- function(pkgs, path, type="source"){
   if(!file.exists(path)) stop("Download path does not exist")
   wd <- getwd()

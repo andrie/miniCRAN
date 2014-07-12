@@ -41,6 +41,20 @@
 #' @author Andrie de Vries \email{apdevries@@gmail.com}
 #' @keywords package
 #' @seealso \code{\link{minicran}}
-#' @import igraph
+NULL
+
+
+
+# data documentation ------------------------------------------------------
+
+#' Stored version of available.packages()
+#' 
+#' Copy of the result of \code{\link[utils]{available.packages}} on July 1, 2014.
+#' 
+#' @docType data
+#' @keywords datasets
+#' @name cranJuly2014
+#' @usage cranJuly2014
+#' @format matrix
 NULL
 
