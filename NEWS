@@ -1,3 +1,13 @@
+miniCRAN v0.0-11 (Release date: 2014-07-11)
+==============
+
+Changes:
+
+* Added plot method for makeDepGraph
+* Removed dependency on igraph, now SUGGESTS igraph instead
+
+
+
 miniCRAN v0.0-10 (Release date: 2014-07-01)
 ==============
 
