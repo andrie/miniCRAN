@@ -21,7 +21,7 @@
 #' 
 #' @example /inst/examples/example-pkgDep.R
 
-pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkgType"), depends=TRUE, suggests=FALSE, enhances=FALSE, path, includeBasePkgs=FALSE, ...){
+pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depends=TRUE, suggests=FALSE, enhances=FALSE, path, includeBasePkgs=FALSE, ...){
   if(!depends & !suggests & !enhances) {
     warning("Returning nothing, since depends, suggests and enhances are all FALSE")
     return(character(0))
@@ -51,7 +51,7 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkg
   
   
   if(depends){
-    x <- tools::package_dependencies(pkgAvail, availPkgs, recursive=TRUE)
+    x <- tools::package_dependencies(pkgAvail, availPkgs, which=c("Depends", "Imports", "LinkingTo"), recursive=TRUE)
     x1 <- unique(unname(unlist(x)))
   } else {
     x1 <- character(0)
@@ -80,7 +80,7 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type=getOption("pkg
 #' @inheritParams pkgDep
 #' @export
 #' @family miniCRAN
-pkgAvail <- function(repos=getOption("repos"), type=getOption("pkgType"), ...){
+pkgAvail <- function(repos=getOption("repos"), type="source", ...){
   if(!grepl("^file", repos[1]) && file.exists(repos[1])) {
     repos <- paste0("file:///", repos[1])
   } else {
