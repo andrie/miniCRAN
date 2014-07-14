@@ -47,30 +47,46 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depe
     warning("Package not recognized: ", paste(pkg[!pkgInAvail], collapse=", "))
   }
   
-  pkgAvail <- pkg[pkgInAvail]
+  n_req <- pkg[pkgInAvail]
   
   
   if(depends){
-    x <- tools::package_dependencies(pkgAvail, availPkgs, which=c("Depends", "Imports", "LinkingTo"), recursive=TRUE)
-    x1 <- unique(unname(unlist(x)))
+    p_dep <- tools::package_dependencies(n_req, availPkgs, which=c("Depends", "Imports", "LinkingTo"), recursive=TRUE)
+    n_dep <- unique(unname(unlist(p_dep)))
   } else {
-    x1 <- character(0)
+    p_dep <- NA
+    n_dep <- character(0)
   }
   if(suggests){
-    x <- tools::package_dependencies(pkgAvail, availPkgs, which="Suggests", recursive=FALSE)
-    x2 <- unique(unname(unlist(x)))
+    p_sug <- tools::package_dependencies(n_req, availPkgs, which="Suggests", recursive=FALSE)
+    n_sug <- unique(unname(unlist(p_sug)))
   } else {
-    x2 <- character(0)
+    p_sug <- NA
+    n_sug <- character(0)
   }
   if(enhances){
-    x <- tools::package_dependencies(pkgAvail, availPkgs, which="Enhances", recursive=FALSE)
-    x3 <- unique(unname(unlist(x)))
+    p_enh <- tools::package_dependencies(n_req, availPkgs, which="Enhances", recursive=FALSE)
+    n_enh <- unique(unname(unlist(p_enh)))
   } else {
-    x3 <- character(0)
+    p_enh <- NA
+    n_enh <- character(0)
   }
-  ret <- sort(unique(c(pkgAvail, x1, x2, x3)))
+  ret <- sort(unique(c(n_req, n_dep, n_sug, n_enh)))
   if(!includeBasePkgs) ret <- ret[ret %in% rownames(availPkgs)]
+  attr(ret, "pkgs") <- list(
+    n_req = n_req,
+    p_dep = p_dep,
+    p_sug = p_sug,
+    p_enh = p_enh
+    )
+  class(ret) <- c("pkgDep", "character")
   ret
+}
+
+print.pkgList <- function(x, ...){
+  attr(x, "pkgs") <- NULL
+  class(x) <- setdiff(class(x), "pkgList")
+  print(x, ...)
 }
 
 #' Reads available packages from CRAN repository.
