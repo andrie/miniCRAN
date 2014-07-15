@@ -49,43 +49,48 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depe
   
   n_req <- pkg[pkgInAvail]
   
+  # Suggests
+  p_sug <- tools::package_dependencies(n_req, availPkgs, which="Suggests", recursive=FALSE)
+  n_sug <- unique(unname(unlist(p_sug)))
   
-  if(depends){
-    p_dep <- tools::package_dependencies(n_req, availPkgs, which=c("Depends", "Imports", "LinkingTo"), recursive=TRUE)
-    n_dep <- unique(unname(unlist(p_dep)))
-  } else {
-    p_dep <- NA
-    n_dep <- character(0)
-  }
-  if(suggests){
-    p_sug <- tools::package_dependencies(n_req, availPkgs, which="Suggests", recursive=FALSE)
-    n_sug <- unique(unname(unlist(p_sug)))
-  } else {
-    p_sug <- NA
-    n_sug <- character(0)
-  }
-  if(enhances){
-    p_enh <- tools::package_dependencies(n_req, availPkgs, which="Enhances", recursive=FALSE)
-    n_enh <- unique(unname(unlist(p_enh)))
-  } else {
-    p_enh <- NA
-    n_enh <- character(0)
-  }
-  ret <- sort(unique(c(n_req, n_dep, n_sug, n_enh)))
+  # Enhances
+  p_enh <- tools::package_dependencies(n_req, availPkgs, which="Enhances", recursive=FALSE)
+  n_enh <- unique(unname(unlist(p_enh)))
+  
+  n_req_all <- n_req
+  if(suggests) n_req_all <- c(n_req_all, n_sug)
+  if(enhances) n_req_all <- c(n_req_all, n_enh)
+  
+  # Depends, Imports and LinkingTo
+  p_dep <- tools::package_dependencies(n_req_all, availPkgs, which=c("Depends", "Imports", "LinkingTo"), recursive=TRUE)
+  n_dep <- unique(unname(unlist(p_dep)))
+  
+  
+#   # Recursive including suggests and enhances
+#   p_all <- tools::package_dependencies(n_req_all, availPkgs, which="Suggests", recursive=FALSE)
+#   n_all <- unique(unname(unlist(p_all)))
+
+  p_all <- p_dep
+  n_all <- unique(c(n_dep, n_req_all))
+  
+#   ret <- sort(unique(c(n_req, n_dep, n_sug, n_enh, n_req)))
+  ret <- n_all
   if(!includeBasePkgs) ret <- ret[ret %in% rownames(availPkgs)]
   attr(ret, "pkgs") <- list(
     n_req = n_req,
+    n_all = n_all,
     p_dep = p_dep,
     p_sug = p_sug,
-    p_enh = p_enh
+    p_enh = p_enh,
+    p_all = p_all
     )
   class(ret) <- c("pkgDep", "character")
   ret
 }
 
-print.pkgList <- function(x, ...){
+print.pkgDep <- function(x, ...){
   attr(x, "pkgs") <- NULL
-  class(x) <- setdiff(class(x), "pkgList")
+  class(x) <- setdiff(class(x), "pkgDep")
   print(x, ...)
 }
 
