@@ -4,8 +4,7 @@
 \title{Create dependency graph from available packages.}
 \usage{
 makeDepGraph(pkg, availPkgs, repos = getOption("repos"), type = "source",
-  path, pkgs = pkgDep(pkg, repos = repos, type = type, availPkgs = availPkgs),
-  includeBasePkgs = FALSE)
+  path, includeBasePkgs = FALSE, ...)
 }
 \arguments{
 \item{pkg}{Character vector of packages.}
@@ -20,7 +19,7 @@ makeDepGraph(pkg, availPkgs, repos = getOption("repos"), type = "source",
 
 \item{includeBasePkgs}{If TRUE, include base R packages in results}
 
-\item{pkgs}{Character vector of packages to download}
+\item{...}{Other arguments passed to \code{\link{available.packages}}}
 }
 \description{
 Each package is a node, and a dependency is an edge

@@ -48,21 +48,16 @@ addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests"
 #' @seealso pkgDep plot.pkgDepGraph
 #' @example /inst/examples/example-makeDepGraph.R
 makeDepGraph <- function(
-  pkg, pdb, repos=getOption("repos"), type="source", 
+  pkg, availPkgs, repos=getOption("repos"), type="source", 
   path, 
-  #   pkgs = pkgDep(pkg, repos=repos, type=type, pdb=pdb, ...), 
   includeBasePkgs=FALSE, ...)
 {
-#   if(missing("pkg")) pkg <- pkgs
   if(!require("igraph", quietly = TRUE)) stop("Package igraph is not installed")
   
-  if(missing(pdb)) {
-    pdb <- pkgAvail(repos=repos, type=type)
+  if(missing(availPkgs)) {
+    availPkgs <- pkgAvail(repos=repos, type=type)
   }
-#   pkgs = pkgDep(pkg, repos=repos, type=type, pkgAvail=pdb)
-#   depPkgs <- pkgs[pkgs %in% rownames(pdb)]
-  #   pkgs <- pdb[depPkgs, ]
-  pkgs <- pdb
+  pkgs <- availPkgs
   allPkgs <- rownames(pkgs)
   if (!length(allPkgs))
     stop("no packages in specified repositories")
@@ -77,21 +72,21 @@ makeDepGraph <- function(
   }
   
   # Build suggests edge list for original pkg list
-  edges1 <- pkgEdges(pkg, type=c("Suggests"), pdb)
+  edges1 <- pkgEdges(pkg, type=c("Suggests"), availPkgs)
 
 
   # Build depends edge list for original pkg list, combined with top level suggests
   
   p1 <- unique(unlist(
-    tools::package_dependencies(pkg, db=pdb, which="Suggests", recursive=FALSE)
+    tools::package_dependencies(pkg, db=availPkgs, which="Suggests", recursive=FALSE)
   ))
   p1 <- unique(c(p1, pkg))
   p2 <- unique(unlist(
-    tools::package_dependencies(p1, db=pdb, which=c("Imports", "Depends", "LinkingTo"), recursive=TRUE)
+    tools::package_dependencies(p1, db=availPkgs, which=c("Imports", "Depends", "LinkingTo"), recursive=TRUE)
   ))
   p2 <- unique(c(p1, p2, pkg))
   
-  edges2 <- pkgEdges(p2, type=c("Imports", "Depends", "LinkingTo"), pdb)
+  edges2 <- pkgEdges(p2, type=c("Imports", "Depends", "LinkingTo"), availPkgs)
 
   edges <- rbind(edges1, edges2)
   if (nrow(edges) && !includeBasePkgs)
