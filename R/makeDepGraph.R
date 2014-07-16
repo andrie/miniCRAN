@@ -53,18 +53,16 @@ makeDepGraph <- function(
   #   pkgs = pkgDep(pkg, repos=repos, type=type, pdb=pdb, ...), 
   includeBasePkgs=FALSE, ...)
 {
-  if(missing("pkg")) pkg <- pkgs
+#   if(missing("pkg")) pkg <- pkgs
   if(!require("igraph", quietly = TRUE)) stop("Package igraph is not installed")
   
   if(missing(pdb)) {
     pdb <- pkgAvail(repos=repos, type=type)
   }
-  pkgs = pkgDep(pkg, repos=repos, type=type, pdb=pdb)
-  depPkgs <- pkgs[pkgs %in% rownames(pdb)]
+#   pkgs = pkgDep(pkg, repos=repos, type=type, pkgAvail=pdb)
+#   depPkgs <- pkgs[pkgs %in% rownames(pdb)]
   #   pkgs <- pdb[depPkgs, ]
   pkgs <- pdb
-  if (!includeBasePkgs)
-    baseOrRecPkgs <- rownames(installed.packages(priority="high"))
   allPkgs <- rownames(pkgs)
   if (!length(allPkgs))
     stop("no packages in specified repositories")
@@ -79,8 +77,8 @@ makeDepGraph <- function(
   }
   
   # Build suggests edge list for original pkg list
-  
   edges1 <- pkgEdges(pkg, type=c("Suggests"), pdb)
+
 
   # Build depends edge list for original pkg list, combined with top level suggests
   
@@ -91,13 +89,13 @@ makeDepGraph <- function(
   p2 <- unique(unlist(
     tools::package_dependencies(p1, db=pdb, which=c("Imports", "Depends", "LinkingTo"), recursive=TRUE)
   ))
-  p2 <- unique(c(p1, p2))
+  p2 <- unique(c(p1, p2, pkg))
   
   edges2 <- pkgEdges(p2, type=c("Imports", "Depends", "LinkingTo"), pdb)
 
   edges <- rbind(edges1, edges2)
   if (nrow(edges) && !includeBasePkgs)
-    edges <- edges[!(edges[["dep"]] %in% baseOrRecPkgs), ]
+    edges <- edges[!(edges[["dep"]] %in% basePkgs()), ]
   
   ret <- igraph::graph.data.frame(d=edges, directed=TRUE)
   class(ret) <- c("pkgDepGraph", "igraph")
@@ -140,11 +138,19 @@ plot.pkgDepGraph <- function(
        vertex.label.color="black", 
        vertex.color=vColor
   )
-  pch <- c(rep(19, length(plotColours)), rep(-8594, length(edgeColor)))
-  #   legend(x=10, y=50, pch=c(rep(19, 2), rep(-8594, 5)), legend=letters[1:7])
-  legend(x=-0.9, y=-0.9, legend=c("Dependencies", "Initial list", names(edgeColor)), 
-         col=c(plotColours, edgeColor), 
-         pch=pch, 
-         cex=0.9)
+  pch1 <- rep(19, length(plotColours))
+  pch2 <- rep(-8594, length(edgeColor))
+  legend(x=-1, y=-1, xjust=0, yjust=0,
+         legend=c("Dependencies", "Initial list"), 
+         col=c(plotColours), 
+         pch=pch1, 
+         y.intersp=0.75,
+         cex=0.7)
+  legend(x=1, y=-1, xjust=1, yjust=0,
+         legend=names(edgeColor), 
+         col=edgeColor, 
+         pch=pch2, 
+         y.intersp=0.75,
+         cex=0.7)
   title(main)
 }

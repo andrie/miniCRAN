@@ -1,3 +1,12 @@
+#' Returns names of base packages.
+#' 
+#' Retrieves names of installed packages by calling \code{\link[utils]{installed.packages}} and returning only those packages where \code{Priority} equals "base".
+#' 
+#' @export
+#' @seealso pkgDeps
+basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
+
+
 #' Retrieves package dependencies.
 #' 
 #' Performs recursive retrieve for \code{Depends}, \code{Imports} and \code{LinkLibrary}. Performs non-recursive retrieve for \code{Suggests}.
@@ -48,21 +57,32 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depe
   }
   
   n_req <- pkg[pkgInAvail]
+  n_req_all <- pkg
   
   # Suggests
-  p_sug <- tools::package_dependencies(n_req, availPkgs, which="Suggests", recursive=FALSE)
-  n_sug <- unique(unname(unlist(p_sug)))
+  if(suggests) {
+    p_sug <- tools::package_dependencies(n_req, availPkgs, 
+                                         which="Suggests", recursive=FALSE)
+    n_sug <- unique(unname(unlist(p_sug)))
+    n_req_all <- c(n_req_all, n_sug)
+  } else{
+    p_sug <- NA
+  }
   
   # Enhances
-  p_enh <- tools::package_dependencies(n_req, availPkgs, which="Enhances", recursive=FALSE)
-  n_enh <- unique(unname(unlist(p_enh)))
-  
-  n_req_all <- n_req
-  if(suggests) n_req_all <- c(n_req_all, n_sug)
-  if(enhances) n_req_all <- c(n_req_all, n_enh)
+  if(enhances){
+    p_enh <- tools::package_dependencies(n_req, availPkgs, 
+                                         which="Enhances", recursive=FALSE)
+    n_enh <- unique(unname(unlist(p_enh)))
+    n_req_all <- c(n_req_all, n_enh)
+  } else {
+    p_enh <- NA
+  }
   
   # Depends, Imports and LinkingTo
-  p_dep <- tools::package_dependencies(n_req_all, availPkgs, which=c("Depends", "Imports", "LinkingTo"), recursive=TRUE)
+  p_dep <- tools::package_dependencies(n_req_all, availPkgs, 
+                                       which=c("Depends", "Imports", "LinkingTo"), 
+                                       recursive=TRUE)
   n_dep <- unique(unname(unlist(p_dep)))
   
   
@@ -75,7 +95,7 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depe
   
 #   ret <- sort(unique(c(n_req, n_dep, n_sug, n_enh, n_req)))
   ret <- n_all
-  if(!includeBasePkgs) ret <- ret[ret %in% rownames(availPkgs)]
+  if(!includeBasePkgs) ret <- ret[!ret %in% basePkgs()]
   attr(ret, "pkgs") <- list(
     n_req = n_req,
     n_all = n_all,
