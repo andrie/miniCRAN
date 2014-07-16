@@ -42,21 +42,24 @@ test_that("pkgDep treats suggests correctly", {
   exp <- pkgDep("ggplot2", availPkgs = cranJuly2014, suggests=FALSE)
   expect_is(exp, "pkgDep")
   expect_identical(
-        as.vector(exp), 
-    c("colorspace", "dichromat", "digest", "ggplot2", "gtable", "labeling", 
-      "MASS", "munsell", "plyr", "proto", "RColorBrewer", "Rcpp", "reshape2", 
-      "scales", "stringr")
+    as.vector(exp), 
+    c("plyr", "digest", "gtable", "reshape2", "scales", 
+      "proto", "MASS", "Rcpp", "stringr", "RColorBrewer", "dichromat", 
+      "munsell", "labeling", "colorspace", "ggplot2")
   )
   
   exp <- pkgDep("ggplot2", availPkgs = cranJuly2014, suggests=TRUE)
   expect_is(exp, "pkgDep")
   expect_identical(
-        as.vector(exp), 
-    c("colorspace", "dichromat", "digest", "ggplot2", "gtable", "hexbin", 
-      "Hmisc", "knitr", "labeling", "mapproj", "maps", "maptools", 
-      "MASS", "mgcv", "multcomp", "munsell", "nlme", "plyr", "proto", 
-      "quantreg", "RColorBrewer", "Rcpp", "reshape2", "scales", "stringr", 
-      "testthat")
+    as.vector(exp), 
+    c("plyr", "digest", "gtable", "reshape2", "scales", 
+      "proto", "MASS", "Rcpp", "stringr", "RColorBrewer", "dichromat", 
+      "munsell", "labeling", "colorspace", "SparseM", "lattice", "survival", 
+      "Formula", "latticeExtra", "cluster", "maps", "sp", "foreign", 
+      "mvtnorm", "TH.data", "sandwich", "zoo", "evaluate", "formatR", 
+      "highr", "markdown", "mime", "nlme", "Matrix", "ggplot2", "quantreg", 
+      "Hmisc", "mapproj", "hexbin", "maptools", "multcomp", "testthat", 
+      "knitr", "mgcv")
   )
   
 })
@@ -68,15 +71,15 @@ test_that("pkgDep treats includeBasePkgs correctly", {
   exp <- pkgDep("reshape2", includeBasePkgs=TRUE, availPkgs = cranJuly2014)
   expect_is(exp, "pkgDep")
   expect_identical(
-        as.vector(exp), 
-    c("methods", "plyr", "Rcpp", "reshape2", "stringr")
+    as.vector(exp), 
+    c("plyr", "stringr", "Rcpp", "methods", "reshape2")
   )
   
   exp <- pkgDep("reshape2", includeBasePkgs=FALSE, availPkgs = cranJuly2014)
   expect_is(exp, "pkgDep")
   expect_identical(
-        as.vector(exp), 
-    c("plyr", "Rcpp", "reshape2", "stringr")
+    as.vector(exp), 
+    c("plyr", "stringr", "Rcpp", "reshape2")
   )
   
 })
@@ -101,6 +104,6 @@ test_that("pkgDep throws warnings and errors for incorrect CRAN repos", {
   expect_true(is.available.packages(
     pkgAvail(repos=c(CRAN="@CRAN@"))
   ))
-
+  
   
 })
