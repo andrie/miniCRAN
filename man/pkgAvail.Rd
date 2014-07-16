@@ -3,7 +3,7 @@
 \alias{pkgAvail}
 \title{Reads available packages from CRAN repository.}
 \usage{
-pkgAvail(repos = getOption("repos"), type = getOption("pkgType"), ...)
+pkgAvail(repos = getOption("repos"), type = "source", ...)
 }
 \arguments{
 \item{repos}{URL(s) of the 'contrib' sections of the repositories. Passed to \code{\link{available.packages}}}

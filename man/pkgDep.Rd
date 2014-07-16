@@ -3,9 +3,9 @@
 \alias{pkgDep}
 \title{Retrieves package dependencies.}
 \usage{
-pkgDep(pkg, availPkgs, repos = getOption("repos"),
-  type = getOption("pkgType"), depends = TRUE, suggests = FALSE,
-  enhances = FALSE, path, includeBasePkgs = FALSE, ...)
+pkgDep(pkg, availPkgs, repos = getOption("repos"), type = "source",
+  depends = TRUE, suggests = FALSE, enhances = FALSE, path,
+  includeBasePkgs = FALSE, ...)
 }
 \arguments{
 \item{pkg}{Character vector of packages.}

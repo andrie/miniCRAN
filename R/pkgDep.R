@@ -110,8 +110,8 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depe
 
 print.pkgDep <- function(x, ...){
   attr(x, "pkgs") <- NULL
-  class(x) <- setdiff(class(x), "pkgDep")
-  print(x, ...)
+  class(x) <- setdiff("pkgDep", class(x))
+  print(as.vector(x), ...)
 }
 
 #' Reads available packages from CRAN repository.
