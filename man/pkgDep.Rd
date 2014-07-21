@@ -4,7 +4,7 @@
 \title{Retrieves package dependencies.}
 \usage{
 pkgDep(pkg, availPkgs, repos = getOption("repos"), type = "source",
-  depends = TRUE, suggests = FALSE, enhances = FALSE, path,
+  depends = TRUE, suggests = TRUE, enhances = FALSE, path,
   includeBasePkgs = FALSE, ...)
 }
 \arguments{

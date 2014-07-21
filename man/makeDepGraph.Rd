@@ -4,7 +4,7 @@
 \title{Create dependency graph from available packages.}
 \usage{
 makeDepGraph(pkg, availPkgs, repos = getOption("repos"), type = "source",
-  path, includeBasePkgs = FALSE, ...)
+  path, suggests = TRUE, enhances = FALSE, includeBasePkgs = FALSE, ...)
 }
 \arguments{
 \item{pkg}{Character vector of packages.}
@@ -16,6 +16,10 @@ makeDepGraph(pkg, availPkgs, repos = getOption("repos"), type = "source",
 \item{type}{Passed to \code{\link{available.packages}}}
 
 \item{path}{Destination download path}
+
+\item{suggests}{If TRUE, retrieves Suggests dependencies (non-recursively)}
+
+\item{enhances}{If TRUE, retrieves Enhances dependencies (non-recursively)}
 
 \item{includeBasePkgs}{If TRUE, include base R packages in results}
 

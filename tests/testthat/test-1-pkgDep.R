@@ -68,14 +68,14 @@ test_that("pkgDep treats suggests correctly", {
 # includeBasePkgs ---------------------------------------------------------
 
 test_that("pkgDep treats includeBasePkgs correctly", {
-  exp <- pkgDep("reshape2", includeBasePkgs=TRUE, availPkgs = cranJuly2014)
+  exp <- pkgDep("reshape2", includeBasePkgs=TRUE, availPkgs = cranJuly2014, suggests=FALSE)
   expect_is(exp, "pkgDep")
   expect_identical(
     as.vector(exp), 
     c("plyr", "stringr", "Rcpp", "methods", "reshape2")
   )
   
-  exp <- pkgDep("reshape2", includeBasePkgs=FALSE, availPkgs = cranJuly2014)
+  exp <- pkgDep("reshape2", includeBasePkgs=FALSE, availPkgs = cranJuly2014, suggests=FALSE)
   expect_is(exp, "pkgDep")
   expect_identical(
     as.vector(exp), 

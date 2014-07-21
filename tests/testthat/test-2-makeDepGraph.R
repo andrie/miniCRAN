@@ -40,6 +40,29 @@ test_that("makeDepGraph and pgkDep gives similar results for MASS", {
     checkPkgDepFunctions(tag, includeBasePkgs = TRUE)
   )
   expect_true(
+    checkPkgDepFunctions(tag, includeBasePkgs = TRUE, suggests=FALSE)
+  )
+  expect_true(
+    checkPkgDepFunctions(tag, includeBasePkgs = TRUE, enhances=TRUE)
+  )
+  
+})
+
+
+test_that("makeDepGraph and pgkDep gives similar results for chron", {
+  
+  tag <- "chron"
+  
+  expect_true(
+    checkPkgDepFunctions(tag)
+  )
+  expect_true(
+    checkPkgDepFunctions(tag, includeBasePkgs = TRUE)
+  )
+  expect_true(
+    checkPkgDepFunctions(tag, includeBasePkgs = TRUE, suggests=FALSE)
+  )
+  expect_true(
     checkPkgDepFunctions(tag, includeBasePkgs = TRUE, enhances=TRUE)
   )
   
@@ -49,11 +72,15 @@ test_that("makeDepGraph and pgkDep gives similar results for MASS", {
 test_that("makeDepGraph and pgkDep gives similar results for data.table", {
   
   tag <- "data.table"
+
   expect_true(
     checkPkgDepFunctions(tag)
   )
   expect_true(
     checkPkgDepFunctions(tag, includeBasePkgs = TRUE)
+  )
+  expect_true(
+    checkPkgDepFunctions(tag, includeBasePkgs = TRUE, suggests=FALSE)
   )
   expect_true(
     checkPkgDepFunctions(tag, includeBasePkgs = TRUE, enhances=TRUE)
@@ -64,11 +91,15 @@ test_that("makeDepGraph and pgkDep gives similar results for data.table", {
 test_that("makeDepGraph and pgkDep gives similar results for ggplot2", {
   
   tag <- "ggplot2"
+
   expect_true(
     checkPkgDepFunctions(tag)
   )
   expect_true(
     checkPkgDepFunctions(tag, includeBasePkgs = TRUE)
+  )
+  expect_true(
+    checkPkgDepFunctions(tag, includeBasePkgs = TRUE, suggests=FALSE)
   )
   expect_true(
     checkPkgDepFunctions(tag, includeBasePkgs = TRUE, enhances=TRUE)
@@ -80,13 +111,19 @@ test_that("makeDepGraph and pgkDep gives similar results for ggplot2", {
 test_that("makeDepGraph and pgkDep gives similar results for complex query", {
   
   tag <- c("ggplot2", "data.table", "plyr", "knitr", "shiny", "xts", "lattice")
-  t1 <- checkPkgDepFunctions(tag)
-  t2 <- checkPkgDepFunctions(tag, includeBasePkgs = TRUE)
-  t3 <- checkPkgDepFunctions(tag, includeBasePkgs = TRUE, enhances=TRUE)
-  
-  expect_true(t1)
-  expect_true(t2)
-  expect_true(t3)
+
+  expect_true(
+    checkPkgDepFunctions(tag)
+  )
+  expect_true(
+    checkPkgDepFunctions(tag, includeBasePkgs = TRUE)
+  )
+  expect_true(
+    checkPkgDepFunctions(tag, includeBasePkgs = TRUE, suggests=FALSE)
+  )
+  expect_true(
+    checkPkgDepFunctions(tag, includeBasePkgs = TRUE, enhances=TRUE)
+  )
   
 })
 

@@ -30,7 +30,7 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #' 
 #' @example /inst/examples/example-pkgDep.R
 
-pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depends=TRUE, suggests=FALSE, enhances=FALSE, path, includeBasePkgs=FALSE, ...){
+pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depends=TRUE, suggests=TRUE, enhances=FALSE, path, includeBasePkgs=FALSE, ...){
   if(!depends & !suggests & !enhances) {
     warning("Returning nothing, since depends, suggests and enhances are all FALSE")
     return(character(0))
@@ -108,9 +108,10 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depe
   ret
 }
 
+#' @export
 print.pkgDep <- function(x, ...){
   attr(x, "pkgs") <- NULL
-  class(x) <- setdiff("pkgDep", class(x))
+  class(x) <- "character"
   print(as.vector(x), ...)
 }
 

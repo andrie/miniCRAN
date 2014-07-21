@@ -1,3 +1,11 @@
+miniCRAN v0.0-13 (Release date: 2014-07-21)
+==============
+
+Changes:
+
+* Fixed more inconsistencies between pkgDep() and makeDepGraph()
+
+
 miniCRAN v0.0-12 (Release date: 2014-07-16)
 ==============
 

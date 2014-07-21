@@ -49,7 +49,7 @@ addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests"
 #' @example /inst/examples/example-makeDepGraph.R
 makeDepGraph <- function(
   pkg, availPkgs, repos=getOption("repos"), type="source", 
-  path, 
+  path, suggests=TRUE, enhances=FALSE,
   includeBasePkgs=FALSE, ...)
 {
   if(!require("igraph", quietly = TRUE)) stop("Package igraph is not installed")
@@ -72,29 +72,49 @@ makeDepGraph <- function(
   }
   
   # Build suggests edge list for original pkg list
-  edges1 <- pkgEdges(pkg, type=c("Suggests"), availPkgs)
 
 
   # Build depends edge list for original pkg list, combined with top level suggests
   
-  p1 <- unique(unlist(
-    tools::package_dependencies(pkg, db=availPkgs, which="Suggests", recursive=FALSE)
-  ))
-  p1 <- unique(c(p1, pkg))
-  p2 <- unique(unlist(
-    tools::package_dependencies(p1, db=availPkgs, which=c("Imports", "Depends", "LinkingTo"), recursive=TRUE)
-  ))
-  p2 <- unique(c(p1, p2, pkg))
-  
-  edges2 <- pkgEdges(p2, type=c("Imports", "Depends", "LinkingTo"), availPkgs)
+  pkg_orig <- pkg
 
-  edges <- rbind(edges1, edges2)
+  if(suggests){
+    edges1 <- pkgEdges(pkg, type=c("Suggests"), availPkgs)
+    p_sug <- unique(unlist(
+      tools::package_dependencies(pkg, db=availPkgs, which="Suggests", recursive=FALSE)
+    ))
+    pkg <- unique(c(p_sug, pkg))
+  } 
+
+  if(enhances){
+    edges2 <- pkgEdges(pkg_orig, type=c("Enhances"), availPkgs)
+    p_enh <- unique(unlist(
+      tools::package_dependencies(pkg_orig, db=availPkgs, which="Enhances", recursive=FALSE)
+    ))
+    pkg <- unique(c(p_enh, pkg))
+  } 
+  
+  p_dep <- unique(unlist(
+    tools::package_dependencies(pkg, db=availPkgs, which=c("Imports", "Depends", "LinkingTo"), recursive=TRUE)
+  ))
+  pkg <- unique(c(p_dep, pkg))
+  
+  edges3 <- pkgEdges(pkg, type=c("Imports", "Depends", "LinkingTo"), availPkgs)
+
+  edges <- edges3
+  if(suggests){
+    edges <- rbind(edges, edges1)
+  }
+  if(enhances) {
+    edges <- rbind(edges, edges2)
+  }
+    
   if (nrow(edges) && !includeBasePkgs)
     edges <- edges[!(edges[["dep"]] %in% basePkgs()), ]
   
   ret <- igraph::graph.data.frame(d=edges, directed=TRUE)
   class(ret) <- c("pkgDepGraph", "igraph")
-  attr(ret, "pkgs") <- pkg
+  attr(ret, "pkgs") <- pkg_orig
   ret
 }
 
