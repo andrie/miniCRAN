@@ -112,7 +112,8 @@ makeDepGraph <- function(
   if (nrow(edges) && !includeBasePkgs)
     edges <- edges[!(edges[["dep"]] %in% basePkgs()), ]
   
-  ret <- igraph::graph.data.frame(d=edges, directed=TRUE)
+  vert <- unique(c(pkg_orig, edges[["dep"]], edges[["package"]]))
+  ret <- igraph::graph.data.frame(d=edges, directed=TRUE, vertices = vert)
   class(ret) <- c("pkgDepGraph", "igraph")
   attr(ret, "pkgs") <- pkg_orig
   ret
