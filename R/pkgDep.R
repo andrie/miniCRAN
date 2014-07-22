@@ -86,14 +86,11 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depe
   n_dep <- unique(unname(unlist(p_dep)))
   
   
-#   # Recursive including suggests and enhances
-#   p_all <- tools::package_dependencies(n_req_all, availPkgs, which="Suggests", recursive=FALSE)
-#   n_all <- unique(unname(unlist(p_all)))
 
   p_all <- p_dep
   n_all <- unique(c(n_dep, n_req_all))
+  n_all <- c(n_req, setdiff(n_all, n_req))
   
-#   ret <- sort(unique(c(n_req, n_dep, n_sug, n_enh, n_req)))
   ret <- n_all
   if(!includeBasePkgs) ret <- ret[!ret %in% basePkgs()]
   attr(ret, "pkgs") <- list(

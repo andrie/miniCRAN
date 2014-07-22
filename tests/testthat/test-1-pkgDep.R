@@ -43,21 +43,21 @@ test_that("pkgDep treats suggests correctly", {
   expect_is(exp, "pkgDep")
   expect_identical(
     as.vector(exp), 
-    c("plyr", "digest", "gtable", "reshape2", "scales", 
+    c("ggplot2", "plyr", "digest", "gtable", "reshape2", "scales", 
       "proto", "MASS", "Rcpp", "stringr", "RColorBrewer", "dichromat", 
-      "munsell", "labeling", "colorspace", "ggplot2")
+      "munsell", "labeling", "colorspace")
   )
   
   exp <- pkgDep("ggplot2", availPkgs = cranJuly2014, suggests=TRUE)
   expect_is(exp, "pkgDep")
   expect_identical(
     as.vector(exp), 
-    c("plyr", "digest", "gtable", "reshape2", "scales", 
+    c("ggplot2", "plyr", "digest", "gtable", "reshape2", "scales", 
       "proto", "MASS", "Rcpp", "stringr", "RColorBrewer", "dichromat", 
       "munsell", "labeling", "colorspace", "SparseM", "lattice", "survival", 
       "Formula", "latticeExtra", "cluster", "maps", "sp", "foreign", 
       "mvtnorm", "TH.data", "sandwich", "zoo", "evaluate", "formatR", 
-      "highr", "markdown", "mime", "nlme", "Matrix", "ggplot2", "quantreg", 
+      "highr", "markdown", "mime", "nlme", "Matrix", "quantreg", 
       "Hmisc", "mapproj", "hexbin", "maptools", "multcomp", "testthat", 
       "knitr", "mgcv")
   )
@@ -72,14 +72,14 @@ test_that("pkgDep treats includeBasePkgs correctly", {
   expect_is(exp, "pkgDep")
   expect_identical(
     as.vector(exp), 
-    c("plyr", "stringr", "Rcpp", "methods", "reshape2")
+    c("reshape2", "plyr", "stringr", "Rcpp", "methods")
   )
   
   exp <- pkgDep("reshape2", includeBasePkgs=FALSE, availPkgs = cranJuly2014, suggests=FALSE)
   expect_is(exp, "pkgDep")
   expect_identical(
     as.vector(exp), 
-    c("plyr", "stringr", "Rcpp", "reshape2")
+    c("reshape2", "plyr", "stringr", "Rcpp")
   )
   
 })

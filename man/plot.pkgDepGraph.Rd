@@ -4,7 +4,9 @@
 \title{Plots a package dependency graph.}
 \usage{
 \method{plot}{pkgDepGraph}(x, pkgsToHighlight,
-  main = "Package dependency graph", ...)
+  main = "Package dependency graph", legendPosVertex = c(-1, -1),
+  legendPosEdge = c(1, -1), shape = "circle", vertex.size = 8, cex = 1,
+  ...)
 }
 \arguments{
 \item{x}{pkgDepGraph object}
@@ -12,6 +14,16 @@
 \item{pkgsToHighlight}{Optional character vector with names of package to hightlight. If missing, defaults to packages used in original call to \code{\link{makeDepGraph}}}
 
 \item{main}{Title of plot}
+
+\item{legendPosVertex}{Numeric vector of length 2, indicating (x, y) position of vertex legend. Both values should be in the range [-1; 1].  If NULL, the vertex legend is not displayed.}
+
+\item{legendPosEdge}{Numeric vector of length 2, indicating (x, y) position of edge legend. Both values should be in the range [-1; 1].  If NULL, the edge legend is not displayed.}
+
+\item{shape}{Shape of edge.  See \code{\link[igraph]{igraph.plotting}}. Could be "none", "circle", "square", ...}
+
+\item{vertex.size}{Size of vertex shape. See \code{\link[igraph]{igraph.plotting}}}
+
+\item{cex}{Vertex label size.}
 
 \item{...}{Ignored}
 }
