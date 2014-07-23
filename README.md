@@ -1,7 +1,9 @@
 miniCRAN
 ========
 
-https://travis-ci.org/andrie/miniCRAN.svg?branch=master
+[![Build Status](https://travis-ci.org/andrie/miniCRAN.svg?branch=master)](https://travis-ci.org/andrie/miniCRAN.svg?branch=master)
+
+
 
 R package to create internally consistent, mini version of CRAN
 
