@@ -10,7 +10,8 @@
 #' @param cex Vertex label size.
 #' @param ... Ignored
 #' @export
-#' @seealso plot.pkgDepGraph
+#' @seealso \code{\link{makeDepGraph}}
+#' @example \inst\examples\example-plot.pkgDepGraph.R
 #' 
 plot.pkgDepGraph <- function(
   x, pkgsToHighlight, 
@@ -53,7 +54,7 @@ plot.pkgDepGraph <- function(
   just <- function(x)0.5*(x+1)
   
   # Vertex legend
-  if(!missing("legendPosVertex")  & !is.null(legendPosVertex)){
+  if(!is.null(legendPosVertex)){
     legend(x=legendPosVertex[1], y=legendPosVertex[2], 
            xjust=just(legendPosVertex[1]), 
            yjust=just(legendPosVertex[2]),
@@ -66,7 +67,7 @@ plot.pkgDepGraph <- function(
   }
   
   # Edge legend
-  if(!missing("legendPosEdge")  & !is.null(legendPosEdge)){
+  if(!is.null(legendPosEdge)){
     legend(x=legendPosEdge[1], 
            y=legendPosEdge[2], 
            xjust=just(legendPosEdge[1]), 
