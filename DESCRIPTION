@@ -17,4 +17,6 @@ Imports:
 Suggests:
     igraph,
     RCurl,
-    testthat
+    testthat,
+    knitr
+VignetteBuilder: knitr
