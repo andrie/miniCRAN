@@ -21,9 +21,11 @@ getCranDescription(pkg, repos = getOption("repos"), type = "source", path,
 Scrape DESCRIPTION from CRAN for each pkg.
 }
 \examples{
-getCranDescription(c("igraph", "ggplot2", "XML"),
+\dontrun{
+getCranDescription(c("igraph", "ggplot2", "XML"), 
   repos=c(CRAN="http://cran.revolutionanalytics.com")
 )
+}
 }
 \seealso{
 Other miniCRAN: \code{\link{pkgAvail}};

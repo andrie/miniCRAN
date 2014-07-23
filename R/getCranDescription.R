@@ -5,11 +5,7 @@
 #' @import XML
 #' @export
 #' @family miniCRAN
-#' @examples
-#' 
-#' getCranDescription(c("igraph", "ggplot2", "XML"), 
-#'   repos=c(CRAN="http://cran.revolutionanalytics.com")
-#' )
+#' @example /inst/examples/example-getCranDescription.R
 getCranDescription <- function(pkg, repos=getOption("repos"), type="source", path, pkgs = pkgDep(pkg, repos=repos, type=type)){
   
   getOne <- function(package){
