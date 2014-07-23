@@ -1,4 +1,13 @@
-miniCRAN v0.0-13 (Release date: 2014-07-21)
+miniCRAN v0.0-15 (Release date: 2014-07-23)
+==============
+
+Changes:
+
+* Added examples for plot.pkgDepGraph
+* Added package vignette
+
+
+miniCRAN v0.0-14 (Release date: 2014-07-22)
 ==============
 
 Changes:
