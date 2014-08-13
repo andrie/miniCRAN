@@ -12,12 +12,11 @@ Version: 0.0-17
 URL: https://github.com/andrie/miniCRAN
 Date: 2014-08-13
 Imports:
-    utils,
     tools,
-    XML
+    XML,
+    httr
 Suggests:
     igraph,
-    RCurl,
     testthat,
     knitr
 VignetteBuilder: knitr
