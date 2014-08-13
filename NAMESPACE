@@ -2,6 +2,7 @@
 
 S3method(plot,pkgDepGraph)
 S3method(print,pkgDep)
+export(addPackageGithub)
 export(basePkgs)
 export(getCranDescription)
 export(getRversion)
