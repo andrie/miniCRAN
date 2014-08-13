@@ -1,3 +1,16 @@
+miniCRAN v0.0-17 (Release date: 2014-08-13)
+==============
+
+Changes:
+
+* Added function addPackageGithub() to read
+
+
+miniCRAN v0.0-16 (Release date: 2014-07-23)
+==============
+
+Minor changes to pass CRAN incoming checks. First version on CRAN.
+
 miniCRAN v0.0-15 (Release date: 2014-07-23)
 ==============
 
