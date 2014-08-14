@@ -14,6 +14,8 @@
 #' @param Rversion String of format "<major R version>.<minor R version>", e.g. "3.2". Only used if \code{type} is not "source"
 #' @param download If TRUE downloads packages, otherwise just creates PACKAGES file
 #' @param writePACKAGES If TRUE, calls \code{\link[tools]{write_PACKAGES}} to update the repository PACKAGES file
+#' 
+#' @export
 #' @example \inst\examples\example_makeRepo.R
 
 makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source", Rversion=getRversion(), download=FALSE, writePACKAGES=TRUE){
