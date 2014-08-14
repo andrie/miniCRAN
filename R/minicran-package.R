@@ -26,11 +26,23 @@
 #' Important functions:
 #' 
 #' \itemize{
-#' \item \code{\link{pkgDep}}: Find (recursive) package dependencies
-#' \item \code{\link{makeRepo}} : Make repository
 #' \item \code{\link{pkgAvail}}: Read local repository and determine available packages
+#' \item \code{\link{pkgDep}}: Find (recursive) package dependencies
 #' \item \code{\link{makeDepGraph}}: Create graph of selected package dependencies
+#' \item \code{\link{makeRepo}} : Make repository
 #' }
+#' 
+#' This subset will be internally consistent, i.e. the following functions will work as expected:
+#'
+#' \itemize{
+#' \item \code{\link{available.packages}}
+#' \item \code{\link{install.packages}}
+#' }
+#'
+#' The main function is \code{\link{makeRepo}} - this will download all the required packages, with their dependencies, into the appropriate repository file structure, and then create the repository index (PACKAGES) file.
+#' 
+#' To get a recursive list of dependencies, and a plot, use \code{\link{pkgDeps}} and \code{\link{makeDepGraph}}.
+#' 
 #' 
 #' 
 #' 
