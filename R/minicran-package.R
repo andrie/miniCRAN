@@ -41,7 +41,7 @@
 #'
 #' The main function is \code{\link{makeRepo}} - this will download all the required packages, with their dependencies, into the appropriate repository file structure, and then create the repository index (PACKAGES) file.
 #' 
-#' To get a recursive list of dependencies, and a plot, use \code{\link{pkgDeps}} and \code{\link{makeDepGraph}}.
+#' To get a recursive list of dependencies, and a plot, use \code{\link{pkgDep}} and \code{\link{makeDepGraph}}.
 #' 
 #' 
 #' 

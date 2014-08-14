@@ -3,7 +3,7 @@
 #' Retrieves names of installed packages by calling \code{\link[utils]{installed.packages}} and returning only those packages where \code{Priority} equals "base".
 #' 
 #' @export
-#' @seealso pkgDeps
+#' @seealso pkgDep
 basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 
 

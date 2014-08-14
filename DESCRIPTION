@@ -6,11 +6,11 @@ Title: Tools to create an internally consistent, mini version of CRAN with
     selected packages only.
 LazyData: true
 LazyLoad: true
-Description: Tools to create a internally consistent, mini version of CRAN with
+Description: Tools to create an internally consistent, mini version of CRAN with
     selected packages only.
-Version: 0.0-17
+Version: 0.0-18
 URL: https://github.com/andrie/miniCRAN
-Date: 2014-08-13
+Date: 2014-08-14
 Imports:
     tools,
     XML,

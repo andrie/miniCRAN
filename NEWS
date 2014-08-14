@@ -1,9 +1,18 @@
+miniCRAN v0.0-18 (Release date: 2014-08-14)
+==============
+
+Changes:
+
+* Added additional section in vignette to demonstrate makeRepo()
+* Added additional examples
+
+
 miniCRAN v0.0-17 (Release date: 2014-08-13)
 ==============
 
 Changes:
 
-* Added function addPackageGithub() to read
+* Added function addPackageGithub() to read DESCRIPTION files for packages on github
 
 
 miniCRAN v0.0-16 (Release date: 2014-07-23)
