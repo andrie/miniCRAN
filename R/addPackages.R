@@ -25,7 +25,7 @@ readDescription <- function (file) {
 # from http://stackoverflow.com/questions/13163248/possible-to-override-the-blocking-of-a-packages-re-installation-after-it-has
 
 
-#' @importFrom httr GET
+#' @importFrom httr GET stop_for_status content
 readDescriptionGithub <- function(repo, username, branch="master", quiet=TRUE){
   if(!missing(username) && !is.null(username)) repo <- paste(username, repo, sep="/")
   pkg <- sprintf("https://github.com/%s/raw/%s/DESCRIPTION", repo, branch)
