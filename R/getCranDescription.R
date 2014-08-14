@@ -5,7 +5,7 @@
 #' @import XML
 #' @export
 #' @family miniCRAN
-#' @example /inst/examples/example-getCranDescription.R
+#' @example \inst\examples\example_getCranDescription.R
 getCranDescription <- function(pkg, repos=getOption("repos"), type="source", path, pkgs = pkgDep(pkg, repos=repos, type=type)){
   
   getOne <- function(package){

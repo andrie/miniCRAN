@@ -69,7 +69,7 @@ addPackage <- function(pdb, dcf, warnings=TRUE){
 #' @param username Optional character vector. Name of repository on github, e.g. \code{"RevolutionAnalytics/RRT"}
 #' @param branch name of branch, defaults to \code{"master"}
 #' @export
-#' @example \inst\examples\example-addPackage.R
+#' @example \inst\examples\example_addPackage.R
 addPackageGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch="master"){
   desc <- readDescriptionGithub(repo=repo, username=username, branch=branch)
   addPackage(pdb, desc)

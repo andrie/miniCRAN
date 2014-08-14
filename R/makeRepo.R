@@ -14,20 +14,7 @@
 #' @param Rversion String of format "<major R version>.<minor R version>", e.g. "3.2". Only used if \code{type} is not "source"
 #' @param download If TRUE downloads packages, otherwise just creates PACKAGES file
 #' @param writePACKAGES If TRUE, calls \code{\link[tools]{write_PACKAGES}} to update the repository PACKAGES file
-#' 
-#' # Make repo for source and win.binary
-#' makeRepo(pkgList, path=pth, repos=revolution, download=TRUE, writePACKAGES=TRUE, type="source")
-#' makeRepo(pkgList, path=pth, repos=revolution, download=TRUE, writePACKAGES=TRUE, type="win.binary")
-#' 
-#' # List all files in miniCRAN
-#' list.files(pth, recursive = TRUE)
-#' 
-#' # Check for available packages
-#' pkgAvail(repos=pth, type="source")
-#' pkgAvail(repos=pth, type="win.binary")
-#' 
-#' # Delete temporary folder
-#' unlink(pth, recursive = TRUE)
+#' @example \inst\examples\example_makeRepo.R
 
 makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source", Rversion=getRversion(), download=FALSE, writePACKAGES=TRUE){
   if(!file.exists(path)) stop("Download path does not exist")

@@ -46,7 +46,7 @@ addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests"
 #' @export
 #' @family graph
 #' @seealso pkgDep plot.pkgDepGraph
-#' @example /inst/examples/example-makeDepGraph.R
+#' @example \inst\examples\example_makeDepGraph.R
 makeDepGraph <- function(
   pkg, availPkgs, repos=getOption("repos"), type="source", 
   path, suggests=TRUE, enhances=FALSE,

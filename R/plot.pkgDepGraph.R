@@ -11,7 +11,7 @@
 #' @param ... Ignored
 #' @export
 #' @seealso \code{\link{makeDepGraph}}
-#' @example \inst\examples\example-plot.pkgDepGraph.R
+#' @example \inst\examples\example_plot.pkgDepGraph.R
 #' 
 plot.pkgDepGraph <- function(
   x, pkgsToHighlight, 

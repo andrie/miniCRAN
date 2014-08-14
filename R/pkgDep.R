@@ -28,7 +28,7 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #' @seealso makeDepGraph
 #' @family miniCRAN
 #' 
-#' @example /inst/examples/example-pkgDep.R
+#' @example \inst\examples\example_pkgDep.R
 
 pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depends=TRUE, suggests=TRUE, enhances=FALSE, path, includeBasePkgs=FALSE, ...){
   if(!depends & !suggests & !enhances) {
