@@ -69,4 +69,3 @@ NULL
 #' @usage cranJuly2014
 #' @format matrix
 NULL
-
