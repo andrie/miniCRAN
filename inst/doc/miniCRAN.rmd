@@ -5,6 +5,59 @@
 % \VignetteKeyword{miniCRAN}
 --> 
 
+# Building a private repository using makeRepo
+
+Start by creating the recursive dependency tree for your target packages.
+
+For example, imagine a scenario where you want to create a repository that consists of the package "foreach" and its dependencies.
+ 
+Start by creating the dependency list:
+
+```{r make-repo-1}
+library(miniCRAN)
+# Specify list of packages to download
+pkgs <- c("foreach")
+
+revolution <- c(CRAN="http://cran.revolutionanalytics.com")
+pkgList <- pkgDep(pkgs, repos=revolution, type="source", suggests = FALSE)
+pkgList
+```
+
+Next, create a repository with the function `makeRepo()`.  In this example, get the required files for `source` packages as well as windows binaries:
+
+
+```{r make-repo-2}
+# Create temporary folder for miniCRAN
+dir.create(pth <- file.path(tempdir(), "miniCRAN"))
+
+# Make repo for source and win.binary
+makeRepo(pkgList, path=pth, repos=revolution, download=TRUE, writePACKAGES=TRUE, type="source")
+makeRepo(pkgList, path=pth, repos=revolution, download=TRUE, writePACKAGES=TRUE, type="win.binary")
+```
+
+
+Investigate the repository file structure
+
+```{r make-repo-3}
+# List all files in miniCRAN
+list.files(pth, recursive = TRUE, full.names = FALSE)
+```
+
+
+Use `pkgAvail` to list available packages in your repository:
+
+```{r make-repo-4}
+# Check for available packages
+pkgAvail(repos=pth, type="win.binary")[, c(1:3, 5)]
+```
+
+
+
+```{r make-repo-5, include=FALSE}
+# Delete temporary folder
+unlink(pth, recursive = TRUE)
+```
+
 # Using miniCRAN to identify package dependencies
 
 ## Introduction
@@ -72,61 +125,8 @@ tags <- c("ggplot2", "data.table", "plyr", "knitr", "shiny", "xts", "lattice")
 pkgDep(tags, suggests = TRUE, enhances=FALSE)
 
 dg <- makeDepGraph(tags, includeBasePkgs=FALSE, suggests=TRUE, enhances=TRUE)
-plot(dg, legendPosEdge = c(-1, -1), legendPosVertex = c(1, -1), vertex.size=10, cex=1)
+set.seed(1)
+plot(dg, legendPosEdge = c(-1, -1), legendPosVertex = c(1, -1), vertex.size=10, cex=0.7)
 ```
 
 
-# Building a private repository using makeRepo
-
-Start by creating the recursive dependency tree for your target packages.
-
-For example, imagine a scenario where you want to create a repository that consists of a few CRAN packages:
-
-* foreach
-* MASS
- 
-Start by creating the dependency list:
-
-```{r make-repo-1}
-# Specify list of packages to download
-pkgs <- c("foreach", "MASS")
-
-revolution <- c(CRAN="http://cran.revolutionanalytics.com")
-pkgList <- pkgDep(pkgs, repos=revolution, type="source")
-pkgList
-```
-
-Next, create a repository with the function `makeRepo()`.  In this example, get the required files for `source` packages as well as windows binaries:
-
-
-```{r make-repo-2}
-# Create temporary folder for miniCRAN
-dir.create(pth <- file.path(tempdir(), "miniCRAN"))
-
-# Make repo for source and win.binary
-makeRepo(pkgList, path=pth, repos=revolution, download=TRUE, writePACKAGES=TRUE, type="source")
-makeRepo(pkgList, path=pth, repos=revolution, download=TRUE, writePACKAGES=TRUE, type="win.binary")
-```
-
-
-Investigate the repository file structure
-
-```{r make-repo-3}
-# List all files in miniCRAN
-list.files(pth, recursive = TRUE, full.names = FALSE)
-```
-
-
-Use `pkgAvail` to list available packages in your repository:
-
-```{r make-repo-4}
-# Check for available packages
-pkgAvail(repos=pth, type="win.binary")[, c(1:3, 5)]
-```
-
-
-
-```{r make-repo-5, include=FALSE}
-# Delete temporary folder
-unlink(pth, recursive = TRUE)
-```
