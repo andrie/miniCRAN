@@ -18,7 +18,9 @@ makeRsyncInclude(pkg, file = NULL, pkgs = pkgDep(pkg, ...), ...)
 Create include file for use with rsync.
 }
 \examples{
-pkgs <- c("ggplot2", "plyr", "reshape2")
-makeRsyncInclude(pkgs, type="source", repos=c(CRAN="http://cran.revolutionanalytics.com"))
+\dontrun{
+  pkgs <- c("ggplot2", "plyr", "reshape2")
+  makeRsyncInclude(pkgs, type="source", repos=c(CRAN="http://cran.revolutionanalytics.com"))
+}
 }
 

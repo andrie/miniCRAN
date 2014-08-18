@@ -30,10 +30,8 @@ list.files(pth, recursive = TRUE)
 pkgAvail(repos=pth, type="source")
 
 # Repeat process for windows binaries
-\dontrun{
 makeRepo(pkgList, path=pth, repos=revolution, download=TRUE, writePACKAGES=TRUE, type="win.binary")
 pkgAvail(repos=pth, type="win.binary")
-}
 
 # Delete temporary folder
 unlink(pth, recursive = TRUE)
