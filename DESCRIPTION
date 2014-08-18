@@ -1,16 +1,17 @@
 Package: miniCRAN
-Authors@R: c(person("Andrie", "de Vries", role=c("aut", "cre"),
-    email="apdevries@gmail.com"))
-License: GPL-2|GPL-3
+Authors@R: c(person("Revolution Analytics", role="aut"), person("Andrie", "de
+    Vries", role=c("aut", "cre"), email="apdevries@gmail.com"))
+License: Apache License (== 2.0)
 Title: Tools to create an internally consistent, mini version of CRAN with
     selected packages only.
 LazyData: true
 LazyLoad: true
 Description: Tools to create an internally consistent, mini version of CRAN with
     selected packages only.
-Version: 0.0-18
+Version: 0.0-20
 URL: https://github.com/andrie/miniCRAN
-Date: 2014-08-14
+BugReports: https://github.com/andrie/miniCRAN/issues
+Date: 2014-08-18
 Imports:
     tools,
     XML,
