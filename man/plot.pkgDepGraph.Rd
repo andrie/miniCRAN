@@ -34,7 +34,16 @@ Plots a package dependency graph.
 tags <- "chron"
 
 # Plot using defaults
-dg <- makeDepGraph(tags, includeBasePkgs=FALSE, suggests=TRUE, enhances=TRUE)
+pdb <- cranJuly2014
+
+\dontrun{
+  pdb <- pkgAvail(
+    repos = c(CRAN="http://cran.revolutionanalytics.com"),
+    type="source"
+  )
+}
+
+dg <- makeDepGraph(tags, availPkgs = pdb  , includeBasePkgs=FALSE, suggests=TRUE, enhances=TRUE)
 
 set.seed(42); 
 plot(dg)

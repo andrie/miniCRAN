@@ -13,6 +13,17 @@ At the end of 2013, CRAN consisted of more than 5000 packages.  Many organisatio
 
 \code{miniCRAN} makes this possible by recursively reading the dependency tree for a given set of packages, then downloading only this subset.
 
+There are many reasons for not creating a complete mirror CRAN using rsync:
+
+\itemize{
+\item You may wish to mirror only a subset of CRAN, for security, legal compliance or any other in-house reason
+\item You may wish to restrict internal package use to a subset of public packages, to minimize package duplication, or other reasons of coding standards
+\item You may wish to make packages available from public repositories other than CRAN, e.g. BioConductor, r-forge, OmegaHat, etc.
+\item You may wish to add custom in-house packages to your repository
+}
+
+The ambition of miniCRAN is to eventually satisfy many of these considerations.  For example, the github version of miniCRAN already allows you to draw a dependency graph using packages on CRAN as well as github.  In due course I'd like to extend the package to also download packages from any public repository or private file location, as well as github packages.
+
 Important functions:
 
 \itemize{
@@ -31,7 +42,7 @@ This subset will be internally consistent, i.e. the following functions will wor
 
 The main function is \code{\link{makeRepo}} - this will download all the required packages, with their dependencies, into the appropriate repository file structure, and then create the repository index (PACKAGES) file.
 
-To get a recursive list of dependencies, and a plot, use \code{\link{pkgDeps}} and \code{\link{makeDepGraph}}.
+To get a recursive list of dependencies, and a plot, use \code{\link{pkgDep}} and \code{\link{makeDepGraph}}.
 }
 \author{
 Andrie de Vries \email{apdevries@gmail.com}
