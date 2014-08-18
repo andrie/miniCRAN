@@ -1,3 +1,11 @@
+miniCRAN v0.0-20 (Release date: 2014-08-18)
+==============
+
+Changes:
+
+* Modified examples to reduce running time, mostly using \dontrun{} sections
+
+
 miniCRAN v0.0-19 (Release date: 2014-08-17)
 ==============
 
