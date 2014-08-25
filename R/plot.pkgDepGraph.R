@@ -15,9 +15,9 @@
 #' 
 plot.pkgDepGraph <- function(
   x, pkgsToHighlight, 
-  main="Package dependency graph", 
-  legendPosVertex = c(-1, -1),
-  legendPosEdge = c(1, -1),
+  main=paste(attr(x, "pkgs"), collapse=", "), 
+  legendPosVertex = c(-1.2, 1),
+  legendPosEdge = c(-1.2, -1),
   shape="circle",
   vertex.size = 8,
   cex=1,
@@ -47,17 +47,19 @@ plot.pkgDepGraph <- function(
        vertex.label.color="black", 
        vertex.color=vColor,
        vertex.shape=vShape,
-       vertex.label.font=vFont
+       vertex.label.font=vFont,
+       xlim=c(-1.5, 1)
   )
   pch1 <- rep(19, length(plotColours))
   pch2 <- rep(-8594, length(edgeColor))
-  just <- function(x)0.5*(x+1)
+  yjust <- function(x)0.5*(x+1)
+  xjust <- function(x)1
   
   # Vertex legend
   if(!is.null(legendPosVertex)){
     legend(x=legendPosVertex[1], y=legendPosVertex[2], 
-           xjust=just(legendPosVertex[1]), 
-           yjust=just(legendPosVertex[2]),
+           xjust=xjust(legendPosVertex[1]), 
+           yjust=yjust(legendPosVertex[2]),
            legend=c("Dependencies", "Initial list"), 
            col=c(plotColours), 
            text.font=1:2,
@@ -70,13 +72,13 @@ plot.pkgDepGraph <- function(
   if(!is.null(legendPosEdge)){
     legend(x=legendPosEdge[1], 
            y=legendPosEdge[2], 
-           xjust=just(legendPosEdge[1]), 
-           yjust=just(legendPosEdge[2]),
+           xjust=xjust(legendPosEdge[1]), 
+           yjust=yjust(legendPosEdge[2]),
            legend=names(edgeColor), 
            col=edgeColor, 
            pch=pch2, 
            y.intersp=0.75,
            cex=cex)
   }
-  title(main)
+  title(main, cex=cex)
 }
