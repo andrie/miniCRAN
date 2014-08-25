@@ -3,10 +3,9 @@
 \alias{plot.pkgDepGraph}
 \title{Plots a package dependency graph.}
 \usage{
-\method{plot}{pkgDepGraph}(x, pkgsToHighlight,
-  main = "Package dependency graph", legendPosVertex = c(-1, -1),
-  legendPosEdge = c(1, -1), shape = "circle", vertex.size = 8, cex = 1,
-  ...)
+\method{plot}{pkgDepGraph}(x, pkgsToHighlight, main = paste(attr(x, "pkgs"),
+  collapse = ", "), legendPosVertex = c(-1.2, 1), legendPosEdge = c(-1.2,
+  -1), shape = "circle", vertex.size = 8, cex = 1, ...)
 }
 \arguments{
 \item{x}{pkgDepGraph object}

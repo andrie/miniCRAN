@@ -4,7 +4,7 @@ library(miniCRAN)
 pkgs <- c("foreach")
 
 revolution <- c(CRAN="http://cran.revolutionanalytics.com")
-pkgList <- pkgDep(pkgs, repos=revolution, type="source", suggests = FALSE)
+pkgList <- pkgDep(pkgs, repos=revolution, type="source", suggests = FALSE, )
 pkgList
 
 ## ----make-repo-2---------------------------------------------------------
