@@ -1,3 +1,10 @@
+miniCRAN v0.0-21 (Release date: 2014-08-18)
+==============
+
+Changes:
+
+* Changes to defaults in plot.pkgDepGraph() to move legend to left of plot area.
+
 miniCRAN v0.0-20 (Release date: 2014-08-18)
 ==============
 
