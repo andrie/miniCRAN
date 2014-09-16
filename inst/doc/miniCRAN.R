@@ -32,14 +32,10 @@ library(miniCRAN)
 
 ## ----pkgdep--------------------------------------------------------------
 tags <- "chron"
-pkgDep(tags, suggests=FALSE, enhances=FALSE, includeBasePkgs = TRUE)
-
-pkgDep(tags, suggests = TRUE, enhances=FALSE)
-
-pkgDep(tags, suggests = TRUE, enhances=TRUE)
+pkgDep(tags)
 
 ## ----makeDepGraph, warning=FALSE-----------------------------------------
-dg <- makeDepGraph(tags, includeBasePkgs=FALSE, suggests=TRUE, enhances=TRUE)
+dg <- makeDepGraph(tags, enhances=TRUE)
 set.seed(1)
 plot(dg, legendPosition = c(-1, 1), vertex.size=20)
 
@@ -47,7 +43,7 @@ plot(dg, legendPosition = c(-1, 1), vertex.size=20)
 tags <- c("ggplot2", "data.table", "plyr", "knitr", "shiny", "xts", "lattice")
 pkgDep(tags, suggests = TRUE, enhances=FALSE)
 
-dg <- makeDepGraph(tags, includeBasePkgs=FALSE, suggests=TRUE, enhances=TRUE)
+dg <- makeDepGraph(tags, enhances=TRUE)
 set.seed(1)
 plot(dg, legendPosition = c(-1, -1), vertex.size=10, cex=0.7)
 

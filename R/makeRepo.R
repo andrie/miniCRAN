@@ -74,7 +74,8 @@ twodigitRversion <- function(R = R.version){
 
 
 
-
+#' Deprecated function to download packages to local folder.
+#' 
 #' @inheritParams makeRepo
 #' @export
 makeLibrary <- function(pkgs, path, type="source"){
