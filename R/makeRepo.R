@@ -19,8 +19,9 @@
 #' @example \inst\examples\example_makeRepo.R
 
 makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source", 
-                     Rversion=Rversion(), download=TRUE, writePACKAGES=TRUE){
+                     Rversion=R.version, download=TRUE, writePACKAGES=TRUE){
   if(!file.exists(path)) stop("Download path does not exist")
+  Rversion <- twodigitRversion(Rversion)
   
   folder <- switch(
     type,
@@ -48,10 +49,7 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
 
 
 
-#' @rdname makeRepo
-#' @export
-Rversion <- function(){
-  R <- R.version
+twodigitRversion <- function(R = R.version){
   paste(R$major, strsplit(R$minor, ".", fixed = TRUE)[[1L]][1L], sep = ".")
 }
 
