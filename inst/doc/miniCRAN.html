@@ -225,13 +225,13 @@ dir.create(pth &lt;- file.path(tempdir(), &quot;miniCRAN&quot;))
 makeRepo(pkgList, path=pth, repos=revolution, type=&quot;source&quot;)
 </code></pre>
 
-<pre><code>## Created new folder: C:\Users\ANDRIE~1\AppData\Local\Temp\RtmpOMn30K/miniCRAN/src/contrib
+<pre><code>## Created new folder: C:\Users\ANDRIE~1\AppData\Local\Temp\Rtmp2FZF00/miniCRAN/src/contrib
 </code></pre>
 
 <pre><code class="r">makeRepo(pkgList, path=pth, repos=revolution, type=&quot;win.binary&quot;)
 </code></pre>
 
-<pre><code>## Created new folder: C:\Users\ANDRIE~1\AppData\Local\Temp\RtmpOMn30K/miniCRAN/bin/windows/contrib/3.0
+<pre><code>## Created new folder: C:\Users\ANDRIE~1\AppData\Local\Temp\Rtmp2FZF00/miniCRAN/bin/windows/contrib/3.0
 </code></pre>
 
 <p>Investigate the repository file structure</p>
@@ -298,13 +298,7 @@ pkgAvail(repos=pth, type=&quot;win.binary&quot;)[, c(1:3, 5)]
 </code></pre>
 
 <pre><code class="r">tags &lt;- &quot;chron&quot;
-pkgDep(tags, suggests=FALSE, enhances=FALSE, includeBasePkgs = TRUE)
-</code></pre>
-
-<pre><code>## [1] &quot;chron&quot;    &quot;graphics&quot; &quot;stats&quot;
-</code></pre>
-
-<pre><code class="r">pkgDep(tags, suggests = TRUE, enhances=FALSE)
+pkgDep(tags)
 </code></pre>
 
 <pre><code>##  [1] &quot;chron&quot;        &quot;RColorBrewer&quot; &quot;dichromat&quot;    &quot;munsell&quot;     
@@ -313,19 +307,9 @@ pkgDep(tags, suggests=FALSE, enhances=FALSE, includeBasePkgs = TRUE)
 ## [13] &quot;proto&quot;        &quot;MASS&quot;         &quot;stringr&quot;      &quot;ggplot2&quot;
 </code></pre>
 
-<pre><code class="r">pkgDep(tags, suggests = TRUE, enhances=TRUE)
-</code></pre>
-
-<pre><code>##  [1] &quot;chron&quot;        &quot;RColorBrewer&quot; &quot;dichromat&quot;    &quot;munsell&quot;     
-##  [5] &quot;plyr&quot;         &quot;labeling&quot;     &quot;colorspace&quot;   &quot;Rcpp&quot;        
-##  [9] &quot;digest&quot;       &quot;gtable&quot;       &quot;reshape2&quot;     &quot;scales&quot;      
-## [13] &quot;proto&quot;        &quot;MASS&quot;         &quot;stringr&quot;      &quot;lattice&quot;     
-## [17] &quot;ggplot2&quot;      &quot;zoo&quot;
-</code></pre>
-
 <p>To create an igraph plot of the dependencies, use the function <code>makeDepGraph()</code> and plot the results: </p>
 
-<pre><code class="r">dg &lt;- makeDepGraph(tags, includeBasePkgs=FALSE, suggests=TRUE, enhances=TRUE)
+<pre><code class="r">dg &lt;- makeDepGraph(tags, enhances=TRUE)
 set.seed(1)
 plot(dg, legendPosition = c(-1, 1), vertex.size=20)
 </code></pre>
@@ -364,7 +348,7 @@ pkgDep(tags, suggests = TRUE, enhances=FALSE)
 ## [77] &quot;tis&quot;          &quot;KernSmooth&quot;
 </code></pre>
 
-<pre><code class="r">dg &lt;- makeDepGraph(tags, includeBasePkgs=FALSE, suggests=TRUE, enhances=TRUE)
+<pre><code class="r">dg &lt;- makeDepGraph(tags, enhances=TRUE)
 set.seed(1)
 plot(dg, legendPosition = c(-1, -1), vertex.size=10, cex=0.7)
 </code></pre>
