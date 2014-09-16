@@ -1,4 +1,4 @@
-quickdf <- function (list) {
+fastdf <- function (list) {
   make_names <- function (x, prefix = "X") 
   {
     nm <- names(x)
@@ -20,7 +20,7 @@ quickdf <- function (list) {
 addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests")
                        , pdb){
   if(!p %in% rownames(pdb)) {
-    quickdf(list(
+    fastdf(list(
       dep=character(0), 
       package=character(0), 
       type=character(0)
@@ -28,7 +28,7 @@ addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests"
     
   } else {
     x <- cleanPkgField(pdb[p, type])
-    quickdf(list(
+    fastdf(list(
       dep=x, 
       package=rep(p, length(x)), 
       type=rep(type, length(x))
@@ -49,7 +49,7 @@ addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests"
 #' @example \inst\examples\example_makeDepGraph.R
 makeDepGraph <- function(
   pkg, availPkgs, repos=getOption("repos"), type="source", 
-  path, suggests=TRUE, enhances=FALSE,
+  suggests=TRUE, enhances=FALSE,
   includeBasePkgs=FALSE, ...)
 {
   if(!require("igraph", quietly = TRUE)) stop("Package igraph is not installed")
@@ -71,9 +71,6 @@ makeDepGraph <- function(
     do.call(rbind, lapply(pp, pkgEdge, type=type, pdb=pdb))
   }
   
-  # Build suggests edge list for original pkg list
-
-
   # Build depends edge list for original pkg list, combined with top level suggests
   
   pkg_orig <- pkg
@@ -81,7 +78,8 @@ makeDepGraph <- function(
   if(suggests){
     edges1 <- pkgEdges(pkg, type=c("Suggests"), availPkgs)
     p_sug <- unique(unlist(
-      tools::package_dependencies(pkg, db=availPkgs, which="Suggests", recursive=FALSE)
+      tools::package_dependencies(pkg, db=availPkgs, 
+                                  which="Suggests", recursive=FALSE)
     ))
     pkg <- unique(c(p_sug, pkg))
   } 
@@ -89,13 +87,15 @@ makeDepGraph <- function(
   if(enhances){
     edges2 <- pkgEdges(pkg_orig, type=c("Enhances"), availPkgs)
     p_enh <- unique(unlist(
-      tools::package_dependencies(pkg_orig, db=availPkgs, which="Enhances", recursive=FALSE)
+      tools::package_dependencies(pkg_orig, db=availPkgs, 
+                                  which="Enhances", recursive=FALSE)
     ))
     pkg <- unique(c(p_enh, pkg))
   } 
   
   p_dep <- unique(unlist(
-    tools::package_dependencies(pkg, db=availPkgs, which=c("Imports", "Depends", "LinkingTo"), recursive=TRUE)
+    tools::package_dependencies(pkg, db=availPkgs, 
+                                which=c("Imports", "Depends", "LinkingTo"), recursive=TRUE)
   ))
   pkg <- unique(c(p_dep, pkg))
   

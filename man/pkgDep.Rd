@@ -4,7 +4,7 @@
 \title{Retrieves package dependencies.}
 \usage{
 pkgDep(pkg, availPkgs, repos = getOption("repos"), type = "source",
-  depends = TRUE, suggests = TRUE, enhances = FALSE, path,
+  depends = TRUE, suggests = TRUE, enhances = FALSE,
   includeBasePkgs = FALSE, ...)
 }
 \arguments{
@@ -21,8 +21,6 @@ pkgDep(pkg, availPkgs, repos = getOption("repos"), type = "source",
 \item{suggests}{If TRUE, retrieves Suggests dependencies (non-recursively)}
 
 \item{enhances}{If TRUE, retrieves Enhances dependencies (non-recursively)}
-
-\item{path}{Destination download path}
 
 \item{includeBasePkgs}{If TRUE, include base R packages in results}
 

@@ -56,17 +56,17 @@ plot.pkgDepGraph <- function(
   xjust <- function(x)1
   
   # Vertex legend
-  if(!is.null(legendPosVertex)){
-    legend(x=legendPosVertex[1], y=legendPosVertex[2], 
-           xjust=xjust(legendPosVertex[1]), 
-           yjust=yjust(legendPosVertex[2]),
-           legend=c("Dependencies", "Initial list"), 
-           col=c(plotColours), 
-           text.font=1:2,
-           pch=pch1, 
-           y.intersp=0.75,
-           cex=cex)
-  }
+#   if(!is.null(legendPosVertex)){
+#     legend(x=legendPosVertex[1], y=legendPosVertex[2], 
+#            xjust=xjust(legendPosVertex[1]), 
+#            yjust=yjust(legendPosVertex[2]),
+#            legend=c("Dependencies", "Initial list"), 
+#            col=c(plotColours), 
+#            text.font=1:2,
+#            pch=pch1, 
+#            y.intersp=0.75,
+#            cex=cex)
+#   }
   
   # Edge legend
   if(!is.null(legendPosEdge)){

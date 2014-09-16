@@ -24,22 +24,22 @@
 #' Important functions:
 #' 
 #' \itemize{
-#' \item \code{\link{pkgAvail}}: Read local repository and determine available packages
-#' \item \code{\link{pkgDep}}: Find (recursive) package dependencies
-#' \item \code{\link{makeDepGraph}}: Create graph of selected package dependencies
-#' \item \code{\link{makeRepo}} : Make repository
+#' \item \code{\link{pkgAvail}}: Read from a local (or remote) CRAN-like repository and determine available packages.
+#' \item \code{\link{pkgDep}}: Find (recursive) package dependencies.
+#' \item \code{\link{makeDepGraph}}: Create graph of selected package dependencies.
+#' \item \code{\link{makeRepo}} : Make a mini CRAN repository, by downloading packages (and their dependencies) and creating the appropriate file structure for a repository.  This allows you to use functions like \code{\link[utils]{available.packages}} and \code{\link[utils]{install.packages}} on your local repository.
 #' }
 #' 
 #' This subset will be internally consistent, i.e. the following functions will work as expected:
 #'
 #' \itemize{
-#' \item \code{\link{available.packages}}
-#' \item \code{\link{install.packages}}
+#' \item \code{\link[utils]{available.packages}}
+#' \item \code{\link[utils]{install.packages}}
 #' }
 #'
 #' The main function is \code{\link{makeRepo}} - this will download all the required packages, with their dependencies, into the appropriate repository file structure, and then create the repository index (PACKAGES) file.
 #' 
-#' To get a recursive list of dependencies, and a plot, use \code{\link{pkgDep}} and \code{\link{makeDepGraph}}.
+#' To get a recursive list of dependencies as well as a plot, use \code{\link{pkgDep}()} followed by  \code{\link{makeDepGraph}()}.
 #' 
 #' 
 #' 

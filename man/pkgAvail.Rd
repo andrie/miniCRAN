@@ -13,7 +13,7 @@ pkgAvail(repos = getOption("repos"), type = "source", ...)
 \item{...}{Other arguments passed to \code{\link{available.packages}}}
 }
 \description{
-This is a thin wrapper around \code{\link{available.packages}}.  If the argument \code{path} is supplied, then the function attempts to read from a local repository, otherwise attempts to read from a CRAN mirror at the \code{repos} url.
+This is a thin wrapper around \code{\link[utils]{available.packages}}.  If the argument \code{path} is supplied, then the function attempts to read from a local repository, otherwise attempts to read from a CRAN mirror at the \code{repos} url.
 }
 \seealso{
 Other miniCRAN: \code{\link{getCranDescription}};

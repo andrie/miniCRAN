@@ -7,6 +7,7 @@
 basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 
 
+
 #' Retrieves package dependencies.
 #' 
 #' Performs recursive retrieve for \code{Depends}, \code{Imports} and \code{LinkLibrary}. Performs non-recursive retrieve for \code{Suggests}.
@@ -20,7 +21,6 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #' @param depends If TRUE, retrieves Depends, Imports and LinkingTo dependencies (non-recursively)
 #' @param suggests If TRUE, retrieves Suggests dependencies (non-recursively)
 #' @param enhances If TRUE, retrieves Enhances dependencies (non-recursively)
-#' @param path Destination download path
 #' @param includeBasePkgs If TRUE, include base R packages in results
 #' @param ... Other arguments passed to \code{\link{available.packages}}
 #' 
@@ -30,7 +30,7 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #' 
 #' @example \inst\examples\example_pkgDep.R
 
-pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depends=TRUE, suggests=TRUE, enhances=FALSE, path, includeBasePkgs=FALSE, ...){
+pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depends=TRUE, suggests=TRUE, enhances=FALSE, includeBasePkgs=FALSE, ...){
   if(!depends & !suggests & !enhances) {
     warning("Returning nothing, since depends, suggests and enhances are all FALSE")
     return(character(0))
@@ -44,7 +44,7 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depe
       repos <- c(CRAN="http://cran.revolutionanalytics.com")
     }
     if(is.na(type)) type <- "source"
-    availPkgs <- pkgAvail(path=path, repos=repos, type=type, ...)
+    availPkgs <- pkgAvail(repos=repos, type=type, ...)
   }
   if(nrow(availPkgs) == 0){
     stop("Unable to retrieve available packages from CRAN")
@@ -114,7 +114,7 @@ print.pkgDep <- function(x, ...){
 
 #' Reads available packages from CRAN repository.
 #' 
-#' This is a thin wrapper around \code{\link{available.packages}}.  If the argument \code{path} is supplied, then the function attempts to read from a local repository, otherwise attempts to read from a CRAN mirror at the \code{repos} url.
+#' This is a thin wrapper around \code{\link[utils]{available.packages}}.  If the argument \code{path} is supplied, then the function attempts to read from a local repository, otherwise attempts to read from a CRAN mirror at the \code{repos} url.
 #' 
 #' @inheritParams pkgDep
 #' @export

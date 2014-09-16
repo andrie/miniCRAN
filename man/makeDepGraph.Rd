@@ -4,7 +4,7 @@
 \title{Create dependency graph from available packages.}
 \usage{
 makeDepGraph(pkg, availPkgs, repos = getOption("repos"), type = "source",
-  path, suggests = TRUE, enhances = FALSE, includeBasePkgs = FALSE, ...)
+  suggests = TRUE, enhances = FALSE, includeBasePkgs = FALSE, ...)
 }
 \arguments{
 \item{pkg}{Character vector of packages.}
@@ -14,8 +14,6 @@ makeDepGraph(pkg, availPkgs, repos = getOption("repos"), type = "source",
 \item{repos}{URL(s) of the 'contrib' sections of the repositories. Passed to \code{\link{available.packages}}}
 
 \item{type}{Passed to \code{\link{available.packages}}}
-
-\item{path}{Destination download path}
 
 \item{suggests}{If TRUE, retrieves Suggests dependencies (non-recursively)}
 
