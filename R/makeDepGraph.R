@@ -43,6 +43,8 @@ addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests"
 #' 
 #' @inheritParams pkgDep
 #' @inheritParams makeRepo
+#' 
+#' @import igraph
 #' @export
 #' @family miniCRAN functions
 #' @seealso \code{\link{pkgDep}}, \code{\link{plot.pkgDepGraph}}
@@ -52,7 +54,6 @@ makeDepGraph <- function(
   suggests=TRUE, enhances=FALSE,
   includeBasePkgs=FALSE, ...)
 {
-  if(!require("igraph", quietly = TRUE)) stop("Package igraph is not installed")
   
   if(missing(availPkgs)) {
     availPkgs <- pkgAvail(repos=repos, type=type)

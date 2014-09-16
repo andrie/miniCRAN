@@ -9,6 +9,9 @@
 #' @param cex Vertex label size.
 #' @param ... Ignored
 #' @export
+#' 
+#' @import igraph
+#' 
 #' @family miniCRAN functions
 #' @seealso \code{\link{makeDepGraph}}
 #' @example \inst\examples\example_plot.pkgDepGraph.R
@@ -22,7 +25,6 @@ plot.pkgDepGraph <- function(
   cex=1,
   ...)
 {
-  if(!require("igraph", quietly = TRUE)) stop("Package igraph is not installed")
   class(x) <- "igraph"
   plotColours <- c("grey80", "orange")
   if(missing("pkgsToHighlight")) {

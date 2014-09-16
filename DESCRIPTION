@@ -15,9 +15,9 @@ Date: 2014-09-16
 Imports:
     tools,
     XML,
-    httr
+    httr,
+    igraph
 Suggests:
-    igraph,
     testthat,
     knitr
 VignetteBuilder: knitr
