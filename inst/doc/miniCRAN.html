@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Building a private repository using makeRepo</title>
+<title>Introduction to using miniCRAN</title>
 
 <!-- Styles for R syntax highlighter -->
 <style type="text/css">
@@ -188,17 +188,19 @@ hr {
 
 <body>
 <!--
-% \VignetteIndexEntry{Using miniCRAN to identify package dependencies}
+% \VignetteIndexEntry{Using miniCRAN to create a local CRAN repository}
 % \VignetteEngine{knitr::knitr}
 % \VignettePackage{miniCRAN}
 % \VignetteKeyword{miniCRAN}
 --> 
 
-<h1>Building a private repository using makeRepo</h1>
+<h1>Introduction to using miniCRAN</h1>
+
+<h2>Building a private repository using makeRepo</h2>
 
 <p>Start by creating the recursive dependency tree for your target packages.</p>
 
-<p>For example, imagine a scenario where you want to create a repository that consists of the package &ldquo;foreach&rdquo; and its dependencies.</p>
+<p>For example, imagine a scenario where you want to create a repository that consists of the package <code>foreach</code> and its dependencies.</p>
 
 <p>Start by creating the dependency list:</p>
 
@@ -223,13 +225,13 @@ dir.create(pth &lt;- file.path(tempdir(), &quot;miniCRAN&quot;))
 makeRepo(pkgList, path=pth, repos=revolution, type=&quot;source&quot;)
 </code></pre>
 
-<pre><code>## Created new folder: C:\Users\ANDRIE~1\AppData\Local\Temp\RtmpeA6WeP/miniCRAN/src/contrib
+<pre><code>## Created new folder: C:\Users\ANDRIE~1\AppData\Local\Temp\RtmpOMn30K/miniCRAN/src/contrib
 </code></pre>
 
 <pre><code class="r">makeRepo(pkgList, path=pth, repos=revolution, type=&quot;win.binary&quot;)
 </code></pre>
 
-<pre><code>## Created new folder: C:\Users\ANDRIE~1\AppData\Local\Temp\RtmpeA6WeP/miniCRAN/bin/windows/contrib/3.0
+<pre><code>## Created new folder: C:\Users\ANDRIE~1\AppData\Local\Temp\RtmpOMn30K/miniCRAN/bin/windows/contrib/3.0
 </code></pre>
 
 <p>Investigate the repository file structure</p>
@@ -262,26 +264,24 @@ pkgAvail(repos=pth, type=&quot;win.binary&quot;)[, c(1:3, 5)]
 ## iterators &quot;iterators&quot; &quot;1.0.7&quot; NA            NA
 </code></pre>
 
-<h1>Using miniCRAN to identify package dependencies</h1>
+<h2>Using miniCRAN to identify package dependencies</h2>
 
-<h2>Introduction</h2>
-
-<p>In miniCRAN I expose two functions that provides information about dependencies:</p>
+<p>The <code>miniCRAN</code> package exposes two functions that provide information about dependencies:</p>
 
 <ul>
-<li><p>The function <code>pkgDep()</code> returns a character vector with the names of dependencies. Internally, <code>pkgDep()</code> is a wrapper around <code>tools::package_dependencies()</code>, a base R function that, well, tells you about package dependencies. My new function is in one way a convenience, but more importantly it sets different defaults (more about this later).</p></li>
-<li><p>The function <code>makeDepGraph()</code> creates an igraph representation of the dependencies.</p></li>
+<li><p>The function <code>pkgDep()</code> returns a character vector with the names of dependencies. Internally, <code>pkgDep()</code> is a wrapper around <code>tools::package_dependencies()</code>, a base R function that, well, tells you about package dependencies. My <code>pkgDep()</code> function is in one way a convenience, but more importantly it sets different defaults (more about this later).</p></li>
+<li><p>The function <code>makeDepGraph()</code> creates a graph representation of the dependencies.</p></li>
 </ul>
 
-<p>Take a look at some examples.  I illustrate with the the package <code>chron</code>, because <code>chron</code> neatly illustrates the different roles of Imports, Suggests and Enhances:</p>
+<p>The package <code>chron</code> neatly illustrates the different roles of Imports, Suggests and Enhances:</p>
 
 <ul>
-<li><p><code>chron</code> Imports the base packages graphics and stats. This means that <code>chron</code> internally makes use of graphics and stats and will always load these packages.</p></li>
-<li><p><code>chron</code> Suggests the packages scales and ggplot2. This means that <code>chron</code> uses some functions from these packages in examples or in its vignettes.  However, these functions are not necessary to use <code>chron</code></p></li>
-<li><p><code>chron</code> Enhances the package <code>zoo</code>, meaning that it adds something to <code>zoo</code> packages. These enhancements are made available to you if you have <code>zoo</code> installed.</p></li>
+<li><p><code>chron</code> <strong>Imports</strong> the base packages graphics and stats. This means that <code>chron</code> internally makes use of graphics and stats and will always load these packages.</p></li>
+<li><p><code>chron</code> <strong>Suggests</strong> the packages scales and ggplot2. This means that <code>chron</code> uses some functions from these packages in examples or in its vignettes.  However, these functions are not necessary to use <code>chron</code></p></li>
+<li><p><code>chron</code> <strong>Enhances</strong> the package <code>zoo</code>, meaning that it adds something to <code>zoo</code> packages. These enhancements are made available to you if you have <code>zoo</code> installed.</p></li>
 </ul>
 
-<h2>A worked example using the package chron</h2>
+<h3>A worked example using the package chron</h3>
 
 <p>The function <code>pkgDep()</code> exposes not only these dependencies, but also also all recursive dependencies. In other words, it answers the question which packages need to be installed to satsify all dependencies of dependencies.</p>
 
@@ -323,7 +323,7 @@ pkgDep(tags, suggests=FALSE, enhances=FALSE, includeBasePkgs = TRUE)
 ## [17] &quot;ggplot2&quot;      &quot;zoo&quot;
 </code></pre>
 
-<p>To create an igraph plot of the dependencies, you can use the function <code>makeDepGraph()</code> and plot the results: </p>
+<p>To create an igraph plot of the dependencies, use the function <code>makeDepGraph()</code> and plot the results: </p>
 
 <pre><code class="r">dg &lt;- makeDepGraph(tags, includeBasePkgs=FALSE, suggests=TRUE, enhances=TRUE)
 set.seed(1)
@@ -334,9 +334,9 @@ plot(dg, legendPosition = c(-1, 1), vertex.size=20)
 
 <p>Note how the dependencies expand to <code>zoo</code> (enhanced), <code>scales</code> and <code>ggplot</code> (suggested) and then recursively from there to get all the <code>Imports</code> and <code>LinkingTo</code> dependencies.</p>
 
-<h2>An example with multiple input packages</h2>
+<h3>An example with multiple input packages</h3>
 
-<p>A more complicated example:</p>
+<p>As a final example, create a dependency graph of seven very popular R packages:</p>
 
 <pre><code class="r">tags &lt;- c(&quot;ggplot2&quot;, &quot;data.table&quot;, &quot;plyr&quot;, &quot;knitr&quot;, &quot;shiny&quot;, &quot;xts&quot;, &quot;lattice&quot;)
 pkgDep(tags, suggests = TRUE, enhances=FALSE)
