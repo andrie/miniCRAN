@@ -9,6 +9,10 @@ basePkgs()
 Retrieves names of installed packages by calling \code{\link[utils]{installed.packages}} and returning only those packages where \code{Priority} equals "base".
 }
 \seealso{
-pkgDep
+\code{\link{pkgDep}}
+
+Other miniCRAN.functions: \code{\link{makeDepGraph}};
+  \code{\link{makeRepo}}; \code{\link{pkgAvail}};
+  \code{\link{pkgDep}}; \code{\link{plot.pkgDepGraph}}
 }
 

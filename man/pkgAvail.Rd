@@ -8,7 +8,7 @@ pkgAvail(repos = getOption("repos"), type = "source", ...)
 \arguments{
 \item{repos}{URL(s) of the 'contrib' sections of the repositories. Passed to \code{\link{available.packages}}}
 
-\item{type}{Passed to \code{\link{available.packages}}}
+\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.}
 
 \item{...}{Other arguments passed to \code{\link{available.packages}}}
 }
@@ -16,7 +16,10 @@ pkgAvail(repos = getOption("repos"), type = "source", ...)
 This is a thin wrapper around \code{\link[utils]{available.packages}}.  If the argument \code{path} is supplied, then the function attempts to read from a local repository, otherwise attempts to read from a CRAN mirror at the \code{repos} url.
 }
 \seealso{
-Other miniCRAN: \code{\link{getCranDescription}};
-  \code{\link{pkgDep}}
+\code{\link{pkgDep}}
+
+Other miniCRAN.functions: \code{\link{basePkgs}};
+  \code{\link{makeDepGraph}}; \code{\link{makeRepo}};
+  \code{\link{pkgDep}}; \code{\link{plot.pkgDepGraph}}
 }
 

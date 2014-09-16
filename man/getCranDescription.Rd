@@ -11,7 +11,7 @@ getCranDescription(pkg, repos = getOption("repos"), type = "source", path,
 
 \item{repos}{URL(s) of the 'contrib' sections of the repositories. Passed to \code{\link{available.packages}}}
 
-\item{type}{Passed to \code{\link{available.packages}}}
+\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.}
 
 \item{path}{Destination download path. This path is the root folder of your new repository.}
 
@@ -26,9 +26,5 @@ getCranDescription(c("igraph", "ggplot2", "XML"),
   repos=c(CRAN="http://cran.revolutionanalytics.com")
 )
 }
-}
-\seealso{
-Other miniCRAN: \code{\link{pkgAvail}};
-  \code{\link{pkgDep}}
 }
 

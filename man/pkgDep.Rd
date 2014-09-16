@@ -14,7 +14,7 @@ pkgDep(pkg, availPkgs, repos = getOption("repos"), type = "source",
 
 \item{repos}{URL(s) of the 'contrib' sections of the repositories. Passed to \code{\link{available.packages}}}
 
-\item{type}{Passed to \code{\link{available.packages}}}
+\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.}
 
 \item{depends}{If TRUE, retrieves Depends, Imports and LinkingTo dependencies (non-recursively)}
 
@@ -49,9 +49,10 @@ pkgDep(pkg=c("ggplot2", "plyr", "reshape2"), pdb)
 
 }
 \seealso{
-makeDepGraph
+\code{\link{makeDepGraph}}
 
-Other miniCRAN: \code{\link{getCranDescription}};
-  \code{\link{pkgAvail}}
+Other miniCRAN.functions: \code{\link{basePkgs}};
+  \code{\link{makeDepGraph}}; \code{\link{makeRepo}};
+  \code{\link{pkgAvail}}; \code{\link{plot.pkgDepGraph}}
 }
 

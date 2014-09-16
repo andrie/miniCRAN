@@ -9,6 +9,7 @@
 #' @param cex Vertex label size.
 #' @param ... Ignored
 #' @export
+#' @family miniCRAN functions
 #' @seealso \code{\link{makeDepGraph}}
 #' @example \inst\examples\example_plot.pkgDepGraph.R
 #' 

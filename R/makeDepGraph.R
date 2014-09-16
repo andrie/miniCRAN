@@ -44,8 +44,8 @@ addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests"
 #' @inheritParams pkgDep
 #' @inheritParams makeRepo
 #' @export
-#' @family graph
-#' @seealso pkgDep plot.pkgDepGraph
+#' @family miniCRAN functions
+#' @seealso \code{\link{pkgDep}}, \code{\link{plot.pkgDepGraph}}
 #' @example \inst\examples\example_makeDepGraph.R
 makeDepGraph <- function(
   pkg, availPkgs, repos=getOption("repos"), type="source", 

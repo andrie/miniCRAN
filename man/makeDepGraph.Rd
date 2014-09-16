@@ -13,7 +13,7 @@ makeDepGraph(pkg, availPkgs, repos = getOption("repos"), type = "source",
 
 \item{repos}{URL(s) of the 'contrib' sections of the repositories. Passed to \code{\link{available.packages}}}
 
-\item{type}{Passed to \code{\link{available.packages}}}
+\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.}
 
 \item{suggests}{If TRUE, retrieves Suggests dependencies (non-recursively)}
 
@@ -62,6 +62,10 @@ if(require(igraph)) plot(p)
 }
 }
 \seealso{
-pkgDep plot.pkgDepGraph
+\code{\link{pkgDep}}, \code{\link{plot.pkgDepGraph}}
+
+Other miniCRAN.functions: \code{\link{basePkgs}};
+  \code{\link{makeRepo}}; \code{\link{pkgAvail}};
+  \code{\link{pkgDep}}; \code{\link{plot.pkgDepGraph}}
 }
 

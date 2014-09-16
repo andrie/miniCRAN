@@ -3,7 +3,8 @@
 #' Retrieves names of installed packages by calling \code{\link[utils]{installed.packages}} and returning only those packages where \code{Priority} equals "base".
 #' 
 #' @export
-#' @seealso pkgDep
+#' @family miniCRAN functions
+#' @seealso \code{\link{pkgDep}}
 basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 
 
@@ -17,7 +18,7 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #' @param pkg Character vector of packages.
 #' @param availPkgs Vector of available packages.  Defaults to reading this list from CRAN, using \code{\link{available.packages}}
 #' @param repos URL(s) of the 'contrib' sections of the repositories. Passed to \code{\link{available.packages}}
-#' @param type Passed to \code{\link{available.packages}}
+#' @param type Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.
 #' @param depends If TRUE, retrieves Depends, Imports and LinkingTo dependencies (non-recursively)
 #' @param suggests If TRUE, retrieves Suggests dependencies (non-recursively)
 #' @param enhances If TRUE, retrieves Enhances dependencies (non-recursively)
@@ -25,8 +26,8 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #' @param ... Other arguments passed to \code{\link{available.packages}}
 #' 
 #' @export
-#' @seealso makeDepGraph
-#' @family miniCRAN
+#' @seealso \code{\link{makeDepGraph}}
+#' @family miniCRAN functions
 #' 
 #' @example \inst\examples\example_pkgDep.R
 
@@ -118,7 +119,8 @@ print.pkgDep <- function(x, ...){
 #' 
 #' @inheritParams pkgDep
 #' @export
-#' @family miniCRAN
+#' @family miniCRAN functions
+#' @seealso \code{\link{pkgDep}}
 pkgAvail <- function(repos=getOption("repos"), type="source", ...){
   if(!grepl("^file", repos[1]) && file.exists(repos[1])) {
     repos <- paste0("file:///", repos[1])

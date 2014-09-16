@@ -11,8 +11,6 @@ makeRepo(pkgs, path, repos = getOption("repos"), type = "source",
 
 \item{path}{Destination download path. This path is the root folder of your new repository.}
 
-\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.}
-
 \item{Rversion}{List with two named elements: `major` and `minor`.  If not supplied, defaults to system version of R, using \code{\link[base]{R.version}}.  Only used if \code{type} is not "source"}
 
 \item{download}{If TRUE downloads packages.}
@@ -20,6 +18,8 @@ makeRepo(pkgs, path, repos = getOption("repos"), type = "source",
 \item{writePACKAGES}{If TRUE, calls \code{\link[tools]{write_PACKAGES}} to update the repository PACKAGES file.}
 
 \item{repos}{URL(s) of the 'contrib' sections of the repositories. Passed to \code{\link{available.packages}}}
+
+\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.}
 }
 \description{
 Given a list of packages, downloads these packages to a specified destination folder using the required CRAN folder structure, and finally creates the PACKAGES index file.  Since the folder structure mimics the required structure and files of a CRAN repository, it supports functions like \code{\link[utils]{install.packages}()}.
@@ -87,5 +87,10 @@ pkgAvail(repos=pth, type="win.binary")
 # Delete temporary folder
 unlink(pth, recursive = TRUE)
 }
+}
+\seealso{
+Other miniCRAN.functions: \code{\link{basePkgs}};
+  \code{\link{makeDepGraph}}; \code{\link{pkgAvail}};
+  \code{\link{pkgDep}}; \code{\link{plot.pkgDepGraph}}
 }
 
