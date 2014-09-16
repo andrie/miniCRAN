@@ -31,8 +31,8 @@ Next, create a repository with the function `makeRepo()`.  In this example, get 
 dir.create(pth <- file.path(tempdir(), "miniCRAN"))
 
 # Make repo for source and win.binary
-makeRepo(pkgList, path=pth, repos=revolution, download=TRUE, writePACKAGES=TRUE, type="source")
-makeRepo(pkgList, path=pth, repos=revolution, download=TRUE, writePACKAGES=TRUE, type="win.binary")
+makeRepo(pkgList, path=pth, repos=revolution, type="source")
+makeRepo(pkgList, path=pth, repos=revolution, type="win.binary")
 ```
 
 
