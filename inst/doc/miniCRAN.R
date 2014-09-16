@@ -41,7 +41,7 @@ pkgDep(tags, suggests = TRUE, enhances=TRUE)
 ## ----makeDepGraph, warning=FALSE-----------------------------------------
 dg <- makeDepGraph(tags, includeBasePkgs=FALSE, suggests=TRUE, enhances=TRUE)
 set.seed(1)
-plot(dg, legendPosEdge = c(-1, 1), vertex.size=20)
+plot(dg, legendPosition = c(-1, 1), vertex.size=20)
 
 ## ----so-tags, warning=FALSE, fig.width=10, fig.height=10-----------------
 tags <- c("ggplot2", "data.table", "plyr", "knitr", "shiny", "xts", "lattice")
@@ -49,5 +49,5 @@ pkgDep(tags, suggests = TRUE, enhances=FALSE)
 
 dg <- makeDepGraph(tags, includeBasePkgs=FALSE, suggests=TRUE, enhances=TRUE)
 set.seed(1)
-plot(dg, legendPosEdge = c(-1, -1), vertex.size=10, cex=0.7)
+plot(dg, legendPosition = c(-1, -1), vertex.size=10, cex=0.7)
 

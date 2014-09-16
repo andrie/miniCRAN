@@ -19,7 +19,7 @@ newpdb["RRT", ]
 
 set.seed(1)
 plot(makeDepGraph("RRT", availPkgs = newpdb, suggests=TRUE), 
-     legendPosEdge=c(1, -0.7))
+     legendPosition=c(1, -0.7))
 
 
 

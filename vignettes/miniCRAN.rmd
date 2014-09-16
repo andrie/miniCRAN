@@ -108,7 +108,7 @@ To create an igraph plot of the dependencies, you can use the function `makeDepG
 ```{r makeDepGraph, warning=FALSE}
 dg <- makeDepGraph(tags, includeBasePkgs=FALSE, suggests=TRUE, enhances=TRUE)
 set.seed(1)
-plot(dg, legendPosEdge = c(-1, 1), vertex.size=20)
+plot(dg, legendPosition = c(-1, 1), vertex.size=20)
 ```
 
 
@@ -126,7 +126,7 @@ pkgDep(tags, suggests = TRUE, enhances=FALSE)
 
 dg <- makeDepGraph(tags, includeBasePkgs=FALSE, suggests=TRUE, enhances=TRUE)
 set.seed(1)
-plot(dg, legendPosEdge = c(-1, -1), vertex.size=10, cex=0.7)
+plot(dg, legendPosition = c(-1, -1), vertex.size=10, cex=0.7)
 ```
 
 

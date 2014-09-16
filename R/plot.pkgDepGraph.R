@@ -3,7 +3,7 @@
 #' @param x pkgDepGraph object
 #' @param pkgsToHighlight Optional character vector with names of package to hightlight. If missing, defaults to packages used in original call to \code{\link{makeDepGraph}}
 #' @param main Title of plot
-#' @param legendPosEdge Numeric vector of length 2, indicating (x, y) position of edge legend. Both values should be in the range [-1; 1].  If NULL, the edge legend is not displayed.
+#' @param legendPosition Numeric vector of length 2, indicating (x, y) position of edge legend. Both values should be in the range [-1; 1].  If NULL, the edge legend is not displayed.
 #' @param shape Shape of edge.  See \code{\link[igraph]{igraph.plotting}}. Could be "none", "circle", "square", ...
 #' @param vertex.size Size of vertex shape. See \code{\link[igraph]{igraph.plotting}}
 #' @param cex Vertex label size.
@@ -15,7 +15,7 @@
 plot.pkgDepGraph <- function(
   x, pkgsToHighlight, 
   main=paste(attr(x, "pkgs"), collapse=", "), 
-  legendPosEdge = c(-1.2, -1),
+  legendPosition = c(-1.2, -1),
   shape="circle",
   vertex.size = 8,
   cex=1,
@@ -55,11 +55,11 @@ plot.pkgDepGraph <- function(
   
   
   # Edge legend
-  if(!is.null(legendPosEdge)){
-    legend(x=legendPosEdge[1], 
-           y=legendPosEdge[2], 
-           xjust=xjust(legendPosEdge[1]), 
-           yjust=yjust(legendPosEdge[2]),
+  if(!is.null(legendPosition)){
+    legend(x=legendPosition[1], 
+           y=legendPosition[2], 
+           xjust=xjust(legendPosition[1]), 
+           yjust=yjust(legendPosition[2]),
            legend=names(edgeColor), 
            col=edgeColor, 
            pch=pch2, 
