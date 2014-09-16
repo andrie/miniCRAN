@@ -1,19 +1,38 @@
 #' Downloads packages from CRAN to specified path and creates a local repository.
 #' 
-#' Given a list of packages, downloads to a specified destination folder using the required CRAN folder structure then creates the PACKAGES index file.
-#' 
-#' The function \code{makeRepo} creates a repository, similar in structure to CRAN.  It optionally updates the PACKAGES file.  If done correctly, it is possible to use this folder as a repository, i.e. it will support functions like \code{\link[utils]{install.packages}()}.
+#' Given a list of packages, downloads these packages to a specified destination folder using the required CRAN folder structure, and finally creates the PACKAGES index file.  Since the folder structure mimics the required structure and files of a CRAN repository, it supports functions like \code{\link[utils]{install.packages}()}.
 #' 
 #' 
-#' Uses \code{\link{download.packages}} and \code{\link[tools]{write_PACKAGES}}
+#' @section Repo folder structure:
+#' The folder structure of a repository
+#' \itemize{
+#' \item{Root}
+#' \itemize{
+#' \item{src}
+#' \itemize{
+#' \item{contrib}
+#' }
+#' \item{bin}
+#' \itemize{
+#' \item{windows/contrib/}
+#' \item{macosx/contrib/}
+#' \item{macosx/mavericks/contrib}
+#' \item{macosx/leopard/contrib}
+#' }
+#' \item{PACKAGES}
+#' }
+#' }
+#' 
+#' 
+#' @note Internally makes use of \code{\link[utils]{download.packages}} and \code{\link[tools]{write_PACKAGES}}
 #' 
 #' @inheritParams pkgDep
 #' @param pkgs Character vector of packages to download
-#' @param path Destination download path
-#' @param type Passed to \code{\link{download.packages}}
-#' @param Rversion String of format "<major R version>.<minor R version>", e.g. "3.2". Only used if \code{type} is not "source"
-#' @param download If TRUE downloads packages, otherwise just creates PACKAGES file
-#' @param writePACKAGES If TRUE, calls \code{\link[tools]{write_PACKAGES}} to update the repository PACKAGES file
+#' @param path Destination download path. This path is the root folder of your new repository.
+#' @param type Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.
+#' @param Rversion List with two named elements: `major` and `minor`.  If not supplied, defaults to system version of R, using \code{\link[base]{R.version}}.  Only used if \code{type} is not "source"
+#' @param download If TRUE downloads packages.
+#' @param writePACKAGES If TRUE, calls \code{\link[tools]{write_PACKAGES}} to update the repository PACKAGES file.
 #' 
 #' @export
 #' @example \inst\examples\example_makeRepo.R

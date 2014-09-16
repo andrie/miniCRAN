@@ -13,7 +13,7 @@ getCranDescription(pkg, repos = getOption("repos"), type = "source", path,
 
 \item{type}{Passed to \code{\link{available.packages}}}
 
-\item{path}{Destination download path}
+\item{path}{Destination download path. This path is the root folder of your new repository.}
 
 \item{pkgs}{Character vector of packages to download}
 }

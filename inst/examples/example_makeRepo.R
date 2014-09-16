@@ -21,7 +21,7 @@ pkgList
 dir.create(pth <- file.path(tempdir(), "miniCRAN"))
 
 # Make repo for source and win.binary
-makeRepo(pkgList, path=pth, repos=revolution, download=TRUE, writePACKAGES=TRUE, type="source")
+makeRepo(pkgList, path=pth, repos=revolution, type="source")
 
 # List all files in miniCRAN
 list.files(pth, recursive = TRUE)
@@ -30,7 +30,7 @@ list.files(pth, recursive = TRUE)
 pkgAvail(repos=pth, type="source")
 
 # Repeat process for windows binaries
-makeRepo(pkgList, path=pth, repos=revolution, download=TRUE, writePACKAGES=TRUE, type="win.binary")
+makeRepo(pkgList, path=pth, repos=revolution, type="win.binary")
 pkgAvail(repos=pth, type="win.binary")
 
 # Delete temporary folder

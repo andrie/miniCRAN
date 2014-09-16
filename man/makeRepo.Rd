@@ -9,25 +9,44 @@ makeRepo(pkgs, path, repos = getOption("repos"), type = "source",
 \arguments{
 \item{pkgs}{Character vector of packages to download}
 
-\item{path}{Destination download path}
+\item{path}{Destination download path. This path is the root folder of your new repository.}
 
-\item{type}{Passed to \code{\link{download.packages}}}
+\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.}
 
-\item{Rversion}{String of format "<major R version>.<minor R version>", e.g. "3.2". Only used if \code{type} is not "source"}
+\item{Rversion}{List with two named elements: `major` and `minor`.  If not supplied, defaults to system version of R, using \code{\link[base]{R.version}}.  Only used if \code{type} is not "source"}
 
-\item{download}{If TRUE downloads packages, otherwise just creates PACKAGES file}
+\item{download}{If TRUE downloads packages.}
 
-\item{writePACKAGES}{If TRUE, calls \code{\link[tools]{write_PACKAGES}} to update the repository PACKAGES file}
+\item{writePACKAGES}{If TRUE, calls \code{\link[tools]{write_PACKAGES}} to update the repository PACKAGES file.}
 
 \item{repos}{URL(s) of the 'contrib' sections of the repositories. Passed to \code{\link{available.packages}}}
 }
 \description{
-Given a list of packages, downloads to a specified destination folder using the required CRAN folder structure then creates the PACKAGES index file.
+Given a list of packages, downloads these packages to a specified destination folder using the required CRAN folder structure, and finally creates the PACKAGES index file.  Since the folder structure mimics the required structure and files of a CRAN repository, it supports functions like \code{\link[utils]{install.packages}()}.
 }
-\details{
-The function \code{makeRepo} creates a repository, similar in structure to CRAN.  It optionally updates the PACKAGES file.  If done correctly, it is possible to use this folder as a repository, i.e. it will support functions like \code{\link[utils]{install.packages}()}.
+\note{
+Internally makes use of \code{\link[utils]{download.packages}} and \code{\link[tools]{write_PACKAGES}}
+}
+\section{Repo folder structure}{
 
-Uses \code{\link{download.packages}} and \code{\link[tools]{write_PACKAGES}}
+The folder structure of a repository
+\itemize{
+\item{Root}
+\itemize{
+\item{src}
+\itemize{
+\item{contrib}
+}
+\item{bin}
+\itemize{
+\item{windows/contrib/}
+\item{macosx/contrib/}
+\item{macosx/mavericks/contrib}
+\item{macosx/leopard/contrib}
+}
+\item{PACKAGES}
+}
+}
 }
 \examples{
 
@@ -53,7 +72,7 @@ pkgList
 dir.create(pth <- file.path(tempdir(), "miniCRAN"))
 
 # Make repo for source and win.binary
-makeRepo(pkgList, path=pth, repos=revolution, download=TRUE, writePACKAGES=TRUE, type="source")
+makeRepo(pkgList, path=pth, repos=revolution, type="source")
 
 # List all files in miniCRAN
 list.files(pth, recursive = TRUE)
@@ -62,7 +81,7 @@ list.files(pth, recursive = TRUE)
 pkgAvail(repos=pth, type="source")
 
 # Repeat process for windows binaries
-makeRepo(pkgList, path=pth, repos=revolution, download=TRUE, writePACKAGES=TRUE, type="win.binary")
+makeRepo(pkgList, path=pth, repos=revolution, type="win.binary")
 pkgAvail(repos=pth, type="win.binary")
 
 # Delete temporary folder
