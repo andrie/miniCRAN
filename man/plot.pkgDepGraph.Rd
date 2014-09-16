@@ -4,8 +4,8 @@
 \title{Plots a package dependency graph.}
 \usage{
 \method{plot}{pkgDepGraph}(x, pkgsToHighlight, main = paste(attr(x, "pkgs"),
-  collapse = ", "), legendPosVertex = c(-1.2, 1), legendPosEdge = c(-1.2,
-  -1), shape = "circle", vertex.size = 8, cex = 1, ...)
+  collapse = ", "), legendPosEdge = c(-1.2, -1), shape = "circle",
+  vertex.size = 8, cex = 1, ...)
 }
 \arguments{
 \item{x}{pkgDepGraph object}
@@ -13,8 +13,6 @@
 \item{pkgsToHighlight}{Optional character vector with names of package to hightlight. If missing, defaults to packages used in original call to \code{\link{makeDepGraph}}}
 
 \item{main}{Title of plot}
-
-\item{legendPosVertex}{Numeric vector of length 2, indicating (x, y) position of vertex legend. Both values should be in the range [-1; 1].  If NULL, the vertex legend is not displayed.}
 
 \item{legendPosEdge}{Numeric vector of length 2, indicating (x, y) position of edge legend. Both values should be in the range [-1; 1].  If NULL, the edge legend is not displayed.}
 
@@ -58,7 +56,7 @@ plot(dg, legendPosEdge=c(-1, 1), vertex.size=20,  cex=0.5)
 
 # Move vertex legend to top right
 set.seed(42); 
-plot(dg, legendPosEdge=c(-1, 1), legendPosVertex=c(1, 1), vertex.size=20,  cex=0.5)
+plot(dg, legendPosEdge=c(-1, 1), vertex.size=20,  cex=0.5)
 
 }
 \seealso{

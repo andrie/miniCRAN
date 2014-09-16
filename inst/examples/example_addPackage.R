@@ -9,8 +9,8 @@ pdb <- cranJuly2014
 
 # Overwrite pdb with development version of miniCRAN at github
 \dontrun{
-newpdb <- addPackageGithub(pdb=pdb, "andrie/miniCRAN")
-newpdb["miniCRAN", ]
+  newpdb <- addPackageGithub(pdb=pdb, "andrie/miniCRAN")
+  newpdb["miniCRAN", ]
 }
 
 # Add package from github that's not currently on CRAN
@@ -19,7 +19,7 @@ newpdb["RRT", ]
 
 set.seed(1)
 plot(makeDepGraph("RRT", availPkgs = newpdb, suggests=TRUE), 
-     legendPosVertex=c(1, -1), legendPosEdge=c(1, -0.7))
+     legendPosEdge=c(1, -0.7))
 
 
 

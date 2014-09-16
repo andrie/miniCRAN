@@ -26,5 +26,5 @@ plot(dg, legendPosEdge=c(-1, 1), vertex.size=20,  cex=0.5)
 
 # Move vertex legend to top right
 set.seed(42); 
-plot(dg, legendPosEdge=c(-1, 1), legendPosVertex=c(1, 1), vertex.size=20,  cex=0.5)
+plot(dg, legendPosEdge=c(-1, 1), vertex.size=20,  cex=0.5)
 
