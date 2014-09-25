@@ -42,15 +42,7 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
   if(!file.exists(path)) stop("Download path does not exist")
   Rversion <- twodigitRversion(Rversion)
   
-  folder <- switch(
-    type,
-    "source" = "src/contrib",
-    "win.binary" = sprintf("bin/windows/contrib/%s", Rversion),
-    "mac.binary" = sprintf("bin/macosx/contrib/%s", Rversion),
-    "mac.binary.mavericks" =  sprintf("bin/macosx/mavericks/contrib/%s", Rversion),
-    "mac.binary.leopard"= sprintf("bin/macosx/leopard/contrib/%s", Rversion),
-    stop("Type ", type, "not recognised.")
-  )
+  folder <- repoPrefix(type, Rversion)
   pkgPath <- file.path(path, folder)
   if(!file.exists(pkgPath)) {
     result <- dir.create(pkgPath, recursive=TRUE)
@@ -63,6 +55,20 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
   
   if(download) download.packages(pkgs, destdir=pkgPath, repos=repos, type=type)
   if(writePACKAGES) tools::write_PACKAGES(dir=pkgPath, type=type) 
+}
+
+
+
+repoPrefix <- function(type, Rversion){
+  switch(
+    type,
+    "source" = "src/contrib",
+    "win.binary" = sprintf("bin/windows/contrib/%s", Rversion),
+    "mac.binary" = sprintf("bin/macosx/contrib/%s", Rversion),
+    "mac.binary.mavericks" =  sprintf("bin/macosx/mavericks/contrib/%s", Rversion),
+    "mac.binary.leopard"= sprintf("bin/macosx/leopard/contrib/%s", Rversion),
+    stop("Type ", type, "not recognised.")
+  )
 }
 
 
