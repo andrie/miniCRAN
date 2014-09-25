@@ -1,17 +1,6 @@
 fastdf <- function (list) {
-  make_names <- function (x, prefix = "X") 
-  {
-    nm <- names(x)
-    if (is.null(nm)) {
-      nm <- rep.int("", length(x))
-    }
-    n <- sum(nm == "", na.rm = TRUE)
-    nm[nm == ""] <- paste(prefix, seq_len(n), sep = "")
-    nm
-  }
   rows <- unique(unlist(lapply(list, NROW)))
   stopifnot(length(rows) == 1)
-  names(list) <- make_names(list, "X")
   class(list) <- "data.frame"
   attr(list, "row.names") <- c(NA_integer_, -rows)
   list
@@ -21,17 +10,17 @@ addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests"
                        , pdb){
   if(!p %in% rownames(pdb)) {
     fastdf(list(
-      dep=character(0), 
-      package=character(0), 
-      type=character(0)
+      dep = character(0), 
+      package = character(0), 
+      type = character(0)
     ))
     
   } else {
     x <- cleanPkgField(pdb[p, type])
     fastdf(list(
-      dep=x, 
-      package=rep(p, length(x)), 
-      type=rep(type, length(x))
+      dep = x, 
+      package = rep(p, length(x)), 
+      type = rep(type, length(x))
     ))
   }
 }
@@ -93,24 +82,22 @@ makeDepGraph <- function(
     ))
     pkg <- unique(c(p_enh, pkg))
   } 
-  
   p_dep <- unique(unlist(
-    tools::package_dependencies(pkg, db=availPkgs, 
-                                which=c("Imports", "Depends", "LinkingTo"), recursive=TRUE)
+                  tools::package_dependencies(pkg, db=availPkgs, 
+                                       which=c("Imports", "Depends", "LinkingTo"), recursive=TRUE)
   ))
   pkg <- unique(c(p_dep, pkg))
   
-  edges3 <- pkgEdges(pkg, type=c("Imports", "Depends", "LinkingTo"), availPkgs)
+  edges <- pkgEdges(pkg, type=c("Imports", "Depends", "LinkingTo"), availPkgs)
 
-  edges <- edges3
   if(suggests){
     edges <- rbind(edges, edges1)
   }
   if(enhances) {
     edges <- rbind(edges, edges2)
   }
-    
-  if (nrow(edges) && !includeBasePkgs)
+  nedges <- nrow(edges)
+  if (nedges && !includeBasePkgs)
     edges <- edges[!(edges[["dep"]] %in% basePkgs()), ]
   
   vert <- unique(c(pkg_orig, edges[["dep"]], edges[["package"]]))
