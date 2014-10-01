@@ -8,16 +8,16 @@ LazyData: true
 LazyLoad: true
 Description: Tools to create an internally consistent, mini version of CRAN with
     selected packages only.
-Version: 0.1-0
+Version: 0.1-1
 URL: https://github.com/andrie/miniCRAN
 BugReports: https://github.com/andrie/miniCRAN/issues
-Date: 2014-09-16
+Date: 2014-10-01
 Imports:
     tools,
     XML,
     httr,
     igraph
 Suggests:
-    testthat,
+    testthat(>= 0.9),
     knitr
 VignetteBuilder: knitr

@@ -6,7 +6,6 @@ context("makeRepo")
 checkForRepoFiles <- function(path, pkgList, prefix){
   f <- list.files(path, recursive = TRUE)
   ret <- sapply(pkgList, function(x) grep(sprintf("%s/%s_.*\\.(tar\\.gz|zip|tgz)", prefix, x), f))
-  message(ret)
   if(all(ret > 0)) TRUE else {
     message(ret)
     FALSE
@@ -49,6 +48,8 @@ test_that("makeRepo downloads source files and builds PACKAGES file", {
 
 test_that("makeRepo downloads windows binary files and builds PACKAGES file", {
   
+  skip_on_cran()
+  
   pkg_type <- "win.binary"
   pdb <- pkgAvail(repos = revolution, type=pkg_type)
   pkgList <- pkgDep(pkgs, availPkgs = pdb, repos=revolution, type=pkg_type, suggests=FALSE)
@@ -72,6 +73,8 @@ test_that("makeRepo downloads windows binary files and builds PACKAGES file", {
 
 test_that("makeRepo downloads mac binary files and builds PACKAGES file", {
   
+  skip_on_cran()
+
   pkg_type <- "mac.binary"
   pdb <- pkgAvail(repos = revolution, type=pkg_type)
   pkgList <- pkgDep(pkgs, availPkgs = pdb, repos=revolution, type=pkg_type, suggests=FALSE)
