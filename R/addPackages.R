@@ -43,7 +43,8 @@ readDescriptionGithub <- function(repo, username, branch="master", quiet=TRUE){
 
 addPackage <- function(pdb, dcf, warnings=TRUE){
   pkgName <- dcf[["Package"]]
-  pkgRow <- match(pkgName, rownames(pdb))
+#   pkgRow <- match(pkgName, rownames(pdb))
+  pkgRow <- match(pkgName, pdb[, "Package"])
   newRow <- with(dcf, 
                  c(Package, Version, NA, Depends, Imports, LinkingTo, Suggests, Enhances, License, 
                    rep(NA, 8)))
@@ -65,8 +66,8 @@ addPackage <- function(pdb, dcf, warnings=TRUE){
 #' Downloads the DESCRIPTION file from a package on github, parses the fields and adds (or replaces) a row in the available package database.
 #' 
 #' @param pdb Package database, usually the result of \code{\link{pkgAvail}} or \code{\link{available.packages}}
-#' @param repo Character vector. Name of repository on github, e.g. \code{"RevolutionAnalytics/RRT"}
-#' @param username Optional character vector. Name of repository on github, e.g. \code{"RevolutionAnalytics/RRT"}
+#' @param repo Character vector. Name of repository on github, e.g. \code{"RevolutionAnalytics/checkpoint"}
+#' @param username Optional character vector. Name of repository on github, e.g. \code{"RevolutionAnalytics/checkpoint"}
 #' @param branch name of branch, defaults to \code{"master"}
 #' @export
 #' @example \inst\examples\example_addPackage.R
