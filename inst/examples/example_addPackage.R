@@ -14,12 +14,11 @@ pdb <- cranJuly2014
 }
 
 # Add package from github that's not currently on CRAN
-newpdb <- addPackageGithub(pdb=pdb, repo="RevolutionAnalytics/RRT")
-newpdb["RRT", ]
+newpdb <- addPackageGithub(pdb=pdb, repo="RevolutionAnalytics/checkpoint")
+newpdb["checkpoint", ]
 
 set.seed(1)
-plot(makeDepGraph("RRT", availPkgs = newpdb, suggests=TRUE), 
-     legendPosition=c(1, -0.7))
+plot(makeDepGraph("checkpoint", availPkgs = newpdb, suggests=TRUE))
 
 
 

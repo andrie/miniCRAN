@@ -9,9 +9,9 @@ addPackageGithub(pdb = pkgAvail(), repo, username = NULL,
 \arguments{
 \item{pdb}{Package database, usually the result of \code{\link{pkgAvail}} or \code{\link{available.packages}}}
 
-\item{repo}{Character vector. Name of repository on github, e.g. \code{"RevolutionAnalytics/RRT"}}
+\item{repo}{Character vector. Name of repository on github, e.g. \code{"RevolutionAnalytics/checkpoint"}}
 
-\item{username}{Optional character vector. Name of repository on github, e.g. \code{"RevolutionAnalytics/RRT"}}
+\item{username}{Optional character vector. Name of repository on github, e.g. \code{"RevolutionAnalytics/checkpoint"}}
 
 \item{branch}{name of branch, defaults to \code{"master"}}
 }
@@ -35,12 +35,11 @@ pdb <- cranJuly2014
 }
 
 # Add package from github that's not currently on CRAN
-newpdb <- addPackageGithub(pdb=pdb, repo="RevolutionAnalytics/RRT")
-newpdb["RRT", ]
+newpdb <- addPackageGithub(pdb=pdb, repo="RevolutionAnalytics/checkpoint")
+newpdb["checkpoint", ]
 
 set.seed(1)
-plot(makeDepGraph("RRT", availPkgs = newpdb, suggests=TRUE), 
-     legendPosition=c(1, -0.7))
+plot(makeDepGraph("checkpoint", availPkgs = newpdb, suggests=TRUE))
 
 
 
