@@ -48,6 +48,7 @@ makeDepGraph <- function(
     availPkgs <- pkgAvail(repos=repos, type=type)
   }
   pkgs <- availPkgs
+  rownames(pkgs) <- as.vector(pkgs[, "Package"])
   allPkgs <- rownames(pkgs)
   if (!length(allPkgs))
     stop("no packages in specified repositories")
