@@ -4,6 +4,8 @@ checkPkgDepFunctions <- function(pkg, availPkgs = cranJuly2014,
                                  suggests=TRUE, 
                                  enhances=FALSE, 
                                  includeBasePkgs=FALSE){
+  
+  require(igraph)
   p1 <- pkgDep(pkg, availPkgs=availPkgs, 
                repos=repos, type=type, 
                suggests=suggests, enhances=enhances, 

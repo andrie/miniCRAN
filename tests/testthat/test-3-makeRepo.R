@@ -24,6 +24,8 @@ if(file.exists(repo_root)) unlink(repo_root, recursive = TRUE)
 # source ------------------------------------------------------------------
 
 test_that("makeRepo downloads source files and builds PACKAGES file", {
+
+  skip_on_cran()
   
   pkg_type <- "source"
   pdb <- pkgAvail(repos = revolution, type=pkg_type)
@@ -47,8 +49,6 @@ test_that("makeRepo downloads source files and builds PACKAGES file", {
 # windows binaries --------------------------------------------------------
 
 test_that("makeRepo downloads windows binary files and builds PACKAGES file", {
-  
-  skip_on_cran()
   
   pkg_type <- "win.binary"
   pdb <- pkgAvail(repos = revolution, type=pkg_type)
