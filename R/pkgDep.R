@@ -129,6 +129,6 @@ pkgAvail <- function(repos=getOption("repos"), type="source", ...){
       repos <- c(CRAN="http://cran.revolutionanalytics.com")
     }
   }
-  available.packages(contrib.url(repos, type=type))
+  available.packages(contrib.url(repos, type=type), type=type, filters=list())
 }
 
