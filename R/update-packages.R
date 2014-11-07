@@ -50,6 +50,7 @@
 #' @examples
 #' \dontrun{
 #'  old.packages.miniCRAN(path="/var/www/miniCRAN")
+#'  update.packages.miniCRAN(path="/var/www/miniCRAN")
 #' }
 #'
 old.packages.miniCRAN <- function (path=NULL, repos=getOption("repos"),
