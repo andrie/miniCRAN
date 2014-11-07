@@ -76,4 +76,110 @@ addPackageGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch="master
   addPackage(pdb, desc)
 }
 
+################################################################################
+#' Check for previous versions of packages in a miniCRAN repository.
+#'
+#' Checks for previous versions, and returns the file paths for packages with
+#' multiple versions. The admin can subsequently decide which version to keep.
+#'
+#' @param path  The local path to the directory where the miniCRAN repo resides.
+#'
+#' @param pkgs Character vector of packages to be installed. If not provided,
+#'              checks all files for multiple package versions.
+#'
+#' @param type  character, indicating the type of package to download and
+#'  install. See \code{\link{install.packages}}.
+#'
+#' @param Rversion numeric version of the R system for which to fetch packages.
+#' See \code{\link{R_system_version}}.
+#' 
+#' @return Returns filepaths to packages with multiple versions for removal.
+#'
+#' @export
+#' @rdname add-packages-miniCRAN
+#' @docType methods
+#'
+#' @examples
+#' \dontrun{
+#'  check.package.versions("/var/www/miniCRAN", "raster")
+#' }
+#'
+check.package.versions <- function(path=NULL, pkgs=NULL, type="source",
+                                   Rversion=getRversion()) {
+  if (is.null(path)) stop("path must be specified.")
+  if (!file.exists(path)) stop("invalid path, ", path)
+  pkgPath <- file.path(path, repoPrefix(type, twodigitRversion(Rversion)))
+  if (is.null(pkgs)) {
+    files = dir(pkgPath)
+  } else {
+    files = sapply(pkgs, function(x) list.files(pkgPath, pattern=paste0(x,"_")) )
+  }
+  files = unlist(files)
+  
+  # identify duplicate packages and warn the user
+  pkgs = sapply(strsplit(files, "_"), "[[", 1)
+  dupes = pkgs[duplicated(pkgs)]
+  if (length(dupes)) warning("Duplicate package(s):", dupes)
+  return(file.path(pkgPath, files))
+}
 
+################################################################################
+#' Add packages to a miniCRAN repository.
+#'
+#' This can only be run on the NRCRAN server.
+#'
+#' @param pkgs Character vector of packages to be installed.
+#' 
+#' @param path  The local path to the directory where the miniCRAN repo resides.
+#'
+#' @param repos character vector, the base URL(s) of the repositories to use,
+#' e.g., the URL of a CRAN mirror such as "\code{http://cran.us.r-project.org}".
+#' 
+#' @param type  character, indicating the type of package to download and
+#'  install. See \code{\link{install.packages}}.
+#'
+#' @param Rversion numeric version of the R system for which to fetch packages.
+#' See \code{\link{R_system_version}}.
+#' 
+#' @param writePACKAGES If TRUE, calls \code{\link[tools]{write_PACKAGES}} to
+#' update the repository PACKAGES file.
+#' 
+#' @params deps logical indicating whether the package dependencies should be
+#' added (default \code{TRUE}).
+#' 
+#' @return Installs the packages, rebuilds the package index and returns it.
+#'
+#' @import tools
+#' @export
+#' @rdname add-packages-miniCRAN
+#' @docType methods
+#'
+#' @examples
+#' \dontrun{
+#'  pth <- "/var/www/miniCRAN"
+#'  add.packages.miniCRAN(pth, c("ggplot2", "lme4"))
+#'  add.packages.miniCRAN(pth, c("ggplot2", "lme4"), type="win.binary")
+#' }
+#'
+add.packages.miniCRAN <- function(path=NULL, pkgs=NULL, repos=getOption("repos"),
+                                  type="source", Rversion=R.version,
+                                  writePACKAGES=TRUE, deps=TRUE) {
+  if (is.null(path) || is.null(pkgs)) stop("path and pkgs must both be specified.")
+  prev <- check.package.versions(path=path, pkgs=pkgs, type=type,
+                                 Rversion=Rversion)
+  if (deps) pkgs <- pkgDep(pkgs)
+  makeRepo(pkgs=pkgs, path=path, repos=repos, type=type, Rversion=Rversion,
+           download=TRUE, writePACKAGES=FALSE)
+  if (length(prev)>0) {
+    curr <- check.package.versions(path=path, pkgs=pkgs, type=type,
+                                   Rversion=Rversion)
+    old <- intersect(curr, prev)
+    message("Removing previous versions of newly added packages:")
+    message(basename(old))
+    file.remove(old)
+  }
+  if (writePACKAGES) {
+    pkgPath <- file.path(path, repoPrefix(type, twodigitRversion(Rversion)))
+    tools::write_PACKAGES(dir=pkgPath, type=type)
+  }
+}

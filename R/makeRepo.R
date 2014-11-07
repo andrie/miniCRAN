@@ -40,8 +40,6 @@
 makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source", 
                      Rversion=R.version, download=TRUE, writePACKAGES=TRUE){
   if(!file.exists(path)) stop("Download path does not exist")
-  Rversion <- twodigitRversion(Rversion)
-  
   folder <- repoPrefix(type, Rversion)
   pkgPath <- file.path(path, folder)
   if(!file.exists(pkgPath)) {
@@ -58,8 +56,8 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
 }
 
 
-
 repoPrefix <- function(type, Rversion){
+  Rversion = twodigitRversion(Rversion)
   switch(
     type,
     "source" = "src/contrib",
@@ -70,6 +68,7 @@ repoPrefix <- function(type, Rversion){
     stop("Type ", type, "not recognised.")
   )
 }
+
 
 
 
