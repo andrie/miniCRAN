@@ -74,9 +74,16 @@ repoPrefix <- function(type, Rversion){
 
 
 
-twodigitRversion <- function(R = R.version){
-  paste(R$major, strsplit(R$minor, ".", fixed = TRUE)[[1L]][1L], sep = ".")
+twodigitRversion <- function(R=R.version){
+  if("simple.list" %in% is(R)) {
+    paste(R$major, strsplit(R$minor, ".", fixed = TRUE)[[1L]][1L], sep = ".")
+  } else if ("R_system_version" %in% is(R)) {
+    paste(strsplit(as.character(R), ".", fixed=TRUE)[[1L]][1L:2L], collapse=".")
+  } else if (is.character(R)) {
+    paste(strsplit(R, ".", fixed=TRUE)[[1L]][1L:2L], collapse=".")
+  }
 }
+
 
 
 
