@@ -126,8 +126,6 @@ check.package.versions <- function(path=NULL, pkgs=NULL, type="source",
 ################################################################################
 #' Add packages to a miniCRAN repository.
 #'
-#' This can only be run on the NRCRAN server.
-#'
 #' @param pkgs Character vector of packages to be installed.
 #' 
 #' @param path  The local path to the directory where the miniCRAN repo resides.
