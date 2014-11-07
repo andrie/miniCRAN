@@ -43,6 +43,7 @@
 #'
 #' @return Doesn't return anything, but installs packages from the NRCRAN repo.
 #'
+#' import tools
 #' @export
 #' @rdname update-packages-miniCRAN
 #' @docType methods
