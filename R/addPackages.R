@@ -171,7 +171,7 @@ add.packages.miniCRAN <- function(path=NULL, pkgs=NULL, repos=getOption("repos")
   if (length(prev)>0) {
     curr <- check.package.versions(path=path, pkgs=pkgs, type=type,
                                    Rversion=Rversion)
-    old <- intersect(curr, prev)
+    old <- setdiff(prev, curr)
     message("Removing previous versions of newly added packages:")
     message(basename(old))
     file.remove(old)
