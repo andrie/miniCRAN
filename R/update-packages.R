@@ -2,7 +2,7 @@
 #' Compare miniCRAN Packages with CRAN-like Repositories
 #'
 #' \code{oldPackages} indicates packages which have a (suitable) later
-#' version on the repositories whereas \code{updatePackages} offers to
+#' version on the repositories whereas \code{\link{updatePackages}} offers to
 #' download and install such packages.
 #'
 #' These functions are based on \code{\link{update.packages}} and related,
@@ -41,11 +41,14 @@
 #' @param Rversion numeric version of the R system for which to fetch packages.
 #' See \code{\link{R_system_version}}.
 #'
-#' @return Doesn't return anything, but installs packages from the NRCRAN repo.
+#' @return \code{NULL} or a matrix with one row per package, row names the
+#' package names and column names "Package", "LocalVer", "ReposVer", and
+#' "Repository".
 #'
-#' import tools
+#' @import tools
 #' @export
-#' @rdname update-packages-miniCRAN
+#' @rdname oldPackages
+#' @family update miniCRAN packages
 #' @docType methods
 #'
 #' @examples
@@ -55,10 +58,10 @@
 #' }
 #'
 oldPackages <- function (path=NULL, repos=getOption("repos"),
-                                   contriburl=contrib.url(repos, type),
-                                   availPkgs=pkgAvail(repos=path, type=type),
-                                   method, available=NULL, type="source",
-                                   Rversion=getRversion()) {
+                         contriburl=contrib.url(repos, type),
+                         availPkgs=pkgAvail(repos=path, type=type),
+                         method, available=NULL, type="source",
+                         Rversion=getRversion()) {
   if (is.null(path)) stop("path to miniCRAN repo must be specified")
   if (!missing(availPkgs)) {
     if (!is.matrix(availPkgs) || !is.character(availPkgs[, "Package"]))
@@ -101,14 +104,31 @@ oldPackages <- function (path=NULL, repos=getOption("repos"),
   update[!duplicated(update), , drop = FALSE]
 }
 
+################################################################################
+#' Compare miniCRAN Packages with CRAN-like Repositories
+#'
+#' \code{oldPackages} indicates packages which have a (suitable) later
+#' version on the repositories whereas \code{updatePackages} offers to
+#' download and install such packages.
+#'
+#' These functions are based on \code{\link{update.packages}} and related,
+#' except rather than looking for locally installed packages they look for the
+#' package sources and binaries being hosted in the miniCRAN repository.
+#'
+#' @inheritParams oldPackages
+#'
+#' @return \code{NULL} invisibly.
+#'
+#' @family update miniCRAN packages
+#' @docType methods
 #' @export
-#' @rdname update-packages-miniCRAN
+#' @rdname updatePackages
 #'
 updatePackages <- function (path=NULL, repos=getOption("repos"),
-                                      contriburl=contrib.url(repos, type),
-                                      method, ask=TRUE, available=NULL,
-                                      oldPkgs=NULL, type="source",
-                                      Rversion=getRversion()) {
+                            contriburl=contrib.url(repos, type),
+                            method, ask=TRUE, available=NULL,
+                            oldPkgs=NULL, type="source",
+                            Rversion=getRversion()) {
   force(ask)
   simplifyRepos <- function(repos, type) {
     tail <- substring(contrib.url("---", type), 4)

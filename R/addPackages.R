@@ -96,7 +96,7 @@ addPackageGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch="master
 #' @return Returns filepaths to packages with multiple versions for removal.
 #'
 #' @export
-#' @rdname add-packages-miniCRAN
+#' @rdname checkVersions
 #' @docType methods
 #'
 #' @examples
@@ -163,8 +163,7 @@ add.packages.miniCRAN <- function(path=NULL, pkgs=NULL, repos=getOption("repos")
                                   type="source", Rversion=R.version,
                                   writePACKAGES=TRUE, deps=TRUE) {
   if (is.null(path) || is.null(pkgs)) stop("path and pkgs must both be specified.")
-  prev <- checkVersions(path=path, pkgs=pkgs, type=type,
-                                 Rversion=Rversion)
+  prev <- checkVersions(path=path, pkgs=pkgs, type=type, Rversion=Rversion)
   if (deps) pkgs <- pkgDep(pkgs)
   makeRepo(pkgs=pkgs, path=path, repos=repos, type=type, Rversion=Rversion,
            download=TRUE, writePACKAGES=FALSE)

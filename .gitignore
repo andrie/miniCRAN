@@ -21,3 +21,4 @@ $RECYCLE.BIN/
 
 # Mac crap
 .DS_Store
+.Rproj.user
