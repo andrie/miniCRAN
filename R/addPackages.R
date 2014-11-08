@@ -3,14 +3,14 @@ readDescription <- function (file) {
   trimSpaces <- function(x){
     gsub("^\\s+|\\s+$", "", x)
   }
-  
+
   prepDescription <- function(d){
     clean <- function(x)gsub("\n", " ", x)
-    if(is.null(d$Depends)) d$Depends <- NA else d$Depends <- clean(d$Depends) 
-    if(is.null(d$Imports)) d$Imports <- NA else d$Imports <- clean(d$Imports) 
-    if(is.null(d$Suggests)) d$Suggests <- NA else d$Suggests <- clean(d$Suggests) 
-    if(is.null(d$LinkingTo)) d$LinkingTo <- NA else d$LinkingTo <- clean(d$LinkingTo) 
-    if(is.null(d$Enhances)) d$Enhances <- NA else d$Enhances <- clean(d$Enhances) 
+    if(is.null(d$Depends)) d$Depends <- NA else d$Depends <- clean(d$Depends)
+    if(is.null(d$Imports)) d$Imports <- NA else d$Imports <- clean(d$Imports)
+    if(is.null(d$Suggests)) d$Suggests <- NA else d$Suggests <- clean(d$Suggests)
+    if(is.null(d$LinkingTo)) d$LinkingTo <- NA else d$LinkingTo <- clean(d$LinkingTo)
+    if(is.null(d$Enhances)) d$Enhances <- NA else d$Enhances <- clean(d$Enhances)
     d
   }
   dcf <- read.dcf(file)
@@ -35,7 +35,7 @@ readDescriptionGithub <- function(repo, username, branch="master", quiet=TRUE){
   request <- GET(pkg)
   stop_for_status(request)
   writeBin(content(request), ff)
-  
+
   readDescription(ff)
 }
 
@@ -45,8 +45,8 @@ addPackage <- function(pdb, dcf, warnings=TRUE){
   pkgName <- dcf[["Package"]]
 #   pkgRow <- match(pkgName, rownames(pdb))
   pkgRow <- match(pkgName, pdb[, "Package"])
-  newRow <- with(dcf, 
-                 c(Package, Version, NA, Depends, Imports, LinkingTo, Suggests, Enhances, License, 
+  newRow <- with(dcf,
+                 c(Package, Version, NA, Depends, Imports, LinkingTo, Suggests, Enhances, License,
                    rep(NA, 8)))
   if(!is.na(pkgRow)){
     pdb[pkgRow, ] <- newRow
@@ -62,9 +62,9 @@ addPackage <- function(pdb, dcf, warnings=TRUE){
 }
 
 #' Add DESCRIPTION information from package on github.
-#' 
+#'
 #' Downloads the DESCRIPTION file from a package on github, parses the fields and adds (or replaces) a row in the available package database.
-#' 
+#'
 #' @param pdb Package database, usually the result of \code{\link{pkgAvail}} or \code{\link{available.packages}}
 #' @param repo Character vector. Name of repository on github, e.g. \code{"RevolutionAnalytics/checkpoint"}
 #' @param username Optional character vector. Name of repository on github, e.g. \code{"RevolutionAnalytics/checkpoint"}
@@ -92,7 +92,7 @@ addPackageGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch="master
 #'
 #' @param Rversion numeric version of the R system for which to fetch packages.
 #' See \code{\link{R_system_version}}.
-#' 
+#'
 #' @return Returns filepaths to packages with multiple versions for removal.
 #'
 #' @export
@@ -101,11 +101,11 @@ addPackageGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch="master
 #'
 #' @examples
 #' \dontrun{
-#'  check.package.versions("/var/www/miniCRAN", "raster")
+#'  checkVersions("/var/www/miniCRAN", "raster")
 #' }
 #'
-check.package.versions <- function(path=NULL, pkgs=NULL, type="source",
-                                   Rversion=getRversion()) {
+checkVersions <- function(path=NULL, pkgs=NULL, type="source",
+                                 Rversion=getRversion()) {
   if (is.null(path)) stop("path must be specified.")
   if (!file.exists(path)) stop("invalid path, ", path)
   pkgPath <- file.path(path, repoPrefix(type, twodigitRversion(Rversion)))
@@ -115,7 +115,7 @@ check.package.versions <- function(path=NULL, pkgs=NULL, type="source",
     files = sapply(pkgs, function(x) list.files(pkgPath, pattern=paste0(x,"_")) )
   }
   files = unlist(files)
-  
+
   # identify duplicate packages and warn the user
   pkgs = sapply(strsplit(files, "_"), "[[", 1)
   dupes = pkgs[duplicated(pkgs)]
@@ -127,24 +127,24 @@ check.package.versions <- function(path=NULL, pkgs=NULL, type="source",
 #' Add packages to a miniCRAN repository.
 #'
 #' @param pkgs Character vector of packages to be installed.
-#' 
+#'
 #' @param path  The local path to the directory where the miniCRAN repo resides.
 #'
 #' @param repos character vector, the base URL(s) of the repositories to use,
 #' e.g., the URL of a CRAN mirror such as "\code{http://cran.us.r-project.org}".
-#' 
+#'
 #' @param type  character, indicating the type of package to download and
 #'  install. See \code{\link{install.packages}}.
 #'
 #' @param Rversion numeric version of the R system for which to fetch packages.
 #' See \code{\link{R_system_version}}.
-#' 
+#'
 #' @param writePACKAGES If TRUE, calls \code{\link[tools]{write_PACKAGES}} to
 #' update the repository PACKAGES file.
-#' 
+#'
 #' @params deps logical indicating whether the package dependencies should be
 #' added (default \code{TRUE}).
-#' 
+#'
 #' @return Installs the packages, rebuilds the package index and returns it.
 #'
 #' @import tools
@@ -163,13 +163,13 @@ add.packages.miniCRAN <- function(path=NULL, pkgs=NULL, repos=getOption("repos")
                                   type="source", Rversion=R.version,
                                   writePACKAGES=TRUE, deps=TRUE) {
   if (is.null(path) || is.null(pkgs)) stop("path and pkgs must both be specified.")
-  prev <- check.package.versions(path=path, pkgs=pkgs, type=type,
+  prev <- checkVersions(path=path, pkgs=pkgs, type=type,
                                  Rversion=Rversion)
   if (deps) pkgs <- pkgDep(pkgs)
   makeRepo(pkgs=pkgs, path=path, repos=repos, type=type, Rversion=Rversion,
            download=TRUE, writePACKAGES=FALSE)
   if (length(prev)>0) {
-    curr <- check.package.versions(path=path, pkgs=pkgs, type=type,
+    curr <- checkVersions(path=path, pkgs=pkgs, type=type,
                                    Rversion=Rversion)
     old <- setdiff(prev, curr)
     message("Removing previous versions of newly added packages:")

@@ -1,8 +1,8 @@
 ################################################################################
 #' Compare miniCRAN Packages with CRAN-like Repositories
 #'
-#' \code{old.packages.miniCRAN} indicates packages which have a (suitable) later
-#' version on the repositories whereas \code{update.packages.miniCRAN} offers to
+#' \code{oldPackages} indicates packages which have a (suitable) later
+#' version on the repositories whereas \code{updatePackages} offers to
 #' download and install such packages.
 #'
 #' These functions are based on \code{\link{update.packages}} and related,
@@ -50,11 +50,11 @@
 #'
 #' @examples
 #' \dontrun{
-#'  old.packages.miniCRAN(path="/var/www/miniCRAN")
-#'  update.packages.miniCRAN(path="/var/www/miniCRAN")
+#'  oldPackages(path="/var/www/miniCRAN")
+#'  updatePackages(path="/var/www/miniCRAN")
 #' }
 #'
-old.packages.miniCRAN <- function (path=NULL, repos=getOption("repos"),
+oldPackages <- function (path=NULL, repos=getOption("repos"),
                                    contriburl=contrib.url(repos, type),
                                    avlPkgs=pkgAvail(repos=path, type=type),
                                    method, available=NULL, type="source",
@@ -104,7 +104,7 @@ old.packages.miniCRAN <- function (path=NULL, repos=getOption("repos"),
 #' @export
 #' @rdname update-packages-miniCRAN
 #'
-update.packages.miniCRAN <- function (path=NULL, repos=getOption("repos"),
+updatePackages <- function (path=NULL, repos=getOption("repos"),
                                       contriburl=contrib.url(repos, type),
                                       method, ask=TRUE, available=NULL,
                                       oldPkgs=NULL, type="source",
@@ -144,7 +144,7 @@ update.packages.miniCRAN <- function (path=NULL, repos=getOption("repos"),
     subset <- NULL
   }
   if (is.null(oldPkgs)) {
-    oldPkgs <- old.packages.miniCRAN(path=path, repos=repos, contriburl=contriburl,
+    oldPkgs <- oldPackages(path=path, repos=repos, contriburl=contriburl,
                                      method=method, available=available, type=type,
                                      Rversion=Rversion)
     if (is.null(oldPkgs)) {
@@ -152,7 +152,7 @@ update.packages.miniCRAN <- function (path=NULL, repos=getOption("repos"),
       return(invisible())
     }
   } else if (!(is.matrix(oldPkgs) && is.character(oldPkgs))) {
-    stop("invalid 'oldPkgs'; must be a character vector or a result from old.packages.miniCRAN()")
+    stop("invalid 'oldPkgs'; must be a character vector or a result from oldPackages()")
   }
   if (!is.null(subset)) {
     oldPkgs <- oldPkgs[rownames(oldPkgs) %in% subset, , drop = FALSE]
