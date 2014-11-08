@@ -82,10 +82,10 @@ addPackageGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch="master
 #' Checks for previous versions, and returns the file paths for packages with
 #' multiple versions. The admin can subsequently decide which version to keep.
 #'
-#' @param path  The local path to the directory where the miniCRAN repo resides.
-#'
 #' @param pkgs Character vector of packages to be installed. If not provided,
 #'              checks all files for multiple package versions.
+#'
+#' @param path  The local path to the directory where the miniCRAN repo resides.
 #'
 #' @param type  character, indicating the type of package to download and
 #'  install. See \code{\link{install.packages}}.
@@ -104,8 +104,8 @@ addPackageGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch="master
 #'  checkVersions("/var/www/miniCRAN", "raster")
 #' }
 #'
-checkVersions <- function(path=NULL, pkgs=NULL, type="source",
-                                 Rversion=getRversion()) {
+checkVersions <- function(pkgs=NULL, path=NULL, type="source",
+                          Rversion=getRversion()) {
   if (is.null(path)) stop("path must be specified.")
   if (!file.exists(path)) stop("invalid path, ", path)
   pkgPath <- file.path(path, repoPrefix(type, twodigitRversion(Rversion)))
@@ -155,21 +155,20 @@ checkVersions <- function(path=NULL, pkgs=NULL, type="source",
 #' @examples
 #' \dontrun{
 #'  pth <- "/var/www/miniCRAN"
-#'  add.packages.miniCRAN(pth, c("ggplot2", "lme4"))
-#'  add.packages.miniCRAN(pth, c("ggplot2", "lme4"), type="win.binary")
+#'  add.packages.miniCRAN(c("ggplot2", "lme4"), pth)
+#'  add.packages.miniCRAN(c("ggplot2", "lme4"), pth, type="win.binary")
 #' }
 #'
-add.packages.miniCRAN <- function(path=NULL, pkgs=NULL, repos=getOption("repos"),
+add.packages.miniCRAN <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
                                   type="source", Rversion=R.version,
                                   writePACKAGES=TRUE, deps=TRUE) {
   if (is.null(path) || is.null(pkgs)) stop("path and pkgs must both be specified.")
-  prev <- checkVersions(path=path, pkgs=pkgs, type=type, Rversion=Rversion)
+  prev <- checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
   if (deps) pkgs <- pkgDep(pkgs)
   makeRepo(pkgs=pkgs, path=path, repos=repos, type=type, Rversion=Rversion,
            download=TRUE, writePACKAGES=FALSE)
   if (length(prev)>0) {
-    curr <- checkVersions(path=path, pkgs=pkgs, type=type,
-                                   Rversion=Rversion)
+    curr <- checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
     old <- setdiff(prev, curr)
     message("Removing previous versions of newly added packages:")
     message(basename(old))
