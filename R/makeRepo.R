@@ -51,17 +51,42 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
   if(!file.exists(pkgPath)) {
     result <- dir.create(pkgPath, recursive=TRUE)
     if(result) {
-      message("Created new folder: ", pkgPath) 
+      message("Created new folder: ", pkgPath)
     } else {
       stop("Unable to create repo path: ", pkgPath)
     }
   }
-  
+
   if(download) download.packages(pkgs, destdir=pkgPath, repos=repos, type=type)
-  if(writePACKAGES) tools::write_PACKAGES(dir=pkgPath, type=type) 
+  if(writePACKAGES) tools::write_PACKAGES(dir=pkgPath, type=type)
 }
 
 
+
+#' Get the path to the repo directory containing the package files.
+#'
+#' @section Repo folder structure:
+#' The folder structure of a repository
+#' \itemize{
+#'  \item{Root}
+#'  \itemize{
+#'    \item{src}
+#'    \itemize{
+#'      \item{contrib}
+#'    }
+#'  \item{bin}
+#'  \itemize{
+#'    \item{windows/contrib/}
+#'    \item{macosx/contrib/}
+#'    \item{macosx/mavericks/contrib}
+#'    \item{macosx/leopard/contrib}
+#'  }
+#'  \item{PACKAGES}
+#'  }
+#' }
+#'
+#' @return The filepath to the package files directory.
+#' @export
 repoPrefix <- function(type, Rversion){
   Rversion = twodigitRversion(Rversion)
   switch(
@@ -77,8 +102,15 @@ repoPrefix <- function(type, Rversion){
 
 
 
-
-
+#' Get a two-digit version of the R version
+#'
+#' @param R Either a list of the format \code{\link{R.version}}, a character
+#' string (e.g., \code{"3.1.2"}), or a numeric version of the type
+#' \code{\link{R_system_version}}.
+#'
+#' @return A character string representing the two-digit R version.
+#'
+#' @export
 twodigitRversion <- function(R=R.version){
   if("simple.list" %in% is(R)) {
     paste(R$major, strsplit(R$minor, ".", fixed = TRUE)[[1L]][1L], sep = ".")
@@ -91,9 +123,8 @@ twodigitRversion <- function(R=R.version){
 
 
 
-
 #' Deprecated function to download packages to local folder.
-#' 
+#'
 #' @inheritParams makeRepo
 #' @export
 makeLibrary <- function(pkgs, path, type="source"){
