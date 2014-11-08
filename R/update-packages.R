@@ -30,7 +30,7 @@
 #' listing packages available at the repositories, or \code{NULL} which makes an
 #' internal call to \code{\link{available.packages}}.
 #'
-#' @param avlPkgs by default all packages hosted in the miniCRAN repo,
+#' @param availPkgs by default all packages hosted in the miniCRAN repo,
 #' \code{\link{pkgAvail(repos=path, type=type)}}. A subset can be specified;
 #' currently this must be in the same (character matrix) format as returned by
 #' \code{pkgAvail()}.
@@ -56,15 +56,15 @@
 #'
 oldPackages <- function (path=NULL, repos=getOption("repos"),
                                    contriburl=contrib.url(repos, type),
-                                   avlPkgs=pkgAvail(repos=path, type=type),
+                                   availPkgs=pkgAvail(repos=path, type=type),
                                    method, available=NULL, type="source",
                                    Rversion=getRversion()) {
   if (is.null(path)) stop("path to miniCRAN repo must be specified")
-  if (!missing(avlPkgs)) {
-    if (!is.matrix(avlPkgs) || !is.character(avlPkgs[, "Package"]))
-      stop("ill-formed 'avlPkgs' matrix")
+  if (!missing(availPkgs)) {
+    if (!is.matrix(availPkgs) || !is.character(availPkgs[, "Package"]))
+      stop("ill-formed 'availPkgs' matrix")
   }
-  if (NROW(avlPkgs) == 0L) return(NULL)
+  if (NROW(availPkgs) == 0L) return(NULL)
 
   if (is.null(available)) {
     available <- available.packages(contriburl=contriburl, method=method)
@@ -72,14 +72,14 @@ oldPackages <- function (path=NULL, repos=getOption("repos"),
   update <- NULL
   currentR <- minorR <- Rversion
   minorR[[c(1L, 3L)]] <- 0L
-  for (k in 1L:nrow(avlPkgs)) {
-    if (avlPkgs[k, "Priority"] %in% "base")
+  for (k in 1L:nrow(availPkgs)) {
+    if (availPkgs[k, "Priority"] %in% "base")
       next
-    z <- match(avlPkgs[k, "Package"], available[, "Package"])
+    z <- match(availPkgs[k, "Package"], available[, "Package"])
     if (is.na(z))
       next
     onRepos <- available[z, ]
-    if (package_version(onRepos["Version"]) <= package_version(avlPkgs[k, "Version"]))
+    if (package_version(onRepos["Version"]) <= package_version(availPkgs[k, "Version"]))
       next
     deps <- onRepos["Depends"]
     if (!is.na(deps)) {
@@ -91,7 +91,7 @@ oldPackages <- function (path=NULL, repos=getOption("repos"),
           next
       }
     }
-    update <- rbind(update, c(avlPkgs[k, c("Package", "Version")],
+    update <- rbind(update, c(availPkgs[k, c("Package", "Version")],
                               onRepos["Version"], onRepos["Repository"]))
   }
   if (!is.null(update)) {
