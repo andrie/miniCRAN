@@ -10,16 +10,16 @@ addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests"
                        , pdb){
   if(!p %in% rownames(pdb)) {
     fastdf(list(
-      dep = character(0), 
-      package = character(0), 
+      dep = character(0),
+      package = character(0),
       type = character(0)
     ))
-    
+
   } else {
     x <- cleanPkgField(pdb[p, type])
     fastdf(list(
-      dep = x, 
-      package = rep(p, length(x)), 
+      dep = x,
+      package = rep(p, length(x)),
       type = rep(type, length(x))
     ))
   }
@@ -27,23 +27,23 @@ addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests"
 
 
 #' Create dependency graph from available packages.
-#' 
+#'
 #' Each package is a node, and a dependency is an edge
-#' 
+#'
 #' @inheritParams pkgDep
 #' @inheritParams makeRepo
-#' 
+#'
 #' @import igraph
 #' @export
 #' @family miniCRAN functions
 #' @seealso \code{\link{pkgDep}}, \code{\link{plot.pkgDepGraph}}
-#' @example \inst\examples\example_makeDepGraph.R
+#' @example /inst/examples/example_makeDepGraph.R
 makeDepGraph <- function(
-  pkg, availPkgs, repos=getOption("repos"), type="source", 
+  pkg, availPkgs, repos=getOption("repos"), type="source",
   suggests=TRUE, enhances=FALSE,
   includeBasePkgs=FALSE, ...)
 {
-  
+
   if(missing(availPkgs)) {
     availPkgs <- pkgAvail(repos=repos, type=type)
   }
@@ -52,43 +52,43 @@ makeDepGraph <- function(
   allPkgs <- rownames(pkgs)
   if (!length(allPkgs))
     stop("no packages in specified repositories")
-  
-  
-  
+
+
+
   pkgEdge <- function(p, type=c("Imports", "Depends", "LinkingTo"), pdb){
     do.call(rbind, lapply(type, function(t)addDepType(p, t, pdb=pdb)))
   }
   pkgEdges <- function(pp, type=c("Imports", "Depends", "LinkingTo"), pdb){
     do.call(rbind, lapply(pp, pkgEdge, type=type, pdb=pdb))
   }
-  
+
   # Build depends edge list for original pkg list, combined with top level suggests
-  
+
   pkg_orig <- pkg
 
   if(suggests){
     edges1 <- pkgEdges(pkg, type=c("Suggests"), availPkgs)
     p_sug <- unique(unlist(
-      tools::package_dependencies(pkg, db=availPkgs, 
+      tools::package_dependencies(pkg, db=availPkgs,
                                   which="Suggests", recursive=FALSE)
     ))
     pkg <- unique(c(p_sug, pkg))
-  } 
+  }
 
   if(enhances){
     edges2 <- pkgEdges(pkg_orig, type=c("Enhances"), availPkgs)
     p_enh <- unique(unlist(
-      tools::package_dependencies(pkg_orig, db=availPkgs, 
+      tools::package_dependencies(pkg_orig, db=availPkgs,
                                   which="Enhances", recursive=FALSE)
     ))
     pkg <- unique(c(p_enh, pkg))
-  } 
+  }
   p_dep <- unique(unlist(
-                  tools::package_dependencies(pkg, db=availPkgs, 
+                  tools::package_dependencies(pkg, db=availPkgs,
                                        which=c("Imports", "Depends", "LinkingTo"), recursive=TRUE)
   ))
   pkg <- unique(c(p_dep, pkg))
-  
+
   edges <- pkgEdges(pkg, type=c("Imports", "Depends", "LinkingTo"), availPkgs)
 
   if(suggests){
@@ -100,7 +100,7 @@ makeDepGraph <- function(
   nedges <- nrow(edges)
   if (nedges && !includeBasePkgs)
     edges <- edges[!(edges[["dep"]] %in% basePkgs()), ]
-  
+
   vert <- unique(c(pkg_orig, edges[["dep"]], edges[["package"]]))
   ret <- igraph::graph.data.frame(d=edges, directed=TRUE, vertices = vert)
   class(ret) <- c("pkgDepGraph", "igraph")
