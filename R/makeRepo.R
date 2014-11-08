@@ -1,44 +1,50 @@
 #' Downloads packages from CRAN to specified path and creates a local repository.
-#' 
-#' Given a list of packages, downloads these packages to a specified destination folder using the required CRAN folder structure, and finally creates the PACKAGES index file.  Since the folder structure mimics the required structure and files of a CRAN repository, it supports functions like \code{\link[utils]{install.packages}()}.
-#' 
-#' 
+#'
+#' Given a list of packages, downloads these packages to a specified destination
+#' folder using the required CRAN folder structure, and finally creates the
+#' PACKAGES index file.  Since the folder structure mimics the required
+#' structure and files of a CRAN repository, it supports functions like
+#' \code{\link[utils]{install.packages}()}.
+#'
 #' @section Repo folder structure:
 #' The folder structure of a repository
 #' \itemize{
-#' \item{Root}
-#' \itemize{
-#' \item{src}
-#' \itemize{
-#' \item{contrib}
+#'  \item{Root}
+#'  \itemize{
+#'    \item{src}
+#'    \itemize{
+#'      \item{contrib}
+#'    }
+#'  \item{bin}
+#'  \itemize{
+#'    \item{windows/contrib/}
+#'    \item{macosx/contrib/}
+#'    \item{macosx/mavericks/contrib}
+#'    \item{macosx/leopard/contrib}
+#'  }
+#'  \item{PACKAGES}
+#'  }
 #' }
-#' \item{bin}
-#' \itemize{
-#' \item{windows/contrib/}
-#' \item{macosx/contrib/}
-#' \item{macosx/mavericks/contrib}
-#' \item{macosx/leopard/contrib}
-#' }
-#' \item{PACKAGES}
-#' }
-#' }
-#' 
-#' 
-#' @note Internally makes use of \code{\link[utils]{download.packages}} and \code{\link[tools]{write_PACKAGES}}
-#' 
+#'
+#' @note Internally makes use of \code{\link[utils]{download.packages}} and
+#' \code{\link[tools]{write_PACKAGES}}
+#'
 #' @inheritParams pkgDep
 #' @param pkgs Character vector of packages to download
-#' @param path Destination download path. This path is the root folder of your new repository.
-#' @param Rversion List with two named elements: `major` and `minor`.  If not supplied, defaults to system version of R, using \code{\link[base]{R.version}}.  Only used if \code{type} is not "source"
+#' @param path Destination download path. This path is the root folder of your
+#' new repository.
+#' @param Rversion List with two named elements: `major` and `minor`.
+#' If not supplied, defaults to system version of R, using
+#' \code{\link[base]{R.version}}.  Only used if \code{type} is not "source"
 #' @param download If TRUE downloads packages.
-#' @param writePACKAGES If TRUE, calls \code{\link[tools]{write_PACKAGES}} to update the repository PACKAGES file.
-#' 
+#' @param writePACKAGES If TRUE, calls \code{\link[tools]{write_PACKAGES}} to
+#' update the repository PACKAGES file.
+#'
 #' @export
 #' @family miniCRAN functions
 #' @example \inst\examples\example_makeRepo.R
-
-makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source", 
-                     Rversion=R.version, download=TRUE, writePACKAGES=TRUE){
+makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
+                     Rversion=R.version, download=TRUE, writePACKAGES=TRUE) {
   if(!file.exists(path)) stop("Download path does not exist")
   folder <- repoPrefix(type, Rversion)
   pkgPath <- file.path(path, folder)
