@@ -70,7 +70,7 @@ addPackage <- function(pdb, dcf, warnings=TRUE){
 #' @param username Optional character vector. Name of repository on github, e.g. \code{"RevolutionAnalytics/checkpoint"}
 #' @param branch name of branch, defaults to \code{"master"}
 #' @export
-#' @example \inst\examples\example_addPackage.R
+#' @example /inst/examples/example_addPackage.R
 addPackageGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch="master"){
   desc <- readDescriptionGithub(repo=repo, username=username, branch=branch)
   addPackage(pdb, desc)
@@ -96,13 +96,9 @@ addPackageGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch="master
 #' @return Returns filepaths to packages with multiple versions for removal.
 #'
 #' @export
-#' @rdname checkVersions
 #' @docType methods
 #'
-#' @examples
-#' \dontrun{
-#'  checkVersions("/var/www/miniCRAN", "raster")
-#' }
+#' @examples /inst/examples/example_checkVersions.R
 #'
 checkVersions <- function(pkgs=NULL, path=NULL, type="source",
                           Rversion=getRversion()) {
@@ -142,22 +138,16 @@ checkVersions <- function(pkgs=NULL, path=NULL, type="source",
 #' @param writePACKAGES If TRUE, calls \code{\link[tools]{write_PACKAGES}} to
 #' update the repository PACKAGES file.
 #'
-#' @params deps logical indicating whether the package dependencies should be
+#' @param deps logical indicating whether the package dependencies should be
 #' added (default \code{TRUE}).
 #'
 #' @return Installs the packages, rebuilds the package index and returns it.
 #'
 #' @import tools
 #' @export
-#' @rdname add-packages-miniCRAN
 #' @docType methods
 #'
-#' @examples
-#' \dontrun{
-#'  pth <- "/var/www/miniCRAN"
-#'  add.packages.miniCRAN(c("ggplot2", "lme4"), pth)
-#'  add.packages.miniCRAN(c("ggplot2", "lme4"), pth, type="win.binary")
-#' }
+#' @example /inst/examples/example_checkVersions.R
 #'
 add.packages.miniCRAN <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
                                   type="source", Rversion=R.version,

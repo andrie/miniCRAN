@@ -1,6 +1,4 @@
-
 # Create package database
-
 pdb <- cranJuly2014
 
 \dontrun{
@@ -19,8 +17,3 @@ newpdb["checkpoint", ]
 
 set.seed(1)
 plot(makeDepGraph("checkpoint", availPkgs = newpdb, suggests=TRUE))
-
-
-
-
-

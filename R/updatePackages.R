@@ -45,17 +45,14 @@
 #' package names and column names "Package", "LocalVer", "ReposVer", and
 #' "Repository".
 #'
+#' @seealso \code{\link{updatePackages}}
+#' @family miniCRAN functions
+#'
 #' @import tools
 #' @export
-#' @rdname oldPackages
-#' @family update miniCRAN packages
 #' @docType methods
 #'
-#' @examples
-#' \dontrun{
-#'  oldPackages(path="/var/www/miniCRAN")
-#'  updatePackages(path="/var/www/miniCRAN")
-#' }
+#' @example /inst/examples/example_updatePackages.R
 #'
 oldPackages <- function (path=NULL, repos=getOption("repos"),
                          contriburl=contrib.url(repos, type),
@@ -107,7 +104,7 @@ oldPackages <- function (path=NULL, repos=getOption("repos"),
 ################################################################################
 #' Compare miniCRAN Packages with CRAN-like Repositories
 #'
-#' \code{oldPackages} indicates packages which have a (suitable) later
+#' \code{\link{oldPackages}} indicates packages which have a (suitable) later
 #' version on the repositories whereas \code{updatePackages} offers to
 #' download and install such packages.
 #'
@@ -119,10 +116,11 @@ oldPackages <- function (path=NULL, repos=getOption("repos"),
 #'
 #' @return \code{NULL} invisibly.
 #'
-#' @family update miniCRAN packages
+#' @seealso \code{\link{oldPackages}}
+#' @family miniCRAN functions
 #' @docType methods
 #' @export
-#' @rdname updatePackages
+#' @example /inst/examples/example_updatePackages.R
 #'
 updatePackages <- function (path=NULL, repos=getOption("repos"),
                             contriburl=contrib.url(repos, type),
