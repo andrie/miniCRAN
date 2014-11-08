@@ -110,6 +110,7 @@ repoPrefix <- function(type, Rversion){
 #'
 #' @return A character string representing the two-digit R version.
 #'
+#' @importFrom methods is
 #' @export
 twodigitRversion <- function(R=R.version){
   if("simple.list" %in% is(R)) {
