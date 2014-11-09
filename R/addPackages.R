@@ -141,7 +141,8 @@ checkVersions <- function(pkgs=NULL, path=NULL, type="source",
 #' @param deps logical indicating whether the package dependencies should be
 #' added (default \code{TRUE}).
 #'
-#' @return Installs the packages, rebuilds the package index and returns it.
+#' @return Installs the packages, rebuilds the package index invisibly returns
+#' the number of packages writen to the index files.
 #'
 #' @import tools
 #' @export
@@ -153,6 +154,7 @@ add.packages.miniCRAN <- function(pkgs=NULL, path=NULL, repos=getOption("repos")
                                   type="source", Rversion=R.version,
                                   writePACKAGES=TRUE, deps=TRUE) {
   if (is.null(path) || is.null(pkgs)) stop("path and pkgs must both be specified.")
+  Rversion <- twodigitRversion(Rversion)
   prev <- checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
   if (deps) pkgs <- pkgDep(pkgs)
   makeRepo(pkgs=pkgs, path=path, repos=repos, type=type, Rversion=Rversion,
@@ -165,7 +167,7 @@ add.packages.miniCRAN <- function(pkgs=NULL, path=NULL, repos=getOption("repos")
     file.remove(old)
   }
   if (writePACKAGES) {
-    pkgPath <- file.path(path, repoPrefix(type, twodigitRversion(Rversion)))
+    pkgPath <- file.path(path, repoPrefix(type, Rversion))
     tools::write_PACKAGES(dir=pkgPath, type=type)
   }
 }
