@@ -86,7 +86,7 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
 #' }
 #'
 #' @return The filepath to the package files directory.
-#' @export
+#'
 repoPrefix <- function(type, Rversion){
   Rversion = twodigitRversion(Rversion)
   switch(
@@ -111,7 +111,7 @@ repoPrefix <- function(type, Rversion){
 #' @return A character string representing the two-digit R version.
 #'
 #' @importFrom methods is
-#' @export
+#'
 twodigitRversion <- function(R=R.version){
   if("simple.list" %in% is(R)) {
     paste(R$major, strsplit(R$minor, ".", fixed = TRUE)[[1L]][1L], sep = ".")
