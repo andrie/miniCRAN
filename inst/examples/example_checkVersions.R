@@ -22,23 +22,16 @@ pkgList
   makeRepo(pkgList, path=pth, repos=revolution, type="win.binary")
 
   # Add other versions of a package (and assume these were added previously)
-  pkgPathSrc <- file.path(path=pth, repoPrefix("source", R.version))
-  pkgPathBin <- file.path(path=pth, repoPrefix("win.binary", R.version))
-
-  oldPkgs <- c(file.path(revolution, repoPrefix("source", R.version),
-                    "foreach_1.4.0.tar.gz"),
-               file.path(revolution, repoPrefix("win.binary", R.version),
-                         "foreach_1.4.0.zip"))
-  download.file(oldPkgs[1], destfile=file.path(pkgPathSrc, "foreach_1.4.0.tar.gz"))
-  download.file(oldPkgs[2], destfile=file.path(pkgPathBin, "foreach_1.4.0.zip"))
+  addOldPackage(pkgs, path=pth, vers="1.4.0", type="source")
+  # NOTE: older binary versions would need to be build from source
 
   # List package versions in the miniCRAN repo (produces warning about duplicates)
   pkgVersionsSrc <- checkVersions(pkgs, path=pth, type="source")
   pkgVersionsBin <- checkVersions(pkgs, path=pth, type="win.binary")
 
   # After inspecting package versions, remove old versions
-  basename(pkgVersionsSrc)
-  basename(pkgVersionsBin)
+  basename(pkgVersionsSrc) # "foreach_1.4.0.tar.gz"  "foreach_1.4.2.tar.gz"
+  basename(pkgVersionsBin) # "foreach_1.4.0.zip"     "foreach_1.4.2.zip"
   file.remove(c(pkgVersionsSrc[1], pkgVersionsBin[1]))
 
   # Rebuild package index after adding/removing files

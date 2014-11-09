@@ -17,31 +17,21 @@ pkgList
   # Create temporary folder for miniCRAN
   dir.create(pth <- file.path(tempdir(), "miniCRAN"))
 
-  # manually create the miniCRAN directory structure in order to add old packages
-  pkgPathSrc <- file.path(path=pth, repoPrefix("source", R.version))
-  pkgPathBin <- file.path(path=pth, repoPrefix("win.binary", R.version))
+  # create the miniCRAN directory structure but only add bin files
+  makeRepo(pkgs, path=pth, repos=revolution, type="source", download=FALSE)
+  makeRepo(pkgs, path=pth, repos=revolution, type="win.binary", download=TRUE)
 
-  dir.create(pkgPathSrc, recursive=TRUE)
-  dir.create(pkgPathBin, recursive=TRUE)
-
-  # download old package version and create repo index
-  oldPkgs <- c(file.path(revolution, repoPrefix("source", R.version),
-                         "foreach_1.4.0.tar.gz"),
-               file.path(revolution, repoPrefix("win.binary", R.version),
-                         "foreach_1.4.0.zip"))
-  download.file(oldPkgs[1], destfile=file.path(pkgPathSrc, "foreach_1.4.0.tar.gz"))
-  download.file(oldPkgs[2], destfile=file.path(pkgPathBin, "foreach_1.4.0.zip"))
-
-  tools::write_PACKAGES(pkgPathSrc, type="source")
-  tools::write_PACKAGES(pkgPathBin, type="win.binary")
+  # download old source package version and create repo index
+  addOldPackage(pkgs, path=pth, vers="1.4.0", type="source")
+  # NOTE: older binary versions would need to be build from source
 
   # Check if updated packages are available
-  oldPackages(path=pth, repos=revolution, type="source")
-  oldPackages(path=pth, repos=revolution, type="win.binary")
+  oldPackages(path=pth, repos=revolution, type="source") # should need update
+  oldPackages(path=pth, repos=revolution, type="win.binary") # should be current
 
   # Update available packages
-  updatePackages(path=pth, repos=revolution, type="source")
-  updatePackages(path=pth, repos=revolution, type="win.binary")
+  updatePackages(path=pth, repos=revolution, type="source") # should need update
+  updatePackages(path=pth, repos=revolution, type="win.binary") # should be current
 
   # Delete temporary folder
   unlink(pth, recursive=TRUE)

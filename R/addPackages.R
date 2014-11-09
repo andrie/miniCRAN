@@ -170,3 +170,64 @@ add.packages.miniCRAN <- function(pkgs=NULL, path=NULL, repos=getOption("repos")
     tools::write_PACKAGES(dir=pkgPath, type=type)
   }
 }
+
+################################################################################
+#' Add old package versions to a miniCRAN repository.
+#'
+#' Will download and add older source package versions. Older binary versions
+#' are not normally available on CRAN and should be build from source on the
+#' platform for which they are required. As such, specifying \code{type!="source"}
+#' will likely fail as the download will not be successful.
+#'
+#' @inheritParams add.packages.miniCRAN
+#'
+#' @param vers The package version to install.
+#'
+#' @return Installs the packages, rebuilds the package index invisibly returns
+#' the number of packages writen to the index files.
+#'
+#' @note Dependencies for old package versions cannot be determined automatically
+#' and must be specified by the user in `pkgs` and `vers`. Thus, \code{deps=FALSE}
+#' is the default for this function.
+#'
+#' @import tools
+#' @export
+#' @docType methods
+#'
+#' @example /inst/examples/example_checkVersions.R
+#'
+addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
+                                repos=getOption("repos"),
+                                type="source", Rversion=R.version,
+                                writePACKAGES=TRUE, deps=FALSE) {
+  if (is.null(path) || is.null(pkgs) || is.null(vers)) {
+    stop("path, pkgs, and vers must all be specified.")
+  }
+  if (type!="source") warning("Older binary versions are not normally available on CRAN. ",
+                              "You must build the binary versions from source.")
+  if(deps) {
+    message("Unable to automatically determine dependency version information.")
+    message("Use `pkgs` and `vers` to identify which dependecies and there versions to download.")
+  }
+  vers <- as.character(vers)
+  pkgFileExt <- function(type) {
+    switch(
+      type,
+      "source" = ".tar.gz",
+      "win.binary" = ".zip",
+      "mac.binary" = ".tgz",
+      "mac.binary.mavericks" = ".tgz",
+      "mac.binary.leopard"= ".tgz",
+      stop("Type ", type, "not recognised.")
+    )
+  }
+  oldPkgs <- file.path(repos, miniCRAN:::repoPrefix(type, R.version),
+                       sprintf("%s_%s%s", pkgs, vers, pkgFileExt(type)))
+
+  pkgPath <- file.path(path=pth, miniCRAN:::repoPrefix(type, R.version))
+  dir.create(pkgPath, recursive=TRUE)
+  sapply(oldPkgs, function(x) {
+    download.file(x, destfile=file.path(pkgPath, basename(x)))
+  })
+  if (writePACKAGES) tools::write_PACKAGES(path=pkgPath, type=type)
+}
