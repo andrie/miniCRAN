@@ -221,8 +221,8 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
       stop("Type ", type, "not recognised.")
     )
   }
-  oldPkgs <- file.path(repos, miniCRAN:::repoPrefix(type, R.version),
-                       sprintf("%s_%s%s", pkgs, vers, pkgFileExt(type)))
+  oldPkgs <- file.path(repos, miniCRAN:::repoPrefix(type, R.version), "Archive",
+                       pkgs, sprintf("%s_%s%s", pkgs, vers, pkgFileExt(type)))
 
   pkgPath <- file.path(path=pth, miniCRAN:::repoPrefix(type, R.version))
   dir.create(pkgPath, recursive=TRUE)
