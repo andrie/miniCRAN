@@ -98,7 +98,7 @@ addPackageGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch="master
 #' @export
 #' @docType methods
 #'
-#' @examples \inst\examples\example_checkVersions.R
+#' @example \inst\examples\example_checkVersions.R
 #'
 checkVersions <- function(pkgs=NULL, path=NULL, type="source",
                           Rversion=getRversion()) {
