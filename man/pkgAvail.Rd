@@ -20,6 +20,8 @@ This is a thin wrapper around \code{\link[utils]{available.packages}}.  If the a
 
 Other miniCRAN.functions: \code{\link{basePkgs}};
   \code{\link{makeDepGraph}}; \code{\link{makeRepo}};
-  \code{\link{pkgDep}}; \code{\link{plot.pkgDepGraph}}
+  \code{\link{oldPackages}}; \code{\link{pkgDep}};
+  \code{\link{plot.pkgDepGraph}};
+  \code{\link{updatePackages}}
 }
 

@@ -65,7 +65,9 @@ if(require(igraph)) plot(p)
 \code{\link{pkgDep}}, \code{\link{plot.pkgDepGraph}}
 
 Other miniCRAN.functions: \code{\link{basePkgs}};
-  \code{\link{makeRepo}}; \code{\link{pkgAvail}};
-  \code{\link{pkgDep}}; \code{\link{plot.pkgDepGraph}}
+  \code{\link{makeRepo}}; \code{\link{oldPackages}};
+  \code{\link{pkgAvail}}; \code{\link{pkgDep}};
+  \code{\link{plot.pkgDepGraph}};
+  \code{\link{updatePackages}}
 }
 

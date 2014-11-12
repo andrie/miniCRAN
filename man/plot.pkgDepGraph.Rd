@@ -64,6 +64,7 @@ plot(dg, legendPosition=c(1, 1), vertex.size=20,  cex=0.5)
 
 Other miniCRAN.functions: \code{\link{basePkgs}};
   \code{\link{makeDepGraph}}; \code{\link{makeRepo}};
-  \code{\link{pkgAvail}}; \code{\link{pkgDep}}
+  \code{\link{oldPackages}}; \code{\link{pkgAvail}};
+  \code{\link{pkgDep}}; \code{\link{updatePackages}}
 }
 

@@ -19,9 +19,7 @@ addPackageGithub(pdb = pkgAvail(), repo, username = NULL,
 Downloads the DESCRIPTION file from a package on github, parses the fields and adds (or replaces) a row in the available package database.
 }
 \examples{
-
 # Create package database
-
 pdb <- cranJuly2014
 
 \dontrun{
@@ -40,10 +38,5 @@ newpdb["checkpoint", ]
 
 set.seed(1)
 plot(makeDepGraph("checkpoint", availPkgs = newpdb, suggests=TRUE))
-
-
-
-
-
 }
 
