@@ -19,13 +19,6 @@
 #'
 #' @param method  Download method, see \code{\link{download.file}}.
 #'
-#' @param ask logical indicating whether to ask user before packages are
-#' actually downloaded and installed, or the character string "\code{graphics}",
-#' which brings up a widget to allow the user to (de-)select from the list of
-#' packages which could be updated or added. The latter value only works on
-#' systems with a GUI version of \code{\link{select.list}}, and is otherwise
-#' equivalent to \code{ask = TRUE}.
-#'
 #' @param available an object as returned by \code{\link{available.packages}}
 #' listing packages available at the repositories, or \code{NULL} which makes an
 #' internal call to \code{\link{available.packages}}.
@@ -45,7 +38,7 @@
 #' package names and column names "Package", "LocalVer", "ReposVer", and
 #' "Repository".
 #'
-#' @seealso \code{\link{updatePackages}}
+#' @seealso \code{\link{updatePackages}}, \code{\link{pkgAvail}}.
 #' @family miniCRAN functions
 #'
 #' @import tools
@@ -113,6 +106,17 @@ oldPackages <- function (path=NULL, repos=getOption("repos"),
 #' package sources and binaries being hosted in the miniCRAN repository.
 #'
 #' @inheritParams oldPackages
+#' 
+#' @param oldPkgs if specified as non-NULL, updatePackages() only considers
+#' these packages for updating. This may be a character vector of package names
+#' or a matrix as returned by oldPackages().
+#' 
+#' @param ask logical indicating whether to ask user before packages are
+#' actually downloaded and installed, or the character string "\code{graphics}",
+#' which brings up a widget to allow the user to (de-)select from the list of
+#' packages which could be updated or added. The latter value only works on
+#' systems with a GUI version of \code{\link{select.list}}, and is otherwise
+#' equivalent to \code{ask = TRUE}.
 #'
 #' @return \code{NULL} invisibly.
 #'
@@ -163,8 +167,8 @@ updatePackages <- function (path=NULL, repos=getOption("repos"),
   }
   if (is.null(oldPkgs)) {
     oldPkgs <- oldPackages(path=path, repos=repos, contriburl=contriburl,
-                                     method=method, available=available, type=type,
-                                     Rversion=Rversion)
+                           method=method, available=available, type=type,
+                           Rversion=Rversion)
     if (is.null(oldPkgs)) {
       message("All packages are up to date from repos: ", names(repos))
       return(invisible())

@@ -64,7 +64,13 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
 
 
 #' Get the path to the repo directory containing the package files.
-#'
+#' 
+#' @param Rversion numeric version of the R system for which to fetch packages.
+#' See \code{\link{R_system_version}}.
+#' 
+#' @param type  character, indicating the type of package to download and
+#'  install. See \code{\link{install.packages}}.
+#' 
 #' @section Repo folder structure:
 #' The folder structure of a repository
 #' \itemize{

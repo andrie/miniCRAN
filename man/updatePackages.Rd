@@ -10,6 +10,17 @@ updatePackages(path = NULL, repos = getOption("repos"),
   Rversion = getRversion())
 }
 \arguments{
+\item{oldPkgs}{if specified as non-NULL, updatePackages() only considers
+these packages for updating. This may be a character vector of package names
+or a matrix as returned by oldPackages().}
+
+\item{ask}{logical indicating whether to ask user before packages are
+actually downloaded and installed, or the character string "\code{graphics}",
+which brings up a widget to allow the user to (de-)select from the list of
+packages which could be updated or added. The latter value only works on
+systems with a GUI version of \code{\link{select.list}}, and is otherwise
+equivalent to \code{ask = TRUE}.}
+
 \item{path}{The local path to the directory where the miniCRAN repo resides.}
 
 \item{repos}{character vector, the base URL(s) of the repositories to use,
@@ -19,13 +30,6 @@ e.g., the URL of a CRAN mirror such as "\code{http://cran.us.r-project.org}".}
 Use this argument if your repository is incomplete. Overrides argument repos.}
 
 \item{method}{Download method, see \code{\link{download.file}}.}
-
-\item{ask}{logical indicating whether to ask user before packages are
-actually downloaded and installed, or the character string "\code{graphics}",
-which brings up a widget to allow the user to (de-)select from the list of
-packages which could be updated or added. The latter value only works on
-systems with a GUI version of \code{\link{select.list}}, and is otherwise
-equivalent to \code{ask = TRUE}.}
 
 \item{available}{an object as returned by \code{\link{available.packages}}
 listing packages available at the repositories, or \code{NULL} which makes an

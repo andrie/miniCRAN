@@ -104,7 +104,7 @@ checkVersions <- function(pkgs=NULL, path=NULL, type="source",
                           Rversion=getRversion()) {
   if (is.null(path)) stop("path must be specified.")
   if (!file.exists(path)) stop("invalid path, ", path)
-  pkgPath <- file.path(path, miniCRAN:::repoPrefix(type, Rversion))
+  pkgPath <- file.path(path, repoPrefix(type, Rversion))
   if (is.null(pkgs)) {
     files = dir(pkgPath)
   } else {
@@ -166,7 +166,7 @@ add.packages.miniCRAN <- function(pkgs=NULL, path=NULL, repos=getOption("repos")
     file.remove(old)
   }
   if (writePACKAGES) {
-    pkgPath <- file.path(path, miniCRAN:::repoPrefix(type, Rversion))
+    pkgPath <- file.path(path, repoPrefix(type, Rversion))
     tools::write_PACKAGES(dir=pkgPath, type=type)
   }
 }
@@ -197,9 +197,9 @@ add.packages.miniCRAN <- function(pkgs=NULL, path=NULL, repos=getOption("repos")
 #' @example \inst\examples\example_checkVersions.R
 #'
 addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
-                                repos=getOption("repos"),
-                                type="source", Rversion=R.version,
-                                writePACKAGES=TRUE, deps=FALSE) {
+                          repos=getOption("repos"),
+                          type="source", Rversion=R.version,
+                          writePACKAGES=TRUE, deps=FALSE) {
   if (is.null(path) || is.null(pkgs) || is.null(vers)) {
     stop("path, pkgs, and vers must all be specified.")
   }
@@ -221,10 +221,10 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
       stop("Type ", type, "not recognised.")
     )
   }
-  oldPkgs <- file.path(repos, miniCRAN:::repoPrefix(type, R.version), "Archive",
+  oldPkgs <- file.path(repos, repoPrefix(type, R.version), "Archive",
                        pkgs, sprintf("%s_%s%s", pkgs, vers, pkgFileExt(type)))
 
-  pkgPath <- file.path(path=pth, miniCRAN:::repoPrefix(type, R.version))
+  pkgPath <- file.path(path=pth, repoPrefix(type, R.version))
   dir.create(pkgPath, recursive=TRUE)
   sapply(oldPkgs, function(x) {
     download.file(x, destfile=file.path(pkgPath, basename(x)))

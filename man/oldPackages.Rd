@@ -20,13 +20,6 @@ Use this argument if your repository is incomplete. Overrides argument repos.}
 
 \item{method}{Download method, see \code{\link{download.file}}.}
 
-\item{ask}{logical indicating whether to ask user before packages are
-actually downloaded and installed, or the character string "\code{graphics}",
-which brings up a widget to allow the user to (de-)select from the list of
-packages which could be updated or added. The latter value only works on
-systems with a GUI version of \code{\link{select.list}}, and is otherwise
-equivalent to \code{ask = TRUE}.}
-
 \item{available}{an object as returned by \code{\link{available.packages}}
 listing packages available at the repositories, or \code{NULL} which makes an
 internal call to \code{\link{available.packages}}.}
@@ -98,7 +91,7 @@ pkgList
 }
 }
 \seealso{
-\code{\link{updatePackages}}
+\code{\link{updatePackages}}, \code{\link{pkgAvail}}.
 
 Other miniCRAN.functions: \code{\link{basePkgs}};
   \code{\link{makeDepGraph}}; \code{\link{makeRepo}};
