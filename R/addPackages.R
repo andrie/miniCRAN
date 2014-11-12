@@ -70,7 +70,7 @@ addPackage <- function(pdb, dcf, warnings=TRUE){
 #' @param username Optional character vector. Name of repository on github, e.g. \code{"RevolutionAnalytics/checkpoint"}
 #' @param branch name of branch, defaults to \code{"master"}
 #' @export
-#' @example /inst/examples/example_addPackage.R
+#' @example \inst\examples\example_addPackage.R
 addPackageGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch="master"){
   desc <- readDescriptionGithub(repo=repo, username=username, branch=branch)
   addPackage(pdb, desc)
@@ -98,7 +98,7 @@ addPackageGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch="master
 #' @export
 #' @docType methods
 #'
-#' @examples /inst/examples/example_checkVersions.R
+#' @examples \inst\examples\example_checkVersions.R
 #'
 checkVersions <- function(pkgs=NULL, path=NULL, type="source",
                           Rversion=getRversion()) {
@@ -148,7 +148,7 @@ checkVersions <- function(pkgs=NULL, path=NULL, type="source",
 #' @export
 #' @docType methods
 #'
-#' @example /inst/examples/example_checkVersions.R
+#' @example \inst\examples\example_checkVersions.R
 #'
 add.packages.miniCRAN <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
                                   type="source", Rversion=R.version,
@@ -194,7 +194,7 @@ add.packages.miniCRAN <- function(pkgs=NULL, path=NULL, repos=getOption("repos")
 #' @export
 #' @docType methods
 #'
-#' @example /inst/examples/example_checkVersions.R
+#' @example \inst\examples\example_checkVersions.R
 #'
 addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
                                 repos=getOption("repos"),

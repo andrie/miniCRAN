@@ -14,7 +14,7 @@
 #'
 #' @family miniCRAN functions
 #' @seealso \code{\link{makeDepGraph}}
-#' @example /inst/examples/example_plot.pkgDepGraph.R
+#' @example \inst\examples\example_plot.pkgDepGraph.R
 #'
 plot.pkgDepGraph <- function(
   x, pkgsToHighlight,

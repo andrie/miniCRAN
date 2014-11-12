@@ -52,7 +52,7 @@
 #' @export
 #' @docType methods
 #'
-#' @example /inst/examples/example_updatePackages.R
+#' @example \inst\examples\example_updatePackages.R
 #'
 oldPackages <- function (path=NULL, repos=getOption("repos"),
                          contriburl=contrib.url(repos, type),
@@ -120,7 +120,7 @@ oldPackages <- function (path=NULL, repos=getOption("repos"),
 #' @family miniCRAN functions
 #' @docType methods
 #' @export
-#' @example /inst/examples/example_updatePackages.R
+#' @example \inst\examples\example_updatePackages.R
 #'
 updatePackages <- function (path=NULL, repos=getOption("repos"),
                             contriburl=contrib.url(repos, type),

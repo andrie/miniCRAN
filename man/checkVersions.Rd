@@ -27,6 +27,6 @@ Checks for previous versions, and returns the file paths for packages with
 multiple versions. The admin can subsequently decide which version to keep.
 }
 \examples{
-/inst/examples/example_checkVersions.R
+\inst\examples\example_checkVersions.R
 }
 
