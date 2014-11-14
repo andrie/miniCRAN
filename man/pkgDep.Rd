@@ -53,6 +53,8 @@ pkgDep(pkg=c("ggplot2", "plyr", "reshape2"), pdb)
 
 Other miniCRAN.functions: \code{\link{basePkgs}};
   \code{\link{makeDepGraph}}; \code{\link{makeRepo}};
-  \code{\link{pkgAvail}}; \code{\link{plot.pkgDepGraph}}
+  \code{\link{oldPackages}}; \code{\link{pkgAvail}};
+  \code{\link{plot.pkgDepGraph}};
+  \code{\link{updatePackages}}
 }
 
