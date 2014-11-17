@@ -18,11 +18,13 @@ pkgList
   dir.create(pth <- file.path(tempdir(), "miniCRAN"))
 
   # create the miniCRAN directory structure but only add bin files
-  makeRepo(pkgs, path=pth, repos=revolution, type="source", download=FALSE)
-  makeRepo(pkgs, path=pth, repos=revolution, type="win.binary", download=TRUE)
+  makeRepo(pkgList, path=pth, repos=revolution, type="source", download=FALSE)
+  makeRepo(pkgList, path=pth, repos=revolution, type="win.binary", download=TRUE)
 
   # download old source package version and create repo index
-  addOldPackage(pkgs, path=pth, vers="1.4.0", type="source")
+  oldVers <- data.frame(package=c("foreach", "codetools", "iterators"),
+                        version=c("1.4.0", "0.2-7", "1.0.5"))
+  addOldPackage(pkgList, path=pth, vers=oldVers, type="source")
   # NOTE: older binary versions would need to be build from source
 
   # Check if updated packages are available
