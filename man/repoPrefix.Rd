@@ -24,12 +24,9 @@ The folder structure of a repository
 \itemize{
  \item{Root}
  \itemize{
-   \item{src}
+   \item{src/contrib}
    \itemize{
-     \item{contrib}
-     \itemize{
-       \item{PACKAGES}
-     }
+     \item{PACKAGES}
    }
    \item{bin}
    \itemize{

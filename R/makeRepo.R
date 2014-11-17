@@ -12,9 +12,8 @@
 #'  \item{Root}
 #'  \itemize{
 #'    \item{src/contrib}
-#'      \itemize{
-#'        \item{PACKAGES}
-#'      }
+#'    \itemize{
+#'      \item{PACKAGES}
 #'    }
 #'    \item{bin}
 #'    \itemize{
@@ -89,9 +88,8 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
 #'  \item{Root}
 #'  \itemize{
 #'    \item{src/contrib}
-#'      \itemize{
-#'        \item{PACKAGES}
-#'      }
+#'    \itemize{
+#'      \item{PACKAGES}
 #'    }
 #'    \item{bin}
 #'    \itemize{
