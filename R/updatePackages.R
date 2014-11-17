@@ -41,7 +41,6 @@
 #' @seealso \code{\link{updatePackages}}, \code{\link{pkgAvail}}.
 #' @family miniCRAN functions
 #'
-#' @import tools
 #' @export
 #' @docType methods
 #'
@@ -76,7 +75,7 @@ oldPackages <- function (path=NULL, repos=getOption("repos"),
       next
     deps <- onRepos["Depends"]
     if (!is.na(deps)) {
-      Rdeps <- tools:::.split_dependencies(deps)[["R", exact = TRUE]]
+      Rdeps <- split_dependencies(deps)[["R", exact = TRUE]]
       if (length(Rdeps) > 1L) {
         target <- Rdeps$version
         res <- do.call(Rdeps$op, list(currentR, target))
