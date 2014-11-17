@@ -144,7 +144,7 @@ checkVersions <- function(pkgs=NULL, path=NULL, type="source",
 #' @return Installs the packages, rebuilds the package index invisibly returns
 #' the number of packages writen to the index files.
 #'
-#' @import tools
+#' @importFrom tools write_PACKAGES
 #' @export
 #' @docType methods
 #'
@@ -190,7 +190,7 @@ add.packages.miniCRAN <- function(pkgs=NULL, path=NULL, repos=getOption("repos")
 #' and must be specified by the user in `pkgs` and `vers`. Thus, \code{deps=FALSE}
 #' is the default for this function.
 #'
-#' @import tools
+#' @importFrom tools write_PACKAGES
 #' @export
 #' @docType methods
 #'
