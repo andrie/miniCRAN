@@ -24,7 +24,7 @@
 #' internal call to \code{\link{available.packages}}.
 #'
 #' @param availPkgs by default all packages hosted in the miniCRAN repo,
-#' \code{\link{pkgAvail(repos=path, type=type)}}. A subset can be specified;
+#' \code{\link{pkgAvail}(repos=path, type=type)}. A subset can be specified;
 #' currently this must be in the same (character matrix) format as returned by
 #' \code{pkgAvail()}.
 #'

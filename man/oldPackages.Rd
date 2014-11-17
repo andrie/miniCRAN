@@ -19,7 +19,7 @@ e.g., the URL of a CRAN mirror such as "\code{http://cran.us.r-project.org}".}
 Use this argument if your repository is incomplete. Overrides argument repos.}
 
 \item{availPkgs}{by default all packages hosted in the miniCRAN repo,
-\code{\link{pkgAvail(repos=path, type=type)}}. A subset can be specified;
+\code{\link{pkgAvail}(repos=path, type=type)}. A subset can be specified;
 currently this must be in the same (character matrix) format as returned by
 \code{pkgAvail()}.}
 
