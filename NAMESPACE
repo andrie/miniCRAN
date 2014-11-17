@@ -2,9 +2,9 @@
 
 S3method(plot,pkgDepGraph)
 S3method(print,pkgDep)
-export(add.packages.miniCRAN)
 export(addOldPackage)
-export(addPackageGithub)
+export(addPackage)
+export(addPackageListingGithub)
 export(basePkgs)
 export(checkVersions)
 export(getCranDescription)

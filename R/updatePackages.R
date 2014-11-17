@@ -105,11 +105,11 @@ oldPackages <- function (path=NULL, repos=getOption("repos"),
 #' package sources and binaries being hosted in the miniCRAN repository.
 #'
 #' @inheritParams oldPackages
-#' 
+#'
 #' @param oldPkgs if specified as non-NULL, updatePackages() only considers
 #' these packages for updating. This may be a character vector of package names
 #' or a matrix as returned by oldPackages().
-#' 
+#'
 #' @param ask logical indicating whether to ask user before packages are
 #' actually downloaded and installed, or the character string "\code{graphics}",
 #' which brings up a widget to allow the user to (de-)select from the list of
@@ -194,6 +194,6 @@ updatePackages <- function (path=NULL, repos=getOption("repos"),
     oldPkgs
   }
   if (length(update[,"Package"])) {
-    add.packages.miniCRAN(update[,"Package"], type=type)
+    addPackage(update[,"Package"], path=path, type=type)
   }
 }

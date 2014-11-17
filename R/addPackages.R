@@ -39,11 +39,26 @@ readDescription <- function (file) {
   prepDescription(ret)
 }
 
-
-
+addPackageListing <- function(pdb=pkgAvail(), dcf, warnings=TRUE) {
+  pkgName <- dcf[["Package"]]
+  #   pkgRow <- match(pkgName, rownames(pdb))
+  pkgRow <- match(pkgName, pdb[, "Package"])
+  newRow <- with(dcf,
+                 c(Package, Version, NA, Depends, Imports, LinkingTo, Suggests, Enhances, License,
+                   rep(NA, 8)))
+  if(!is.na(pkgRow)){
+    pdb[pkgRow, ] <- newRow
+    if(warnings) {
+      warning (sprintf("Overwriting package information for: %s", pkgName))
+    }
+  } else {
+    pdb <- rbind(pdb, newRow)
+    rownames(pdb)[nrow(pdb)] <- pkgName
+  }
+  pdb
+}
 
 # from http://stackoverflow.com/questions/13163248/possible-to-override-the-blocking-of-a-packages-re-installation-after-it-has
-
 
 #' @importFrom httr GET stop_for_status content
 readDescriptionGithub <- function(repo, username, branch="master", quiet=TRUE){
@@ -59,28 +74,6 @@ readDescriptionGithub <- function(repo, username, branch="master", quiet=TRUE){
   readDescription(ff)
 }
 
-
-
-addPackage <- function(pdb, dcf, warnings=TRUE){
-  pkgName <- dcf[["Package"]]
-#   pkgRow <- match(pkgName, rownames(pdb))
-  pkgRow <- match(pkgName, pdb[, "Package"])
-  newRow <- with(dcf,
-                 c(Package, Version, NA, Depends, Imports, LinkingTo, Suggests, Enhances, License,
-                   rep(NA, 8)))
-  if(!is.na(pkgRow)){
-    pdb[pkgRow, ] <- newRow
-    if(warnings) {
-      msg <- sprintf("Overwriting package information for: %s", pkgName)
-      warning (msg)
-    }
-  } else {
-    pdb <- rbind(pdb, newRow)
-    rownames(pdb)[nrow(pdb)] <- pkgName
-  }
-  pdb
-}
-
 #' Add DESCRIPTION information from package on github.
 #'
 #' Downloads the DESCRIPTION file from a package on github, parses the fields and adds (or replaces) a row in the available package database.
@@ -91,7 +84,7 @@ addPackage <- function(pdb, dcf, warnings=TRUE){
 #' @param branch name of branch, defaults to \code{"master"}
 #' @export
 #' @example /inst/examples/example_addPackage.R
-addPackageGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch="master"){
+addPackageListingGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch="master"){
   desc <- readDescriptionGithub(repo=repo, username=username, branch=branch)
   addPackage(pdb, desc)
 }
@@ -170,9 +163,9 @@ checkVersions <- function(pkgs=NULL, path=NULL, type="source",
 #'
 #' @example /inst/examples/example_checkVersions.R
 #'
-add.packages.miniCRAN <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
-                                  type="source", Rversion=R.version,
-                                  writePACKAGES=TRUE, deps=TRUE) {
+addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
+                       type="source", Rversion=R.version,
+                       writePACKAGES=TRUE, deps=TRUE) {
   if (is.null(path) || is.null(pkgs)) stop("path and pkgs must both be specified.")
   prev <- checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
   if (deps) pkgs <- pkgDep(pkgs)
@@ -199,7 +192,7 @@ add.packages.miniCRAN <- function(pkgs=NULL, path=NULL, repos=getOption("repos")
 #' platform for which they are required. As such, specifying \code{type!="source"}
 #' will likely fail as the download will not be successful.
 #'
-#' @inheritParams add.packages.miniCRAN
+#' @inheritParams addPackage
 #'
 #' @param vers The package version to install.
 #'

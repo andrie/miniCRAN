@@ -39,8 +39,8 @@ pkgList
   tools::write_PACKAGES(pkgPathBin, type="win.binary")
 
   # Add new packages (from CRAN) to the miniCRAN repo
-  add.packages.miniCRAN("raster", path=pth, repos=revolution, type="source")
-  add.packages.miniCRAN("raster", path=pth, repos=revolution, type="win.binary")
+  addPackage("raster", path=pth, repos=revolution, type="source")
+  addPackage("raster", path=pth, repos=revolution, type="win.binary")
 
   # Delete temporary folder
   unlink(pth, recursive=TRUE)
