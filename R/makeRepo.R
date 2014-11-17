@@ -42,7 +42,7 @@
 #'
 #' @export
 #' @family miniCRAN functions
-#' @example \inst\examples\example_makeRepo.R
+#' @example /inst/examples/example_makeRepo.R
 makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
                      Rversion=R.version, download=TRUE, writePACKAGES=TRUE) {
   if(!file.exists(path)) stop("Download path does not exist")
