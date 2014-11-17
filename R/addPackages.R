@@ -1,3 +1,23 @@
+pkgFileExt <- function(type) {
+  switch(
+    type,
+    "source" = ".tar.gz",
+    "win.binary" = ".zip",
+    "mac.binary" = ".tgz",
+    "mac.binary.mavericks" = ".tgz",
+    "mac.binary.leopard"= ".tgz",
+    stop("Type ", type, "not recognised.")
+  )
+}
+
+getPkgVersFromFile <- function(file) {
+  file <- grep("\\.(tar\\.gz|zip|tgz)$", basename(file), value=TRUE)
+  file <- sapply(strsplit(file, pkgFileExt(type)), "[[", 1)
+  pkg <- sapply(strsplit(file, "_"), "[[", 1)
+  vers <- sapply(strsplit(file, "_"), "[[", 2)
+  df <- data.frame(package=pkg, version=vers)
+  return(df[order(df$package),])
+}
 
 readDescription <- function (file) {
   trimSpaces <- function(x){
@@ -203,24 +223,13 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
   if (is.null(path) || is.null(pkgs) || is.null(vers)) {
     stop("path, pkgs, and vers must all be specified.")
   }
-  if (type!="source") warning("Older binary versions are not normally available on CRAN. ",
+  if (type!="source") stop("Older binary versions are not normally available on CRAN. ",
                               "You must build the binary versions from source.")
   if(deps) {
     message("Unable to automatically determine dependency version information.")
     message("Use `pkgs` and `vers` to identify which dependecies and there versions to download.")
   }
   vers <- as.character(vers)
-  pkgFileExt <- function(type) {
-    switch(
-      type,
-      "source" = ".tar.gz",
-      "win.binary" = ".zip",
-      "mac.binary" = ".tgz",
-      "mac.binary.mavericks" = ".tgz",
-      "mac.binary.leopard"= ".tgz",
-      stop("Type ", type, "not recognised.")
-    )
-  }
   oldPkgs <- file.path(repos, repoPrefix(type, R.version), "Archive",
                        pkgs, sprintf("%s_%s%s", pkgs, vers, pkgFileExt(type)))
 
@@ -229,5 +238,5 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
   sapply(oldPkgs, function(x) {
     download.file(x, destfile=file.path(pkgPath, basename(x)))
   })
-  if (writePACKAGES) tools::write_PACKAGES(path=pkgPath, type=type)
+  if (writePACKAGES) tools::write_PACKAGES(dir=pkgPath, type=type)
 }
