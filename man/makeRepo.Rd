@@ -45,15 +45,29 @@ The folder structure of a repository
    \item{src}
    \itemize{
      \item{contrib}
+     \itemize{
+       \item{PACKAGES}
+     }
    }
- \item{bin}
- \itemize{
-   \item{windows/contrib/}
-   \item{macosx/contrib/}
-   \item{macosx/mavericks/contrib}
-   \item{macosx/leopard/contrib}
- }
- \item{PACKAGES}
+   \item{bin}
+   \itemize{
+     \item{windows/contrib/version}
+     \itemize{
+       \item{PACKAGES}
+     }
+     \item{macosx/contrib/version}
+     \itemize{
+       \item{PACKAGES}
+     }
+     \item{macosx/mavericks/contrib/version}
+     \itemize{
+       \item{PACKAGES}
+     }
+     \item{macosx/leopard/contrib/version}
+     \itemize{
+       \item{PACKAGES}
+     }
+   }
  }
 }
 }
