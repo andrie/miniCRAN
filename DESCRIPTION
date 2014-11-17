@@ -16,7 +16,8 @@ Imports:
     tools,
     XML,
     httr,
-    igraph
+    igraph,
+    methods
 Suggests:
     testthat(>= 0.9),
     knitr
