@@ -4,6 +4,7 @@
 .Rhistory
 *.Rproj
 .Rproj.user/
+.Rproj.user
 
 #############
 ## Windows detritus
@@ -21,4 +22,3 @@ $RECYCLE.BIN/
 
 # Mac crap
 .DS_Store
-.Rproj.user
