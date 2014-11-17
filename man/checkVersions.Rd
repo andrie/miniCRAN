@@ -20,7 +20,7 @@ checkVersions(pkgs = NULL, path = NULL, type = "source",
 See \code{\link{R_system_version}}.}
 }
 \value{
-Returns filepaths to packages with multiple versions for removal.
+Returns invisibly the filepaths to packages with multiple versions for removal.
 }
 \description{
 Checks for previous versions, and returns the file paths for packages with
@@ -68,8 +68,8 @@ pkgList
   tools::write_PACKAGES(pkgPathBin, type="win.binary")
 
   # Add new packages (from CRAN) to the miniCRAN repo
-  add.packages.miniCRAN("raster", path=pth, repos=revolution, type="source")
-  add.packages.miniCRAN("raster", path=pth, repos=revolution, type="win.binary")
+  addPackage("raster", path=pth, repos=revolution, type="source")
+  addPackage("raster", path=pth, repos=revolution, type="win.binary")
 
   # Delete temporary folder
   unlink(pth, recursive=TRUE)

@@ -12,11 +12,17 @@ pkgFileExt <- function(type) {
 
 getPkgVersFromFile <- function(file) {
   file <- grep("\\.(tar\\.gz|zip|tgz)$", basename(file), value=TRUE)
-  file <- sapply(strsplit(file, pkgFileExt(type)), "[[", 1)
-  pkg <- sapply(strsplit(file, "_"), "[[", 1)
-  vers <- sapply(strsplit(file, "_"), "[[", 2)
-  df <- data.frame(package=pkg, version=vers)
-  return(df[order(df$package),])
+  if (length(file)) {
+    file <- sapply(strsplit(file, "\\.tar\\.gz"), "[[", 1)
+    file <- sapply(strsplit(file, "\\.zip"), "[[", 1)
+    file <- sapply(strsplit(file, "\\.tgz"), "[[", 1)
+    pkg <- sapply(strsplit(file, "_"), "[[", 1)
+    vers <- sapply(strsplit(file, "_"), "[[", 2)
+    df <- data.frame(package=pkg, version=vers, stringsAsFactors=FALSE)
+    return(df[order(df$package),])
+  } else {
+    return(NULL)
+  }
 }
 
 readDescription <- function (file) {
@@ -106,7 +112,7 @@ addPackageListingGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch=
 #' @param Rversion numeric version of the R system for which to fetch packages.
 #' See \code{\link{R_system_version}}.
 #'
-#' @return Returns filepaths to packages with multiple versions for removal.
+#' @return Returns invisibly the filepaths to packages with multiple versions for removal.
 #'
 #' @export
 #' @docType methods
@@ -124,12 +130,13 @@ checkVersions <- function(pkgs=NULL, path=NULL, type="source",
     files = sapply(pkgs, function(x) list.files(pkgPath, pattern=paste0(x,"_")) )
   }
   files = unlist(files)
+  pkgFiles = grep("\\.(tar\\.gz|zip|tgz)$", basename(files), value=TRUE)
 
   # identify duplicate packages and warn the user
   pkgs = sapply(strsplit(files, "_"), "[[", 1)
   dupes = pkgs[duplicated(pkgs)]
-  if (length(dupes)) warning("Duplicate package(s):", dupes)
-  return(file.path(pkgPath, files))
+  if (length(dupes)) warning("Duplicate package(s): ", paste(dupes, collapse=", "))
+  return(invisible(file.path(pkgPath, pkgFiles)))
 }
 
 ################################################################################
@@ -173,9 +180,9 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
            download=TRUE, writePACKAGES=FALSE)
   if (length(prev)>0) {
     curr <- checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
-    old <- setdiff(prev, curr)
+    old <- intersect(prev, curr)
     message("Removing previous versions of newly added packages:")
-    message(basename(old))
+    message(paste(basename(old), collapse=", "))
     file.remove(old)
   }
   if (writePACKAGES) {
