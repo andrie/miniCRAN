@@ -224,7 +224,7 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
   oldPkgs <- file.path(repos, repoPrefix(type, R.version), "Archive",
                        pkgs, sprintf("%s_%s%s", pkgs, vers, pkgFileExt(type)))
 
-  pkgPath <- file.path(path=pth, repoPrefix(type, R.version))
+  pkgPath <- file.path(path=path, repoPrefix(type, R.version))
   dir.create(pkgPath, recursive=TRUE)
   sapply(oldPkgs, function(x) {
     download.file(x, destfile=file.path(pkgPath, basename(x)))
