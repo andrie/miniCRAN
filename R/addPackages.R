@@ -182,7 +182,7 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
     curr <- checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
     old <- intersect(prev, curr)
     message("Removing previous versions of newly added packages:")
-    message(paste(basename(old), collapse=", "))
+    message(paste(basename(old), collapse="\n"))
     file.remove(old)
   }
   if (writePACKAGES) {
@@ -224,7 +224,7 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
     stop("path, pkgs, and vers must all be specified.")
   }
   if (type!="source") stop("Older binary versions are not normally available on CRAN. ",
-                              "You must build the binary versions from source.")
+                           "You must build the binary versions from source.")
   if(deps) {
     message("Unable to automatically determine dependency version information.")
     message("Use `pkgs` and `vers` to identify which dependecies and there versions to download.")
@@ -234,7 +234,7 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
                        pkgs, sprintf("%s_%s%s", pkgs, vers, pkgFileExt(type)))
 
   pkgPath <- file.path(path=path, repoPrefix(type, R.version))
-  dir.create(pkgPath, recursive=TRUE)
+  if(!file.exists(pkgPath)) dir.create(pkgPath, recursive=TRUE)
   sapply(oldPkgs, function(x) {
     download.file(x, destfile=file.path(pkgPath, basename(x)))
   })
