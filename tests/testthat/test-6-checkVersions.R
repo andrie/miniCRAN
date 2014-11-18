@@ -33,7 +33,8 @@ test_that("checkVersions downloads old and current source files checks for these
   oldVers <- data.frame(package=c("foreach", "codetools", "iterators"),
                         version=c("1.4.0", "0.2-7", "1.0.5"),
                         stringsAsFactors=FALSE)
-  addOldPackage(pkgList, path=repo_root, vers=oldVers[,"version"], type=pkg_type)
+  addOldPackage(pkgList, path=repo_root, vers=oldVers[,"version"],
+                repos=revolution, type=pkg_type)
   makeRepo(pkgList, path=repo_root, repos=revolution, type=pkg_type, writePACKAGES=FALSE)
 
   files <- suppressWarnings(checkVersions(pkgList, path=repo_root, type=pkg_type))

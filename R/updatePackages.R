@@ -194,6 +194,6 @@ updatePackages <- function (path=NULL, repos=getOption("repos"),
     oldPkgs
   }
   if (length(update[,"Package"])) {
-    addPackage(update[,"Package"], path=path, type=type)
+    addPackage(update[,"Package"], path=path, repos=repos, type=type)
   }
 }

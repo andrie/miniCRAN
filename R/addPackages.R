@@ -236,7 +236,8 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
   pkgPath <- file.path(path=path, repoPrefix(type, R.version))
   if(!file.exists(pkgPath)) dir.create(pkgPath, recursive=TRUE)
   sapply(oldPkgs, function(x) {
-    download.file(x, destfile=file.path(pkgPath, basename(x)))
+    result <- download.file(x, destfile=file.path(pkgPath, basename(x)), method="auto")
+    if(result!=0) warning("error downloading file ", x)
   })
   if (writePACKAGES) tools::write_PACKAGES(dir=pkgPath, type=type)
 }
