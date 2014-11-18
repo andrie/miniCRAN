@@ -76,7 +76,8 @@ pkgList
 
   # download old source package version and create repo index
   oldVers <- data.frame(package=c("foreach", "codetools", "iterators"),
-                        version=c("1.4.0", "0.2-7", "1.0.5"))
+                        version=c("1.4.0", "0.2-7", "1.0.5"),
+                        stringsAsFactors=FALSE)
   addOldPackage(pkgList, path=pth, vers=oldVers$version, type="source")
   # NOTE: older binary versions would need to be build from source
 

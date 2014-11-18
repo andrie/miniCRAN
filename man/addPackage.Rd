@@ -60,7 +60,10 @@ pkgList
   makeRepo(pkgList, path=pth, repos=revolution, type="win.binary")
 
   # Add other versions of a package (and assume these were added previously)
-  addOldPackage(pkgs, path=pth, vers="1.4.0", type="source")
+  oldVers <- data.frame(package=c("foreach", "codetools", "iterators"),
+                        version=c("1.4.0", "0.2-7", "1.0.5"),
+                        stringsAsFactors=FALSE)
+  addOldPackage(pkgs, path=pth, vers=oldVers$version, type="source")
   # NOTE: older binary versions would need to be build from source
 
   # List package versions in the miniCRAN repo (produces warning about duplicates)
