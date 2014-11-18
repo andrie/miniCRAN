@@ -92,7 +92,7 @@ readDescriptionGithub <- function(repo, username, branch="master", quiet=TRUE){
 #' @example /inst/examples/example_addPackage.R
 addPackageListingGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch="master"){
   desc <- readDescriptionGithub(repo=repo, username=username, branch=branch)
-  addPackage(pdb, desc)
+  addPackageListing(pdb, desc)
 }
 
 ################################################################################
