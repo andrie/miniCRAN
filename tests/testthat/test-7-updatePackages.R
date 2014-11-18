@@ -35,7 +35,7 @@ test_that("updatePackages downloads source files and builds PACKAGES file", {
                         version=c("1.4.0", "0.2-7", "1.0.5"),
                         stringsAsFactors=FALSE)
   addOldPackage(pkgList, path=repo_root, vers=oldVers[,"version"], type=pkg_type)
-  updatePackages(path=repo_root, repos=revolution, type=pkg_type, ask=FALSE)
+  suppressWarnings(updatePackages(path=repo_root, repos=revolution, type=pkg_type, ask=FALSE))
 
   updateVers <- miniCRAN:::getPkgVersFromFile(list.files(file.path(repo_root, prefix)))
 
