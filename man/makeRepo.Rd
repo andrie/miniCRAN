@@ -18,11 +18,11 @@ new repository.}
 
 \item{Rversion}{List with two named elements: `major` and `minor`.
 If not supplied, defaults to system version of R, using
-\code{\link[base]{R.version}}.  Only used if \code{type} is not "source"}
+\code{\link{R.version}}.  Only used if \code{type} is not "source"}
 
 \item{download}{If TRUE downloads packages.}
 
-\item{writePACKAGES}{If TRUE, calls \code{\link[tools]{write_PACKAGES}} to
+\item{writePACKAGES}{If TRUE, calls \code{\link{write_PACKAGES}} to
 update the repository PACKAGES file.}
 }
 \description{
@@ -34,7 +34,7 @@ structure and files of a CRAN repository, it supports functions like
 }
 \note{
 Internally makes use of \code{\link[utils]{download.packages}} and
-\code{\link[tools]{write_PACKAGES}}
+\code{\link{write_PACKAGES}}
 }
 \section{Repo folder structure}{
 

@@ -24,7 +24,7 @@ e.g., the URL of a CRAN mirror such as "\code{http://cran.us.r-project.org}".}
 \item{Rversion}{numeric version of the R system for which to fetch packages.
 See \code{\link{R_system_version}}.}
 
-\item{writePACKAGES}{If TRUE, calls \code{\link[tools]{write_PACKAGES}} to
+\item{writePACKAGES}{If TRUE, calls \code{\link{write_PACKAGES}} to
 update the repository PACKAGES file.}
 
 \item{deps}{logical indicating whether the package dependencies should be

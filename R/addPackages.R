@@ -155,7 +155,7 @@ checkVersions <- function(pkgs=NULL, path=NULL, type="source",
 #' @param Rversion numeric version of the R system for which to fetch packages.
 #' See \code{\link{R_system_version}}.
 #'
-#' @param writePACKAGES If TRUE, calls \code{\link[tools]{write_PACKAGES}} to
+#' @param writePACKAGES If TRUE, calls \code{\link{write_PACKAGES}} to
 #' update the repository PACKAGES file.
 #'
 #' @param deps logical indicating whether the package dependencies should be

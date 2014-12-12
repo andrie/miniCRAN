@@ -38,7 +38,7 @@
 #' }
 #'
 #' @note Internally makes use of \code{\link[utils]{download.packages}} and
-#' \code{\link[tools]{write_PACKAGES}}
+#' \code{\link{write_PACKAGES}}
 #'
 #' @inheritParams pkgDep
 #' @param pkgs Character vector of packages to download
@@ -46,9 +46,9 @@
 #' new repository.
 #' @param Rversion List with two named elements: `major` and `minor`.
 #' If not supplied, defaults to system version of R, using
-#' \code{\link[base]{R.version}}.  Only used if \code{type} is not "source"
+#' \code{\link{R.version}}.  Only used if \code{type} is not "source"
 #' @param download If TRUE downloads packages.
-#' @param writePACKAGES If TRUE, calls \code{\link[tools]{write_PACKAGES}} to
+#' @param writePACKAGES If TRUE, calls \code{\link{write_PACKAGES}} to
 #' update the repository PACKAGES file.
 #'
 #' @export
