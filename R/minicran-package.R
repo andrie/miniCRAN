@@ -3,13 +3,13 @@
 #
 
 
-#' Tools to create an internally consistent, mini version of CRAN with selected packages only.
+#' Create a Private Version of CRAN Containing Only Selected Packages
 #'
-#' At the end of 2013, CRAN consisted of more than 5000 packages.  Many organisations need to maintain a private mirror of CRAN, but with only a subset of packages that are relevant to them.
+#' At the end of 2014, CRAN consisted of more than 6,000 packages.  Many organisations need to maintain a private mirror of CRAN, but with only a subset of packages that are relevant to them.
 #' 
-#' \code{miniCRAN} makes this possible by recursively reading the dependency tree for a given set of packages, then downloading only this subset.
+#' \code{miniCRAN} makes it possible to create an internally consistent repository consisting of selected packages from CRAN-like repositories.  The user specifies a set of desired packages, and miniCRAN recursively reads the dependency tree for these packages, then downloads only this subset.  
 #' 
-#' There are many reasons for not creating a complete mirror CRAN using rsync:
+#' There are many reasons for not creating a complete mirror CRAN using \code{rsync}:
 #'
 #' \itemize{
 #' \item You may wish to mirror only a subset of CRAN, for security, legal compliance or any other in-house reason
@@ -18,15 +18,14 @@
 #' \item You may wish to add custom in-house packages to your repository
 #' }
 #' 
-#' The ambition of miniCRAN is to eventually satisfy many of these considerations.  For example, the github version of miniCRAN already allows you to draw a dependency graph using packages on CRAN as well as github.  In due course I'd like to extend the package to also download packages from any public repository or private file location, as well as github packages.
-
+#' The ambition of \code{miniCRAN} is to eventually satisfy all of these considerations.
 #' 
-#' Important functions:
+#' 
+#' \strong{1. Making a private repo}
 #' 
 #' \itemize{
 #' \item \code{\link{pkgAvail}}: Read from a local (or remote) CRAN-like repository and determine available packages.
 #' \item \code{\link{pkgDep}}: Find (recursive) package dependencies.
-#' \item \code{\link{makeDepGraph}}: Create graph of selected package dependencies.
 #' \item \code{\link{makeRepo}} : Make a mini CRAN repository, by downloading packages (and their dependencies) and creating the appropriate file structure for a repository.  This allows you to use functions like \code{\link[utils]{available.packages}} and \code{\link[utils]{install.packages}} on your local repository.
 #' }
 #' 
@@ -36,10 +35,30 @@
 #' \item \code{\link[utils]{available.packages}}
 #' \item \code{\link[utils]{install.packages}}
 #' }
-#'
+#' 
 #' The main function is \code{\link{makeRepo}} - this will download all the required packages, with their dependencies, into the appropriate repository file structure, and then create the repository index (PACKAGES) file.
 #' 
+#' 
+#' 
+#' \strong{2. Updating packages in a repo}
+#' 
+#' \itemize{
+#' \item \code{\link{oldPackages}}: Indicates packages which have a (suitable) later version on the repositories
+#' \item \code{\link{updatePackages}}: Offers to download and install such packages
+#' }
+#' 
+#' 
+#' 
+#' \strong{3. Creating and visualising dependencies}
+#' 
 #' To get a recursive list of dependencies as well as a plot, use \code{\link{pkgDep}()} followed by  \code{\link{makeDepGraph}()}.
+#' 
+#' \itemize{
+#' \item \code{\link{pkgDep}}: Find (recursive) package dependencies.
+#' \item \code{\link{makeDepGraph}}: Create graph of selected package dependencies.
+#' \item \code{\link{plot.pkgDepGraph}}: Create a visualization of the dependency graph
+#' }
+#' 
 #' 
 #' 
 #' 
@@ -50,7 +69,6 @@
 #' @title Tools to create an internally consistent, mini version of CRAN with selected packages only.
 #' @author Andrie de Vries \email{apdevries@@gmail.com}
 #' @keywords package
-#' @seealso \code{\link{minicran}}
 NULL
 
 
