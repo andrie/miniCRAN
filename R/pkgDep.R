@@ -3,7 +3,8 @@
 #' Retrieves names of installed packages by calling \code{\link[utils]{installed.packages}} and returning only those packages where \code{Priority} equals "base".
 #'
 #' @export
-#' @family miniCRAN functions
+#' @family dependency functions
+#' 
 #' @seealso \code{\link{pkgDep}}
 basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 
@@ -25,8 +26,7 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #' @param ... Other arguments passed to \code{\link{available.packages}}
 #'
 #' @export
-#' @seealso \code{\link{makeDepGraph}}
-#' @family miniCRAN functions
+#' @family dependency functions
 #'
 #' @example /inst/examples/example_pkgDep.R
 
@@ -118,7 +118,7 @@ print.pkgDep <- function(x, ...){
 #'
 #' @inheritParams pkgDep
 #' @export
-#' @family miniCRAN functions
+#' @family create repo functions
 #' @seealso \code{\link{pkgDep}}
 pkgAvail <- function(repos=getOption("repos"), type="source", ...){
   if(!grepl("^file", repos[1]) && file.exists(repos[1])) {

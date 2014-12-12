@@ -44,7 +44,8 @@
 #' @param writePACKAGES If TRUE, calls \code{\link{write_PACKAGES}} to update the repository PACKAGES file.
 #'
 #' @export
-#' @family miniCRAN functions
+#' @family update repo functions
+#' 
 #' @example /inst/examples/example_makeRepo.R
 makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
                      Rversion=R.version, download=TRUE, writePACKAGES=TRUE) {

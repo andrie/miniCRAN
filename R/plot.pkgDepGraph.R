@@ -12,8 +12,8 @@
 #'
 #' @import igraph
 #'
-#' @family miniCRAN functions
-#' @seealso \code{\link{makeDepGraph}}
+#' @family dependency functions
+#' 
 #' @example /inst/examples/example_plot.pkgDepGraph.R
 #'
 plot.pkgDepGraph <- function(

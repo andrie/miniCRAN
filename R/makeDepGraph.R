@@ -35,8 +35,10 @@ addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests"
 #'
 #' @import igraph
 #' @export
-#' @family miniCRAN functions
-#' @seealso \code{\link{pkgDep}}, \code{\link{plot.pkgDepGraph}}
+#' @family dependency functions
+#' 
+#' @seealso \code{\link{pkgDep}} to extract package dependencies
+#' 
 #' @example /inst/examples/example_makeDepGraph.R
 makeDepGraph <- function(
   pkg, availPkgs, repos=getOption("repos"), type="source",

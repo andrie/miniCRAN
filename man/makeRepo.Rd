@@ -100,10 +100,8 @@ unlink(pth, recursive = TRUE)
 }
 }
 \seealso{
-Other miniCRAN.functions: \code{\link{basePkgs}};
-  \code{\link{makeDepGraph}}; \code{\link{oldPackages}};
-  \code{\link{pkgAvail}}; \code{\link{pkgDep}};
-  \code{\link{plot.pkgDepGraph}};
-  \code{\link{updatePackages}}
+Other update repo functions: \code{\link{addOldPackage}};
+  \code{\link{addPackage}}; \code{\link{checkVersions}};
+  \code{\link{oldPackages}}; \code{\link{updatePackages}}
 }
 

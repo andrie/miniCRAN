@@ -88,7 +88,10 @@ readDescriptionGithub <- function(repo, username, branch="master", quiet=TRUE){
 #' @param repo Character vector. Name of repository on github, e.g. \code{"RevolutionAnalytics/checkpoint"}
 #' @param username Optional character vector. Name of repository on github, e.g. \code{"RevolutionAnalytics/checkpoint"}
 #' @param branch name of branch, defaults to \code{"master"}
+
 #' @export
+#' @family github functions
+#' 
 #' @example /inst/examples/example_addPackage.R
 addPackageListingGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch="master"){
   desc <- readDescriptionGithub(repo=repo, username=username, branch=branch)
@@ -102,7 +105,7 @@ addPackageListingGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch=
 
 #' Check for previous versions of packages in a miniCRAN repository.
 #'
-#' Checks for previous versions, and returns the file paths for packages with multiple versions. The admin can subsequently decide which version to keep.
+#' Checks for previous versions, and returns the file paths for packages with multiple versions. You can subsequently decide which version to keep.
 #'
 #' @param pkgs Character vector of packages to be installed. If not provided, checks all files for multiple package versions.
 #'
@@ -115,7 +118,7 @@ addPackageListingGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch=
 #' @return Returns invisibly the filepaths to packages with multiple versions for removal.
 #'
 #' @export
-#' @docType methods
+#' @family update repo functions
 #'
 #' @example /inst/examples/example_checkVersions.R
 #'
@@ -169,7 +172,7 @@ checkVersions <- function(pkgs=NULL, path=NULL, type="source",
 #'
 #' @importFrom tools write_PACKAGES
 #' @export
-#' @docType methods
+#' @family update repo functions
 #'
 #' @example /inst/examples/example_checkVersions.R
 #'
@@ -213,8 +216,8 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
 #'
 #' @importFrom tools write_PACKAGES
 #' @export
-#' @docType methods
-#'
+#' @family update repo functions
+#' 
 #' @example /inst/examples/example_checkVersions.R
 #'
 addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,

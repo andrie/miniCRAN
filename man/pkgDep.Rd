@@ -46,12 +46,8 @@ pkgDep(pkg=c("ggplot2", "plyr", "reshape2"), pdb)
 
 }
 \seealso{
-\code{\link{makeDepGraph}}
-
-Other miniCRAN.functions: \code{\link{basePkgs}};
-  \code{\link{makeDepGraph}}; \code{\link{makeRepo}};
-  \code{\link{oldPackages}}; \code{\link{pkgAvail}};
-  \code{\link{plot.pkgDepGraph}};
-  \code{\link{updatePackages}}
+Other dependency functions: \code{\link{basePkgs}};
+  \code{\link{makeDepGraph}};
+  \code{\link{plot.pkgDepGraph}}
 }
 

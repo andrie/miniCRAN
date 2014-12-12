@@ -4,6 +4,7 @@
 #' @inheritParams makeRepo
 #' @import XML
 #' @export
+#' 
 #' @example /inst/examples/example_getCranDescription.R
 getCranDescription <- function(pkg, repos=getOption("repos"), type="source", path, pkgs = pkgDep(pkg, repos=repos, type=type)){
 

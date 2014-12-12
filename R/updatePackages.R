@@ -8,7 +8,7 @@
 #'
 #' @param repos character vector, the base URL(s) of the repositories to use, e.g. the URL of a CRAN mirror such as "\code{http://cran.us.r-project.org}".
 #'
-#' @param contriburl  URL(s) of the contrib sections of the repositories. Use this argument if your repository is incomplete. Overrides argument repos.
+#' @param contriburl  URL(s) of the contrib sections of the repositories. Use this argument if your repository is incomplete. Overrides argument \code{repos}.
 #'
 #' @param method  Download method, see \code{\link{download.file}}.
 #'
@@ -26,7 +26,7 @@
 #' @family miniCRAN functions
 #'
 #' @export
-#' @docType methods
+#' @family update repo functions
 #'
 #' @example /inst/examples/example_updatePackages.R
 #'
@@ -95,10 +95,9 @@ oldPackages <- function (path=NULL, repos=getOption("repos"),
 #'
 #' @return \code{NULL} invisibly.
 #'
-#' @seealso \code{\link{oldPackages}}
-#' @family miniCRAN functions
-#' @docType methods
 #' @export
+#' @family update repo functions
+#' 
 #' @example /inst/examples/example_updatePackages.R
 #'
 updatePackages <- function (path=NULL, repos=getOption("repos"),

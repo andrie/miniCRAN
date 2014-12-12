@@ -62,12 +62,9 @@ if(require(igraph)) plot(p)
 }
 }
 \seealso{
-\code{\link{pkgDep}}, \code{\link{plot.pkgDepGraph}}
+\code{\link{pkgDep}} to extract package dependencies
 
-Other miniCRAN.functions: \code{\link{basePkgs}};
-  \code{\link{makeRepo}}; \code{\link{oldPackages}};
-  \code{\link{pkgAvail}}; \code{\link{pkgDep}};
-  \code{\link{plot.pkgDepGraph}};
-  \code{\link{updatePackages}}
+Other dependency functions: \code{\link{basePkgs}};
+  \code{\link{pkgDep}}; \code{\link{plot.pkgDepGraph}}
 }
 

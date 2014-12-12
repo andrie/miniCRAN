@@ -11,10 +11,7 @@ Retrieves names of installed packages by calling \code{\link[utils]{installed.pa
 \seealso{
 \code{\link{pkgDep}}
 
-Other miniCRAN.functions: \code{\link{makeDepGraph}};
-  \code{\link{makeRepo}}; \code{\link{oldPackages}};
-  \code{\link{pkgAvail}}; \code{\link{pkgDep}};
-  \code{\link{plot.pkgDepGraph}};
-  \code{\link{updatePackages}}
+Other dependency functions: \code{\link{makeDepGraph}};
+  \code{\link{pkgDep}}; \code{\link{plot.pkgDepGraph}}
 }
 
