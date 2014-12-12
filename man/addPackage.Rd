@@ -8,28 +8,22 @@ addPackage(pkgs = NULL, path = NULL, repos = getOption("repos"),
   deps = TRUE)
 }
 \arguments{
-\item{pkgs}{Character vector of packages to be installed.}
+\item{pkgs}{Character vector of packages to download}
 
-\item{path}{The local path to the directory where the miniCRAN repo resides.}
+\item{path}{Destination download path. This path is the root folder of your new repository.}
 
-\item{repos}{character vector, the base URL(s) of the repositories to use,
-e.g., the URL of a CRAN mirror such as "\code{http://cran.us.r-project.org}".}
+\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link{available.packages}}}
 
-\item{type}{character, indicating the type of package to download and
- install. See \code{\link{install.packages}}.}
+\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.}
 
-\item{Rversion}{numeric version of the R system for which to fetch packages.
-See \code{\link{R_system_version}}.}
+\item{Rversion}{numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.}
 
-\item{writePACKAGES}{If TRUE, calls \code{\link{write_PACKAGES}} to
-update the repository PACKAGES file.}
+\item{writePACKAGES}{If TRUE, calls \code{\link{write_PACKAGES}} to update the repository PACKAGES file.}
 
-\item{deps}{logical indicating whether the package dependencies should be
-added (default \code{TRUE}).}
+\item{deps}{logical indicating whether the package dependencies should be added (default \code{TRUE}).}
 }
 \value{
-Installs the packages, rebuilds the package index invisibly returns
-the number of packages writen to the index files.
+Installs the packages, rebuilds the package index invisibly returns the number of packages writen to the index files.
 }
 \description{
 Add packages to a miniCRAN repository.

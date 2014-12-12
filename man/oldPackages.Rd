@@ -9,9 +9,9 @@ oldPackages(path = NULL, repos = getOption("repos"),
   Rversion = getRversion())
 }
 \arguments{
-\item{path}{The local path to the directory where the miniCRAN repo resides.}
+\item{path}{Destination download path. This path is the root folder of your new repository.}
 
-\item{repos}{character vector, the base URL(s) of the repositories to use, e.g. the URL of a CRAN mirror such as "\code{http://cran.us.r-project.org}".}
+\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link{available.packages}}}
 
 \item{contriburl}{URL(s) of the contrib sections of the repositories. Use this argument if your repository is incomplete. Overrides argument \code{repos}.}
 

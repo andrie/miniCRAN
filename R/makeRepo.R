@@ -38,9 +38,13 @@
 #' @inheritParams pkgDep
 #' 
 #' @param pkgs Character vector of packages to download
+#' 
 #' @param path Destination download path. This path is the root folder of your new repository.
+#' 
 #' @param Rversion List with two named elements: `major` and `minor`. If not supplied, defaults to system version of R, using \code{\link{R.version}}.  Only used if \code{type} is not "source"
+#' 
 #' @param download If TRUE downloads packages.
+#' 
 #' @param writePACKAGES If TRUE, calls \code{\link{write_PACKAGES}} to update the repository PACKAGES file.
 #'
 #' @export

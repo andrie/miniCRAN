@@ -16,12 +16,17 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #'
 #'
 #' @param pkg Character vector of packages.
+#' 
 #' @param availPkgs Vector of available packages.  Defaults to reading this list from CRAN, using \code{\link{available.packages}}
-#' @param repos URL(s) of the 'contrib' sections of the repositories. Passed to \code{\link{available.packages}}
+#' 
+#' @param repos URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link{available.packages}}
+#' 
 #' @param type Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.
+#' 
 #' @param depends If TRUE, retrieves Depends, Imports and LinkingTo dependencies (non-recursively)
 #' @param suggests If TRUE, retrieves Suggests dependencies (non-recursively)
 #' @param enhances If TRUE, retrieves Enhances dependencies (non-recursively)
+#' 
 #' @param includeBasePkgs If TRUE, include base R packages in results
 #' @param ... Other arguments passed to \code{\link{available.packages}}
 #'

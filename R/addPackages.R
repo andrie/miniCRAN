@@ -147,28 +147,15 @@ checkVersions <- function(pkgs=NULL, path=NULL, type="source",
 
 
 #' Add packages to a miniCRAN repository.
+#' 
+#' @inheritParams makeRepo
+#' @inheritParams pkgDep
 #'
-#' @param pkgs Character vector of packages to be installed.
+#' @param Rversion numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.
 #'
-#' @param path  The local path to the directory where the miniCRAN repo resides.
+#' @param deps logical indicating whether the package dependencies should be added (default \code{TRUE}).
 #'
-#' @param repos character vector, the base URL(s) of the repositories to use,
-#' e.g., the URL of a CRAN mirror such as "\code{http://cran.us.r-project.org}".
-#'
-#' @param type  character, indicating the type of package to download and
-#'  install. See \code{\link{install.packages}}.
-#'
-#' @param Rversion numeric version of the R system for which to fetch packages.
-#' See \code{\link{R_system_version}}.
-#'
-#' @param writePACKAGES If TRUE, calls \code{\link{write_PACKAGES}} to
-#' update the repository PACKAGES file.
-#'
-#' @param deps logical indicating whether the package dependencies should be
-#' added (default \code{TRUE}).
-#'
-#' @return Installs the packages, rebuilds the package index invisibly returns
-#' the number of packages writen to the index files.
+#' @return Installs the packages, rebuilds the package index invisibly returns the number of packages writen to the index files.
 #'
 #' @importFrom tools write_PACKAGES
 #' @export

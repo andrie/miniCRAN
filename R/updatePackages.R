@@ -4,9 +4,10 @@
 #'
 #' These functions are based on \code{\link{update.packages}} and related, except rather than looking for locally installed packages they look for the package sources and binaries being hosted in the miniCRAN repository.
 #'
-#' @param path  The local path to the directory where the miniCRAN repo resides.
 #'
-#' @param repos character vector, the base URL(s) of the repositories to use, e.g. the URL of a CRAN mirror such as "\code{http://cran.us.r-project.org}".
+#' @inheritParams makeRepo
+#' @inheritParams pkgDep
+#'
 #'
 #' @param contriburl  URL(s) of the contrib sections of the repositories. Use this argument if your repository is incomplete. Overrides argument \code{repos}.
 #'
