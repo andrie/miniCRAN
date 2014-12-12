@@ -12,43 +12,28 @@ oldPackages(path = NULL, repos = getOption("repos"),
 \arguments{
 \item{path}{The local path to the directory where the miniCRAN repo resides.}
 
-\item{repos}{character vector, the base URL(s) of the repositories to use,
-e.g., the URL of a CRAN mirror such as "\code{http://cran.us.r-project.org}".}
+\item{repos}{character vector, the base URL(s) of the repositories to use, e.g. the URL of a CRAN mirror such as "\code{http://cran.us.r-project.org}".}
 
-\item{contriburl}{URL(s) of the contrib sections of the repositories.
-Use this argument if your repository is incomplete. Overrides argument repos.}
+\item{contriburl}{URL(s) of the contrib sections of the repositories. Use this argument if your repository is incomplete. Overrides argument repos.}
 
-\item{availPkgs}{by default all packages hosted in the miniCRAN repo,
-\code{\link{pkgAvail}(repos=path, type=type)}. A subset can be specified;
-currently this must be in the same (character matrix) format as returned by
-\code{pkgAvail()}.}
+\item{availPkgs}{by default all packages hosted in the miniCRAN repo, \code{\link{pkgAvail}(repos=path, type=type)}. A subset can be specified; currently this must be in the same (character matrix) format as returned by \code{\link{pkgAvail}()}.}
 
 \item{method}{Download method, see \code{\link{download.file}}.}
 
-\item{available}{an object as returned by \code{\link{available.packages}}
-listing packages available at the repositories, or \code{NULL} which makes an
-internal call to \code{\link{available.packages}}.}
+\item{available}{an object as returned by \code{\link{available.packages}} listing packages available at the repositories, or \code{NULL} which makes an internal call to \code{\link{available.packages}}.}
 
-\item{type}{character, indicating the type of package to download and
- install. See \code{\link{install.packages}}.}
+\item{type}{character, indicating the type of package to download and install. See \code{\link{install.packages}}.}
 
-\item{Rversion}{numeric version of the R system for which to fetch packages.
-See \code{\link{R_system_version}}.}
+\item{Rversion}{numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.}
 }
 \value{
-\code{NULL} or a matrix with one row per package, row names the
-package names and column names "Package", "LocalVer", "ReposVer", and
-"Repository".
+\code{NULL} or a matrix with one row per package, row names the package names and column names "Package", "LocalVer", "ReposVer", and "Repository".
 }
 \description{
-\code{oldPackages} indicates packages which have a (suitable) later
-version on the repositories whereas \code{\link{updatePackages}} offers to
-download and install such packages.
+\code{oldPackages} indicates packages which have a (suitable) later version on the repositories whereas \code{\link{updatePackages}} offers to download and install such packages.
 }
 \details{
-These functions are based on \code{\link{update.packages}} and related,
-except rather than looking for locally installed packages they look for the
-package sources and binaries being hosted in the miniCRAN repository.
+These functions are based on \code{\link{update.packages}} and related, except rather than looking for locally installed packages they look for the package sources and binaries being hosted in the miniCRAN repository.
 }
 \examples{
 ### `oldPackages` and `updatePackages` require an existing miniCRAN repo

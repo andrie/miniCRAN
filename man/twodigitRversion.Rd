@@ -6,9 +6,7 @@
 twodigitRversion(R = R.version)
 }
 \arguments{
-\item{R}{Either a list of the format \code{\link{R.version}}, a character
-string (e.g., \code{"3.1.2"}), or a numeric version of the type
-\code{\link{R_system_version}}.}
+\item{R}{Either a list of the format \code{\link{R.version}}, a character string (e.g., \code{"3.1.2"}), or a numeric version of the type \code{\link{R_system_version}}.}
 }
 \value{
 A character string representing the two-digit R version.

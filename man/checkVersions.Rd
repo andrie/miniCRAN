@@ -8,23 +8,19 @@ checkVersions(pkgs = NULL, path = NULL, type = "source",
   Rversion = getRversion())
 }
 \arguments{
-\item{pkgs}{Character vector of packages to be installed. If not provided,
-             checks all files for multiple package versions.}
+\item{pkgs}{Character vector of packages to be installed. If not provided, checks all files for multiple package versions.}
 
 \item{path}{The local path to the directory where the miniCRAN repo resides.}
 
-\item{type}{character, indicating the type of package to download and
- install. See \code{\link{install.packages}}.}
+\item{type}{character, indicating the type of package to download and install. See \code{\link{install.packages}}.}
 
-\item{Rversion}{numeric version of the R system for which to fetch packages.
-See \code{\link{R_system_version}}.}
+\item{Rversion}{numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.}
 }
 \value{
 Returns invisibly the filepaths to packages with multiple versions for removal.
 }
 \description{
-Checks for previous versions, and returns the file paths for packages with
-multiple versions. The admin can subsequently decide which version to keep.
+Checks for previous versions, and returns the file paths for packages with multiple versions. The admin can subsequently decide which version to keep.
 }
 \examples{
 ### `checkVersions` and `add.packages.miniCRAN` require an existing miniCRAN repo

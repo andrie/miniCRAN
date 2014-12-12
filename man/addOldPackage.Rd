@@ -31,19 +31,13 @@ update the repository PACKAGES file.}
 added (default \code{TRUE}).}
 }
 \value{
-Installs the packages, rebuilds the package index invisibly returns
-the number of packages writen to the index files.
+Installs the packages, rebuilds the package index invisibly returns the number of packages writen to the index files.
 }
 \description{
-Will download and add older source package versions. Older binary versions
-are not normally available on CRAN and should be build from source on the
-platform for which they are required. As such, specifying \code{type!="source"}
-will likely fail as the download will not be successful.
+Will download and add older source package versions. Older binary versions are not normally available on CRAN and should be build from source on the platform for which they are required. As such, specifying \code{type!="source"} will likely fail as the download will not be successful.
 }
 \note{
-Dependencies for old package versions cannot be determined automatically
-and must be specified by the user in `pkgs` and `vers`. Thus, \code{deps=FALSE}
-is the default for this function.
+Dependencies for old package versions cannot be determined automatically and must be specified by the user in \code{pkgs} and \code{vers}. Thus, \code{deps=FALSE} is the default for this function.
 }
 \examples{
 ### `checkVersions` and `add.packages.miniCRAN` require an existing miniCRAN repo

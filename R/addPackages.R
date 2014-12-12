@@ -95,22 +95,22 @@ addPackageListingGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch=
   addPackageListing(pdb, desc)
 }
 
-################################################################################
+
+
+#  ------------------------------------------------------------------------
+
+
 #' Check for previous versions of packages in a miniCRAN repository.
 #'
-#' Checks for previous versions, and returns the file paths for packages with
-#' multiple versions. The admin can subsequently decide which version to keep.
+#' Checks for previous versions, and returns the file paths for packages with multiple versions. The admin can subsequently decide which version to keep.
 #'
-#' @param pkgs Character vector of packages to be installed. If not provided,
-#'              checks all files for multiple package versions.
+#' @param pkgs Character vector of packages to be installed. If not provided, checks all files for multiple package versions.
 #'
-#' @param path  The local path to the directory where the miniCRAN repo resides.
+#' @param path The local path to the directory where the miniCRAN repo resides.
 #'
-#' @param type  character, indicating the type of package to download and
-#'  install. See \code{\link{install.packages}}.
+#' @param type  character, indicating the type of package to download and install. See \code{\link{install.packages}}.
 #'
-#' @param Rversion numeric version of the R system for which to fetch packages.
-#' See \code{\link{R_system_version}}.
+#' @param Rversion numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.
 #'
 #' @return Returns invisibly the filepaths to packages with multiple versions for removal.
 #'
@@ -139,7 +139,10 @@ checkVersions <- function(pkgs=NULL, path=NULL, type="source",
   return(invisible(file.path(pkgPath, pkgFiles)))
 }
 
-################################################################################
+
+#  ------------------------------------------------------------------------
+
+
 #' Add packages to a miniCRAN repository.
 #'
 #' @param pkgs Character vector of packages to be installed.
@@ -191,24 +194,22 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
   }
 }
 
-################################################################################
+
+
+#  ------------------------------------------------------------------------
+
+
 #' Add old package versions to a miniCRAN repository.
 #'
-#' Will download and add older source package versions. Older binary versions
-#' are not normally available on CRAN and should be build from source on the
-#' platform for which they are required. As such, specifying \code{type!="source"}
-#' will likely fail as the download will not be successful.
+#' Will download and add older source package versions. Older binary versions are not normally available on CRAN and should be build from source on the platform for which they are required. As such, specifying \code{type!="source"} will likely fail as the download will not be successful.
 #'
 #' @inheritParams addPackage
 #'
 #' @param vers The package version to install.
 #'
-#' @return Installs the packages, rebuilds the package index invisibly returns
-#' the number of packages writen to the index files.
+#' @return Installs the packages, rebuilds the package index invisibly returns the number of packages writen to the index files.
 #'
-#' @note Dependencies for old package versions cannot be determined automatically
-#' and must be specified by the user in `pkgs` and `vers`. Thus, \code{deps=FALSE}
-#' is the default for this function.
+#' @note Dependencies for old package versions cannot be determined automatically and must be specified by the user in \code{pkgs} and \code{vers}. Thus, \code{deps=FALSE} is the default for this function.
 #'
 #' @importFrom tools write_PACKAGES
 #' @export

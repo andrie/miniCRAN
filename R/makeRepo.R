@@ -1,10 +1,6 @@
 #' Downloads packages from CRAN to specified path and creates a local repository.
 #'
-#' Given a list of packages, downloads these packages to a specified destination
-#' folder using the required CRAN folder structure, and finally creates the
-#' PACKAGES index file.  Since the folder structure mimics the required
-#' structure and files of a CRAN repository, it supports functions like
-#' \code{\link[utils]{install.packages}()}.
+#' Given a list of packages, downloads these packages to a specified destination folder using the required CRAN folder structure, and finally creates the PACKAGES index file.  Since the folder structure mimics the required structure and files of a CRAN repository, it supports functions like \code{\link[utils]{install.packages}()}.
 #'
 #' @section Repo folder structure:
 #' The folder structure of a repository
@@ -37,19 +33,15 @@
 #'  }
 #' }
 #'
-#' @note Internally makes use of \code{\link[utils]{download.packages}} and
-#' \code{\link{write_PACKAGES}}
+#' @note Internally makes use of \code{\link[utils]{download.packages}} and \code{\link{write_PACKAGES}}
 #'
 #' @inheritParams pkgDep
+#' 
 #' @param pkgs Character vector of packages to download
-#' @param path Destination download path. This path is the root folder of your
-#' new repository.
-#' @param Rversion List with two named elements: `major` and `minor`.
-#' If not supplied, defaults to system version of R, using
-#' \code{\link{R.version}}.  Only used if \code{type} is not "source"
+#' @param path Destination download path. This path is the root folder of your new repository.
+#' @param Rversion List with two named elements: `major` and `minor`. If not supplied, defaults to system version of R, using \code{\link{R.version}}.  Only used if \code{type} is not "source"
 #' @param download If TRUE downloads packages.
-#' @param writePACKAGES If TRUE, calls \code{\link{write_PACKAGES}} to
-#' update the repository PACKAGES file.
+#' @param writePACKAGES If TRUE, calls \code{\link{write_PACKAGES}} to update the repository PACKAGES file.
 #'
 #' @export
 #' @family miniCRAN functions
@@ -76,11 +68,9 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
 
 #' Get the path to the repo directory containing the package files.
 #'
-#' @param Rversion numeric version of the R system for which to fetch packages.
-#' See \code{\link{R_system_version}}.
+#' @param Rversion numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.
 #'
-#' @param type  character, indicating the type of package to download and
-#'  install. See \code{\link{install.packages}}.
+#' @param type  character, indicating the type of package to download and install. See \code{\link{install.packages}}.
 #'
 #' @section Repo folder structure:
 #' The folder structure of a repository
@@ -132,9 +122,7 @@ repoPrefix <- function(type, Rversion){
 
 #' Get a two-digit version of the R version
 #'
-#' @param R Either a list of the format \code{\link{R.version}}, a character
-#' string (e.g., \code{"3.1.2"}), or a numeric version of the type
-#' \code{\link{R_system_version}}.
+#' @param R Either a list of the format \code{\link{R.version}}, a character string (e.g., \code{"3.1.2"}), or a numeric version of the type \code{\link{R_system_version}}.
 #'
 #' @return A character string representing the two-digit R version.
 #'

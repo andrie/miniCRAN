@@ -13,7 +13,6 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #'
 #' Performs recursive retrieve for \code{Depends}, \code{Imports} and \code{LinkLibrary}. Performs non-recursive retrieve for \code{Suggests}.
 #'
-#' This
 #'
 #' @param pkg Character vector of packages.
 #' @param availPkgs Vector of available packages.  Defaults to reading this list from CRAN, using \code{\link{available.packages}}

@@ -9,32 +9,23 @@ makeRepo(pkgs, path, repos = getOption("repos"), type = "source",
 \arguments{
 \item{pkgs}{Character vector of packages to download}
 
-\item{path}{Destination download path. This path is the root folder of your
-new repository.}
+\item{path}{Destination download path. This path is the root folder of your new repository.}
 
 \item{repos}{URL(s) of the 'contrib' sections of the repositories. Passed to \code{\link{available.packages}}}
 
 \item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.}
 
-\item{Rversion}{List with two named elements: `major` and `minor`.
-If not supplied, defaults to system version of R, using
-\code{\link{R.version}}.  Only used if \code{type} is not "source"}
+\item{Rversion}{List with two named elements: `major` and `minor`. If not supplied, defaults to system version of R, using \code{\link{R.version}}.  Only used if \code{type} is not "source"}
 
 \item{download}{If TRUE downloads packages.}
 
-\item{writePACKAGES}{If TRUE, calls \code{\link{write_PACKAGES}} to
-update the repository PACKAGES file.}
+\item{writePACKAGES}{If TRUE, calls \code{\link{write_PACKAGES}} to update the repository PACKAGES file.}
 }
 \description{
-Given a list of packages, downloads these packages to a specified destination
-folder using the required CRAN folder structure, and finally creates the
-PACKAGES index file.  Since the folder structure mimics the required
-structure and files of a CRAN repository, it supports functions like
-\code{\link[utils]{install.packages}()}.
+Given a list of packages, downloads these packages to a specified destination folder using the required CRAN folder structure, and finally creates the PACKAGES index file.  Since the folder structure mimics the required structure and files of a CRAN repository, it supports functions like \code{\link[utils]{install.packages}()}.
 }
 \note{
-Internally makes use of \code{\link[utils]{download.packages}} and
-\code{\link{write_PACKAGES}}
+Internally makes use of \code{\link[utils]{download.packages}} and \code{\link{write_PACKAGES}}
 }
 \section{Repo folder structure}{
 

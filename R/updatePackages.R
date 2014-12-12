@@ -1,42 +1,26 @@
-################################################################################
 #' Compare miniCRAN Packages with CRAN-like Repositories
 #'
-#' \code{oldPackages} indicates packages which have a (suitable) later
-#' version on the repositories whereas \code{\link{updatePackages}} offers to
-#' download and install such packages.
+#' \code{oldPackages} indicates packages which have a (suitable) later version on the repositories whereas \code{\link{updatePackages}} offers to download and install such packages.
 #'
-#' These functions are based on \code{\link{update.packages}} and related,
-#' except rather than looking for locally installed packages they look for the
-#' package sources and binaries being hosted in the miniCRAN repository.
+#' These functions are based on \code{\link{update.packages}} and related, except rather than looking for locally installed packages they look for the package sources and binaries being hosted in the miniCRAN repository.
 #'
 #' @param path  The local path to the directory where the miniCRAN repo resides.
 #'
-#' @param repos character vector, the base URL(s) of the repositories to use,
-#' e.g., the URL of a CRAN mirror such as "\code{http://cran.us.r-project.org}".
+#' @param repos character vector, the base URL(s) of the repositories to use, e.g. the URL of a CRAN mirror such as "\code{http://cran.us.r-project.org}".
 #'
-#' @param contriburl  URL(s) of the contrib sections of the repositories.
-#' Use this argument if your repository is incomplete. Overrides argument repos.
+#' @param contriburl  URL(s) of the contrib sections of the repositories. Use this argument if your repository is incomplete. Overrides argument repos.
 #'
 #' @param method  Download method, see \code{\link{download.file}}.
 #'
-#' @param available an object as returned by \code{\link{available.packages}}
-#' listing packages available at the repositories, or \code{NULL} which makes an
-#' internal call to \code{\link{available.packages}}.
+#' @param available an object as returned by \code{\link{available.packages}} listing packages available at the repositories, or \code{NULL} which makes an internal call to \code{\link{available.packages}}.
 #'
-#' @param availPkgs by default all packages hosted in the miniCRAN repo,
-#' \code{\link{pkgAvail}(repos=path, type=type)}. A subset can be specified;
-#' currently this must be in the same (character matrix) format as returned by
-#' \code{pkgAvail()}.
+#' @param availPkgs by default all packages hosted in the miniCRAN repo, \code{\link{pkgAvail}(repos=path, type=type)}. A subset can be specified; currently this must be in the same (character matrix) format as returned by \code{\link{pkgAvail}()}.
 #'
-#' @param type  character, indicating the type of package to download and
-#'  install. See \code{\link{install.packages}}.
+#' @param type  character, indicating the type of package to download and install. See \code{\link{install.packages}}.
 #'
-#' @param Rversion numeric version of the R system for which to fetch packages.
-#' See \code{\link{R_system_version}}.
+#' @param Rversion numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.
 #'
-#' @return \code{NULL} or a matrix with one row per package, row names the
-#' package names and column names "Package", "LocalVer", "ReposVer", and
-#' "Repository".
+#' @return \code{NULL} or a matrix with one row per package, row names the package names and column names "Package", "LocalVer", "ReposVer", and "Repository".
 #'
 #' @seealso \code{\link{updatePackages}}, \code{\link{pkgAvail}}.
 #' @family miniCRAN functions
@@ -93,29 +77,21 @@ oldPackages <- function (path=NULL, repos=getOption("repos"),
   update[!duplicated(update), , drop = FALSE]
 }
 
-################################################################################
+
+#  ------------------------------------------------------------------------
+
+
 #' Compare miniCRAN Packages with CRAN-like Repositories
 #'
-#' \code{\link{oldPackages}} indicates packages which have a (suitable) later
-#' version on the repositories whereas \code{updatePackages} offers to
-#' download and install such packages.
+#' \code{\link{oldPackages}} indicates packages which have a (suitable) later version on the repositories whereas \code{updatePackages} offers to download and install such packages.
 #'
-#' These functions are based on \code{\link{update.packages}} and related,
-#' except rather than looking for locally installed packages they look for the
-#' package sources and binaries being hosted in the miniCRAN repository.
+#' These functions are based on \code{\link{update.packages}} and related, except rather than looking for locally installed packages they look for the package sources and binaries being hosted in the miniCRAN repository.
 #'
 #' @inheritParams oldPackages
 #'
-#' @param oldPkgs if specified as non-NULL, updatePackages() only considers
-#' these packages for updating. This may be a character vector of package names
-#' or a matrix as returned by oldPackages().
+#' @param oldPkgs if specified as non-NULL, updatePackages() only considers these packages for updating. This may be a character vector of package names or a matrix as returned by oldPackages().
 #'
-#' @param ask logical indicating whether to ask user before packages are
-#' actually downloaded and installed, or the character string "\code{graphics}",
-#' which brings up a widget to allow the user to (de-)select from the list of
-#' packages which could be updated or added. The latter value only works on
-#' systems with a GUI version of \code{\link{select.list}}, and is otherwise
-#' equivalent to \code{ask = TRUE}.
+#' @param ask logical indicating whether to ask user before packages are actually downloaded and installed, or the character string "\code{graphics}", which brings up a widget to allow the user to (de-)select from the list of packages which could be updated or added. The latter value only works on systems with a GUI version of \code{\link{select.list}}, and is otherwise equivalent to \code{ask = TRUE}.
 #'
 #' @return \code{NULL} invisibly.
 #'
