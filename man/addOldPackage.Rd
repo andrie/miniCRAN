@@ -5,7 +5,7 @@
 \usage{
 addOldPackage(pkgs = NULL, path = NULL, vers = NULL,
   repos = getOption("repos"), type = "source", Rversion = R.version,
-  writePACKAGES = TRUE, deps = FALSE)
+  writePACKAGES = TRUE, deps = FALSE, quiet = TRUE)
 }
 \arguments{
 \item{pkgs}{Character vector of packages to download}
@@ -61,7 +61,8 @@ pkgList
   oldVers <- data.frame(package=c("foreach", "codetools", "iterators"),
                         version=c("1.4.0", "0.2-7", "1.0.5"),
                         stringsAsFactors=FALSE)
-  addOldPackage(pkgs, path=pth, vers=oldVers$version, type="source")
+  pkgs <- oldVers$package
+  addOldPackage(pkgs, path=pth, vers=oldVers$version, repos=revolution, type="source")
   # NOTE: older binary versions would need to be build from source
 
   # List package versions in the miniCRAN repo (produces warning about duplicates)
@@ -78,8 +79,8 @@ pkgList
   tools::write_PACKAGES(pkgPathBin, type="win.binary")
 
   # Add new packages (from CRAN) to the miniCRAN repo
-  addPackage("raster", path=pth, repos=revolution, type="source")
-  addPackage("raster", path=pth, repos=revolution, type="win.binary")
+  addPackage("Matrix", path=pth, repos=revolution, type="source")
+  addPackage("Matrix", path=pth, repos=revolution, type="win.binary")
 
   # Delete temporary folder
   unlink(pth, recursive=TRUE)

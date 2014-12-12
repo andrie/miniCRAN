@@ -171,7 +171,7 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
   if (deps) pkgs <- pkgDep(pkgs)
   makeRepo(pkgs=pkgs, path=path, repos=repos, type=type, Rversion=Rversion,
            download=TRUE, writePACKAGES=FALSE)
-  if (length(prev)>0) {
+  if (length(prev) > 0) {
     curr <- checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
     old <- intersect(prev, curr)
     message("Removing previous versions of newly added packages:")
@@ -196,6 +196,7 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
 #' @inheritParams addPackage
 #'
 #' @param vers The package version to install.
+#' @param quiet If TRUE, suppress status messages (if any), and the progress bar during download.
 #'
 #' @return Installs the packages, rebuilds the package index invisibly returns the number of packages writen to the index files.
 #'
@@ -210,7 +211,7 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
 addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
                           repos=getOption("repos"),
                           type="source", Rversion=R.version,
-                          writePACKAGES=TRUE, deps=FALSE) {
+                          writePACKAGES=TRUE, deps=FALSE, quiet=TRUE) {
   if (is.null(path) || is.null(pkgs) || is.null(vers)) {
     stop("path, pkgs, and vers must all be specified.")
   }
@@ -218,16 +219,19 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
                            "You must build the binary versions from source.")
   if(deps) {
     message("Unable to automatically determine dependency version information.")
-    message("Use `pkgs` and `vers` to identify which dependecies and there versions to download.")
+    message("Use pkgs and vers to identify which dependecies and their versions to download.")
   }
   vers <- as.character(vers)
   oldPkgs <- file.path(repos, repoPrefix(type, R.version), "Archive",
                        pkgs, sprintf("%s_%s%s", pkgs, vers, pkgFileExt(type)))
 
-  pkgPath <- file.path(path=path, repoPrefix(type, R.version))
+  pkgPath <- file.path(path, repoPrefix(type, R.version))
   if(!file.exists(pkgPath)) dir.create(pkgPath, recursive=TRUE)
   sapply(oldPkgs, function(x) {
-    result <- download.file(x, destfile=file.path(pkgPath, basename(x)), method="auto")
+    result <- download.file(x, destfile=file.path(pkgPath, basename(x)), 
+                            method="auto", 
+                            mode="wb", 
+                            quiet=quiet)
     if(result!=0) warning("error downloading file ", x)
   })
   if (writePACKAGES) tools::write_PACKAGES(dir=pkgPath, type=type)
