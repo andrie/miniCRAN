@@ -39,8 +39,9 @@ pkgList
   file.remove(c(pkgVersionsSrc[1], pkgVersionsBin[1]))
 
   # Rebuild package index after adding/removing files
-  tools::write_PACKAGES(pkgPathSrc, type="source")
-  tools::write_PACKAGES(pkgPathBin, type="win.binary")
+  updateRepoIndex(pth, type=c("source", "win.binary"), Rversion=R.version)
+  
+  pkgAvail(pth, type="source")
 
   # Add new packages (from CRAN) to the miniCRAN repo
   addPackage("Matrix", path=pth, repos=revolution, type="source")

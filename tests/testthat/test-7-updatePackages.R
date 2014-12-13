@@ -27,7 +27,7 @@ test_that("updatePackages downloads source files and builds PACKAGES file", {
   pdb <- pkgAvail(repos=revolution, type=pkg_type)
   pkgList <- pkgDep(pkgs, availPkgs=pdb, repos=revolution, type=pkg_type, suggests=FALSE)
   prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
-  dir.create(repo_root, recursive=TRUE)
+  dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
 
   # pkgList should yield c("foreach", "codetools", "iterators")
   # which should correspond to c("1.4.2", "0.2-9", "1.0.7") or higher
@@ -36,7 +36,7 @@ test_that("updatePackages downloads source files and builds PACKAGES file", {
                         stringsAsFactors=FALSE)
   addOldPackage(pkgList, path=repo_root, vers=oldVers[,"version"],
                 repos=revolution, type=pkg_type)
-  suppressWarnings(updatePackages(path=repo_root, repos=revolution, type=pkg_type, ask=FALSE))
+  updatePackages(path=repo_root, repos=revolution, type=pkg_type, ask=FALSE, quiet=TRUE)
 
   updateVers <- miniCRAN:::getPkgVersFromFile(list.files(file.path(repo_root, prefix)))
 

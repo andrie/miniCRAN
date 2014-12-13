@@ -5,7 +5,7 @@
 \usage{
 addPackage(pkgs = NULL, path = NULL, repos = getOption("repos"),
   type = "source", Rversion = R.version, writePACKAGES = TRUE,
-  deps = TRUE)
+  deps = TRUE, quiet = FALSE)
 }
 \arguments{
 \item{pkgs}{Character vector of packages to download}
@@ -21,6 +21,8 @@ addPackage(pkgs = NULL, path = NULL, repos = getOption("repos"),
 \item{writePACKAGES}{If TRUE, calls \code{\link{write_PACKAGES}} to update the repository PACKAGES file.}
 
 \item{deps}{logical indicating whether the package dependencies should be added (default \code{TRUE}).}
+
+\item{quiet}{If TRUE, suppress status messages (if any), and the progress bar during download.}
 }
 \value{
 Installs the packages, rebuilds the package index invisibly returns the number of packages writen to the index files.
@@ -70,8 +72,9 @@ pkgList
   file.remove(c(pkgVersionsSrc[1], pkgVersionsBin[1]))
 
   # Rebuild package index after adding/removing files
-  tools::write_PACKAGES(pkgPathSrc, type="source")
-  tools::write_PACKAGES(pkgPathBin, type="win.binary")
+  updateRepoIndex(pth, type=c("source", "win.binary"), Rversion=R.version)
+  
+  pkgAvail(pth, type="source")
 
   # Add new packages (from CRAN) to the miniCRAN repo
   addPackage("Matrix", path=pth, repos=revolution, type="source")
@@ -83,7 +86,8 @@ pkgList
 }
 \seealso{
 Other update repo functions: \code{\link{addOldPackage}};
-  \code{\link{checkVersions}}; \code{\link{makeRepo}};
-  \code{\link{oldPackages}}; \code{\link{updatePackages}}
+  \code{\link{checkVersions}}; \code{\link{makeRepo}},
+  \code{\link{updateRepoIndex}}; \code{\link{oldPackages}};
+  \code{\link{updatePackages}}
 }
 

@@ -45,6 +45,8 @@
 #' 
 #' @param download If TRUE downloads packages.
 #' 
+#' @param quiet If TRUE, suppress status messages (if any), and the progress bar during download.
+#' 
 #' @param writePACKAGES If TRUE, calls \code{\link{write_PACKAGES}} to update the repository PACKAGES file.
 #'
 #' @export
@@ -52,21 +54,30 @@
 #' 
 #' @example /inst/examples/example_makeRepo.R
 makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
-                     Rversion=R.version, download=TRUE, writePACKAGES=TRUE) {
+                     Rversion=R.version, download=TRUE, writePACKAGES=TRUE, quiet=FALSE) {
   if(!file.exists(path)) stop("Download path does not exist")
-  folder <- repoPrefix(type, Rversion)
-  pkgPath <- file.path(path, folder)
+  pkgPath <- repoBinPath(path=path, type=type, Rversion=Rversion)
   if(!file.exists(pkgPath)) {
-    result <- dir.create(pkgPath, recursive=TRUE)
+    result <- dir.create(pkgPath, recursive=TRUE, showWarnings = FALSE)
     if(result) {
-      message("Created new folder: ", pkgPath)
+      if(!quiet) message("Created new folder: ", pkgPath)
     } else {
       stop("Unable to create repo path: ", pkgPath)
     }
   }
 
-  if(download) download.packages(pkgs, destdir=pkgPath, repos=repos, type=type)
-  if(writePACKAGES) tools::write_PACKAGES(dir=pkgPath, type=type)
+  if(download) download.packages(pkgs, destdir=pkgPath, repos=repos, type=type, quiet=quiet)
+  if(writePACKAGES) updateRepoIndex(path=path, type=type, Rversion=Rversion)
+}
+
+
+#' @rdname makeRepo
+#' @export
+updateRepoIndex <- function(path, type, Rversion){
+  lapply(type, function(type){
+    pkgPath <- repoBinPath(path=path, type=type, Rversion=Rversion)
+    tools::write_PACKAGES(dir=pkgPath, type=type)
+  })
 }
 
 
@@ -121,6 +132,12 @@ repoPrefix <- function(type, Rversion){
     "mac.binary.leopard"= sprintf("bin/macosx/leopard/contrib/%s", Rversion),
     stop("Type ", type, "not recognised.")
   )
+}
+
+#' Construct path to full binary location
+#' @inheritParams makeRepo
+repoBinPath <- function(path, type, Rversion){
+  file.path(path, repoPrefix(type, Rversion))
 }
 
 

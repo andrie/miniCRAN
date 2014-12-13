@@ -105,7 +105,8 @@ updatePackages <- function (path=NULL, repos=getOption("repos"),
                             contriburl=contrib.url(repos, type),
                             method, ask=TRUE, available=NULL,
                             oldPkgs=NULL, type="source",
-                            Rversion=getRversion()) {
+                            Rversion=getRversion(),
+                            quiet=FALSE) {
   force(ask)
   simplifyRepos <- function(repos, type) {
     tail <- substring(contrib.url("---", type), 4)
@@ -170,6 +171,6 @@ updatePackages <- function (path=NULL, repos=getOption("repos"),
     oldPkgs
   }
   if (length(update[,"Package"])) {
-    addPackage(update[,"Package"], path=path, repos=repos, type=type)
+    addPackage(update[,"Package"], path=path, repos=repos, type=type, quiet=quiet)
   }
 }

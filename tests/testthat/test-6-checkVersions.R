@@ -26,7 +26,7 @@ test_that("checkVersions downloads old and current source files checks for these
   pdb <- pkgAvail(repos = revolution, type=pkg_type)
   pkgList <- pkgDep(pkgs, availPkgs = pdb, repos=revolution, type=pkg_type, suggests=FALSE)
   prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
-  dir.create(repo_root, recursive = TRUE)
+  dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
 
   # pkgList should yield c("foreach", "codetools", "iterators")
   # which should correspond to c("1.4.2", "0.2-9", "1.0.7") or higher
@@ -35,7 +35,7 @@ test_that("checkVersions downloads old and current source files checks for these
                         stringsAsFactors=FALSE)
   addOldPackage(pkgList, path=repo_root, vers=oldVers[,"version"],
                 repos=revolution, type=pkg_type)
-  makeRepo(pkgList, path=repo_root, repos=revolution, type=pkg_type, writePACKAGES=FALSE)
+  makeRepo(pkgList, path=repo_root, repos=revolution, type=pkg_type, writePACKAGES=FALSE, quiet=TRUE)
 
   files <- suppressWarnings(checkVersions(pkgList, path=repo_root, type=pkg_type))
 

@@ -82,6 +82,7 @@ pkgList
 
 Other update repo functions: \code{\link{addOldPackage}};
   \code{\link{addPackage}}; \code{\link{checkVersions}};
-  \code{\link{makeRepo}}; \code{\link{updatePackages}}
+  \code{\link{makeRepo}}, \code{\link{updateRepoIndex}};
+  \code{\link{updatePackages}}
 }
 

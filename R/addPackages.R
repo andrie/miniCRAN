@@ -126,7 +126,7 @@ checkVersions <- function(pkgs=NULL, path=NULL, type="source",
                           Rversion=getRversion()) {
   if (is.null(path)) stop("path must be specified.")
   if (!file.exists(path)) stop("invalid path, ", path)
-  pkgPath <- file.path(path, repoPrefix(type, Rversion))
+  pkgPath <- repoBinPath(path, type, Rversion)
   if (is.null(pkgs)) {
     files = dir(pkgPath)
   } else {
@@ -165,12 +165,14 @@ checkVersions <- function(pkgs=NULL, path=NULL, type="source",
 #'
 addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
                        type="source", Rversion=R.version,
-                       writePACKAGES=TRUE, deps=TRUE) {
+                       writePACKAGES=TRUE, deps=TRUE, quiet=FALSE) {
   if (is.null(path) || is.null(pkgs)) stop("path and pkgs must both be specified.")
   prev <- checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
   if (deps) pkgs <- pkgDep(pkgs)
+  
   makeRepo(pkgs=pkgs, path=path, repos=repos, type=type, Rversion=Rversion,
-           download=TRUE, writePACKAGES=FALSE)
+           download=TRUE, writePACKAGES=FALSE, quiet=quiet)
+  
   if (length(prev) > 0) {
     curr <- checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
     old <- intersect(prev, curr)
@@ -178,10 +180,7 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
     message(paste(basename(old), collapse="\n"))
     file.remove(old)
   }
-  if (writePACKAGES) {
-    pkgPath <- file.path(path, repoPrefix(type, Rversion))
-    tools::write_PACKAGES(dir=pkgPath, type=type)
-  }
+  if (writePACKAGES) updateRepoIndex(path=path, type=type, Rversion=Rversion)
 }
 
 
@@ -194,9 +193,9 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
 #' Will download and add older source package versions. Older binary versions are not normally available on CRAN and should be build from source on the platform for which they are required. As such, specifying \code{type!="source"} will likely fail as the download will not be successful.
 #'
 #' @inheritParams addPackage
+#' @inheritParams makeRepo
 #'
 #' @param vers The package version to install.
-#' @param quiet If TRUE, suppress status messages (if any), and the progress bar during download.
 #'
 #' @return Installs the packages, rebuilds the package index invisibly returns the number of packages writen to the index files.
 #'
@@ -225,7 +224,7 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
   oldPkgs <- file.path(repos, repoPrefix(type, R.version), "Archive",
                        pkgs, sprintf("%s_%s%s", pkgs, vers, pkgFileExt(type)))
 
-  pkgPath <- file.path(path, repoPrefix(type, R.version))
+  pkgPath <- repoBinPath(path=path, type=type, Rversion=Rversion)
   if(!file.exists(pkgPath)) dir.create(pkgPath, recursive=TRUE)
   sapply(oldPkgs, function(x) {
     result <- download.file(x, destfile=file.path(pkgPath, basename(x)), 
@@ -234,5 +233,5 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
                             quiet=quiet)
     if(result!=0) warning("error downloading file ", x)
   })
-  if (writePACKAGES) tools::write_PACKAGES(dir=pkgPath, type=type)
+  if (writePACKAGES) updateRepoIndex(path=path, type=type, Rversion)
 }

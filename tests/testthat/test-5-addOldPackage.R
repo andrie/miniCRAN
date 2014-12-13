@@ -27,7 +27,7 @@ test_that("addOldPackage downloads source files and builds PACKAGES file", {
   pdb <- pkgAvail(repos=revolution, type=pkg_type)
   pkgList <- pkgDep(pkgs, availPkgs=pdb, repos=revolution, type=pkg_type, suggests=FALSE)
   prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
-  dir.create(repo_root, recursive=TRUE)
+  dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
 
   # pkgList should yield c("foreach", "codetools", "iterators")
   # which should correspond to c("1.4.2", "0.2-9", "1.0.7") or higher
@@ -61,7 +61,7 @@ test_that("addOldPackage downloads windows binary files and builds PACKAGES file
   pdb <- pkgAvail(repos=revolution, type=pkg_type)
   pkgList <- pkgDep(pkgs, availPkgs=pdb, repos=revolution, type=pkg_type, suggests=FALSE)
   prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
-  dir.create(repo_root, recursive=TRUE)
+  dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
 
   # pkgList should yield c("foreach", "codetools", "iterators")
   # which should correspond to c("1.4.2", "0.2-9", "1.0.7") or higher
@@ -88,7 +88,7 @@ test_that("addOldPackage downloads mac binary files and builds PACKAGES file", {
   pdb <- pkgAvail(repos=revolution, type=pkg_type)
   pkgList <- pkgDep(pkgs, availPkgs=pdb, repos=revolution, type=pkg_type, suggests=FALSE)
   prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
-  dir.create(repo_root, recursive=TRUE)
+  dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
 
   # pkgList should yield c("foreach", "codetools", "iterators")
   # which should correspond to c("1.4.2", "0.2-9", "1.0.7") or higher
@@ -112,7 +112,7 @@ test_that("addOldPackage downloads mac binary files and builds PACKAGES file", {
 #   pdb <- pkgAvail(repos=revolution, type=pkg_type)
 #   pkgList <- pkgDep(pkgs, availPkgs=pdb, repos=revolution, type=pkg_type, suggests=FALSE)
 #   prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
-#   dir.create(repo_root, recursive=TRUE)
+#   dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
 #
 #   # pkgList should yield c("foreach", "codetools", "iterators")
 #   # which should correspond to c("1.4.2", "0.2-9", "1.0.7") or higher

@@ -29,11 +29,11 @@ test_that("addPackage downloads source files and rebuilds PACKAGES file", {
   pkgList <- pkgDep(pkgs, availPkgs=pdb, repos=revolution, type=pkg_type, suggests=FALSE)
   pkgListAdd <- pkgDep(pkgsAdd, availPkgs=pdb, repos=revolution, type=pkg_type, suggests=FALSE)
   prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
-  dir.create(repo_root, recursive=TRUE)
+  dir.create(repo_root, recursive=TRUE, showWarnings = FALSE)
 
-  makeRepo(pkgList, path=repo_root, repos=revolution, type=pkg_type)
+  makeRepo(pkgList, path=repo_root, repos=revolution, type=pkg_type, quiet=TRUE)
 
-  addPackage(pkgListAdd, path=repo_root, repos=revolution, type=pkg_type)
+  addPackage(pkgListAdd, path=repo_root, repos=revolution, type=pkg_type, quiet=TRUE)
 
   expect_true(
     checkForRepoFiles(repo_root, pkgList, prefix)
@@ -58,11 +58,11 @@ test_that("addPackage downloads windows binary files and rebuilds PACKAGES file"
   pkgList <- pkgDep(pkgs, availPkgs=pdb, repos=revolution, type=pkg_type, suggests=FALSE)
   pkgListAdd <- pkgDep(pkgsAdd, availPkgs=pdb, repos=revolution, type=pkg_type, suggests=FALSE)
   prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
-  dir.create(repo_root, recursive=TRUE)
+  dir.create(repo_root, recursive=TRUE, showWarnings = FALSE)
 
-  makeRepo(pkgList, path=repo_root, repos=revolution, type=pkg_type)
+  makeRepo(pkgList, path=repo_root, repos=revolution, type=pkg_type, quiet=TRUE)
 
-  addPackage(pkgListAdd, path=repo_root, repos=revolution, type=pkg_type)
+  addPackage(pkgListAdd, path=repo_root, repos=revolution, type=pkg_type, quiet=TRUE)
 
   expect_true(
     checkForRepoFiles(repo_root, pkgList, prefix)
@@ -89,11 +89,11 @@ test_that("addPackage downloads mac binary files and rebuilds PACKAGES file", {
   pkgList <- pkgDep(pkgs, availPkgs=pdb, repos=revolution, type=pkg_type, suggests=FALSE)
   pkgListAdd <- pkgDep(pkgsAdd, availPkgs=pdb, repos=revolution, type=pkg_type, suggests=FALSE)
   prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
-  dir.create(repo_root, recursive=TRUE)
+  dir.create(repo_root, recursive=TRUE, showWarnings = FALSE)
 
-  makeRepo(pkgList, path=repo_root, repos=revolution, type=pkg_type)
+  makeRepo(pkgList, path=repo_root, repos=revolution, type=pkg_type, quiet=TRUE)
 
-  addPackage(pkgListAdd, path=repo_root, repos=revolution, type=pkg_type)
+  addPackage(pkgListAdd, path=repo_root, repos=revolution, type=pkg_type, quiet=TRUE)
 
   expect_true(
     checkForRepoFiles(repo_root, pkgList, prefix)
@@ -118,7 +118,7 @@ test_that("addPackage downloads mac binary files and rebuilds PACKAGES file", {
 #   pkgList <- pkgDep(pkgs, availPkgs=pdb, repos=revolution, type=pkg_type, suggests=FALSE)
 #   pkgListAdd <- pkgDep(pkgsAdd, availPkgs=pdb, repos=revolution, type=pkg_type, suggests=FALSE)
 #   prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
-#   dir.create(repo_root, recursive=TRUE)
+#   dir.create(repo_root, recursive=TRUE, showWarnings = FALSE)
 #
 #   makeRepo(pkgList, path=repo_root, repos=revolution, type=pkg_type)
 #
