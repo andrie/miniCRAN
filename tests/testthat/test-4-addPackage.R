@@ -9,9 +9,9 @@ checkForRepoFiles <- function(path, pkgList, prefix){
   }
 }
 
-revolution <- c(CRAN="http://cran.revolutionanalytics.com")
+revolution <- c(CRAN="http://mran.revolutionanalytics.com/snapshot/2014-12-01")
 pkgs <- c("foreach")
-pkgsAdd <- c("snowfall")
+pkgsAdd <- c("nws")
 repo_root <- file.path(tempdir(), "miniCRAN", Sys.Date())
 if(file.exists(repo_root)) unlink(repo_root, recursive = TRUE)
 
