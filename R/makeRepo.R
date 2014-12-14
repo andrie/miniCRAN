@@ -65,8 +65,10 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
       stop("Unable to create repo path: ", pkgPath)
     }
   }
+  
+  pdb <- pkgAvail(repos = repos, type=type)
 
-  if(download) download.packages(pkgs, destdir=pkgPath, repos=repos, type=type, quiet=quiet)
+  if(download) download.packages(pkgs, destdir=pkgPath, available=pdb, repos=repos, type=type, quiet=quiet)
   if(writePACKAGES) updateRepoIndex(path=path, type=type, Rversion=Rversion)
 }
 
@@ -76,6 +78,7 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
 updateRepoIndex <- function(path, type, Rversion){
   lapply(type, function(type){
     pkgPath <- repoBinPath(path=path, type=type, Rversion=Rversion)
+    if(grepl("mac.binary", type)) type <- "mac.binary"
     tools::write_PACKAGES(dir=pkgPath, type=type)
   })
 }
