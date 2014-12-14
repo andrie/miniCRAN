@@ -126,7 +126,7 @@ print.pkgDep <- function(x, ...){
 #' @family create repo functions
 #' @seealso \code{\link{pkgDep}}
 pkgAvail <- function(repos=getOption("repos"), type="source", ...){
-  if(!grepl("^file", repos[1]) && file.exists(repos[1])) {
+  if(!grepl("^file:///", repos[1]) && file.exists(repos[1])) {
     repos <- paste0("file:///", repos[1])
   } else {
     if(!is.null(names(repos)) && repos["CRAN"] == "@CRAN@"){
