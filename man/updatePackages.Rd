@@ -3,29 +3,27 @@
 \alias{updatePackages}
 \title{Compare miniCRAN Packages with CRAN-like Repositories}
 \usage{
-updatePackages(path = NULL, repos = getOption("repos"),
-  contriburl = contrib.url(repos, type), method, ask = TRUE,
-  available = NULL, oldPkgs = NULL, type = "source",
-  Rversion = getRversion(), quiet = FALSE)
+updatePackages(path = NULL, repos = getOption("repos"), method,
+  ask = TRUE, availPkgs = pkgAvail(repos = repos, type = type),
+  oldPkgs = NULL, type = "source", Rversion = getRversion(),
+  quiet = FALSE)
 }
 \arguments{
 \item{path}{Destination download path. This path is the root folder of your new repository.}
 
 \item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link{available.packages}}}
 
-\item{contriburl}{URL(s) of the contrib sections of the repositories. Use this argument if your repository is incomplete. Overrides argument \code{repos}.}
-
 \item{method}{Download method, see \code{\link{download.file}}.}
 
 \item{ask}{logical indicating whether to ask user before packages are actually downloaded and installed, or the character string "\code{graphics}", which brings up a widget to allow the user to (de-)select from the list of packages which could be updated or added. The latter value only works on systems with a GUI version of \code{\link{select.list}}, and is otherwise equivalent to \code{ask = TRUE}.}
 
-\item{available}{an object as returned by \code{\link{available.packages}} listing packages available at the repositories, or \code{NULL} which makes an internal call to \code{\link{available.packages}}.}
+\item{availPkgs}{Vector of available packages.  Defaults to reading this list from CRAN, using \code{\link{available.packages}}}
 
 \item{oldPkgs}{if specified as non-NULL, updatePackages() only considers these packages for updating. This may be a character vector of package names or a matrix as returned by oldPackages().}
 
-\item{type}{character, indicating the type of package to download and install. See \code{\link{install.packages}}.}
+\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.}
 
-\item{Rversion}{numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.}
+\item{Rversion}{List with two named elements: `major` and `minor`. If not supplied, defaults to system version of R, using \code{\link{R.version}}.  Only used if \code{type} is not "source"}
 
 \item{quiet}{If TRUE, suppress status messages (if any), and the progress bar during download.}
 }

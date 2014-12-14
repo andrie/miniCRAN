@@ -29,7 +29,12 @@ test_that("makeRepo downloads source files and builds PACKAGES file", {
   expect_true(
     file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
   )
-
+  expect_true(
+    all(
+      pkgList %in% pkgAvail(repo_root, type=pkg_type)[, "Package"]
+    )
+  )
+  
 })
 
 # windows binaries --------------------------------------------------------
@@ -50,7 +55,12 @@ test_that("makeRepo downloads windows binary files and builds PACKAGES file", {
   expect_true(
     file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
   )
-
+  expect_true(
+    all(
+      pkgList %in% pkgAvail(repo_root, type=pkg_type)[, "Package"]
+    )
+  )
+  
 })
 
 # mac binaries ------------------------------------------------------------
@@ -73,7 +83,12 @@ test_that("makeRepo downloads mac binary files and builds PACKAGES file", {
   expect_true(
     file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
   )
-
+  expect_true(
+    all(
+      pkgList %in% pkgAvail(repo_root, type=pkg_type)[, "Package"]
+    )
+  )
+  
 })
 
 # mac mavericks binaries --------------------------------------------------
@@ -93,6 +108,11 @@ test_that("makeRepo downloads mac mavericks binary files and builds PACKAGES fil
   )
   expect_true(
     file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
+  )
+  expect_true(
+    all(
+      pkgList %in% pkgAvail(repo_root, type=pkg_type)[, "Package"]
+    )
   )
   
 })

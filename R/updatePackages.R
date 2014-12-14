@@ -8,23 +8,13 @@
 #' @inheritParams makeRepo
 #' @inheritParams pkgDep
 #'
-#'
-#' @param contriburl  URL(s) of the contrib sections of the repositories. Use this argument if your repository is incomplete. Overrides argument \code{repos}.
-#'
 #' @param method  Download method, see \code{\link{download.file}}.
 #'
-#' @param available an object as returned by \code{\link{available.packages}} listing packages available at the repositories, or \code{NULL} which makes an internal call to \code{\link{available.packages}}.
+#' @param availableLocal all packages hosted in the miniCRAN repo, as returned by \code{\link{pkgAvail}}. A subset can be specified; currently this must be in the same (character matrix) format as returned by \code{\link{pkgAvail}}.
 #'
-#' @param availPkgs by default all packages hosted in the miniCRAN repo, \code{\link{pkgAvail}(repos=path, type=type)}. A subset can be specified; currently this must be in the same (character matrix) format as returned by \code{\link{pkgAvail}()}.
-#'
-#' @param type  character, indicating the type of package to download and install. See \code{\link{install.packages}}.
-#'
-#' @param Rversion numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.
-#'
-#' @return \code{NULL} or a matrix with one row per package, row names the package names and column names "Package", "LocalVer", "ReposVer", and "Repository".
+#' @return A matrix with one row per package, row names the package names and column names "Package", "LocalVer", "ReposVer", and "Repository".
 #'
 #' @seealso \code{\link{updatePackages}}, \code{\link{pkgAvail}}.
-#' @family miniCRAN functions
 #'
 #' @export
 #' @family update repo functions
@@ -32,9 +22,8 @@
 #' @example /inst/examples/example_updatePackages.R
 #'
 oldPackages <- function (path=NULL, repos=getOption("repos"),
-                         contriburl=contrib.url(repos, type),
-                         availPkgs=pkgAvail(repos=path, type=type),
-                         method, available=NULL, type="source",
+                         availPkgs=pkgAvail(repos=repos, type=type),
+                         method, availableLocal=pkgAvail(repos=path, type=type), type="source",
                          Rversion=getRversion()) {
   if (is.null(path)) stop("path to miniCRAN repo must be specified")
   if (!missing(availPkgs)) {
@@ -42,40 +31,17 @@ oldPackages <- function (path=NULL, repos=getOption("repos"),
       stop("ill-formed 'availPkgs' matrix")
   }
   if (NROW(availPkgs) == 0L) return(NULL)
-
-  if (is.null(available)) {
-    available <- available.packages(contriburl=contriburl, method=method)
-  }
-  update <- NULL
-  currentR <- minorR <- Rversion
-  minorR[[c(1L, 3L)]] <- 0L
-  for (k in 1L:nrow(availPkgs)) {
-    if (availPkgs[k, "Priority"] %in% "base")
-      next
-    z <- match(availPkgs[k, "Package"], available[, "Package"])
-    if (is.na(z))
-      next
-    onRepos <- available[z, ]
-    if (package_version(onRepos["Version"]) <= package_version(availPkgs[k, "Version"]))
-      next
-    deps <- onRepos["Depends"]
-    if (!is.na(deps)) {
-      Rdeps <- split_dependencies(deps)[["R", exact = TRUE]]
-      if (length(Rdeps) > 1L) {
-        target <- Rdeps$version
-        res <- do.call(Rdeps$op, list(currentR, target))
-        if (!res)
-          next
-      }
-    }
-    update <- rbind(update, c(availPkgs[k, c("Package", "Version")],
-                              onRepos["Version"], onRepos["Repository"]))
-  }
-  if (!is.null(update)) {
-    colnames(update) <- c("Package", "LocalVer", "ReposVer", "Repository")
-  }
-  rownames(update) <- update[, "Package"]
-  update[!duplicated(update), , drop = FALSE]
+  if (NROW(availableLocal) == 0L) return(NULL)
+  
+  
+  idx <- match(availableLocal[, "Package"], availPkgs[, "Package"])
+  compare <- package_version(availPkgs[idx, "Version"]) > package_version(availableLocal[, "Version"])
+  update <- cbind(
+    availableLocal[compare, c("Package", "Version"), drop=FALSE],
+    availPkgs[idx[compare], c("Version", "Repository"), drop=FALSE]
+    )
+  colnames(update) <- c("Package", "LocalVer", "ReposVer", "Repository")
+  update
 }
 
 
@@ -103,8 +69,7 @@ oldPackages <- function (path=NULL, repos=getOption("repos"),
 #' @example /inst/examples/example_updatePackages.R
 #'
 updatePackages <- function (path=NULL, repos=getOption("repos"),
-                            contriburl=contrib.url(repos, type),
-                            method, ask=TRUE, available=NULL,
+                            method, ask=TRUE, availPkgs=pkgAvail(repos=repos, type=type),
                             oldPkgs=NULL, type="source",
                             Rversion=getRversion(),
                             quiet=FALSE) {
@@ -133,9 +98,6 @@ updatePackages <- function (path=NULL, repos=getOption("repos"),
     update
   }
   if (is.null(path)) stop("path to miniCRAN repo must be specified")
-  if (is.null(available)) {
-    available <- available.packages(contriburl=contriburl, method=method)
-  }
   if (!is.matrix(oldPkgs) && is.character(oldPkgs)) {
     subset <- oldPkgs
     oldPkgs <- NULL
@@ -143,8 +105,8 @@ updatePackages <- function (path=NULL, repos=getOption("repos"),
     subset <- NULL
   }
   if (is.null(oldPkgs)) {
-    oldPkgs <- oldPackages(path=path, repos=repos, contriburl=contriburl,
-                           method=method, available=available, type=type,
+    oldPkgs <- oldPackages(path=path, repos=repos, 
+                           method=method, availPkgs=availPkgs, type=type,
                            Rversion=Rversion)
     if (is.null(oldPkgs)) {
       message("All packages are up to date from repos: ", names(repos))
