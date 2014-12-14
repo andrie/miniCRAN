@@ -1,0 +1,40 @@
+Package: acss.data
+Version: 1.0
+Depends: R (>= 2.10)
+License: GPL (>= 2)
+
+Package: acss
+Version: 0.2-4
+Depends: R (>= 2.15.0), acss.data
+Imports: zoo
+Suggests: effects
+License: GPL (>= 2)
+
+Package: chron
+Version: 2.3-45
+Depends: R (>= 2.12.0)
+Imports: graphics, stats
+Suggests: scales, ggplot2
+Enhances: zoo
+License: GPL-2
+Archs: i386, x64
+
+Package: lattice
+Version: 0.20-29
+Priority: recommended
+Depends: R (>= 2.15.1)
+Imports: grid, grDevices, graphics, stats, utils
+Suggests: KernSmooth, MASS
+Enhances: chron
+License: GPL (>= 2)
+Archs: i386, x64
+
+Package: zoo
+Version: 1.7-11
+Depends: R (>= 2.10.0), stats
+Imports: utils, graphics, grDevices, lattice (>= 0.20-27)
+Suggests: coda, chron, DAAG, fts, its, ggplot2, mondate, scales, strucchange, timeDate,
+          timeSeries, tis, tseries, xts
+License: GPL-2 | GPL-3
+Archs: i386, x64
+
