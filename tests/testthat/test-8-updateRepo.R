@@ -1,56 +1,23 @@
 context("updateRepo")
 
-checkForRepoFiles <- function(path, pkgList, prefix){
-  ptn <- "tar\\.gz|zip|tgz"
-  ff <- list.files(file.path(path, prefix), recursive = TRUE, pattern = ptn)
-  if(length(ff) < length(pkgList)) return(FALSE)
-  ret <- sapply(pkgList, function(x)any(grepl(x, ff)))
-  if(all(ret > 0)) TRUE else {
-    message(ret)
-    FALSE
-  }
-}
-
-
-# list.files(repo_root, recursive = TRUE)
-
-
-skip_on_cran()
-
-
 # make baseline repo ------------------------------------------------------
 
 repo_root <- file.path(tempdir(), "miniCRAN", Sys.Date())
 if(file.exists(repo_root)) unlink(repo_root, recursive = TRUE)
 dir.create(repo_root, recursive=TRUE, showWarnings = FALSE)
-# 
-# 
-# 
+
 revolution <- c(CRAN="http://mran.revolutionanalytics.com/snapshot/2014-10-15")
 pkgs <- c("chron", "acss")
 
-pdb_source <- pkgAvail(repos=revolution, type="source")
-pdb_win    <- pkgAvail(repos=revolution, type="win.binary")
-pdb_mac    <- pkgAvail(repos=revolution, type="mac.binary.mavericks")
+types <- c(source="source", win="win.binary", mac="mac.binary.mavericks")
 
+pdb <- lapply(types, pkgAvail, repos=revolution)
+pkgList <- lapply(types, pkgDep, pkg=pkgs, availPkgs=pdb[["source"]], repos=revolution, suggests=FALSE)
 
-pkgList_source <- pkgDep(pkgs, availPkgs=pdb_source, repos=revolution, type="source", suggests=FALSE)
-# makeRepo(pkgList, path=repo_root, repos=revolution, type="source", quiet=TRUE)
-
-pkgList_win <- pkgDep(pkgs, availPkgs=pdb_win, repos=revolution, type="win.binary", suggests=FALSE)
-# makeRepo(pkgList, path=repo_root, repos=revolution, type="win.binary", quiet=TRUE)
-
-pkgList_mac <- pkgDep(pkgs, availPkgs=pdb_mac, repos=revolution, type="mac.binary.mavericks", suggests=FALSE)
-# makeRepo(pkgList, path=repo_root, repos=revolution, type="mac.binary.mavericks", quiet=TRUE)
-
-file.copy(
-  from = list.dirs(system.file("inst/sample-repo", package="miniCRAN"), recursive = FALSE),
-  to = repo_root,
-  recursive = TRUE
-)
+miniCRAN:::.copySampleRepo(path=repo_root)
 
 pkgsAdd <- c("foreach")
-revolution <- c(CRAN="http://mran.revolutionanalytics.com/snapshot/2014-12-01")
+# revolution <- c(CRAN="http://mran.revolutionanalytics.com/snapshot/2014-12-01")
 
 
 
@@ -60,18 +27,23 @@ test_that("addPackage downloads source files and rebuilds PACKAGES file", {
   
   
   pkg_type <- "source"
-  pkgList  <- pkgList_source
+  pkgList  <- pkgList[["source"]]
   
-  pkgListAdd <- pkgDep(pkgsAdd, availPkgs=pdb_source, repos=revolution, type=pkg_type, suggests=FALSE)
+  pkgListAdd <- pkgDep(pkgsAdd, availPkgs=pdb[["source"]], repos=revolution, type=pkg_type, suggests=FALSE)
   prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
   
   addPackage(pkgListAdd, path=repo_root, repos=revolution, type=pkg_type, quiet=TRUE)
   
   expect_true(
-    checkForRepoFiles(repo_root, pkgListAdd, prefix)
+    miniCRAN:::.checkForRepoFiles(repo_root, pkgListAdd, prefix)
   )
   expect_true(
     file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
+  )
+  expect_true(
+    all(
+      pkgListAdd %in% rownames(pkgAvail(repo_root, type=pkg_type))
+    )
   )
   
 })
@@ -82,18 +54,23 @@ test_that("addPackage downloads source files and rebuilds PACKAGES file", {
   
   
   pkg_type <- "win.binary"
-  pkgList  <- pkgList_win
+  pkgList  <- pkgList[["win"]]
   
-  pkgListAdd <- pkgDep(pkgsAdd, availPkgs=pdb_win, repos=revolution, type=pkg_type, suggests=FALSE)
+  pkgListAdd <- pkgDep(pkgsAdd, availPkgs=pdb[["win"]], repos=revolution, type=pkg_type, suggests=FALSE)
   prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
   
   addPackage(pkgListAdd, path=repo_root, repos=revolution, type=pkg_type, quiet=TRUE)
   
   expect_true(
-    checkForRepoFiles(repo_root, pkgListAdd, prefix)
+    miniCRAN:::.checkForRepoFiles(repo_root, pkgListAdd, prefix)
   )
   expect_true(
     file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
+  )
+  expect_true(
+    all(
+      pkgListAdd %in% rownames(pkgAvail(repo_root, type=pkg_type))
+    )
   )
   
 })
@@ -104,18 +81,23 @@ test_that("addPackage downloads mac binary files and rebuilds PACKAGES file", {
   
   
   pkg_type <- "mac.binary"
-  pkgList  <- pkgList_mac
+  pkgList  <- pkgList[["mac"]]
   
-  pkgListAdd <- pkgDep(pkgsAdd, availPkgs=pdb_mac, repos=revolution, type=pkg_type, suggests=FALSE)
+  pkgListAdd <- pkgDep(pkgsAdd, availPkgs=pdb[["mac"]], repos=revolution, type=pkg_type, suggests=FALSE)
   prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
   
   addPackage(pkgListAdd, path=repo_root, repos=revolution, type=pkg_type, quiet=TRUE)
   
   expect_true(
-    checkForRepoFiles(repo_root, pkgListAdd, prefix)
+    miniCRAN:::.checkForRepoFiles(repo_root, pkgListAdd, prefix)
   )
   expect_true(
     file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
+  )
+  expect_true(
+    all(
+      pkgListAdd %in% rownames(pkgAvail(repo_root, type=pkg_type))
+    )
   )
   
 })
