@@ -89,6 +89,7 @@ oldPackages <- function (path=NULL, repos=getOption("repos"),
 #' These functions are based on \code{\link{update.packages}} and related, except rather than looking for locally installed packages they look for the package sources and binaries being hosted in the miniCRAN repository.
 #'
 #' @inheritParams oldPackages
+#' @inheritParams makeRepo
 #'
 #' @param oldPkgs if specified as non-NULL, updatePackages() only considers these packages for updating. This may be a character vector of package names or a matrix as returned by oldPackages().
 #'

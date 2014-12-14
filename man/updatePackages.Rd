@@ -6,7 +6,7 @@
 updatePackages(path = NULL, repos = getOption("repos"),
   contriburl = contrib.url(repos, type), method, ask = TRUE,
   available = NULL, oldPkgs = NULL, type = "source",
-  Rversion = getRversion())
+  Rversion = getRversion(), quiet = FALSE)
 }
 \arguments{
 \item{path}{Destination download path. This path is the root folder of your new repository.}
@@ -26,6 +26,8 @@ updatePackages(path = NULL, repos = getOption("repos"),
 \item{type}{character, indicating the type of package to download and install. See \code{\link{install.packages}}.}
 
 \item{Rversion}{numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.}
+
+\item{quiet}{If TRUE, suppress status messages (if any), and the progress bar during download.}
 }
 \value{
 \code{NULL} invisibly.
