@@ -21,7 +21,7 @@ pkgList <- lapply(types, function(type){
 })
 
 test_that("sample repo is setup correctly", {
-#   miniCRAN:::.copySampleRepo(path=repo_root)
+  #   miniCRAN:::.copySampleRepo(path=repo_root)
   miniCRAN:::.createSampleRepo(path=repo_root)
   expect_equal(unname(pkgAvail(repo_root)[, "Package"]), sort(pkgs))
 })
@@ -80,22 +80,22 @@ for(pkg_type in names(types)){
     
     prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
     
-#     cat("\n")
-#     print(pkgAvail(repo_root, type=pkg_type)[, c("Package", "Version")])
-#     cat("\n")
+    #     cat("\n")
+    #     print(pkgAvail(repo_root, type=pkg_type)[, c("Package", "Version")])
+    #     cat("\n")
     
     old <- oldPackages(path=repo_root, repos=MRAN, type=pkg_type)
-#     cat("\n")
-#     print(pkg_type)
-#     cat("\n")
-#     cat("Old packages\n")
-#     print(old)
-#     cat("\n")
+    #     cat("\n")
+    #     print(pkg_type)
+    #     cat("\n")
+    #     cat("Old packages\n")
+    #     print(old)
+    #     cat("\n")
     expect_equal(nrow(old), 2)
     expect_equal(ncol(old), 4)
     expect_equal(rownames(old), c("adaptivetau", "aprof"))
-#     expect_equal(rownames(old), c("adaptivetau"))
-
+    #     expect_equal(rownames(old), c("adaptivetau"))
+    
     updatePackages(path=repo_root, repos=MRAN, type=pkg_type, ask=FALSE, quiet=TRUE)
     
     updateVers <- miniCRAN:::getPkgVersFromFile(list.files(file.path(repo_root, prefix)))
@@ -118,31 +118,41 @@ for(pkg_type in names(types)){
 }
 
 
-#  ------------------------------------------------------------------------
-
+# Check for duplicate packages --------------------------------------------
 
 context("Check for duplicate files")
 
-
-# Check for duplicate packages --------------------------------------------
-
-test_that("checkVersions downloads old and current source files checks for these duplicate versions", {
+for(pkg_type in names(types)){
   
-  skip_on_cran()
+  test_that(sprintf("checkVersions() finds out-of-date %s packages", pkg_type), {
+    
+    skip_on_cran()
+    
+    oldVersions <- list(package=c("aprof"),
+                        version=c("0.2.1"))
+    if(pkg_type != "source"){
+      expect_error(
+        addOldPackage(oldVersions[["package"]], path=repo_root, vers=oldVersions[["version"]],
+                      repos=MRAN, type=pkg_type)
+      ) 
+    } else {
+      addOldPackage(oldVersions[["package"]], path=repo_root, vers=oldVersions[["version"]],
+                    repos=MRAN, type=pkg_type)
+      files <- suppressWarnings(
+        checkVersions(path=repo_root, type=pkg_type)
+        )
+      
+      expect_true(
+        all(file.exists(files))
+      )
+      
+      pkgs <- sapply(strsplit(basename(files), "_"), "[[", 1)
+      dupes <- pkgs[duplicated(pkgs)]
+      expect_true(
+        all(dupes == oldVersions[["package"]])
+      )
+      
+    }
   
-  pkg_type <- "win.binary"
-  
-  files <- suppressWarnings(checkVersions(path=repo_root, type=pkg_type))
-  
-  expect_true(
-    all(file.exists(files))
-  )
-  
-  pkgs <- sapply(strsplit(basename(files), "_"), "[[", 1)
-  dupes <- pkgs[duplicated(pkgs)]
-  expect_true(
-    all(dupes==pkgList[[pkg_type]])
-  )
-  
-})
-
+  })
+}
