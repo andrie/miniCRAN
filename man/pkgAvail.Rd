@@ -3,14 +3,12 @@
 \alias{pkgAvail}
 \title{Reads available packages from CRAN repository.}
 \usage{
-pkgAvail(repos = getOption("repos"), type = "source", ...)
+pkgAvail(repos = getOption("repos"), type = "source")
 }
 \arguments{
 \item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link{available.packages}}}
 
 \item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.}
-
-\item{...}{Other arguments passed to \code{\link{available.packages}}}
 }
 \description{
 This is a thin wrapper around \code{\link[utils]{available.packages}}.  If the argument \code{path} is supplied, then the function attempts to read from a local repository, otherwise attempts to read from a CRAN mirror at the \code{repos} url.

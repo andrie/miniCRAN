@@ -6,7 +6,7 @@
 oldPackages(path = NULL, repos = getOption("repos"),
   availPkgs = pkgAvail(repos = repos, type = type), method,
   availableLocal = pkgAvail(repos = path, type = type), type = "source",
-  Rversion = getRversion())
+  Rversion = R.version)
 }
 \arguments{
 \item{path}{Destination download path. This path is the root folder of your new repository.}
