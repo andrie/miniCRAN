@@ -53,7 +53,6 @@ oldPackages <- function (path=NULL, repos=getOption("repos"),
 
 
 
-#' @inheritParams oldPackages
 #' @inheritParams makeRepo
 #'
 #' @param oldPkgs if specified as non-NULL, \code{updatePackages()} only considers these packages for updating. This may be a character vector of package names or a matrix as returned by \code{oldPackages()}.
