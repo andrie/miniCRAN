@@ -11,10 +11,10 @@ Description: miniCRAN makes it possible to create an internally consistent
     The user specifies a set of desired packages, and miniCRAN recursively
     reads the dependency tree for these packages, then downloads only this
     subset.
-Version: 0.1-1
+Version: 0.2.0
 URL: https://github.com/andrie/miniCRAN
 BugReports: https://github.com/andrie/miniCRAN/issues
-Date: 2014-10-01
+Date: 2014-12-16
 Imports:
     tools,
     XML,
