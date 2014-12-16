@@ -168,7 +168,7 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
                        writePACKAGES=TRUE, deps=TRUE, quiet=FALSE) {
   if (is.null(path) || is.null(pkgs)) stop("path and pkgs must both be specified.")
   prev <- checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
-  if (deps) pkgs <- pkgDep(pkgs)
+  if (deps) pkgs <- pkgDep(pkgs, repos=repos, type=type)
   
   makeRepo(pkgs=pkgs, path=path, repos=repos, type=type, Rversion=Rversion,
            download=TRUE, writePACKAGES=FALSE, quiet=quiet)
@@ -176,8 +176,6 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
   if (length(prev) > 0) {
     curr <- checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
     old <- intersect(prev, curr)
-    message("Removing previous versions of newly added packages:")
-    message(paste(basename(old), collapse="\n"))
     file.remove(old)
   }
   if (writePACKAGES) updateRepoIndex(path=path, type=type, Rversion=Rversion)
