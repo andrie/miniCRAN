@@ -24,22 +24,27 @@
 oldPackages <- function (path=NULL, repos=getOption("repos"),
                          availPkgs=pkgAvail(repos=repos, type=type),
                          method, availableLocal=pkgAvail(repos=path, type=type), type="source",
-                         Rversion=getRversion()) {
+                         Rversion=R.version) {
   if (is.null(path)) stop("path to miniCRAN repo must be specified")
   if (!missing(availPkgs)) {
     if (!is.matrix(availPkgs) || !is.character(availPkgs[, "Package"]))
       stop("ill-formed 'availPkgs' matrix")
   }
-  if (NROW(availPkgs) == 0L) return(NULL)
-  if (NROW(availableLocal) == 0L) return(NULL)
-  
+  if (NROW(availPkgs) == 0L) stop("Invalid remote repository")
+  if (NROW(availableLocal) == 0L) stop("Invalid local repository")
   
   idx <- match(availableLocal[, "Package"], availPkgs[, "Package"])
-  compare <- package_version(availPkgs[idx, "Version"]) > package_version(availableLocal[, "Version"])
+  compare <- sapply(seq_along(idx), function(i){
+    compareVersion(
+      (availPkgs[idx[i], "Version"]),
+      (availableLocal[i, "Version"])
+    ) > 0
+  })
+  
   update <- cbind(
     availableLocal[compare, c("Package", "Version"), drop=FALSE],
     availPkgs[idx[compare], c("Version", "Repository"), drop=FALSE]
-    )
+  )
   colnames(update) <- c("Package", "LocalVer", "ReposVer", "Repository")
   update
 }
