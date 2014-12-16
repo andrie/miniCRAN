@@ -1,110 +1,65 @@
-context("Add packages to repo")
+if(interactive()) {library(testthat); Sys.setenv(NOT_CRAN="true")}
+
+context("updateRepo")
 
 # make baseline repo ------------------------------------------------------
+
 
 repo_root <- file.path(tempdir(), "miniCRAN", Sys.Date())
 if(file.exists(repo_root)) unlink(repo_root, recursive = TRUE)
 dir.create(repo_root, recursive=TRUE, showWarnings = FALSE)
 
 revolution <- c(CRAN="http://mran.revolutionanalytics.com/snapshot/2014-10-15")
-pkgs <- c("chron", "acss")
+pkgs <- c("chron", "adaptivetau")
 
-types <- c(source="source", win="win.binary", mac="mac.binary.mavericks")
+types <- c("source", "win.binary", "mac.binary.mavericks")
+names(types) <- types
 
 pdb <- lapply(types, pkgAvail, repos=revolution)
-pkgList <- lapply(names(types), function(type){
+pkgList <- lapply(types, function(type){
   pkgDep(pkg=pkgs, type=types[type], availPkgs=pdb[[type]], repos=revolution, suggests=FALSE)
 })
 
-miniCRAN:::.copySampleRepo(path=repo_root)
+test_that("sample repo is setup correctly", {
+#   miniCRAN:::.copySampleRepo(path=repo_root)
+  miniCRAN:::.createSampleRepo(path=repo_root)
+  expect_equal(unname(pkgAvail(repo_root)[, "Package"]), sort(pkgs))
+})
 
-pkgsAdd <- c("foreach")
+pkgsAdd <- c("aprof")
+
 
 
 # Add packages to repo ----------------------------------------------------
 
+context(" - Add packages to repo")
 
-test_that("addPackage downloads source files and rebuilds PACKAGES file", {
+for(pkg_type in names(types)){
   
-  skip_on_cran()
-  
-  pkg_type <- "source"
-  pkgList  <- pkgList[["source"]]
-  
-  pkgListAdd <- pkgDep(pkgsAdd, availPkgs=pdb[["source"]], repos=revolution, type=pkg_type, suggests=FALSE)
-  prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
-  
-  addPackage(pkgListAdd, path=repo_root, repos=revolution, type=pkg_type, quiet=TRUE)
-  
-  expect_true(
-    miniCRAN:::.checkForRepoFiles(repo_root, pkgListAdd, prefix)
-  )
-  expect_true(
-    file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
-  )
-  expect_true(
-    all(
-      pkgListAdd %in% pkgAvail(repo_root, type=pkg_type)[, "Package"]
+  test_that(sprintf("addPackage downloads %s files and rebuilds PACKAGES file", pkg_type), {
+    
+    skip_on_cran()
+    
+    pkgListAdd <- pkgDep(pkgsAdd, availPkgs=pdb[[pkg_type]], repos=revolution, type=pkg_type, suggests=FALSE)
+    prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
+    
+    addPackage(pkgListAdd, path=repo_root, repos=revolution, type=pkg_type, quiet=TRUE)
+    
+    expect_true(
+      miniCRAN:::.checkForRepoFiles(repo_root, pkgListAdd, prefix)
     )
-  )
-  
-})
-
-
-
-test_that("addPackage downloads source files and rebuilds PACKAGES file", {
-
-  skip_on_cran()
-  
-  pkg_type <- "win.binary"
-  pkgList  <- pkgList[["win"]]
-  
-  pkgListAdd <- pkgDep(pkgsAdd, availPkgs=pdb[["win"]], repos=revolution, type=pkg_type, suggests=FALSE)
-  prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
-  
-  addPackage(pkgListAdd, path=repo_root, repos=revolution, type=pkg_type, quiet=TRUE)
-  
-  expect_true(
-    miniCRAN:::.checkForRepoFiles(repo_root, pkgListAdd, prefix)
-  )
-  expect_true(
-    file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
-  )
-  expect_true(
-    all(
-      pkgListAdd %in% pkgAvail(repo_root, type=pkg_type)[, "Package"]
+    expect_true(
+      file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
     )
-  )
-  
-})
-
-
-
-test_that("addPackage downloads mac binary files and rebuilds PACKAGES file", {
-  
-  skip_on_cran()
-  
-  pkg_type <- "mac.binary"
-  
-  pkgListAdd <- pkgDep(pkgsAdd, availPkgs=pdb[["mac"]], repos=revolution, type=pkg_type, suggests=FALSE)
-  prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
-  
-  addPackage(pkgListAdd, path=repo_root, repos=revolution, type=pkg_type, quiet=TRUE)
-  
-  expect_true(
-    miniCRAN:::.checkForRepoFiles(repo_root, pkgListAdd, prefix)
-  )
-  expect_true(
-    file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
-  )
-  expect_true(
-    all(
-      pkgListAdd %in% pkgAvail(repo_root, type=pkg_type)[, "Package"]
+    expect_true(
+      all(
+        pkgListAdd %in% pkgAvail(repo_root, type=pkg_type)[, "Package"]
+      )
     )
-  )
+    
+  })
   
-})
-
+}
 
 
 
@@ -112,41 +67,58 @@ test_that("addPackage downloads mac binary files and rebuilds PACKAGES file", {
 
 
 
-context("Check for updates")
+context(" - Check for updates")
 
-revolution <- c(CRAN="http://mran.revolutionanalytics.com/snapshot/2014-12-01")
+MRAN <- c(CRAN="http://mran.revolutionanalytics.com/snapshot/2014-12-01")
 
 
-test_that("updatePackages downloads source files and builds PACKAGES file", {
+for(pkg_type in names(types)){  
   
-  skip_on_cran()
-  
-  pkg_type <- "mac.binary.mavericks"
+  test_that(sprintf("updatePackages downloads %s files and builds PACKAGES file", pkg_type), {
+    
+    skip_on_cran()
+    
+    prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
+    
+#     cat("\n")
+#     print(pkgAvail(repo_root, type=pkg_type)[, c("Package", "Version")])
+#     cat("\n")
+    
+    old <- oldPackages(path=repo_root, repos=MRAN, type=pkg_type)
+#     cat("\n")
+#     print(pkg_type)
+#     cat("\n")
+#     cat("Old packages\n")
+#     print(old)
+#     cat("\n")
+    expect_equal(nrow(old), 2)
+    expect_equal(ncol(old), 4)
+    expect_equal(rownames(old), c("adaptivetau", "aprof"))
+#     expect_equal(rownames(old), c("adaptivetau"))
 
-  prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
+    updatePackages(path=repo_root, repos=MRAN, type=pkg_type, ask=FALSE, quiet=TRUE)
+    
+    updateVers <- miniCRAN:::getPkgVersFromFile(list.files(file.path(repo_root, prefix)))
+    
+    expect_true(
+      miniCRAN:::.checkForRepoFiles(repo_root, pkgList[[pkg_type]], prefix)
+    )
+    
+    expect_true(
+      file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
+    )
+    
+    old <- oldPackages(path=repo_root, repos=MRAN, type=pkg_type)
+    expect_equal(nrow(old), 0)
+    expect_equal(ncol(old), 4)
+    
+    
+  })
   
-  old <- oldPackages(path=repo_root, repos=revolution, type=pkg_type)
-  expect_equal(nrow(old), 1)
-  expect_equal(ncol(old), 4)
-  
-  updatePackages(path=repo_root, repos=revolution, type=pkg_type, ask=FALSE, quiet=TRUE)
-  
-  updateVers <- miniCRAN:::getPkgVersFromFile(list.files(file.path(repo_root, prefix)))
-  
-  expect_true(
-    miniCRAN:::.checkForRepoFiles(repo_root, pkgList[[pkg_type]], prefix)
-  )
-  
-  expect_true(
-    file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
-  )
-  
-  old <- oldPackages(path=repo_root, repos=revolution, type=pkg_type)
-  expect_equal(nrow(old), 0)
-  expect_equal(ncol(old), 4)
-  
-  
-})
+}
+
+
+#  ------------------------------------------------------------------------
 
 
 context("Check for duplicate files")
@@ -158,7 +130,7 @@ test_that("checkVersions downloads old and current source files checks for these
   
   skip_on_cran()
   
-  pkg_type <- "mac.binary.mavericks"
+  pkg_type <- "win.binary"
   
   files <- suppressWarnings(checkVersions(path=repo_root, type=pkg_type))
   
