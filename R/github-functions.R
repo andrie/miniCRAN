@@ -102,7 +102,7 @@ readDescriptionGithub <- function(repo, username, branch="master", quiet=TRUE){
 #' @export
 #' @family github functions
 #' 
-#' @example /inst/examples/example_addPackage.R
+#' @example /inst/examples/example_addPackageListingGithub.R
 addPackageListingGithub <- function(pdb=pkgAvail(), repo, username=NULL, branch="master"){
   desc <- readDescriptionGithub(repo=repo, username=username, branch=branch)
   addPackageListing(pdb, desc)
