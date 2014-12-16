@@ -5,9 +5,12 @@
 
 #' Create a Private Version of CRAN Containing Only Selected Packages
 #'
-#' At the end of 2014, CRAN consisted of more than 6,000 packages.  Many organisations need to maintain a private mirror of CRAN, but with only a subset of packages that are relevant to them.
+#'@description
+#'
+#' At the end of 2014, CRAN consisted of more than 6,000 packages.  Many organisations need to maintain a private mirror of CRAN, but with only a subset of packages that are relevant to them.  
 #' 
 #' \code{miniCRAN} makes it possible to create an internally consistent repository consisting of selected packages from CRAN-like repositories.  The user specifies a set of desired packages, and miniCRAN recursively reads the dependency tree for these packages, then downloads only this subset.  
+#' 
 #' 
 #' There are many reasons for not creating a complete mirror CRAN using \code{rsync}:
 #'
@@ -20,8 +23,7 @@
 #' 
 #' The ambition of \code{miniCRAN} is to eventually satisfy all of these considerations.
 #' 
-#' 
-#' \strong{1. Making a private repo}
+#' @section 1. Making a private repo:
 #' 
 #' \itemize{
 #' \item \code{\link{pkgAvail}}: Read from a local (or remote) CRAN-like repository and determine available packages.
@@ -40,7 +42,7 @@
 #' 
 #' 
 #' 
-#' \strong{2. Updating packages in a repo}
+#' @section 2. Updating packages in a repo:
 #' 
 #' \itemize{
 #' \item \code{\link{oldPackages}}: Indicates packages which have a (suitable) later version on the repositories
@@ -49,7 +51,7 @@
 #' 
 #' 
 #' 
-#' \strong{3. Creating and visualising dependencies}
+#' @section 3. Creating and visualising dependencies:
 #' 
 #' To get a recursive list of dependencies as well as a plot, use \code{\link{pkgDep}()} followed by  \code{\link{makeDepGraph}()}.
 #' 
@@ -66,8 +68,7 @@
 #' @name miniCRAN-package
 #' @aliases miniCRAN minicran
 #' @docType package
-#' @title Tools to create an internally consistent, mini version of CRAN with selected packages only.
-#' @author Andrie de Vries \email{apdevries@@gmail.com}
+#' @author Andrie de Vries \email{apdevries@@gmail.com} with contributions from Alex Chubaty \email{alexander.chubaty@@nrcan-rncan.gc.ca}
 #' @keywords package
 NULL
 

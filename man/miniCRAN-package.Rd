@@ -4,14 +4,12 @@
 \alias{miniCRAN}
 \alias{miniCRAN-package}
 \alias{minicran}
-\title{Tools to create an internally consistent, mini version of CRAN with selected packages only.}
+\title{Create a Private Version of CRAN Containing Only Selected Packages}
 \description{
-Create a Private Version of CRAN Containing Only Selected Packages
-}
-\details{
 At the end of 2014, CRAN consisted of more than 6,000 packages.  Many organisations need to maintain a private mirror of CRAN, but with only a subset of packages that are relevant to them.
 
 \code{miniCRAN} makes it possible to create an internally consistent repository consisting of selected packages from CRAN-like repositories.  The user specifies a set of desired packages, and miniCRAN recursively reads the dependency tree for these packages, then downloads only this subset.
+
 
 There are many reasons for not creating a complete mirror CRAN using \code{rsync}:
 
@@ -23,8 +21,9 @@ There are many reasons for not creating a complete mirror CRAN using \code{rsync
 }
 
 The ambition of \code{miniCRAN} is to eventually satisfy all of these considerations.
+}
+\section{1. Making a private repo}{
 
-\strong{1. Making a private repo}
 
 \itemize{
 \item \code{\link{pkgAvail}}: Read from a local (or remote) CRAN-like repository and determine available packages.
@@ -40,19 +39,19 @@ This subset will be internally consistent, i.e. the following functions will wor
 }
 
 The main function is \code{\link{makeRepo}} - this will download all the required packages, with their dependencies, into the appropriate repository file structure, and then create the repository index (PACKAGES) file.
+}
 
+\section{2. Updating packages in a repo}{
 
-
-\strong{2. Updating packages in a repo}
 
 \itemize{
 \item \code{\link{oldPackages}}: Indicates packages which have a (suitable) later version on the repositories
 \item \code{\link{updatePackages}}: Offers to download and install such packages
 }
+}
 
+\section{3. Creating and visualising dependencies}{
 
-
-\strong{3. Creating and visualising dependencies}
 
 To get a recursive list of dependencies as well as a plot, use \code{\link{pkgDep}()} followed by  \code{\link{makeDepGraph}()}.
 
@@ -63,7 +62,7 @@ To get a recursive list of dependencies as well as a plot, use \code{\link{pkgDe
 }
 }
 \author{
-Andrie de Vries \email{apdevries@gmail.com}
+Andrie de Vries \email{apdevries@gmail.com} with contributions from Alex Chubaty \email{alexander.chubaty@nrcan-rncan.gc.ca}
 }
 \keyword{package}
 
