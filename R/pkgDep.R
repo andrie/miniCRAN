@@ -125,9 +125,9 @@ print.pkgDep <- function(x, ...){
 #' @export
 #' @family create repo functions
 #' @seealso \code{\link{pkgDep}}
-pkgAvail <- function(repos=getOption("repos"), type="source", ...){
-  if(!grepl("^file:///", repos[1]) && file.exists(repos[1])) {
-    repos <- paste0("file:///", repos[1])
+pkgAvail <- function(repos=getOption("repos"), type="source"){
+  if(!grepl("^http://|file:///", repos[1]) && file.exists(repos[1])) {
+     repos <- paste0("file:///", normalizePath(repos[1], mustWork = FALSE, winslash = "/"))
   } else {
     if(!is.null(names(repos)) && repos["CRAN"] == "@CRAN@"){
       repos <- c(CRAN="http://cran.revolutionanalytics.com")
