@@ -52,6 +52,7 @@ repoPrefix <- function(type, Rversion){
 
 #' Construct path to full binary location
 #' @inheritParams makeRepo
+#' @inheritParams repoPrefix
 repoBinPath <- function(path, type, Rversion){
   normalizePath(file.path(path, repoPrefix(type, Rversion)), mustWork = FALSE, winslash = "/")
 }
