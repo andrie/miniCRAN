@@ -5,20 +5,21 @@ miniCRAN
 
 master: 
 [![Build Status](https://travis-ci.org/andrie/miniCRAN.svg?branch=master)](https://travis-ci.org/andrie/miniCRAN)
-
+release:
+[![Build Status](https://travis-ci.org/andrie/miniCRAN.svg?branch=release)](https://travis-ci.org/andrie/miniCRAN)
 dev: [![Build Status](https://travis-ci.org/andrie/miniCRAN.svg?branch=dev)](https://travis-ci.org/andrie/miniCRAN)
 
 
 
 
-R package to create internally consistent, mini version of CRAN
+Create a mini Version of CRAN Containing Only Selected Packages
 
 ## Introduction
 
-At the end of 2013, CRAN consisted of more than 5000 packages.  Many organisations need to maintain a private mirror of CRAN, but with only a subset of packages that are relevant to them.
- 
-`miniCRAN` makes this possible by recursively reading the dependency tree for a given set of packages, then downloading only this subset.
- 
+At the end of 2014, CRAN consisted of more than 6,000 packages.  Many organisations need to maintain a private mirror of CRAN, but with only a subset of packages that are relevant to them.
+
+`miniCRAN` makes it possible to create an internally consistent repository consisting of selected packages from CRAN-like repositories.  The user specifies a set of desired packages, and miniCRAN recursively reads the dependency tree for these packages, then downloads only this subset.  
+
 ## Important functions:
 
 * Find package dependencies: `pkgDep()`
@@ -40,21 +41,14 @@ Get a development version from github:
 ```r
 # Use `devtools` to install directly from github
 library(devtools)
-install_github("miniCRAN", username="andrie")
+install_github("andrie/miniCRAN")
 ```
     
 ## Example:
 
 ```r
 # Determine and download the packages `ggplot2`, `plyr` and `reshape2`, including their dependencies:
-
 library("miniCRAN")
-
 pkgs <- c("ggplot2", "plyr", "reshape2")
-
-pkgDep(pkgs)
-
-pth <- file.path(tempdir, "miniCRAN")
-makeRepo(pkgDep(pkgs), path=pth, download=TRUE)
-
+makeRepo(pkgDep(pkgs), path=file.path(tempdir, "miniCRAN"), download=TRUE)
 ```
