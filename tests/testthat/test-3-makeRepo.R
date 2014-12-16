@@ -1,123 +1,49 @@
-
+if(interactive()) {library(testthat); Sys.setenv(NOT_CRAN="true")}
 
 context("makeRepo")
 
 
-checkForRepoFiles <- function(path, pkgList, prefix){
-  f <- list.files(path, recursive = TRUE)
-  ret <- sapply(pkgList, function(x) grep(sprintf("%s/%s_.*\\.(tar\\.gz|zip|tgz)", prefix, x), f))
-  if(all(ret > 0)) TRUE else {
-    message(ret)
-    FALSE
-  }
-}
-
-
-revolution <- c(CRAN="http://cran.revolutionanalytics.com")
-pkgs <- c("foreach")
+revolution <- c(CRAN="http://mran.revolutionanalytics.com/snapshot/2014-10-15")
+pkgs <- c("Bmix")
 repo_root <- file.path(tempdir(), "miniCRAN", Sys.Date())
 if(file.exists(repo_root)) unlink(repo_root, recursive = TRUE)
 
 # list.files(repo_root, recursive = TRUE)
 
 
-# source ------------------------------------------------------------------
+types <- c("source", "win.binary", "mac.binary", "mac.binary.mavericks")
+names(types) <- types
 
-test_that("makeRepo downloads source files and builds PACKAGES file", {
+for(pkg_type in names(types)){  
+  
+  test_that(sprintf("makeRepo downloads %s files and builds PACKAGES file", pkg_type), {
+    
+    skip_on_cran()
+    
+    pdb <- pkgAvail(repos = revolution, type=pkg_type)
+    pkgList <- pkgDep(pkgs, availPkgs = pdb, repos=revolution, type=pkg_type, suggests=FALSE)
+    prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
+    dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
+    
+    makeRepo(pkgList, path=repo_root, repos=revolution, type=pkg_type, quiet=TRUE)
+    
+    expect_true(
+      miniCRAN:::.checkForRepoFiles(repo_root, pkgList, prefix)
+    )
+    expect_true(
+      file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
+    )
+    expect_true(
+      all(
+        pkgList %in% pkgAvail(repo_root, type=pkg_type)[, "Package"]
+      )
+    )
+    
+  })
+  
+}
 
-  skip_on_cran()
-  
-  pkg_type <- "source"
-  pdb <- pkgAvail(repos = revolution, type=pkg_type)
-  pkgList <- pkgDep(pkgs, availPkgs = pdb, repos=revolution, type=pkg_type, suggests=FALSE)
-  prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
-  dir.create(repo_root, recursive = TRUE)
-  
-  makeRepo(pkgList, path=repo_root, repos=revolution, type=pkg_type)
-  
-  expect_true(
-    checkForRepoFiles(repo_root, pkgList, prefix)
-  )
-  expect_true(
-    file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
-  )
-  
-  unlink(repo_root, recursive = TRUE)
-  
-})
 
-# windows binaries --------------------------------------------------------
 
-test_that("makeRepo downloads windows binary files and builds PACKAGES file", {
-  
-  pkg_type <- "win.binary"
-  pdb <- pkgAvail(repos = revolution, type=pkg_type)
-  pkgList <- pkgDep(pkgs, availPkgs = pdb, repos=revolution, type=pkg_type, suggests=FALSE)
-  prefix <- miniCRAN:::repoPrefix(pkg_type, miniCRAN:::twodigitRversion(R.version))
-  dir.create(repo_root, recursive = TRUE)
-  
-  makeRepo(pkgList, path=repo_root, repos=revolution, type=pkg_type)
-  list.files(repo_root, recursive = TRUE)
-  expect_true(
-    checkForRepoFiles(repo_root, pkgList, prefix)
-  )
-  expect_true(
-    file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
-  )
-  
-  unlink(repo_root, recursive = TRUE)
-  
-})
+unlink(repo_root, recursive = TRUE)
 
-# mac binaries ------------------------------------------------------------
-
-test_that("makeRepo downloads mac binary files and builds PACKAGES file", {
-  
-  skip_on_cran()
-
-  pkg_type <- "mac.binary"
-  pdb <- pkgAvail(repos = revolution, type=pkg_type)
-  pkgList <- pkgDep(pkgs, availPkgs = pdb, repos=revolution, type=pkg_type, suggests=FALSE)
-  prefix <- miniCRAN:::repoPrefix(pkg_type, miniCRAN:::twodigitRversion(R.version))
-  dir.create(repo_root, recursive = TRUE)
-  
-  makeRepo(pkgList, path=repo_root, repos=revolution, type=pkg_type)
-  list.files(repo_root, recursive = TRUE)
-  expect_true(
-    checkForRepoFiles(repo_root, pkgList, prefix)
-  )
-  expect_true(
-    file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
-  )
-  
-  unlink(repo_root, recursive = TRUE)
-  
-})
-
-# mac mavericks binaries --------------------------------------------------
-
-# test_that("makeRepo downloads mac mavericks binary files and builds PACKAGES file", {
-#   
-#   pkg_type <- "mac.binary.mavericks"
-#   pdb <- pkgAvail(repos = revolution, type=pkg_type)
-#   contrib.url(revolution, pkg_type)
-#   pdb <- available.packages(contrib.url(revolution, pkg_type), type=pkg_type)
-#   pkgList <- pkgDep(pkgs, availPkgs = pdb, repos=revolution, type=pkg_type, suggests=FALSE)
-#   R <- list(major="3", minor="1")
-#   prefix <- miniCRAN:::repoPrefix(pkg_type, miniCRAN:::twodigitRversion(R))
-#   dir.create(repo_root, recursive = TRUE)
-#   pkgList <- pkgDep(pkgs, availPkgs = pdb, repos=revolution, type=pkg_type, suggests=FALSE)
-#   
-#   
-#   makeRepo(pkgList, path=repo_root, repos=revolution, type=pkg_type)
-#   list.files(repo_root, recursive = TRUE)
-#   expect_true(
-#     checkForRepoFiles(repo_root, pkgList, prefix)
-#   )
-#   expect_true(
-#     file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
-#   )
-#   
-#   unlink(repo_root, recursive = TRUE)
-#   
-# })

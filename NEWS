@@ -1,9 +1,25 @@
+miniCRAN v0.2-0 (Release date: 2014-12-16)
+==============
+
+New functionality:
+
+* addPackage() to manage incremental package additions
+* addOldPackage() to add (source version) of specific package version
+* updatePackages() to check for and download package updates
+
+
+miniCRAN v0.1-1 (Release date: 2014-10-01)
+==============
+
+Changes:
+
+
 miniCRAN v0.1-0 (Release date: 2014-09-16)
 ==============
 
 Changes:
 
-* Updated documenation, vignette and examples
+* Updated documentation, vignette and examples
 * Simplification of function arguments
 
 

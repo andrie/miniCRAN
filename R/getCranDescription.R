@@ -1,12 +1,13 @@
 #' Scrape DESCRIPTION from CRAN for each pkg.
-#' 
+#'
 #' @inheritParams pkgDep
 #' @inheritParams makeRepo
 #' @import XML
 #' @export
-#' @example \inst\examples\example_getCranDescription.R
+#' 
+#' @example /inst/examples/example_getCranDescription.R
 getCranDescription <- function(pkg, repos=getOption("repos"), type="source", path, pkgs = pkgDep(pkg, repos=repos, type=type)){
-  
+
   getOne <- function(package){
     url <- sprintf("http://cran.r-project.org/web/packages/%s/index.html", package)
     x <- tryCatch({
