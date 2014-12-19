@@ -50,5 +50,5 @@ install_github("andrie/miniCRAN")
 # Determine and download the packages `ggplot2`, `plyr` and `reshape2`, including their dependencies:
 library("miniCRAN")
 pkgs <- c("ggplot2", "plyr", "reshape2")
-makeRepo(pkgDep(pkgs), path=file.path(tempdir, "miniCRAN"), download=TRUE)
+makeRepo(pkgDep(pkgs), path=file.path(tempdir(), "miniCRAN"), download=TRUE)
 ```
