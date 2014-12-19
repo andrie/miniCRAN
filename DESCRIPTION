@@ -1,7 +1,7 @@
 Package: miniCRAN
 Authors@R: c(person("Revolution Analytics", role="aut"), person("Andrie", "de
     Vries", role=c("aut", "cre"), email="apdevries@gmail.com"), person("Alex",
-    "Chubaty", role="ctb", email="alexander.chubaty@nrcan-rncan.gc.ca"))
+    "Chubaty", role="ctb", email="alex.chubaty@gmail.com"))
 License: Apache License (== 2.0)
 Title: Create a mini Version of CRAN Containing Only Selected Packages
 LazyData: true

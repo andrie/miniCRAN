@@ -68,7 +68,7 @@
 #' @name miniCRAN-package
 #' @aliases miniCRAN minicran
 #' @docType package
-#' @author Andrie de Vries \email{apdevries@@gmail.com} with contributions from Alex Chubaty \email{alexander.chubaty@@nrcan-rncan.gc.ca}
+#' @author Andrie de Vries \email{apdevries@@gmail.com} with contributions from Alex Chubaty \email{alex.chubaty@@gmail.com}
 #' @keywords package
 NULL
 

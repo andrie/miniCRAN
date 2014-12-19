@@ -62,7 +62,7 @@ To get a recursive list of dependencies as well as a plot, use \code{\link{pkgDe
 }
 }
 \author{
-Andrie de Vries \email{apdevries@gmail.com} with contributions from Alex Chubaty \email{alexander.chubaty@nrcan-rncan.gc.ca}
+Andrie de Vries \email{apdevries@gmail.com} with contributions from Alex Chubaty \email{alex.chubaty@gmail.com}
 }
 \keyword{package}
 
