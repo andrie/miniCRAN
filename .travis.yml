@@ -23,5 +23,6 @@ notifications:
 branches:
   only:
     - master
+    - release
     - dev
     - update-repo

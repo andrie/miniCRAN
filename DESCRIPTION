@@ -1,8 +1,9 @@
 Package: miniCRAN
 Authors@R: c(person("Revolution Analytics", role="aut"), person("Andrie", "de
-    Vries", role=c("aut", "cre"), email="apdevries@gmail.com"), person("Alex",
-    "Chubaty", role="ctb", email="alex.chubaty@gmail.com"))
+    Vries", role=c("aut", "cre"), email="andrie@revolutionanalytics.com"),
+    person("Alex", "Chubaty", role="ctb", email="alex.chubaty@gmail.com"))
 License: GPL-2
+Copyright: Revolution Analytics
 Title: Create a mini Version of CRAN Containing Only Selected Packages
 LazyData: true
 LazyLoad: true
@@ -12,9 +13,9 @@ Description: miniCRAN makes it possible to create an internally consistent
     reads the dependency tree for these packages, then downloads only this
     subset.
 Version: 0.2.0
-URL: https://github.com/andrie/miniCRAN
-BugReports: https://github.com/andrie/miniCRAN/issues
-Date: 2014-12-16
+URL: https://github.com/RevolutionAnalytics/miniCRAN
+BugReports: https://github.com/RevolutionAnalytics/miniCRAN/issues
+Date: 2015-01-15
 Imports:
     tools,
     XML,

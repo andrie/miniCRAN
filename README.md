@@ -4,13 +4,10 @@ miniCRAN
 **Build status**
 
 master: 
-[![Build Status](https://travis-ci.org/RevolutionAnalytics/miniCRAN.svg?branch=master)](https://travis-ci.org/andrie/miniCRAN)
+[![Build Status](https://travis-ci.org/RevolutionAnalytics/miniCRAN.svg?branch=master)](https://travis-ci.org/RevolutionAnalytics/miniCRAN)
 release:
-[![Build Status](https://travis-ci.org/RevolutionAnalytics/miniCRAN.svg?branch=release)](https://travis-ci.org/andrie/miniCRAN)
-dev: [![Build Status](https://travis-ci.org/RevolutionAnalytics/miniCRAN.svg?branch=dev)](https://travis-ci.org/andrie/miniCRAN)
-
-
-
+[![Build Status](https://travis-ci.org/RevolutionAnalytics/miniCRAN.svg?branch=release)](https://travis-ci.org/RevolutionAnalytics/miniCRAN)
+dev: [![Build Status](https://travis-ci.org/RevolutionAnalytics/miniCRAN.svg?branch=dev)](https://travis-ci.org/RevolutionAnalytics/miniCRAN)
 
 Create a mini Version of CRAN Containing Only Selected Packages
 
@@ -36,18 +33,19 @@ library("miniCRAN")
 ```
 
 
-Get a development version from github:
+Get the latest stable development version from github:
 
 ```r
 # Use `devtools` to install directly from github
 library(devtools)
-install_github("andrie/miniCRAN")
+install_github("RevolutionAnalytics/miniCRAN")
 ```
     
 ## Example:
 
 ```r
 # Determine and download the packages `ggplot2`, `plyr` and `reshape2`, including their dependencies:
+
 library("miniCRAN")
 pkgs <- c("ggplot2", "plyr", "reshape2")
 makeRepo(pkgDep(pkgs), path=file.path(tempdir(), "miniCRAN"), download=TRUE)
