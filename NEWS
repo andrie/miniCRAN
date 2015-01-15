@@ -1,6 +1,10 @@
 miniCRAN v0.2-0 (Release date: 2014-12-16)
 ==============
 
+License change:
+* New licence: GPL-2 (changed from Apache 2)
+
+
 New functionality:
 
 * addPackage() to manage incremental package additions

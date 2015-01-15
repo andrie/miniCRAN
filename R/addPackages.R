@@ -1,5 +1,3 @@
-
-
 #' Check for previous versions of packages in a miniCRAN repository.
 #'
 #' Checks for previous versions, and returns the file paths for packages with multiple versions. You can subsequently decide which version to keep.
@@ -20,7 +18,7 @@
 #' @example /inst/examples/example_checkVersions.R
 #'
 checkVersions <- function(pkgs=NULL, path=NULL, type="source",
-                          Rversion=getRversion()) {
+                          Rversion=R.version) {
   if (is.null(path)) stop("path must be specified.")
   if (!file.exists(path)) stop("invalid path, ", path)
   pkgPath <- repoBinPath(path, type, Rversion)
@@ -44,7 +42,7 @@ checkVersions <- function(pkgs=NULL, path=NULL, type="source",
 
 
 #' Add packages to a miniCRAN repository.
-#' 
+#'
 #' @inheritParams makeRepo
 #' @inheritParams pkgDep
 #'
@@ -65,11 +63,12 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
                        writePACKAGES=TRUE, deps=TRUE, quiet=FALSE) {
   if (is.null(path) || is.null(pkgs)) stop("path and pkgs must both be specified.")
   prev <- checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
+
   if (deps) pkgs <- pkgDep(pkgs, repos=repos, type=type)
-  
+
   makeRepo(pkgs=pkgs, path=path, repos=repos, type=type, Rversion=Rversion,
            download=TRUE, writePACKAGES=FALSE, quiet=quiet)
-  
+
   if (length(prev) > 0) {
     curr <- checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
     old <- intersect(prev, curr)
@@ -99,7 +98,7 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
 #' @importFrom tools write_PACKAGES
 #' @export
 #' @family update repo functions
-#' 
+#'
 #' @example /inst/examples/example_checkVersions.R
 #'
 addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
@@ -122,9 +121,9 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
   pkgPath <- repoBinPath(path=path, type=type, Rversion=Rversion)
   if(!file.exists(pkgPath)) dir.create(pkgPath, recursive=TRUE)
   sapply(oldPkgs, function(x) {
-    result <- download.file(x, destfile=file.path(pkgPath, basename(x)), 
-                            method="auto", 
-                            mode="wb", 
+    result <- download.file(x, destfile=file.path(pkgPath, basename(x)),
+                            method="auto",
+                            mode="wb",
                             quiet=quiet)
     if(result!=0) warning("error downloading file ", x)
   })
