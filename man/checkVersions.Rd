@@ -4,7 +4,7 @@
 \title{Check for previous versions of packages in a miniCRAN repository.}
 \usage{
 checkVersions(pkgs = NULL, path = NULL, type = "source",
-  Rversion = getRversion())
+  Rversion = R.version)
 }
 \arguments{
 \item{pkgs}{Character vector of packages to be installed. If not provided, checks all files for multiple package versions.}
