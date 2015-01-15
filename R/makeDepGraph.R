@@ -26,6 +26,8 @@ addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests"
 }
 
 
+igraphNotAvailableMessage <- "makeDepGraph requires igraph.  Install igraph and try again."
+
 #' Create dependency graph from available packages.
 #'
 #' Each package is a node, and a dependency is an edge
@@ -33,7 +35,6 @@ addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests"
 #' @inheritParams pkgDep
 #' @inheritParams makeRepo
 #'
-#' @import igraph
 #' @export
 #' @family dependency functions
 #' 
@@ -45,7 +46,8 @@ makeDepGraph <- function(
   suggests=TRUE, enhances=FALSE,
   includeBasePkgs=FALSE, ...)
 {
-
+  if(!requireNamespace("igraph")){stop(igraphNotAvailableMessage)}
+  
   if(missing(availPkgs)) {
     availPkgs <- pkgAvail(repos=repos, type=type)
   }

@@ -20,9 +20,9 @@ Imports:
     tools,
     XML,
     httr,
-    igraph,
     methods
 Suggests:
     testthat(>= 0.9),
-    knitr
+    knitr,
+    igraph
 VignetteBuilder: knitr
