@@ -9,6 +9,7 @@ env: NOT_CRAN="true"
 
 install:
   - ./travis-tool.sh install_deps
+  - Rscript -e 'install.packages("igraph", repos=c(CRAN="http:/cran.revolutionanalytics.com"))'
 
 script: ./travis-tool.sh run_tests
 
