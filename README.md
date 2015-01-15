@@ -33,7 +33,7 @@ library("miniCRAN")
 ```
 
 
-Get a development version from github:
+Get the latest stable development version from github:
 
 ```r
 # Use `devtools` to install directly from github
@@ -45,11 +45,8 @@ install_github("RevolutionAnalytics/miniCRAN")
 
 ```r
 # Determine and download the packages `ggplot2`, `plyr` and `reshape2`, including their dependencies:
+
 library("miniCRAN")
 pkgs <- c("ggplot2", "plyr", "reshape2")
-<<<<<<< HEAD
-makeRepo(pkgDep(pkgs), path=file.path(tempdir, "miniCRAN"), download=TRUE)
-=======
 makeRepo(pkgDep(pkgs), path=file.path(tempdir(), "miniCRAN"), download=TRUE)
->>>>>>> dev
 ```
