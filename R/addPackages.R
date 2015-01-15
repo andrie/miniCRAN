@@ -65,6 +65,8 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
   prev <- checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
 
   if (deps) pkgs <- pkgDep(pkgs, repos=repos, type=type)
+  
+  pkgs <- sort(unique(pkgs))
 
   makeRepo(pkgs=pkgs, path=path, repos=repos, type=type, Rversion=Rversion,
            download=TRUE, writePACKAGES=FALSE, quiet=quiet)
