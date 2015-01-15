@@ -10,8 +10,6 @@
 #' @param ... Ignored
 #' @export
 #'
-#' @import igraph
-#'
 #' @family dependency functions
 #' 
 #' @example /inst/examples/example_plot.pkgDepGraph.R
@@ -25,6 +23,7 @@ plot.pkgDepGraph <- function(
   cex=1,
   ...)
 {
+  if(!requireNamespace("igraph")){stop(igraphNotAvailableMessage)}
   class(x) <- "igraph"
   plotColours <- c("grey80", "orange")
   if(missing("pkgsToHighlight")) {
