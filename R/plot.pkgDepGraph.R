@@ -30,7 +30,7 @@ plot.pkgDepGraph <- function(
     pkgsToHighlight <- attr(x, "pkgs")
   }
 
-  topLevel <- as.numeric(V(x)$name %in% pkgsToHighlight)
+  topLevel <- as.numeric(igraph::V(x)$name %in% pkgsToHighlight)
   vColor <- plotColours[1 + topLevel]
   vFont <- 1 + topLevel
   vShape <- c("none", shape)[1 + topLevel]
