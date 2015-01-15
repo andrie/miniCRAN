@@ -1,5 +1,5 @@
 #
-#  miniCRAN/R/minicran-package.R by Andrie de Vries  Copyright (C) 2014
+#  miniCRAN/R/minicran-package.R by Revolution Analytics  Copyright (C) 2014-2015
 #
 
 
@@ -68,7 +68,7 @@
 #' @name miniCRAN-package
 #' @aliases miniCRAN minicran
 #' @docType package
-#' @author Andrie de Vries \email{apdevries@@gmail.com} with contributions from Alex Chubaty \email{alex.chubaty@@gmail.com}
+#' @author Andrie de Vries \email{andrie@@revolutionanalytics.com} with contributions from Alex Chubaty \email{alex.chubaty@@gmail.com}
 #' @keywords package
 NULL
 
