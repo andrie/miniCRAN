@@ -39,8 +39,9 @@ plot.pkgDepGraph <- function(
   eColor <- edgeColor[igraph::get.edge.attribute(x, "type")]
 
   par(mai=rep(0.25, 4))
+  # browser()
 
-  plot(x, vertex.size=vertex.size,
+  igraph::plot.igraph(x, vertex.size=vertex.size,
        edge.arrow.size=0.5,
        edge.color=eColor,
        vertex.label.cex=cex,
