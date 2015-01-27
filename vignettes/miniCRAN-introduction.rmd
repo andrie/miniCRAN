@@ -1,11 +1,23 @@
-<!--
-% \VignetteIndexEntry{Using miniCRAN to create a local CRAN repository}
-% \VignetteEngine{knitr::knitr}
-% \VignettePackage{miniCRAN}
-% \VignetteKeyword{miniCRAN}
---> 
+---
+title:  Using miniCRAN to create a local CRAN repository
+author: Andrie de Vries and Alex Chubaty
+date:   January 27, 2015
+output:
+  pdf_document:
+    number_sections: yes
+    toc: yes
+  html_document:
+    self_contained: yes
+    toc: yes
+  word_document: default
+vignette: >
+  %\VignetteIndexEntry{Using miniCRAN to create and maintain a local CRAN repository}
+  %\VignetteEngine{knitr::knitr}
+  %\VignettePackage{miniCRAN}
+  %\VignetteKeyword{miniCRAN}
+---
 
-# Using miniCRAN to create a local CRAN repository
+# Creating a miniCRAN repository
 
 Start by creating the recursive dependency tree for your target packages.
 

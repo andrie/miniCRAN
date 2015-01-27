@@ -1,13 +1,20 @@
-<!--
-% \VignetteIndexEntry{Using miniCRAN to identify package dependencies}
-% \VignetteEngine{knitr::knitr}
-% \VignettePackage{miniCRAN}
-% \VignetteKeyword{miniCRAN}
---> 
-
-
-# Using miniCRAN to identify package dependencies
-
+---
+title:  Using miniCRAN to identify package dependencies
+author: Andrie de Vries
+output:
+  pdf_document:
+    number_sections: no
+    toc: no
+  html_document:
+    self_contained: yes
+    toc: no
+  word_document: default
+vignette: >
+  %\VignetteIndexEntry{Using miniCRAN to identify package dependencies}
+  %\VignetteEngine{knitr::knitr}
+  %\VignettePackage{miniCRAN}
+  %\VignetteKeyword{miniCRAN}
+--- 
 
 The `miniCRAN` package exposes two functions that provide information about dependencies:
 
