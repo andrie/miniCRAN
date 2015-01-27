@@ -6,8 +6,8 @@ context("updateRepo")
 
 
 repo_root <- file.path(tempdir(), "miniCRAN", Sys.Date())
-if(file.exists(repo_root)) unlink(repo_root, recursive = TRUE)
-dir.create(repo_root, recursive=TRUE, showWarnings = FALSE)
+if(file.exists(repo_root)) unlink(repo_root, recursive=TRUE)
+dir.create(repo_root, recursive=TRUE, showWarnings=FALSE)
 
 revolution <- c(CRAN="http://mran.revolutionanalytics.com/snapshot/2014-10-15")
 pkgs <- c("chron", "adaptivetau")
@@ -35,16 +35,16 @@ pkgsAdd <- c("aprof")
 context(" - Add packages to repo")
 
 for(pkg_type in names(types)){
-  
+
   test_that(sprintf("addPackage downloads %s files and rebuilds PACKAGES file", pkg_type), {
-    
+
     skip_on_cran()
-    
+
     pkgListAdd <- pkgDep(pkgsAdd, availPkgs=pdb[[pkg_type]], repos=revolution, type=pkg_type, suggests=FALSE)
     prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
-    
+
     addPackage(pkgListAdd, path=repo_root, repos=revolution, type=pkg_type, quiet=TRUE)
-    
+
     expect_true(
       miniCRAN:::.checkForRepoFiles(repo_root, pkgListAdd, prefix)
     )
@@ -56,9 +56,9 @@ for(pkg_type in names(types)){
         pkgListAdd %in% pkgAvail(repo_root, type=pkg_type)[, "Package"]
       )
     )
-    
+
   })
-  
+
 }
 
 
@@ -72,18 +72,18 @@ context(" - Check for updates")
 MRAN <- c(CRAN="http://mran.revolutionanalytics.com/snapshot/2014-12-01")
 
 
-for(pkg_type in names(types)){  
-  
+for(pkg_type in names(types)){
+
   test_that(sprintf("updatePackages downloads %s files and builds PACKAGES file", pkg_type), {
-    
+
     skip_on_cran()
-    
+
     prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
-    
+
     #     cat("\n")
     #     print(pkgAvail(repo_root, type=pkg_type)[, c("Package", "Version")])
     #     cat("\n")
-    
+
     old <- oldPackages(path=repo_root, repos=MRAN, type=pkg_type)
     #     cat("\n")
     #     print(pkg_type)
@@ -95,26 +95,24 @@ for(pkg_type in names(types)){
     expect_equal(ncol(old), 4)
     expect_equal(rownames(old), c("adaptivetau", "aprof"))
     #     expect_equal(rownames(old), c("adaptivetau"))
-    
+
     updatePackages(path=repo_root, repos=MRAN, type=pkg_type, ask=FALSE, quiet=TRUE)
-    
+
     updateVers <- miniCRAN:::getPkgVersFromFile(list.files(file.path(repo_root, prefix)))
-    
+
     expect_true(
       miniCRAN:::.checkForRepoFiles(repo_root, pkgList[[pkg_type]], prefix)
     )
-    
+
     expect_true(
       file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
     )
-    
+
     old <- oldPackages(path=repo_root, repos=MRAN, type=pkg_type)
     expect_equal(nrow(old), 0)
     expect_equal(ncol(old), 4)
-    
-    
+
   })
-  
 }
 
 
@@ -123,36 +121,36 @@ for(pkg_type in names(types)){
 context("Check for duplicate files")
 
 for(pkg_type in names(types)){
-  
+
   test_that(sprintf("checkVersions() finds out-of-date %s packages", pkg_type), {
-    
+
     skip_on_cran()
-    
+
     oldVersions <- list(package=c("aprof"),
                         version=c("0.2.1"))
     if(pkg_type != "source"){
       expect_error(
         addOldPackage(oldVersions[["package"]], path=repo_root, vers=oldVersions[["version"]],
                       repos=MRAN, type=pkg_type)
-      ) 
+      )
     } else {
       addOldPackage(oldVersions[["package"]], path=repo_root, vers=oldVersions[["version"]],
                     repos=MRAN, type=pkg_type)
       files <- suppressWarnings(
         checkVersions(path=repo_root, type=pkg_type)
         )
-      
+
       expect_true(
         all(file.exists(files))
       )
-      
+
       pkgs <- sapply(strsplit(basename(files), "_"), "[[", 1)
       dupes <- pkgs[duplicated(pkgs)]
       expect_true(
         all(dupes == oldVersions[["package"]])
       )
-      
+
     }
-  
+
   })
 }
