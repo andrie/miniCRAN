@@ -9,7 +9,7 @@ release:
 [![Build Status](https://travis-ci.org/RevolutionAnalytics/miniCRAN.svg?branch=release)](https://travis-ci.org/RevolutionAnalytics/miniCRAN)
 dev: [![Build Status](https://travis-ci.org/RevolutionAnalytics/miniCRAN.svg?branch=dev)](https://travis-ci.org/RevolutionAnalytics/miniCRAN)
 
-Create a mini Version of CRAN Containing Only Selected Packages
+Create a mini version of CRAN containing only selected packages
 
 ## Introduction
 
@@ -21,7 +21,8 @@ At the end of 2014, CRAN consisted of more than 6,000 packages.  Many organisati
 
 * Find package dependencies: `pkgDep()`
 * Make repository (with or without downloading packages): `makeRepo()`
-
+* Add additonal packages (and their dependencies) to existing repository: `addPackage()`
+* Update the versions of packages currently in the repository: `updatePackages()`
 
 ## Installation:
 
