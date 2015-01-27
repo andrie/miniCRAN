@@ -63,18 +63,24 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
                        writePACKAGES=TRUE, deps=TRUE, quiet=FALSE) {
   if (is.null(path) || is.null(pkgs)) stop("path and pkgs must both be specified.")
   prev <- checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
+  prev.df <- getPkgVersFromFile(prev)
 
   if (deps) pkgs <- pkgDep(pkgs, repos=repos, type=type)
-  
-  pkgs <- sort(unique(pkgs))
 
   makeRepo(pkgs=pkgs, path=path, repos=repos, type=type, Rversion=Rversion,
            download=TRUE, writePACKAGES=FALSE, quiet=quiet)
 
-  if (length(prev) > 0) {
-    curr <- checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
-    old <- intersect(prev, curr)
-    file.remove(old)
+  if (length(prev)) {
+    curr <- suppressWarnings(
+              checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
+            )
+    curr.df <- getPkgVersFromFile(curr)
+
+    dupes <- with(curr.df, package[duplicated(package)])
+    if (length(dupes)) {
+      old <- lapply(dupes, function(x) { grep(paste0("^", x), basename(prev)) } )
+      file.remove(prev[unlist(old)])
+    }
   }
   if (writePACKAGES) updateRepoIndex(path=path, type=type, Rversion=Rversion)
 }
