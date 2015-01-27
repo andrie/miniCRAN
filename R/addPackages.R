@@ -50,7 +50,7 @@ checkVersions <- function(pkgs=NULL, path=NULL, type="source",
 #'
 #' @param deps logical indicating whether the package dependencies should be added (default \code{TRUE}).
 #'
-#' @return Installs the packages, rebuilds the package index invisibly returns the number of packages writen to the index files.
+#' @return Installs the packages, rebuilds the package index, and invisibly returns the number of packages writen to the index files.
 #'
 #' @importFrom tools write_PACKAGES
 #' @export
@@ -82,7 +82,7 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
       file.remove(prev[unlist(old)])
     }
   }
-  if (writePACKAGES) updateRepoIndex(path=path, type=type, Rversion=Rversion)
+  if (writePACKAGES) invisible(updateRepoIndex(path=path, type=type, Rversion=Rversion))
 }
 
 
@@ -99,7 +99,7 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
 #'
 #' @param vers The package version to install.
 #'
-#' @return Installs the packages, rebuilds the package index invisibly returns the number of packages writen to the index files.
+#' @return Installs the packages, rebuilds the package index, and invisibly returns the number of packages writen to the index files.
 #'
 #' @note Dependencies for old package versions cannot be determined automatically and must be specified by the user in \code{pkgs} and \code{vers}. Thus, \code{deps=FALSE} is the default for this function.
 #'
@@ -135,5 +135,5 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
                             quiet=quiet)
     if(result!=0) warning("error downloading file ", x)
   })
-  if (writePACKAGES) updateRepoIndex(path=path, type=type, Rversion)
+  if (writePACKAGES) invisible(updateRepoIndex(path=path, type=type, Rversion))
 }
