@@ -72,7 +72,9 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
            download=TRUE, writePACKAGES=FALSE, quiet=quiet)
 
   if (length(prev) > 0) {
-    curr <- checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
+    curr <- suppressWarnings(
+              checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
+            )
     old <- intersect(prev, curr)
     file.remove(old)
   }
