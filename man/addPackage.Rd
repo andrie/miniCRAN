@@ -26,7 +26,7 @@ addPackage(pkgs = NULL, path = NULL, repos = getOption("repos"),
 \item{quiet}{If TRUE, suppress status messages (if any), and the progress bar during download.}
 }
 \value{
-Installs the packages, rebuilds the package index, and returns the number of packages writen to the index files.
+Installs the packages, rebuilds the package index, and invisibly returns the number of packages writen to the index files.
 }
 \description{
 Add packages to a miniCRAN repository.
