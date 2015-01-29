@@ -1,20 +1,17 @@
 ---
-title:  Using miniCRAN to create a local CRAN repository
-author: Andrie de Vries and Alex Chubaty
-date:   January 27, 2015
+title:  "Using miniCRAN to create a local CRAN repository"
+author: "Andrie de Vries and Alex Chubaty"
+date:   "January 27, 2015"
 output:
   html_document:
     self_contained: yes
     toc: yes
-  pdf_document:
-    number_sections: yes
-    toc: yes
-  word_document: default
 vignette: >
-  %\VignetteIndexEntry{Using miniCRAN to create and maintain a local CRAN repository}
   %\VignetteEngine{knitr::knitr}
+  %\VignetteIndexEntry{Using miniCRAN to create and maintain a local CRAN repository}
   %\VignettePackage{miniCRAN}
   %\VignetteKeyword{miniCRAN}
+  %\usepackage[utf8]{inputenc}
 ---
 
 # Creating a miniCRAN repository
