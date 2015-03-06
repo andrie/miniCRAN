@@ -52,8 +52,16 @@ pkgAvail(repos=pth, type="win.binary")[, c(1:3, 5)]
 ```
 
 
+Install pacakges from your local repository:
 
-```{r make-repo-5, include=FALSE}
+```{r make-repo-5}
+install.packages(pkgs, 
+                 repos = paste0("file:///", pth),
+                 type = "source")
+ ```
+
+
+```{r make-repo-6, include=FALSE}
 # Delete temporary folder
 unlink(pth, recursive = TRUE)
 ```
