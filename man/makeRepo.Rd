@@ -9,7 +9,7 @@ makeRepo(pkgs, path, repos = getOption("repos"), type = "source",
   Rversion = R.version, download = TRUE, writePACKAGES = TRUE,
   quiet = FALSE)
 
-updateRepoIndex(path, type, Rversion)
+updateRepoIndex(path, type = "source", Rversion = R.version)
 }
 \arguments{
 \item{pkgs}{Character vector of packages to download}
