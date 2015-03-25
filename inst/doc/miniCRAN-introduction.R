@@ -25,6 +25,11 @@ list.files(pth, recursive=TRUE, full.names=FALSE)
 # Check for available packages
 pkgAvail(repos=pth, type="win.binary")[, c(1:3, 5)]
 
+## ----make-repo-5, eval=FALSE---------------------------------------------
+#  install.packages(pkgs,
+#                   repos = paste0("file:///", pth),
+#                   type = "source")
+
 ## ----addto-repo-new-1----------------------------------------------------
 # Add new packages (from CRAN) to the miniCRAN repo
 addPackage("Matrix", path=pth, repos=revolution, type="source")

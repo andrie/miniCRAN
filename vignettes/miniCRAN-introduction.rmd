@@ -61,19 +61,21 @@ Use `pkgAvail` to list available packages in your repository:
 pkgAvail(repos=pth, type="win.binary")[, c(1:3, 5)]
 ```
 
-# Adding packages to an existing miniCRAN repository
+# Install packages from your local repository
 
-Install packages from your local repository:
-## Adding new packages from CRAN
+To install packages from a local repository, you need to use the URI convention `file:///` to point to your file lcoation.
 
-```{r make-repo-5}
+```{r make-repo-5, eval=FALSE}
 install.packages(pkgs, 
                  repos = paste0("file:///", pth),
                  type = "source")
- ```
+```
 
 
-```{r make-repo-6, include=FALSE}
+# Adding packages to an existing miniCRAN repository
+
+## Adding new packages from CRAN
+
 After creating a local miniCRAN repository, additional packages and their dependencies can easily be added. This mechanism can also be used to re-add an existing package to the miniCRAN repo.
 
 ```{r addto-repo-new-1}
@@ -124,6 +126,8 @@ pkgAvail(pth, type="source")[, c(1:3, 5)] # contains the old versions
 pkgAvail(pth, type="win.binary")[, c(1:3, 5)] # contains the current versions
 ```
 
+
+
 ## Adding packages from other sources
 
 This feature will be implemented in a future release.
@@ -147,6 +151,7 @@ Update the versions of the packages currently stored in the miniCRAN repository.
 updatePackages(path=pth, repos=revolution, type="source", ask=FALSE) # should need update
 updatePackages(path=pth, repos=revolution, type="win.binary", ask=FALSE) # should be current
 ```
+
 
 
 
