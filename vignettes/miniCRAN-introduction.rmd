@@ -52,7 +52,7 @@ pkgAvail(repos=pth, type="win.binary")[, c(1:3, 5)]
 ```
 
 
-Install pacakges from your local repository:
+Install packages from your local repository:
 
 ```{r make-repo-5}
 install.packages(pkgs, 
