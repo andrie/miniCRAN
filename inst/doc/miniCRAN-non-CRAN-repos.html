@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Using miniCRAN to create a local CRAN repository</title>
+<title>Using repositories other than CRAN with miniCRAN</title>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -202,86 +202,143 @@ hr {
 
 <body>
 <!--
-% \VignetteIndexEntry{Using miniCRAN to create a local CRAN repository}
+% \VignetteIndexEntry{Using repositories other than CRAN with miniCRAN}
 % \VignetteEngine{knitr::knitr}
 % \VignettePackage{miniCRAN}
 % \VignetteKeyword{miniCRAN}
 --> 
 
-<h1>Using miniCRAN to create a local CRAN repository</h1>
+<h1>Using repositories other than CRAN with miniCRAN</h1>
 
-<p>Start by creating the recursive dependency tree for your target packages.</p>
+<p>Although the package name <code>miniCRAN</code> seems to indicate you can only use CRAN as a repository, you can in fact use any CRAN-like repository.</p>
 
-<p>For example, imagine a scenario where you want to create a repository that consists of the package <code>foreach</code> and its dependencies.</p>
+<p>This vignette contains some examples of how to refer to different package repositories, including CRAN, alternative mirrors of CRAN, R-Forge as well as BioConductor.</p>
 
-<p>Start by creating the dependency list:</p>
+<p>To make simplify the code to show the salient features, we use a little helper function, <code>index()</code> that is a simple wrapper around <code>available.packages()</code>:</p>
 
-<pre><code class="r">library(miniCRAN)
-# Specify list of packages to download
-pkgs &lt;- c(&quot;foreach&quot;)
+<pre><code class="r"># Wrapper around available.packages ---------------------------------------
 
-revolution &lt;- c(CRAN=&quot;http://cran.revolutionanalytics.com&quot;)
-pkgList &lt;- pkgDep(pkgs, repos=revolution, type=&quot;source&quot;, suggests = FALSE, )
-pkgList
+index &lt;- function(url, type=&quot;source&quot;, filters=NULL, head=5, cols=c(&quot;Package&quot;, &quot;Version&quot;)){
+  contribUrl &lt;- contrib.url(url, type=type)
+  p &lt;- available.packages(contribUrl, type=type, filters=filters)
+  p[1:head, cols]
+}
 </code></pre>
 
-<pre><code>## [1] &quot;foreach&quot;   &quot;codetools&quot; &quot;iterators&quot;
+<h2>Using CRAN</h2>
+
+<p>The URL for the master mirror in Austria:</p>
+
+<pre><code class="r">CRAN &lt;- &quot;http://cran.r-project.org&quot;
+index(CRAN)
 </code></pre>
 
-<p>Next, create a repository with the function <code>makeRepo()</code>.  In this example, get the required files for <code>source</code> packages as well as windows binaries:</p>
-
-<pre><code class="r"># Create temporary folder for miniCRAN
-dir.create(pth &lt;- file.path(tempdir(), &quot;miniCRAN&quot;))
-
-# Make repo for source and win.binary
-makeRepo(pkgList, path=pth, repos=revolution, type=&quot;source&quot;)
+<pre><code>##             Package       Version
+## A3          &quot;A3&quot;          &quot;0.9.2&quot;
+## abc         &quot;abc&quot;         &quot;2.0&quot;  
+## ABCanalysis &quot;ABCanalysis&quot; &quot;1.0&quot;  
+## abcdeFBA    &quot;abcdeFBA&quot;    &quot;0.4&quot;  
+## ABCExtremes &quot;ABCExtremes&quot; &quot;1.0&quot;
 </code></pre>
 
-<pre><code>## Created new folder: C:/Users/ANDRIE~1/AppData/Local/Temp/Rtmpeyl4Di/miniCRAN/src/contrib
+<h2>Using a different mirror</h2>
+
+<p>You can also point to any other mirror, for example the stable version hosted by Revolution Analytics:</p>
+
+<pre><code class="r">revoStable &lt;- &quot;http://packages.revolutionanalytics.com/cran/3.1/stable&quot;
+index(revoStable)
 </code></pre>
 
-<pre><code>## [[1]]
-## [1] 3
+<pre><code>##             Package       Version  
+## A3          &quot;A3&quot;          &quot;0.9.2&quot;  
+## abc         &quot;abc&quot;         &quot;2.0&quot;    
+## abcdeFBA    &quot;abcdeFBA&quot;    &quot;0.4&quot;    
+## ABCExtremes &quot;ABCExtremes&quot; &quot;1.0&quot;    
+## ABCoptim    &quot;ABCoptim&quot;    &quot;0.13.11&quot;
 </code></pre>
 
-<pre><code class="r">makeRepo(pkgList, path=pth, repos=revolution, type=&quot;win.binary&quot;)
+<pre><code class="r">revoMirror &lt;- &quot;http://cran.revolutionanalytics.com&quot;
+index(revoMirror)
 </code></pre>
 
-<pre><code>## Created new folder: C:/Users/ANDRIE~1/AppData/Local/Temp/Rtmpeyl4Di/miniCRAN/bin/windows/contrib/3.1
+<pre><code>##             Package       Version
+## A3          &quot;A3&quot;          &quot;0.9.2&quot;
+## abc         &quot;abc&quot;         &quot;2.0&quot;  
+## ABCanalysis &quot;ABCanalysis&quot; &quot;1.0&quot;  
+## abcdeFBA    &quot;abcdeFBA&quot;    &quot;0.4&quot;  
+## ABCExtremes &quot;ABCExtremes&quot; &quot;1.0&quot;
 </code></pre>
 
-<pre><code>## [[1]]
-## [1] 3
+<h2>Using R-forge</h2>
+
+<p>R-forge has CRAN-like structure:</p>
+
+<pre><code class="r">rforge &lt;- &quot;http://r-forge.r-project.org&quot;
+index(rforge)
 </code></pre>
 
-<p>Investigate the repository file structure</p>
-
-<pre><code class="r"># List all files in miniCRAN
-list.files(pth, recursive = TRUE, full.names = FALSE)
+<pre><code>##             Package       Version 
+## a4Core      &quot;a4Core&quot;      &quot;0.99.0&quot;
+## a4Reporting &quot;a4Reporting&quot; &quot;0.0-3&quot; 
+## abd         &quot;abd&quot;         &quot;0.1-23&quot;
+## abind       &quot;abind&quot;       &quot;1.4-3&quot; 
+## abmi        &quot;abmi&quot;        &quot;0.1-0&quot;
 </code></pre>
 
-<pre><code>##  [1] &quot;bin/windows/contrib/3.1/codetools_0.2-11.zip&quot;
-##  [2] &quot;bin/windows/contrib/3.1/foreach_1.4.2.zip&quot;   
-##  [3] &quot;bin/windows/contrib/3.1/iterators_1.0.7.zip&quot; 
-##  [4] &quot;bin/windows/contrib/3.1/PACKAGES&quot;            
-##  [5] &quot;bin/windows/contrib/3.1/PACKAGES.gz&quot;         
-##  [6] &quot;src/contrib/codetools_0.2-11.tar.gz&quot;         
-##  [7] &quot;src/contrib/foreach_1.4.2.tar.gz&quot;            
-##  [8] &quot;src/contrib/iterators_1.0.7.tar.gz&quot;          
-##  [9] &quot;src/contrib/PACKAGES&quot;                        
-## [10] &quot;src/contrib/PACKAGES.gz&quot;
+<h2>Using BioConductor</h2>
+
+<p>Although BioConductor has a different preferred install mechanism, the underlying repository structure is also CRAN-like:</p>
+
+<pre><code class="r">bioc &lt;- local({
+  on.exit(rm(env))
+  env &lt;- new.env()
+  evalq(source(&quot;http://bioconductor.org/biocLite.R&quot;, local=TRUE), env)
+  biocinstallRepos()
+})
 </code></pre>
 
-<p>Use <code>pkgAvail</code> to list available packages in your repository:</p>
-
-<pre><code class="r"># Check for available packages
-pkgAvail(repos=pth, type=&quot;win.binary&quot;)[, c(1:3, 5)]
+<pre><code>## Bioconductor version 3.0 (BiocInstaller 1.16.1), ?biocLite for help
 </code></pre>
 
-<pre><code>##           Package     Version  Priority      Imports                      
-## codetools &quot;codetools&quot; &quot;0.2-11&quot; &quot;recommended&quot; NA                           
-## foreach   &quot;foreach&quot;   &quot;1.4.2&quot;  NA            &quot;codetools, utils, iterators&quot;
-## iterators &quot;iterators&quot; &quot;1.0.7&quot;  NA            NA
+<pre><code class="r">bioc
+</code></pre>
+
+<pre><code>##                                               BioCsoft 
+##            &quot;http://bioconductor.org/packages/3.0/bioc&quot; 
+##                                                BioCann 
+## &quot;http://bioconductor.org/packages/3.0/data/annotation&quot; 
+##                                                BioCexp 
+## &quot;http://bioconductor.org/packages/3.0/data/experiment&quot; 
+##                                              BioCextra 
+##           &quot;http://bioconductor.org/packages/3.0/extra&quot; 
+##                                                   CRAN 
+##                  &quot;http://cran.revolutionanalytics.com&quot; 
+##                                              CRANextra 
+##                   &quot;http://www.stats.ox.ac.uk/pub/RWin&quot;
+</code></pre>
+
+<pre><code class="r">bioc[grep(&quot;BioC&quot;, names(bioc))]
+</code></pre>
+
+<pre><code>##                                               BioCsoft 
+##            &quot;http://bioconductor.org/packages/3.0/bioc&quot; 
+##                                                BioCann 
+## &quot;http://bioconductor.org/packages/3.0/data/annotation&quot; 
+##                                                BioCexp 
+## &quot;http://bioconductor.org/packages/3.0/data/experiment&quot; 
+##                                              BioCextra 
+##           &quot;http://bioconductor.org/packages/3.0/extra&quot;
+</code></pre>
+
+<pre><code class="r">index(bioc[&quot;BioCsoft&quot;])
+</code></pre>
+
+<pre><code>##           Package     Version 
+## a4        &quot;a4&quot;        &quot;1.14.0&quot;
+## a4Base    &quot;a4Base&quot;    &quot;1.14.0&quot;
+## a4Classif &quot;a4Classif&quot; &quot;1.14.0&quot;
+## a4Core    &quot;a4Core&quot;    &quot;1.14.0&quot;
+## a4Preproc &quot;a4Preproc&quot; &quot;1.14.0&quot;
 </code></pre>
 
 </body>
