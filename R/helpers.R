@@ -68,7 +68,7 @@ repoBinPath <- function(path, type, Rversion){
 #' @importFrom methods is
 #'
 twodigitRversion <- function(R=R.version){
-  if("simple.list" %in% is(R)) {
+  if ("simple.list" %in% is(R)) {
     paste(R$major, strsplit(R$minor, ".", fixed = TRUE)[[1L]][1L], sep = ".")
   } else if ("R_system_version" %in% is(R)) {
     paste(strsplit(as.character(R), ".", fixed=TRUE)[[1L]][1L:2L], collapse=".")

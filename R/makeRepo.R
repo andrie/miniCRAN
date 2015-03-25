@@ -77,7 +77,7 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
 
 #' @rdname makeRepo
 #' @export
-updateRepoIndex <- function(path, type, Rversion){
+updateRepoIndex <- function(path, type="source", Rversion=R.version) {
   lapply(type, function(type){
     pkgPath <- repoBinPath(path=path, type=type, Rversion=Rversion)
     if(grepl("mac.binary", type)) type <- "mac.binary"
