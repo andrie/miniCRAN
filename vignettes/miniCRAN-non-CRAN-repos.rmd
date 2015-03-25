@@ -7,6 +7,11 @@
 
 # Using repositories other than CRAN with miniCRAN
 
+Although the package name `miniCRAN` seems to indicate you can only use CRAN as a repository, you can in fact use any CRAN-like repository.
+
+This vignette contains some examples of how to refer to different package repositories, including CRAN, alternative mirrors of CRAN, R-Forge as well as BioConductor.
+
+To make simplify the code to show the salient features, we use a little helper function, `index()` that is a simple wrapper around `available.packages()`:
 
 
 ```{r setup}
@@ -22,6 +27,8 @@ index <- function(url, type="source", filters=NULL, head=5, cols=c("Package", "V
 
 ## Using CRAN
 
+The URL for the master mirror in Austria:
+
 ```{r CRAN}
 CRAN <- "http://cran.r-project.org"
 index(CRAN)
@@ -29,6 +36,8 @@ index(CRAN)
 
 
 ## Using a different mirror
+
+You can also point to any other mirror, for example the stable version hosted by Revolution Analytics:
 
 ```{r revo}
 revoStable <- "http://packages.revolutionanalytics.com/cran/3.1/stable"
@@ -40,12 +49,16 @@ index(revoMirror)
 
 ## Using R-forge
 
+R-forge has CRAN-like structure:
+
 ```{r rforge}
 rforge <- "http://r-forge.r-project.org"
 index(rforge)
 ```
 
 ## Using BioConductor
+
+Although BioConductor has a different preferred install mechanism, the underlying repository structure is also CRAN-like:
 
 ```{r bioc}
 bioc <- local({

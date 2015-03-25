@@ -237,11 +237,7 @@ dir.create(pth &lt;- file.path(tempdir(), &quot;miniCRAN&quot;))
 makeRepo(pkgList, path=pth, repos=revolution, type=&quot;source&quot;)
 </code></pre>
 
-<pre><code>## Created new folder: C:/Users/ANDRIE~1/AppData/Local/Temp/Rtmps1Buq6/miniCRAN/src/contrib
-</code></pre>
-
-<pre><code>## Warning in download.file(url, destfile, method, mode = &quot;wb&quot;, ...):
-## downloaded length 289453 != reported length 289453
+<pre><code>## Created new folder: C:/Users/ANDRIE~1/AppData/Local/Temp/Rtmpeyl4Di/miniCRAN/src/contrib
 </code></pre>
 
 <pre><code>## [[1]]
@@ -251,11 +247,7 @@ makeRepo(pkgList, path=pth, repos=revolution, type=&quot;source&quot;)
 <pre><code class="r">makeRepo(pkgList, path=pth, repos=revolution, type=&quot;win.binary&quot;)
 </code></pre>
 
-<pre><code>## Created new folder: C:/Users/ANDRIE~1/AppData/Local/Temp/Rtmps1Buq6/miniCRAN/bin/windows/contrib/3.1
-</code></pre>
-
-<pre><code>## Warning in download.file(url, destfile, method, mode = &quot;wb&quot;, ...):
-## downloaded length 315616 != reported length 315616
+<pre><code>## Created new folder: C:/Users/ANDRIE~1/AppData/Local/Temp/Rtmpeyl4Di/miniCRAN/bin/windows/contrib/3.1
 </code></pre>
 
 <pre><code>## [[1]]
@@ -268,12 +260,12 @@ makeRepo(pkgList, path=pth, repos=revolution, type=&quot;source&quot;)
 list.files(pth, recursive = TRUE, full.names = FALSE)
 </code></pre>
 
-<pre><code>##  [1] &quot;bin/windows/contrib/3.1/codetools_0.2-10.zip&quot;
+<pre><code>##  [1] &quot;bin/windows/contrib/3.1/codetools_0.2-11.zip&quot;
 ##  [2] &quot;bin/windows/contrib/3.1/foreach_1.4.2.zip&quot;   
 ##  [3] &quot;bin/windows/contrib/3.1/iterators_1.0.7.zip&quot; 
 ##  [4] &quot;bin/windows/contrib/3.1/PACKAGES&quot;            
 ##  [5] &quot;bin/windows/contrib/3.1/PACKAGES.gz&quot;         
-##  [6] &quot;src/contrib/codetools_0.2-10.tar.gz&quot;         
+##  [6] &quot;src/contrib/codetools_0.2-11.tar.gz&quot;         
 ##  [7] &quot;src/contrib/foreach_1.4.2.tar.gz&quot;            
 ##  [8] &quot;src/contrib/iterators_1.0.7.tar.gz&quot;          
 ##  [9] &quot;src/contrib/PACKAGES&quot;                        
@@ -287,7 +279,7 @@ pkgAvail(repos=pth, type=&quot;win.binary&quot;)[, c(1:3, 5)]
 </code></pre>
 
 <pre><code>##           Package     Version  Priority      Imports                      
-## codetools &quot;codetools&quot; &quot;0.2-10&quot; &quot;recommended&quot; NA                           
+## codetools &quot;codetools&quot; &quot;0.2-11&quot; &quot;recommended&quot; NA                           
 ## foreach   &quot;foreach&quot;   &quot;1.4.2&quot;  NA            &quot;codetools, utils, iterators&quot;
 ## iterators &quot;iterators&quot; &quot;1.0.7&quot;  NA            NA
 </code></pre>
