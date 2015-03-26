@@ -12,38 +12,42 @@ dir.create(repo_root, recursive=TRUE, showWarnings=FALSE)
 revolution <- c(CRAN="http://mran.revolutionanalytics.com/snapshot/2014-10-15")
 pkgs <- c("chron", "adaptivetau")
 
-types <- c("source", "win.binary", "mac.binary.mavericks")
+types <- c("source", "win.binary", "mac.binary")
 names(types) <- types
 
-pdb <- lapply(types, pkgAvail, repos=revolution)
+pdb <- lapply(types, pkgAvail, repos=revolution, Rversion = "3.1")
 pkgList <- lapply(types, function(type){
-  pkgDep(pkg=pkgs, type=types[type], availPkgs=pdb[[type]], repos=revolution, suggests=FALSE)
+  pkgDep(pkg=pkgs, type=types[type], availPkgs=pdb[[type]], repos=revolution, suggests=FALSE, Rversion = "3.1")
 })
 
 test_that("sample repo is setup correctly", {
-  #   miniCRAN:::.copySampleRepo(path=repo_root)
-  miniCRAN:::.createSampleRepo(path=repo_root)
+  miniCRAN:::.createSampleRepo(path = repo_root, MRAN = revolution, Rversion = "3.1")
   expect_equal(unname(pkgAvail(repo_root)[, "Package"]), sort(pkgs))
 })
 
-pkgsAdd <- c("aprof")
 
 
 
 # Add packages to repo ----------------------------------------------------
 
-context(" - Add packages to repo")
+pkgsAdd <- c("aprof")
 
 for(pkg_type in names(types)){
 
+  context(sprintf(" - Add packages to repo (%s)", pkg_type))
+  
   test_that(sprintf("addPackage downloads %s files and rebuilds PACKAGES file", pkg_type), {
 
     skip_on_cran()
+    
+    pkgListAdd <- pkgDep(pkgsAdd, availPkgs=pdb[[pkg_type]], 
+                         repos = revolution, 
+                         type  = pkg_type, 
+                         suggests = FALSE, 
+                         Rversion = "3.1")
+    prefix <- miniCRAN:::repoPrefix(pkg_type, Rversion = "3.1")
 
-    pkgListAdd <- pkgDep(pkgsAdd, availPkgs=pdb[[pkg_type]], repos=revolution, type=pkg_type, suggests=FALSE)
-    prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
-
-    addPackage(pkgListAdd, path=repo_root, repos=revolution, type=pkg_type, quiet=TRUE)
+    addPackage(pkgListAdd, path=repo_root, repos=revolution, type=pkg_type, quiet=TRUE, Rversion = "3.1")
 
     expect_true(
       miniCRAN:::.checkForRepoFiles(repo_root, pkgListAdd, prefix)
@@ -53,7 +57,7 @@ for(pkg_type in names(types)){
     )
     expect_true(
       all(
-        pkgListAdd %in% pkgAvail(repo_root, type=pkg_type)[, "Package"]
+        pkgListAdd %in% pkgAvail(repo_root, type=pkg_type, Rversion = "3.1")[, "Package"]
       )
     )
 
@@ -66,37 +70,37 @@ for(pkg_type in names(types)){
 # Check for updates -------------------------------------------------------
 
 
-
-context(" - Check for updates")
-
 MRAN <- c(CRAN="http://mran.revolutionanalytics.com/snapshot/2014-12-01")
 
 
 for(pkg_type in names(types)){
-
+  
+  context(sprintf(" - Check for updates (%s)", pkg_type))
+  
   test_that(sprintf("updatePackages downloads %s files and builds PACKAGES file", pkg_type), {
 
     skip_on_cran()
 
-    prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
+    prefix <- miniCRAN:::repoPrefix(pkg_type, Rversion = "3.1")
 
     #     cat("\n")
     #     print(pkgAvail(repo_root, type=pkg_type)[, c("Package", "Version")])
     #     cat("\n")
 
-    old <- oldPackages(path=repo_root, repos=MRAN, type=pkg_type)
+    old <- oldPackages(path=repo_root, repos=MRAN, type=pkg_type, Rversion = "3.1")
     #     cat("\n")
     #     print(pkg_type)
     #     cat("\n")
     #     cat("Old packages\n")
     #     print(old)
     #     cat("\n")
+    
     expect_equal(nrow(old), 2)
     expect_equal(ncol(old), 4)
     expect_equal(rownames(old), c("adaptivetau", "aprof"))
     #     expect_equal(rownames(old), c("adaptivetau"))
 
-    updatePackages(path=repo_root, repos=MRAN, type=pkg_type, ask=FALSE, quiet=TRUE)
+    updatePackages(path=repo_root, repos=MRAN, type=pkg_type, ask=FALSE, quiet=TRUE, Rversion = "3.1")
 
     updateVers <- miniCRAN:::getPkgVersFromFile(list.files(file.path(repo_root, prefix)))
 
@@ -108,7 +112,8 @@ for(pkg_type in names(types)){
       file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
     )
 
-    old <- oldPackages(path=repo_root, repos=MRAN, type=pkg_type)
+    old <- oldPackages(path=repo_root, repos=MRAN, type=pkg_type, Rversion = "3.1")
+    # browser()
     expect_equal(nrow(old), 0)
     expect_equal(ncol(old), 4)
 

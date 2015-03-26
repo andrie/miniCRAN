@@ -6,13 +6,13 @@
 \title{Check for available package updates in a miniCRAN repo.}
 \usage{
 oldPackages(path = NULL, repos = getOption("repos"),
-  availPkgs = pkgAvail(repos = repos, type = type), method,
-  availableLocal = pkgAvail(repos = path, type = type), type = "source",
-  Rversion = R.version)
+  availPkgs = pkgAvail(repos = repos, type = type, Rversion = Rversion),
+  method, availableLocal = pkgAvail(repos = path, type = type, Rversion =
+  Rversion), type = "source", Rversion = R.version)
 
 updatePackages(path = NULL, repos = getOption("repos"), method,
-  ask = TRUE, availPkgs = pkgAvail(repos = repos, type = type),
-  oldPkgs = NULL, type = "source", Rversion = getRversion(),
+  ask = TRUE, availPkgs = pkgAvail(repos = repos, type = type, Rversion =
+  Rversion), oldPkgs = NULL, type = "source", Rversion = R.version,
   quiet = FALSE)
 }
 \arguments{

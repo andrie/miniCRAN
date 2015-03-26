@@ -28,6 +28,7 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #' @param enhances If TRUE, retrieves Enhances dependencies (non-recursively)
 #' 
 #' @param includeBasePkgs If TRUE, include base R packages in results
+#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}
 #' @param ... Other arguments passed to \code{\link{available.packages}}
 #'
 #' @export
@@ -35,7 +36,7 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #'
 #' @example /inst/examples/example_pkgDep.R
 
-pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depends=TRUE, suggests=TRUE, enhances=FALSE, includeBasePkgs=FALSE, ...){
+pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depends=TRUE, suggests=TRUE, enhances=FALSE, includeBasePkgs=FALSE, Rversion = R.version, ...){
   if(!depends & !suggests & !enhances) {
     warning("Returning nothing, since depends, suggests and enhances are all FALSE")
     return(character(0))
@@ -49,7 +50,7 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depe
       repos <- c(CRAN="http://cran.revolutionanalytics.com")
     }
     if(is.na(type)) type <- "source"
-    availPkgs <- pkgAvail(repos=repos, type=type, ...)
+    availPkgs <- pkgAvail(repos=repos, type=type, Rversion = Rversion, ...)
   }
   if(nrow(availPkgs) == 0){
     stop("Unable to retrieve available packages from CRAN")
@@ -125,7 +126,7 @@ print.pkgDep <- function(x, ...){
 #' @export
 #' @family create repo functions
 #' @seealso \code{\link{pkgDep}}
-pkgAvail <- function(repos=getOption("repos"), type="source"){
+pkgAvail <- function(repos=getOption("repos"), type="source", Rversion = R.version){
   if(!grepl("^http://|file:///", repos[1]) && file.exists(repos[1])) {
      repos <- paste0("file:///", normalizePath(repos[1], mustWork = FALSE, winslash = "/"))
   } else {
@@ -133,6 +134,43 @@ pkgAvail <- function(repos=getOption("repos"), type="source"){
       repos <- c(CRAN="http://cran.revolutionanalytics.com")
     }
   }
-  available.packages(contrib.url(repos, type=type), type=type, filters=list())
+  utils::available.packages(contribUrl(repos, type=type, Rversion = Rversion), type=type, filters=list())
 }
 
+
+# Modified copy of utils::contrib.url()
+contribUrl <- function (repos, type = getOption("pkgType"), Rversion = R.version) {
+  Rversion <- twodigitRversion(Rversion)
+  if (type == "both") 
+    type <- "source"
+  if (type == "binary") 
+    type <- .Platform$pkgType
+  if (is.null(repos)) 
+    return(NULL)
+  if ("@CRAN@" %in% repos && interactive()) {
+    cat(gettext("--- Please select a CRAN mirror for use in this session ---"), 
+        "\n", sep = "")
+    flush.console()
+    chooseCRANmirror()
+    m <- match("@CRAN@", repos)
+    nm <- names(repos)
+    repos[m] <- getOption("repos")["CRAN"]
+    if (is.null(nm)) 
+      nm <- rep("", length(repos))
+    nm[m] <- "CRAN"
+    names(repos) <- nm
+  }
+  if ("@CRAN@" %in% repos) 
+    stop("trying to use CRAN without setting a mirror")
+  ver <- Rversion
+  mac.path <- "macosx"
+  if (substr(type, 1L, 11L) == "mac.binary.") {
+    mac.path <- paste(mac.path, substring(type, 12L), sep = "/")
+    type <- "mac.binary"
+  }
+  res <- switch(type, 
+                source = paste(gsub("/$", "", repos), "src", "contrib", sep = "/"), 
+                mac.binary = paste(gsub("/$", "", repos), "bin", mac.path, "contrib", ver, sep = "/"), 
+                win.binary = paste(gsub("/$", "", repos), "bin", "windows", "contrib", ver, sep = "/"))
+  res
+}

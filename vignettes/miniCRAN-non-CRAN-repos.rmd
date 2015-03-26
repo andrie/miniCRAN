@@ -1,9 +1,18 @@
-<!--
-% \VignetteIndexEntry{Using repositories other than CRAN with miniCRAN}
-% \VignetteEngine{knitr::knitr}
-% \VignettePackage{miniCRAN}
-% \VignetteKeyword{miniCRAN}
---> 
+---
+title:  "Using repositories other than CRAN with miniCRAN"
+author: "Andrie de Vries"
+date:   "March 26, 2015"
+output:
+  html_document:
+    self_contained: yes
+    toc: yes
+vignette: >
+  %\VignetteEngine{knitr::knitr}
+  %\VignetteIndexEntry{Using repositories other than CRAN with miniCRAN}
+  %\VignettePackage{miniCRAN}
+  %\VignetteKeyword{miniCRAN}
+  %\usepackage[utf8]{inputenc}
+---
 
 # Using repositories other than CRAN with miniCRAN
 
@@ -62,8 +71,8 @@ Although BioConductor has a different preferred install mechanism, the underlyin
 
 ```{r bioc}
 bioc <- local({
-  on.exit(rm(env))
   env <- new.env()
+  on.exit(rm(env))
   evalq(source("http://bioconductor.org/biocLite.R", local=TRUE), env)
   biocinstallRepos()
 })

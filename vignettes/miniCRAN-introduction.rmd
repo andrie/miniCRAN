@@ -1,7 +1,7 @@
 ---
 title:  "Using miniCRAN to create a local CRAN repository"
 author: "Andrie de Vries and Alex Chubaty"
-date:   "January 27, 2015"
+date:   "March 26, 2015"
 output:
   html_document:
     self_contained: yes
@@ -23,7 +23,7 @@ For example, imagine a scenario where you want to create a repository that consi
 Start by creating the dependency list:
 
 ```{r make-repo-1}
-library(miniCRAN)
+library("miniCRAN")
 
 # use Revolution Analytics CRAN mirror
 revolution <- c(CRAN="http://cran.revolutionanalytics.com")
@@ -61,6 +61,17 @@ Use `pkgAvail` to list available packages in your repository:
 pkgAvail(repos=pth, type="win.binary")[, c(1:3, 5)]
 ```
 
+# Install packages from your local repository
+
+To install packages from a local repository, you need to use the URI convention `file:///` to point to your file lcoation.
+
+```{r make-repo-5, eval=FALSE}
+install.packages(pkgs, 
+                 repos = paste0("file:///", pth),
+                 type = "source")
+```
+
+
 # Adding packages to an existing miniCRAN repository
 
 ## Adding new packages from CRAN
@@ -70,7 +81,6 @@ After creating a local miniCRAN repository, additional packages and their depend
 ```{r addto-repo-new-1}
 # Add new packages (from CRAN) to the miniCRAN repo
 addPackage("Matrix", path=pth, repos=revolution, type="source")
-addPackage("Matrix", path=pth, repos=revolution, type="win.binary")
 ```
 
 The value that is returned via `addPackage` is the number of packages written to the index file, *i.e.*, the total number of packages in the repo of that type.
@@ -91,7 +101,9 @@ oldVers <- data.frame(package=c("foreach", "codetools", "iterators"),
 addOldPackage(pkgList, path=pth, vers=oldVers$version, repos=revolution, type="source")
 ```
 
-You will get a warning whenever there are multiple versions of a package saved in the repository. Currently, these duplicate versions need to be manually removed by the user before rebuilding the repository's package index. This last step is important, otherwise you may end up with a repo in an inconsistent state.
+You will get a warning whenever there are multiple versions of a package saved in the repository. Currently, you need to manually remove duplicate versions before rebuilding the repository's package index.
+
+Note: This last step is important, otherwise you may end up with a repo in an inconsistent state.
 
 ```{r addto-repo-old-2}
 # List package versions in the miniCRAN repo (produces warning about duplicates)
@@ -114,6 +126,8 @@ To see the updated list of packages available in the miniCRAN repo:
 pkgAvail(pth, type="source")[, c(1:3, 5)] # contains the old versions
 pkgAvail(pth, type="win.binary")[, c(1:3, 5)] # contains the current versions
 ```
+
+
 
 ## Adding packages from other sources
 
@@ -138,6 +152,7 @@ Update the versions of the packages currently stored in the miniCRAN repository.
 updatePackages(path=pth, repos=revolution, type="source", ask=FALSE) # should need update
 updatePackages(path=pth, repos=revolution, type="win.binary", ask=FALSE) # should be current
 ```
+
 
 
 

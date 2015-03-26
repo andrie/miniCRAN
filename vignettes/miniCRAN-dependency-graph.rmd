@@ -1,7 +1,7 @@
 ---
 title:  "Using miniCRAN to identify package dependencies"
 author: "Andrie de Vries"
-date:   "January 27, 2015"
+date:   "March 26, 2015"
 output:
   html_document:
     self_contained: yes
@@ -42,7 +42,7 @@ This means that the algorithm is as follows:
 The resulting list of packages should then contain the complete list necessary to satisfy all dependencies. In code:
 
 ```{r init}
-library(miniCRAN)
+library("miniCRAN")
 ```
 
 
