@@ -11,37 +11,23 @@
 }
 
 
-# Use in unit tests to copy sample repo to path
-# .copySampleRepo <- function(path){
-#   file.copy(
-#     from = list.dirs(system.file("inst/sample-repo", package="miniCRAN"), recursive = FALSE),
-#     to = path,
-#     recursive = TRUE
-#   )
-#   updateRepoIndex(path=path, 
-#                   type=c("source", "win.binary", "mac.binary.mavericks"), 
-#                   Rversion=list(major=3, minor=1))
-#   invisible(NULL)
-# }
-
-
 # Create sample repo from MRAN snapshot
-.createSampleRepo <- function(MRAN, path, pkgs, Rversion=list(major=3, minor=1)){
+.createSampleRepo <- function(MRAN, path, pkgs, Rversion="3.1"){
   if(missing(MRAN)) MRAN <- c(CRAN="http://mran.revolutionanalytics.com/snapshot/2014-10-15")
   if(missing(path)) path <- file.path(tempdir(), "miniCRAN", Sys.Date())
   if(missing(pkgs)) pkgs <- c("chron", "adaptivetau")
   
-  pdb_source <- pkgAvail(repos=MRAN, type="source")
-  pdb_win    <- pkgAvail(repos=MRAN, type="win.binary")
-  pdb_mac    <- pkgAvail(repos=MRAN, type="mac.binary.mavericks")
+  pdb_source <- pkgAvail(repos=MRAN, type="source", Rversion = Rversion)
+  pdb_win    <- pkgAvail(repos=MRAN, type="win.binary", Rversion = Rversion)
+  pdb_mac    <- pkgAvail(repos=MRAN, type="mac.binary", Rversion = Rversion)
   
   
-  pkgList_source <- pkgDep(pkgs, availPkgs=pdb_source, repos=MRAN, type="source", suggests=FALSE)
-  makeRepo(pkgList_source, path=path, repos=MRAN, type="source", quiet=TRUE)
+  pkgList_source <- pkgDep(pkgs, availPkgs=pdb_source, repos=MRAN, type="source", suggests=FALSE, Rversion = Rversion)
+  makeRepo(pkgList_source, path=path, repos=MRAN, type="source", quiet=TRUE, Rversion = Rversion)
   
-  pkgList_win <- pkgDep(pkgs, availPkgs=pdb_win, repos=MRAN, type="win.binary", suggests=FALSE)
-  makeRepo(pkgList_win, path=path, repos=MRAN, type="win.binary", quiet=TRUE)
+  pkgList_win <- pkgDep(pkgs, availPkgs=pdb_win, repos=MRAN, type="win.binary", suggests=FALSE, Rversion = Rversion)
+  makeRepo(pkgList_win, path=path, repos=MRAN, type="win.binary", quiet=TRUE, Rversion = Rversion)
   
-  pkgList_mac <- pkgDep(pkgs, availPkgs=pdb_mac, repos=MRAN, type="mac.binary.mavericks", suggests=FALSE)
-  makeRepo(pkgList_mac, path=path, repos=MRAN, type="mac.binary.mavericks", quiet=TRUE)
+  pkgList_mac <- pkgDep(pkgs, availPkgs=pdb_mac, repos=MRAN, type="mac.binary", suggests=FALSE, Rversion = Rversion)
+  makeRepo(pkgList_mac, path=path, repos=MRAN, type="mac.binary", quiet=TRUE, Rversion = Rversion)
 }
