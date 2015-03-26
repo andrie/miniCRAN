@@ -42,7 +42,7 @@ This means that the algorithm is as follows:
 The resulting list of packages should then contain the complete list necessary to satisfy all dependencies. In code:
 
 ```{r init}
-library(miniCRAN)
+library("miniCRAN")
 ```
 
 

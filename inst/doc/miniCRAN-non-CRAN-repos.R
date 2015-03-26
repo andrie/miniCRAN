@@ -25,8 +25,8 @@ index(rforge)
 
 ## ----bioc----------------------------------------------------------------
 bioc <- local({
-  on.exit(rm(env))
   env <- new.env()
+  on.exit(rm(env))
   evalq(source("http://bioconductor.org/biocLite.R", local=TRUE), env)
   biocinstallRepos()
 })

@@ -1,5 +1,5 @@
 ## ----make-repo-1---------------------------------------------------------
-library(miniCRAN)
+library("miniCRAN")
 
 # use Revolution Analytics CRAN mirror
 revolution <- c(CRAN="http://cran.revolutionanalytics.com")
@@ -33,7 +33,6 @@ pkgAvail(repos=pth, type="win.binary")[, c(1:3, 5)]
 ## ----addto-repo-new-1----------------------------------------------------
 # Add new packages (from CRAN) to the miniCRAN repo
 addPackage("Matrix", path=pth, repos=revolution, type="source")
-addPackage("Matrix", path=pth, repos=revolution, type="win.binary")
 
 ## ----addto-repo-old-1----------------------------------------------------
 # create a data frame with the package and version info
