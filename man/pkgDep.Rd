@@ -6,7 +6,7 @@
 \usage{
 pkgDep(pkg, availPkgs, repos = getOption("repos"), type = "source",
   depends = TRUE, suggests = TRUE, enhances = FALSE,
-  includeBasePkgs = FALSE, ...)
+  includeBasePkgs = FALSE, Rversion = R.version, ...)
 }
 \arguments{
 \item{pkg}{Character vector of packages.}
@@ -24,6 +24,8 @@ pkgDep(pkg, availPkgs, repos = getOption("repos"), type = "source",
 \item{enhances}{If TRUE, retrieves Enhances dependencies (non-recursively)}
 
 \item{includeBasePkgs}{If TRUE, include base R packages in results}
+
+\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}}
 
 \item{...}{Other arguments passed to \code{\link{available.packages}}}
 }

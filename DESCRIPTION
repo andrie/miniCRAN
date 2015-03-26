@@ -20,7 +20,8 @@ Imports:
     tools,
     XML,
     httr,
-    methods
+    methods,
+    utils
 Suggests:
     testthat(>= 0.9),
     knitr,
