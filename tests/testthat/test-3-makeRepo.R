@@ -12,7 +12,7 @@ if(file.exists(repo_root)) unlink(repo_root, recursive = TRUE)
 
 
 types <- c("source", "win.binary", "mac.binary", "mac.binary.mavericks")
-names(types) <- types
+names(types) <- c("source", "win.binary", "mac.binary", "mac.binary")
 
 for(pkg_type in names(types)){  
   
@@ -35,7 +35,7 @@ for(pkg_type in names(types)){
     )
     expect_true(
       all(
-        pkgList %in% pkgAvail(repo_root, type=pkg_type)[, "Package"]
+        pkgList %in% pkgAvail(repos = repo_root, type=pkg_type)[, "Package"]
       )
     )
     

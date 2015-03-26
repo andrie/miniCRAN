@@ -66,9 +66,11 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
     }
   }
   
-  pdb <- pkgAvail(repos = repos, type=type)
+  pdb <- pkgAvail(repos = repos, type=type, Rversion = Rversion)
 
-  if(download) download.packages(pkgs, destdir=pkgPath, available=pdb, repos=repos, type=type, quiet=quiet)
+  if(download) utils::download.packages(pkgs, destdir=pkgPath, available=pdb, repos=repos, 
+                                 contriburl = contribUrl(repos, type, Rversion),
+                                 type=type, quiet=quiet)
   if(writePACKAGES) updateRepoIndex(path=path, type=type, Rversion=Rversion)
 }
 
@@ -77,7 +79,7 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
 
 #' @rdname makeRepo
 #' @export
-updateRepoIndex <- function(path, type, Rversion){
+updateRepoIndex <- function(path, type="source", Rversion=R.version) {
   lapply(type, function(type){
     pkgPath <- repoBinPath(path=path, type=type, Rversion=Rversion)
     if(grepl("mac.binary", type)) type <- "mac.binary"

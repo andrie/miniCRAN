@@ -22,10 +22,12 @@
 #'
 #' @example /inst/examples/example_updatePackages.R
 #'
-oldPackages <- function (path=NULL, repos=getOption("repos"),
-                         availPkgs=pkgAvail(repos=repos, type=type),
-                         method, availableLocal=pkgAvail(repos=path, type=type), type="source",
-                         Rversion=R.version) {
+oldPackages <- function (path = NULL, 
+                         repos = getOption("repos"),
+                         availPkgs = pkgAvail(repos=repos, type=type, Rversion=Rversion),
+                         method, 
+                         availableLocal = pkgAvail(repos=path, type=type, Rversion=Rversion), type="source",
+                         Rversion = R.version) {
   if (is.null(path)) stop("path to miniCRAN repo must be specified")
   if (!missing(availPkgs)) {
     if (!is.matrix(availPkgs) || !is.character(availPkgs[, "Package"]))
@@ -64,13 +66,14 @@ oldPackages <- function (path=NULL, repos=getOption("repos"),
 #' @export
 #'
 updatePackages <- function (path=NULL, repos=getOption("repos"),
-                            method, ask=TRUE, availPkgs=pkgAvail(repos=repos, type=type),
+                            method, ask=TRUE, 
+                            availPkgs=pkgAvail(repos=repos, type=type, Rversion=Rversion),
                             oldPkgs=NULL, type="source",
-                            Rversion=getRversion(),
+                            Rversion=R.version,
                             quiet=FALSE) {
   force(ask)
   simplifyRepos <- function(repos, type) {
-    tail <- substring(contrib.url("---", type), 4)
+    tail <- substring(contribUrl("---", type=type, Rversion=Rversion), 4)
     ind <- regexpr(tail, repos, fixed=TRUE)
     ind <- ifelse(ind > 0, ind-1, nchar(repos, type="c"))
     substr(repos, 1, ind)
@@ -129,6 +132,6 @@ updatePackages <- function (path=NULL, repos=getOption("repos"),
     oldPkgs
   }
   if (length(update[,"Package"])) {
-    addPackage(update[,"Package"], path=path, repos=repos, type=type, quiet=quiet)
+    addPackage(update[,"Package"], path=path, repos=repos, type=type, quiet=quiet, deps=FALSE, Rversion=Rversion)
   }
 }
