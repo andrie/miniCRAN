@@ -8,8 +8,13 @@ index <- function(url, type="source", filters=NULL, head=5, cols=c("Package", "V
 }
  
 
-## ----CRAN----------------------------------------------------------------
-CRAN <- "http://cran.r-project.org"
+## ----CRAN, eval=FALSE----------------------------------------------------
+#  CRAN <- "http://cran.r-project.org"
+#  index(CRAN)
+
+## ----CRAN-mock, echo=FALSE-----------------------------------------------
+# One has to assume CRAN master is not available, hence mock the behaviour using a different mirror
+CRAN <- "http://cran.revolutionanalytics.com"
 index(CRAN)
 
 ## ----revo----------------------------------------------------------------
