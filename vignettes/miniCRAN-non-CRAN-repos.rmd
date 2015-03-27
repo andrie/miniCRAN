@@ -38,8 +38,14 @@ index <- function(url, type="source", filters=NULL, head=5, cols=c("Package", "V
 
 The URL for the master mirror in Austria:
 
-```{r CRAN}
+```{r CRAN, eval=FALSE}
 CRAN <- "http://cran.r-project.org"
+index(CRAN)
+```
+
+```{r CRAN-mock, echo=FALSE}
+# One has to assume CRAN master is not available, hence mock the behaviour using a different mirror
+CRAN <- "http://cran.revolutionanalytics.com"
 index(CRAN)
 ```
 

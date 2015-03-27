@@ -227,12 +227,21 @@ pkgList
 
 <pre><code class="r"># Create temporary folder for miniCRAN
 dir.create(pth &lt;- file.path(tempdir(), &quot;miniCRAN&quot;))
+</code></pre>
 
-# Make repo for source and win.binary
+<pre><code>## Warning in dir.create(pth &lt;- file.path(tempdir(), &quot;miniCRAN&quot;)):
+## &#39;C:\Users\ANDRIE~1\AppData\Local\Temp\Rtmpm2fNyk\miniCRAN&#39; already exists
+</code></pre>
+
+<pre><code class="r"># Make repo for source and win.binary
 makeRepo(pkgList, path=pth, repos=revolution, type=&quot;source&quot;)
 </code></pre>
 
-<pre><code>## Created new folder: C:/Users/ANDRIE~1/AppData/Local/Temp/RtmpcRONMK/miniCRAN/src/contrib
+<pre><code>## Created new folder: C:/Users/ANDRIE~1/AppData/Local/Temp/Rtmpm2fNyk/miniCRAN/src/contrib
+</code></pre>
+
+<pre><code>## Warning in download.file(url, destfile, method, mode = &quot;wb&quot;, ...):
+## downloaded length 359739 != reported length 359739
 </code></pre>
 
 <pre><code>## [[1]]
@@ -242,15 +251,15 @@ makeRepo(pkgList, path=pth, repos=revolution, type=&quot;source&quot;)
 <pre><code class="r">makeRepo(pkgList, path=pth, repos=revolution, type=&quot;win.binary&quot;)
 </code></pre>
 
-<pre><code>## Created new folder: C:/Users/ANDRIE~1/AppData/Local/Temp/RtmpcRONMK/miniCRAN/bin/windows/contrib/3.2
+<pre><code>## Created new folder: C:/Users/ANDRIE~1/AppData/Local/Temp/Rtmpm2fNyk/miniCRAN/bin/windows/contrib/3.1
 </code></pre>
 
-<pre><code>## Warning in utils::download.packages(pkgs, destdir = pkgPath, available =
-## pdb, : no package &#39;codetools&#39; at the repositories
+<pre><code>## Warning in download.file(url, destfile, method, mode = &quot;wb&quot;, ...):
+## downloaded length 388705 != reported length 388705
 </code></pre>
 
 <pre><code>## [[1]]
-## [1] 2
+## [1] 3
 </code></pre>
 
 <p>Investigate the repository file structure:</p>
@@ -259,15 +268,32 @@ makeRepo(pkgList, path=pth, repos=revolution, type=&quot;source&quot;)
 list.files(pth, recursive=TRUE, full.names=FALSE)
 </code></pre>
 
-<pre><code>## [1] &quot;bin/windows/contrib/3.2/foreach_1.4.2.zip&quot;  
-## [2] &quot;bin/windows/contrib/3.2/iterators_1.0.7.zip&quot;
-## [3] &quot;bin/windows/contrib/3.2/PACKAGES&quot;           
-## [4] &quot;bin/windows/contrib/3.2/PACKAGES.gz&quot;        
-## [5] &quot;src/contrib/codetools_0.2-11.tar.gz&quot;        
-## [6] &quot;src/contrib/foreach_1.4.2.tar.gz&quot;           
-## [7] &quot;src/contrib/iterators_1.0.7.tar.gz&quot;         
-## [8] &quot;src/contrib/PACKAGES&quot;                       
-## [9] &quot;src/contrib/PACKAGES.gz&quot;
+<pre><code>##  [1] &quot;2015-03-27/bin/macosx/contrib/3.1/adaptivetau_2.2.tgz&quot; 
+##  [2] &quot;2015-03-27/bin/macosx/contrib/3.1/aprof_0.2.4.tgz&quot;     
+##  [3] &quot;2015-03-27/bin/macosx/contrib/3.1/chron_2.3-45.tgz&quot;    
+##  [4] &quot;2015-03-27/bin/macosx/contrib/3.1/PACKAGES&quot;            
+##  [5] &quot;2015-03-27/bin/macosx/contrib/3.1/PACKAGES.gz&quot;         
+##  [6] &quot;2015-03-27/bin/windows/contrib/3.1/adaptivetau_2.2.zip&quot;
+##  [7] &quot;2015-03-27/bin/windows/contrib/3.1/aprof_0.2.4.zip&quot;    
+##  [8] &quot;2015-03-27/bin/windows/contrib/3.1/chron_2.3-45.zip&quot;   
+##  [9] &quot;2015-03-27/bin/windows/contrib/3.1/PACKAGES&quot;           
+## [10] &quot;2015-03-27/bin/windows/contrib/3.1/PACKAGES.gz&quot;        
+## [11] &quot;2015-03-27/src/contrib/adaptivetau_2.2.tar.gz&quot;         
+## [12] &quot;2015-03-27/src/contrib/aprof_0.2.1.tar.gz&quot;             
+## [13] &quot;2015-03-27/src/contrib/aprof_0.2.4.tar.gz&quot;             
+## [14] &quot;2015-03-27/src/contrib/chron_2.3-45.tar.gz&quot;            
+## [15] &quot;2015-03-27/src/contrib/PACKAGES&quot;                       
+## [16] &quot;2015-03-27/src/contrib/PACKAGES.gz&quot;                    
+## [17] &quot;bin/windows/contrib/3.1/codetools_0.2-11.zip&quot;          
+## [18] &quot;bin/windows/contrib/3.1/foreach_1.4.2.zip&quot;             
+## [19] &quot;bin/windows/contrib/3.1/iterators_1.0.7.zip&quot;           
+## [20] &quot;bin/windows/contrib/3.1/PACKAGES&quot;                      
+## [21] &quot;bin/windows/contrib/3.1/PACKAGES.gz&quot;                   
+## [22] &quot;src/contrib/codetools_0.2-11.tar.gz&quot;                   
+## [23] &quot;src/contrib/foreach_1.4.2.tar.gz&quot;                      
+## [24] &quot;src/contrib/iterators_1.0.7.tar.gz&quot;                    
+## [25] &quot;src/contrib/PACKAGES&quot;                                  
+## [26] &quot;src/contrib/PACKAGES.gz&quot;
 </code></pre>
 
 <p>Use <code>pkgAvail</code> to list available packages in your repository:</p>
@@ -276,9 +302,10 @@ list.files(pth, recursive=TRUE, full.names=FALSE)
 pkgAvail(repos=pth, type=&quot;win.binary&quot;)[, c(1:3, 5)]
 </code></pre>
 
-<pre><code>##           Package     Version Priority Imports                      
-## foreach   &quot;foreach&quot;   &quot;1.4.2&quot; NA       &quot;codetools, utils, iterators&quot;
-## iterators &quot;iterators&quot; &quot;1.0.7&quot; NA       NA
+<pre><code>##           Package     Version  Priority      Imports                      
+## codetools &quot;codetools&quot; &quot;0.2-11&quot; &quot;recommended&quot; NA                           
+## foreach   &quot;foreach&quot;   &quot;1.4.2&quot;  NA            &quot;codetools, utils, iterators&quot;
+## iterators &quot;iterators&quot; &quot;1.0.7&quot;  NA            NA
 </code></pre>
 
 <h1>Install packages from your local repository</h1>
@@ -317,6 +344,10 @@ oldVers &lt;- data.frame(package=c(&quot;foreach&quot;, &quot;codetools&quot;, &
 addOldPackage(pkgList, path=pth, vers=oldVers$version, repos=revolution, type=&quot;source&quot;)
 </code></pre>
 
+<pre><code>## Warning in download.file(x, destfile = file.path(pkgPath, basename(x)), :
+## downloaded length 359222 != reported length 359222
+</code></pre>
+
 <p>You will get a warning whenever there are multiple versions of a package saved in the repository. Currently, you need to manually remove duplicate versions before rebuilding the repository&#39;s package index.</p>
 
 <p>Note: This last step is important, otherwise you may end up with a repo in an inconsistent state.</p>
@@ -343,7 +374,7 @@ basename(pkgVersionsSrc) # duplicate versions
 <pre><code class="r">basename(pkgVersionsBin)
 </code></pre>
 
-<pre><code>## [1] &quot;foreach_1.4.2.zip&quot;   &quot;iterators_1.0.7.zip&quot;
+<pre><code>## [1] &quot;foreach_1.4.2.zip&quot;    &quot;codetools_0.2-11.zip&quot; &quot;iterators_1.0.7.zip&quot;
 </code></pre>
 
 <pre><code class="r">file.remove(pkgVersionsSrc[c(2,4,6)])
@@ -360,7 +391,7 @@ updateRepoIndex(pth, type=c(&quot;source&quot;, &quot;win.binary&quot;))
 ## [1] 7
 ## 
 ## [[2]]
-## [1] 2
+## [1] 3
 </code></pre>
 
 <p>To see the updated list of packages available in the miniCRAN repo:</p>
@@ -389,9 +420,10 @@ updateRepoIndex(pth, type=c(&quot;source&quot;, &quot;win.binary&quot;))
 <pre><code class="r">pkgAvail(pth, type=&quot;win.binary&quot;)[, c(1:3, 5)] # contains the current versions
 </code></pre>
 
-<pre><code>##           Package     Version Priority Imports                      
-## foreach   &quot;foreach&quot;   &quot;1.4.2&quot; NA       &quot;codetools, utils, iterators&quot;
-## iterators &quot;iterators&quot; &quot;1.0.7&quot; NA       NA
+<pre><code>##           Package     Version  Priority      Imports                      
+## codetools &quot;codetools&quot; &quot;0.2-11&quot; &quot;recommended&quot; NA                           
+## foreach   &quot;foreach&quot;   &quot;1.4.2&quot;  NA            &quot;codetools, utils, iterators&quot;
+## iterators &quot;iterators&quot; &quot;1.0.7&quot;  NA            NA
 </code></pre>
 
 <h2>Adding packages from other sources</h2>
