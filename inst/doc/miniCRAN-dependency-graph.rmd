@@ -49,14 +49,14 @@ library("miniCRAN")
 
 ```{r pkgdep}
 tags <- "chron"
-pkgDep(tags)
+pkgDep(tags, availPkgs = cranJuly2014)
 ```
 
 
 To create an igraph plot of the dependencies, use the function `makeDepGraph()` and plot the results: 
 
 ```{r makeDepGraph, warning=FALSE}
-dg <- makeDepGraph(tags, enhances=TRUE)
+dg <- makeDepGraph(tags, enhances=TRUE, availPkgs = cranJuly2014)
 set.seed(1)
 plot(dg, legendPosition = c(-1, 1), vertex.size=20)
 ```
@@ -72,9 +72,9 @@ As a final example, create a dependency graph of seven very popular R packages:
 
 ```{r so-tags, warning=FALSE, fig.width=10, fig.height=10}
 tags <- c("ggplot2", "data.table", "plyr", "knitr", "shiny", "xts", "lattice")
-pkgDep(tags, suggests = TRUE, enhances=FALSE)
+pkgDep(tags, suggests = TRUE, enhances=FALSE, availPkgs = cranJuly2014)
 
-dg <- makeDepGraph(tags, enhances=TRUE)
+dg <- makeDepGraph(tags, enhances=TRUE, availPkgs = cranJuly2014)
 set.seed(1)
 plot(dg, legendPosition = c(-1, -1), vertex.size=10, cex=0.7)
 ```

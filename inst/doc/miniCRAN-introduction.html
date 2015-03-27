@@ -216,7 +216,7 @@ revolution &lt;- c(CRAN=&quot;http://cran.revolutionanalytics.com&quot;)
 
 # Specify list of packages to download
 pkgs &lt;- c(&quot;foreach&quot;)
-pkgList &lt;- pkgDep(pkgs, repos=revolution, type=&quot;source&quot;, suggests = FALSE, )
+pkgList &lt;- pkgDep(pkgs, repos=revolution, type=&quot;source&quot;, suggests = FALSE, availPkgs = cranJuly2014)
 pkgList
 </code></pre>
 
@@ -227,39 +227,10 @@ pkgList
 
 <pre><code class="r"># Create temporary folder for miniCRAN
 dir.create(pth &lt;- file.path(tempdir(), &quot;miniCRAN&quot;))
-</code></pre>
 
-<pre><code>## Warning in dir.create(pth &lt;- file.path(tempdir(), &quot;miniCRAN&quot;)):
-## &#39;C:\Users\ANDRIE~1\AppData\Local\Temp\Rtmpm2fNyk\miniCRAN&#39; already exists
-</code></pre>
-
-<pre><code class="r"># Make repo for source and win.binary
+# Make repo for source and win.binary
 makeRepo(pkgList, path=pth, repos=revolution, type=&quot;source&quot;)
-</code></pre>
-
-<pre><code>## Created new folder: C:/Users/ANDRIE~1/AppData/Local/Temp/Rtmpm2fNyk/miniCRAN/src/contrib
-</code></pre>
-
-<pre><code>## Warning in download.file(url, destfile, method, mode = &quot;wb&quot;, ...):
-## downloaded length 359739 != reported length 359739
-</code></pre>
-
-<pre><code>## [[1]]
-## [1] 3
-</code></pre>
-
-<pre><code class="r">makeRepo(pkgList, path=pth, repos=revolution, type=&quot;win.binary&quot;)
-</code></pre>
-
-<pre><code>## Created new folder: C:/Users/ANDRIE~1/AppData/Local/Temp/Rtmpm2fNyk/miniCRAN/bin/windows/contrib/3.1
-</code></pre>
-
-<pre><code>## Warning in download.file(url, destfile, method, mode = &quot;wb&quot;, ...):
-## downloaded length 388705 != reported length 388705
-</code></pre>
-
-<pre><code>## [[1]]
-## [1] 3
+makeRepo(pkgList, path=pth, repos=revolution, type=&quot;win.binary&quot;)
 </code></pre>
 
 <p>Investigate the repository file structure:</p>
@@ -268,44 +239,10 @@ makeRepo(pkgList, path=pth, repos=revolution, type=&quot;source&quot;)
 list.files(pth, recursive=TRUE, full.names=FALSE)
 </code></pre>
 
-<pre><code>##  [1] &quot;2015-03-27/bin/macosx/contrib/3.1/adaptivetau_2.2.tgz&quot; 
-##  [2] &quot;2015-03-27/bin/macosx/contrib/3.1/aprof_0.2.4.tgz&quot;     
-##  [3] &quot;2015-03-27/bin/macosx/contrib/3.1/chron_2.3-45.tgz&quot;    
-##  [4] &quot;2015-03-27/bin/macosx/contrib/3.1/PACKAGES&quot;            
-##  [5] &quot;2015-03-27/bin/macosx/contrib/3.1/PACKAGES.gz&quot;         
-##  [6] &quot;2015-03-27/bin/windows/contrib/3.1/adaptivetau_2.2.zip&quot;
-##  [7] &quot;2015-03-27/bin/windows/contrib/3.1/aprof_0.2.4.zip&quot;    
-##  [8] &quot;2015-03-27/bin/windows/contrib/3.1/chron_2.3-45.zip&quot;   
-##  [9] &quot;2015-03-27/bin/windows/contrib/3.1/PACKAGES&quot;           
-## [10] &quot;2015-03-27/bin/windows/contrib/3.1/PACKAGES.gz&quot;        
-## [11] &quot;2015-03-27/src/contrib/adaptivetau_2.2.tar.gz&quot;         
-## [12] &quot;2015-03-27/src/contrib/aprof_0.2.1.tar.gz&quot;             
-## [13] &quot;2015-03-27/src/contrib/aprof_0.2.4.tar.gz&quot;             
-## [14] &quot;2015-03-27/src/contrib/chron_2.3-45.tar.gz&quot;            
-## [15] &quot;2015-03-27/src/contrib/PACKAGES&quot;                       
-## [16] &quot;2015-03-27/src/contrib/PACKAGES.gz&quot;                    
-## [17] &quot;bin/windows/contrib/3.1/codetools_0.2-11.zip&quot;          
-## [18] &quot;bin/windows/contrib/3.1/foreach_1.4.2.zip&quot;             
-## [19] &quot;bin/windows/contrib/3.1/iterators_1.0.7.zip&quot;           
-## [20] &quot;bin/windows/contrib/3.1/PACKAGES&quot;                      
-## [21] &quot;bin/windows/contrib/3.1/PACKAGES.gz&quot;                   
-## [22] &quot;src/contrib/codetools_0.2-11.tar.gz&quot;                   
-## [23] &quot;src/contrib/foreach_1.4.2.tar.gz&quot;                      
-## [24] &quot;src/contrib/iterators_1.0.7.tar.gz&quot;                    
-## [25] &quot;src/contrib/PACKAGES&quot;                                  
-## [26] &quot;src/contrib/PACKAGES.gz&quot;
-</code></pre>
-
 <p>Use <code>pkgAvail</code> to list available packages in your repository:</p>
 
 <pre><code class="r"># Check for available packages
 pkgAvail(repos=pth, type=&quot;win.binary&quot;)[, c(1:3, 5)]
-</code></pre>
-
-<pre><code>##           Package     Version  Priority      Imports                      
-## codetools &quot;codetools&quot; &quot;0.2-11&quot; &quot;recommended&quot; NA                           
-## foreach   &quot;foreach&quot;   &quot;1.4.2&quot;  NA            &quot;codetools, utils, iterators&quot;
-## iterators &quot;iterators&quot; &quot;1.0.7&quot;  NA            NA
 </code></pre>
 
 <h1>Install packages from your local repository</h1>
@@ -344,86 +281,28 @@ oldVers &lt;- data.frame(package=c(&quot;foreach&quot;, &quot;codetools&quot;, &
 addOldPackage(pkgList, path=pth, vers=oldVers$version, repos=revolution, type=&quot;source&quot;)
 </code></pre>
 
-<pre><code>## Warning in download.file(x, destfile = file.path(pkgPath, basename(x)), :
-## downloaded length 359222 != reported length 359222
-</code></pre>
-
 <p>You will get a warning whenever there are multiple versions of a package saved in the repository. Currently, you need to manually remove duplicate versions before rebuilding the repository&#39;s package index.</p>
 
 <p>Note: This last step is important, otherwise you may end up with a repo in an inconsistent state.</p>
 
 <pre><code class="r"># List package versions in the miniCRAN repo (produces warning about duplicates)
 pkgVersionsSrc &lt;- checkVersions(pkgList, path=pth, type=&quot;source&quot;)
-</code></pre>
-
-<pre><code>## Warning in checkVersions(pkgList, path = pth, type = &quot;source&quot;): Duplicate
-## package(s): foreach, codetools, iterators
-</code></pre>
-
-<pre><code class="r">pkgVersionsBin &lt;- checkVersions(pkgList, path=pth, type=&quot;win.binary&quot;)
+pkgVersionsBin &lt;- checkVersions(pkgList, path=pth, type=&quot;win.binary&quot;)
 
 # After inspecting package versions, remove old versions
 basename(pkgVersionsSrc) # duplicate versions
-</code></pre>
+basename(pkgVersionsBin)
 
-<pre><code>## [1] &quot;foreach_1.4.0.tar.gz&quot;    &quot;foreach_1.4.2.tar.gz&quot;   
-## [3] &quot;codetools_0.2-11.tar.gz&quot; &quot;codetools_0.2-7.tar.gz&quot; 
-## [5] &quot;iterators_1.0.5.tar.gz&quot;  &quot;iterators_1.0.7.tar.gz&quot;
-</code></pre>
+file.remove(pkgVersionsSrc[c(2,4,6)])
 
-<pre><code class="r">basename(pkgVersionsBin)
-</code></pre>
-
-<pre><code>## [1] &quot;foreach_1.4.2.zip&quot;    &quot;codetools_0.2-11.zip&quot; &quot;iterators_1.0.7.zip&quot;
-</code></pre>
-
-<pre><code class="r">file.remove(pkgVersionsSrc[c(2,4,6)])
-</code></pre>
-
-<pre><code>## [1] TRUE TRUE TRUE
-</code></pre>
-
-<pre><code class="r"># rebuild the package index after removing duplicate package versions
+# rebuild the package index after removing duplicate package versions
 updateRepoIndex(pth, type=c(&quot;source&quot;, &quot;win.binary&quot;))
-</code></pre>
-
-<pre><code>## [[1]]
-## [1] 7
-## 
-## [[2]]
-## [1] 3
 </code></pre>
 
 <p>To see the updated list of packages available in the miniCRAN repo:</p>
 
 <pre><code class="r">pkgAvail(pth, type=&quot;source&quot;)[, c(1:3, 5)] # contains the old versions
-</code></pre>
-
-<pre><code>##           Package     Version    Priority     
-## codetools &quot;codetools&quot; &quot;0.2-11&quot;   &quot;recommended&quot;
-## expm      &quot;expm&quot;      &quot;0.99-1.1&quot; NA           
-## foreach   &quot;foreach&quot;   &quot;1.4.0&quot;    NA           
-## iterators &quot;iterators&quot; &quot;1.0.5&quot;    NA           
-## lattice   &quot;lattice&quot;   &quot;0.20-30&quot;  &quot;recommended&quot;
-## MASS      &quot;MASS&quot;      &quot;7.3-40&quot;   &quot;recommended&quot;
-## Matrix    &quot;Matrix&quot;    &quot;1.1-5&quot;    &quot;recommended&quot;
-##           Imports                                  
-## codetools NA                                       
-## expm      NA                                       
-## foreach   &quot;codetools, utils, iterators&quot;            
-## iterators NA                                       
-## lattice   &quot;grid, grDevices, graphics, stats, utils&quot;
-## MASS      NA                                       
-## Matrix    &quot;graphics, grid, stats, utils, lattice&quot;
-</code></pre>
-
-<pre><code class="r">pkgAvail(pth, type=&quot;win.binary&quot;)[, c(1:3, 5)] # contains the current versions
-</code></pre>
-
-<pre><code>##           Package     Version  Priority      Imports                      
-## codetools &quot;codetools&quot; &quot;0.2-11&quot; &quot;recommended&quot; NA                           
-## foreach   &quot;foreach&quot;   &quot;1.4.2&quot;  NA            &quot;codetools, utils, iterators&quot;
-## iterators &quot;iterators&quot; &quot;1.0.7&quot;  NA            NA
+pkgAvail(pth, type=&quot;win.binary&quot;)[, c(1:3, 5)] # contains the current versions
 </code></pre>
 
 <h2>Adding packages from other sources</h2>
@@ -436,17 +315,7 @@ updateRepoIndex(pth, type=c(&quot;source&quot;, &quot;win.binary&quot;))
 
 <pre><code class="r"># Check if updated packages are available
 oldPackages(path=pth, repos=revolution, type=&quot;source&quot;)[, 1:3] # should need update
-</code></pre>
-
-<pre><code>##           Package     LocalVer ReposVer
-## foreach   &quot;foreach&quot;   &quot;1.4.0&quot;  &quot;1.4.2&quot; 
-## iterators &quot;iterators&quot; &quot;1.0.5&quot;  &quot;1.0.7&quot;
-</code></pre>
-
-<pre><code class="r">oldPackages(path=pth, repos=revolution, type=&quot;win.binary&quot;)[, 1:3] # should be current
-</code></pre>
-
-<pre><code>##      Package LocalVer ReposVer
+oldPackages(path=pth, repos=revolution, type=&quot;win.binary&quot;)[, 1:3] # should be current
 </code></pre>
 
 <p>Update the versions of the packages currently stored in the miniCRAN repository. By default, a prompt is given to confirm the update for each package. This prompt can be suppressed using <code>ask=FALSE</code>, which will update all packages. Be careful using this option if you want to keep certain packages at an older version.</p>

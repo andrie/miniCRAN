@@ -12,33 +12,28 @@ index <- function(url, type="source", filters=NULL, head=5, cols=c("Package", "V
 #  CRAN <- "http://cran.r-project.org"
 #  index(CRAN)
 
-## ----CRAN-mock, echo=FALSE-----------------------------------------------
-# One has to assume CRAN master is not available, hence mock the behaviour using a different mirror
-CRAN <- "http://cran.revolutionanalytics.com"
-index(CRAN)
+## ----revo, eval=FALSE----------------------------------------------------
+#  revoStable <- "http://packages.revolutionanalytics.com/cran/3.1/stable"
+#  index(revoStable)
+#  
+#  revoMirror <- "http://cran.revolutionanalytics.com"
+#  index(revoMirror)
 
-## ----revo----------------------------------------------------------------
-revoStable <- "http://packages.revolutionanalytics.com/cran/3.1/stable"
-index(revoStable)
- 
-revoMirror <- "http://cran.revolutionanalytics.com"
-index(revoMirror)
+## ----rforge, eval=FALSE--------------------------------------------------
+#  rforge <- "http://r-forge.r-project.org"
+#  index(rforge)
 
-## ----rforge--------------------------------------------------------------
-rforge <- "http://r-forge.r-project.org"
-index(rforge)
-
-## ----bioc----------------------------------------------------------------
-bioc <- local({
-  env <- new.env()
-  on.exit(rm(env))
-  evalq(source("http://bioconductor.org/biocLite.R", local=TRUE), env)
-  biocinstallRepos()
-})
- 
-bioc
-bioc[grep("BioC", names(bioc))]
- 
- 
-index(bioc["BioCsoft"])
+## ----bioc, eval=FALSE----------------------------------------------------
+#  bioc <- local({
+#    env <- new.env()
+#    on.exit(rm(env))
+#    evalq(source("http://bioconductor.org/biocLite.R", local=TRUE), env)
+#    biocinstallRepos()
+#  })
+#  
+#  bioc
+#  bioc[grep("BioC", names(bioc))]
+#  
+#  
+#  index(bioc["BioCsoft"])
 
