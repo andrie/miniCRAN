@@ -1,13 +1,13 @@
 ---
 title:  "Using miniCRAN to identify package dependencies"
 author: "Andrie de Vries"
-date:   "March 26, 2015"
+date:   "April 5, 2016"
 output:
   html_document:
     self_contained: yes
     toc: yes
 vignette: >
-  %\VignetteEngine{knitr::knitr}
+  %\VignetteEngine{rmarkdown::render}
   %\VignetteIndexEntry{Using miniCRAN to identify package dependencies}
   %\VignettePackage{miniCRAN}
   %\VignetteKeyword{miniCRAN}
