@@ -7,7 +7,7 @@ output:
     self_contained: yes
     toc: yes
 vignette: >
-  %\VignetteEngine{knitr::knitr}
+  %\VignetteEngine{rmarkdown::render}
   %\VignetteIndexEntry{Using miniCRAN to identify package dependencies}
   %\VignettePackage{miniCRAN}
   %\VignetteKeyword{miniCRAN}

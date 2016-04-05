@@ -36,41 +36,47 @@
 #' @note Internally makes use of \code{\link[utils]{download.packages}} and \code{\link{write_PACKAGES}}
 #'
 #' @inheritParams pkgDep
-#' 
+#'
 #' @param pkgs Character vector of packages to download
-#' 
+#'
 #' @param path Destination download path. This path is the root folder of your new repository.
-#' 
+#'
 #' @param Rversion List with two named elements: `major` and `minor`. If not supplied, defaults to system version of R, using \code{\link{R.version}}.  Only used if \code{type} is not "source"
-#' 
+#'
 #' @param download If TRUE downloads packages.
-#' 
+#'
 #' @param quiet If TRUE, suppress status messages (if any), and the progress bar during download.
-#' 
+#'
 #' @param writePACKAGES If TRUE, calls \code{\link{write_PACKAGES}} to update the repository PACKAGES file.
 #'
 #' @export
 #' @family update repo functions
-#' 
+#'
 #' @example /inst/examples/example_makeRepo.R
 makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
                      Rversion=R.version, download=TRUE, writePACKAGES=TRUE, quiet=FALSE) {
   if(!file.exists(path)) stop("Download path does not exist")
-  pkgPath <- repoBinPath(path=path, type=type, Rversion=Rversion)
-  if(!file.exists(pkgPath)) {
-    result <- dir.create(pkgPath, recursive=TRUE, showWarnings = FALSE)
-    if(result) {
-      if(!quiet) message("Created new folder: ", pkgPath)
-    } else {
-      stop("Unable to create repo path: ", pkgPath)
-    }
-  }
-  
-  pdb <- pkgAvail(repos = repos, type=type, Rversion = Rversion)
 
-  if(download) utils::download.packages(pkgs, destdir=pkgPath, available=pdb, repos=repos, 
-                                 contriburl = contribUrl(repos, type, Rversion),
-                                 type=type, quiet=quiet)
+  lapply(type, function(type) {
+    pkgPath <- repoBinPath(path=path, type=type, Rversion=Rversion)
+    if(!file.exists(pkgPath)) {
+      result <- dir.create(pkgPath, recursive=TRUE, showWarnings = FALSE)
+      if(result) {
+        if(!quiet) message("Created new folder: ", pkgPath)
+      } else {
+        stop("Unable to create repo path: ", pkgPath)
+      }
+    }
+
+    pdb <- pkgAvail(repos = repos, type=type, Rversion = Rversion)
+
+    if(download) {
+      utils::download.packages(pkgs, destdir=pkgPath, available=pdb, repos=repos,
+                               contriburl = contribUrl(repos, type, Rversion),
+                               type=type, quiet=quiet)
+    }
+  })
+
   if(writePACKAGES) updateRepoIndex(path=path, type=type, Rversion=Rversion)
 }
 
@@ -80,11 +86,13 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
 #' @rdname makeRepo
 #' @export
 updateRepoIndex <- function(path, type="source", Rversion=R.version) {
-  lapply(type, function(type){
+  n <- lapply(type, function(type){
     pkgPath <- repoBinPath(path=path, type=type, Rversion=Rversion)
     if(grepl("mac.binary", type)) type <- "mac.binary"
     tools::write_PACKAGES(dir=pkgPath, type=type)
   })
+  names(n) <- type
+  return(n)
 }
 
 
