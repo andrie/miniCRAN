@@ -7,7 +7,7 @@ context("pkgDep")
 test_that("pkgDep throws warnings and errors", {
   
   expect_error(
-    pkgDep(, availPkgs = cranJuly2014), 
+    pkgDep(availPkgs = cranJuly2014), 
     "pkg should be a character vector with package names"
   )
   
