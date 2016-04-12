@@ -1,13 +1,22 @@
-# This code is from package pkgDepTools
+# Code copied from the pkgDepTools project
+# Copyright (C) Seth Falcon
 # http://www.bioconductor.org/packages/release/bioc/html/pkgDepTools.html
-# Author: Seth Falcom
+# 
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License version 2
+# as published by the Free Software Foundation
 
+
+
+# Code copied from the pkgDepTools project
+# Copyright (C) Seth Falcon
+# http://www.bioconductor.org/packages/release/bioc/html/pkgDepTools.html
 
 
 # Copy of tools:::split_op_version.
 
-#' @rdname pkgDepTools
-#' @keywords internal
+# @rdname pkgDepTools
+# @keywords internal
 split_op_version <- function (x) {
   pat <- "^([^\\([:space:]]+)[[:space:]]*\\(([^\\)]+)\\).*"
   x1 <- sub(pat, "\\1", x)
@@ -25,8 +34,8 @@ split_op_version <- function (x) {
 
 # Copy of tools:::.split_dependencies.
 
-#' @rdname pkgDepTools
-#' @keywords internal
+# @rdname pkgDepTools
+# @keywords internal
 split_dependencies <- function (x) {
   if (!length(x)) 
     return(list())
@@ -38,12 +47,12 @@ split_dependencies <- function (x) {
 }
 
 
-#' Clean package fields.
-#' 
-#' Given the value from a field like 'Depends' in a package's DESCRIPTION file, return a character vector of package names with the version restrictions stripped and \R~removed.
-#' @param val Value from a field like 'Depends' in a package's DESCRIPTION file
-#' @rdname pkgDepTools
-#' @keywords internal
+# Clean package fields.
+# 
+# Given the value from a field like 'Depends' in a package's DESCRIPTION file, return a character vector of package names with the version restrictions stripped and \R~removed.
+# @param val Value from a field like 'Depends' in a package's DESCRIPTION file
+# @rdname pkgDepTools
+# @keywords internal
 cleanPkgField <- function(val) {
   if (is.na(val))
     return(character(0))
