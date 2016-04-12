@@ -226,40 +226,15 @@ index &lt;- function(url, type=&quot;source&quot;, filters=NULL, head=5, cols=c(
 index(CRAN)
 </code></pre>
 
-<pre><code>##             Package       Version
-## A3          &quot;A3&quot;          &quot;0.9.2&quot;
-## abc         &quot;abc&quot;         &quot;2.0&quot;  
-## ABCanalysis &quot;ABCanalysis&quot; &quot;1.0&quot;  
-## abcdeFBA    &quot;abcdeFBA&quot;    &quot;0.4&quot;  
-## ABCExtremes &quot;ABCExtremes&quot; &quot;1.0&quot;
-</code></pre>
-
 <h2>Using a different mirror</h2>
 
 <p>You can also point to any other mirror, for example the stable version hosted by Revolution Analytics:</p>
 
 <pre><code class="r">revoStable &lt;- &quot;http://packages.revolutionanalytics.com/cran/3.1/stable&quot;
 index(revoStable)
-</code></pre>
 
-<pre><code>##             Package       Version  
-## A3          &quot;A3&quot;          &quot;0.9.2&quot;  
-## abc         &quot;abc&quot;         &quot;2.0&quot;    
-## abcdeFBA    &quot;abcdeFBA&quot;    &quot;0.4&quot;    
-## ABCExtremes &quot;ABCExtremes&quot; &quot;1.0&quot;    
-## ABCoptim    &quot;ABCoptim&quot;    &quot;0.13.11&quot;
-</code></pre>
-
-<pre><code class="r">revoMirror &lt;- &quot;http://cran.revolutionanalytics.com&quot;
+revoMirror &lt;- &quot;http://cran.revolutionanalytics.com&quot;
 index(revoMirror)
-</code></pre>
-
-<pre><code>##             Package       Version
-## A3          &quot;A3&quot;          &quot;0.9.2&quot;
-## abc         &quot;abc&quot;         &quot;2.0&quot;  
-## ABCanalysis &quot;ABCanalysis&quot; &quot;1.0&quot;  
-## abcdeFBA    &quot;abcdeFBA&quot;    &quot;0.4&quot;  
-## ABCExtremes &quot;ABCExtremes&quot; &quot;1.0&quot;
 </code></pre>
 
 <h2>Using R-forge</h2>
@@ -268,14 +243,6 @@ index(revoMirror)
 
 <pre><code class="r">rforge &lt;- &quot;http://r-forge.r-project.org&quot;
 index(rforge)
-</code></pre>
-
-<pre><code>##             Package       Version 
-## a4Core      &quot;a4Core&quot;      &quot;0.99.0&quot;
-## a4Reporting &quot;a4Reporting&quot; &quot;0.0-3&quot; 
-## abd         &quot;abd&quot;         &quot;0.1-23&quot;
-## abind       &quot;abind&quot;       &quot;1.4-3&quot; 
-## abmi        &quot;abmi&quot;        &quot;0.1-0&quot;
 </code></pre>
 
 <h2>Using BioConductor</h2>
@@ -288,50 +255,12 @@ index(rforge)
   evalq(source(&quot;http://bioconductor.org/biocLite.R&quot;, local=TRUE), env)
   biocinstallRepos()
 })
-</code></pre>
 
-<pre><code>## Bioconductor version 3.0 (BiocInstaller 1.16.1), ?biocLite for help
-</code></pre>
+bioc
+bioc[grep(&quot;BioC&quot;, names(bioc))]
 
-<pre><code class="r">bioc
-</code></pre>
 
-<pre><code>##                                               BioCsoft 
-##            &quot;http://bioconductor.org/packages/3.0/bioc&quot; 
-##                                                BioCann 
-## &quot;http://bioconductor.org/packages/3.0/data/annotation&quot; 
-##                                                BioCexp 
-## &quot;http://bioconductor.org/packages/3.0/data/experiment&quot; 
-##                                              BioCextra 
-##           &quot;http://bioconductor.org/packages/3.0/extra&quot; 
-##                                                   CRAN 
-##                  &quot;http://cran.revolutionanalytics.com&quot; 
-##                                              CRANextra 
-##                   &quot;http://www.stats.ox.ac.uk/pub/RWin&quot;
-</code></pre>
-
-<pre><code class="r">bioc[grep(&quot;BioC&quot;, names(bioc))]
-</code></pre>
-
-<pre><code>##                                               BioCsoft 
-##            &quot;http://bioconductor.org/packages/3.0/bioc&quot; 
-##                                                BioCann 
-## &quot;http://bioconductor.org/packages/3.0/data/annotation&quot; 
-##                                                BioCexp 
-## &quot;http://bioconductor.org/packages/3.0/data/experiment&quot; 
-##                                              BioCextra 
-##           &quot;http://bioconductor.org/packages/3.0/extra&quot;
-</code></pre>
-
-<pre><code class="r">index(bioc[&quot;BioCsoft&quot;])
-</code></pre>
-
-<pre><code>##           Package     Version 
-## a4        &quot;a4&quot;        &quot;1.14.0&quot;
-## a4Base    &quot;a4Base&quot;    &quot;1.14.0&quot;
-## a4Classif &quot;a4Classif&quot; &quot;1.14.0&quot;
-## a4Core    &quot;a4Core&quot;    &quot;1.14.0&quot;
-## a4Preproc &quot;a4Preproc&quot; &quot;1.14.0&quot;
+index(bioc[&quot;BioCsoft&quot;])
 </code></pre>
 
 </body>
