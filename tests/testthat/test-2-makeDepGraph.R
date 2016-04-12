@@ -1,5 +1,5 @@
 checkPkgDepFunctions <- function(pkg, availPkgs = cranJuly2014, 
-                                 repos = "http://cran.revolutionanalytics.com", 
+                                 repos = MRAN(), 
                                  type="source", 
                                  suggests=TRUE, 
                                  enhances=FALSE, 
@@ -47,6 +47,7 @@ mock_require <- function(pkg, ...){
 
 
 test_that("throws error if igraph not available", {
+  skip_if_offline()
   with_mock(
     `base::requireNamespace` = function(pkg, ...){
       packages.to.exclude <- c("igraph")
@@ -75,8 +76,8 @@ test_that("throws error if igraph not available", {
 })
 
 test_that("makeDepGraph and pgkDep gives similar results for MASS", {
-  
-  
+  skip_if_offline()
+
   tag <- "MASS"
   
   expect_true(

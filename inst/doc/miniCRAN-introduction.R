@@ -2,7 +2,7 @@
 library("miniCRAN")
 
 # use Revolution Analytics CRAN mirror
-revolution <- c(CRAN="http://cran.revolutionanalytics.com")
+revolution <- c(CRAN="http://cran.microsoft.com")
 
 # Specify list of packages to download
 pkgs <- c("foreach")

@@ -3,7 +3,7 @@ if(interactive()) {library(testthat); Sys.setenv(NOT_CRAN="true")}
 context("makeRepo")
 
 
-revolution <- c(CRAN="http://mran.revolutionanalytics.com/snapshot/2014-10-15")
+revolution <- MRAN("2014-10-15")
 pkgs <- c("Bmix")
 repo_root <- file.path(tempdir(), "miniCRAN", Sys.Date())
 if(file.exists(repo_root)) unlink(repo_root, recursive = TRUE)
@@ -19,6 +19,7 @@ for(pkg_type in names(types)){
   test_that(sprintf("makeRepo downloads %s files and builds PACKAGES file", pkg_type), {
     
     skip_on_cran()
+    skip_if_offline()
     
     pdb <- pkgAvail(repos = revolution, type=pkg_type)
     pkgList <- pkgDep(pkgs, availPkgs = pdb, repos=revolution, type=pkg_type, suggests=FALSE)
