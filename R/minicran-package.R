@@ -70,7 +70,7 @@
 #' @docType package
 #' @author Andrie de Vries \email{adevries@@microsoft.com} with contributions from Alex Chubaty \email{alex.chubaty@@gmail.com}
 #' @keywords package
-#' @importFrom  graphics legend, par, title
+#' @importFrom  graphics legend par title
 #' @importFrom stats reshape setNames
 #' @importFrom utils chooseCRANmirror compareVersion download.file flush.console installed.packages select.list
 NULL

@@ -23,7 +23,9 @@ Imports:
     XML,
     httr,
     methods,
-    utils
+    utils,
+    graphics,
+    stats
 Suggests:
     testthat(>= 0.9),
     knitr,
