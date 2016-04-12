@@ -27,6 +27,7 @@ Imports:
 Suggests:
     testthat(>= 0.9),
     knitr,
+    rmarkdown,
     igraph
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
