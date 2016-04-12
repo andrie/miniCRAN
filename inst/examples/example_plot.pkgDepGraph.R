@@ -5,7 +5,7 @@ pdb <- cranJuly2014
 
 \dontrun{
   pdb <- pkgAvail(
-    repos = c(CRAN="http://cran.revolutionanalytics.com"),
+    repos = c(CRAN = "http://mran.microsoft.com"),
     type="source"
   )
 }
