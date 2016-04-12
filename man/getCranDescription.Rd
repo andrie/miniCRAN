@@ -4,7 +4,7 @@
 \alias{getCranDescription}
 \title{Scrape DESCRIPTION from CRAN for each pkg.}
 \usage{
-getCranDescription(pkg, repos = getOption("repos"), type = "source", path,
+getCranDescription(pkg, repos = getOption("repos"), type = "source",
   pkgs = pkgDep(pkg, repos = repos, type = type))
 }
 \arguments{
@@ -13,8 +13,6 @@ getCranDescription(pkg, repos = getOption("repos"), type = "source", path,
 \item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link{available.packages}}}
 
 \item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.}
-
-\item{path}{Destination download path. This path is the root folder of your new repository.}
 
 \item{pkgs}{Character vector of packages to download}
 }
