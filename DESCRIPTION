@@ -14,10 +14,10 @@ Description: Makes it possible to create an internally consistent
     subset. The user can then install packages from this repository directly,
     rather than from CRAN.  This is useful in production settings, e.g. server
     behind a firewall, or remote locations with slow broadband access.
-Version: 0.2.4
+Version: 0.2.5
 URL: https://github.com/RevolutionAnalytics/miniCRAN
 BugReports: https://github.com/RevolutionAnalytics/miniCRAN/issues
-Date: 2015-03-26
+Date: 2016-04-12
 Imports:
     tools,
     XML,
