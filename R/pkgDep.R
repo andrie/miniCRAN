@@ -130,7 +130,7 @@ pkgAvail <- function(repos=getOption("repos"), type="source", Rversion = R.versi
   if(!grepl("^http://|file:///", repos[1]) && file.exists(repos[1])) {
      repos <- paste0("file:///", normalizePath(repos[1], mustWork = FALSE, winslash = "/"))
   } else {
-    if(!is.null(names(repos)) && repos["CRAN"] == "@CRAN@"){
+    if(!is.null(names(repos)) && isTRUE(unname(repos["CRAN"]) == "@CRAN@")){
       repos <- c(CRAN="http://cran.revolutionanalytics.com")
     }
   }
