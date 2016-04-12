@@ -3,7 +3,7 @@ MRAN <- function(snapshot){
   if(missing("snapshot") || is.null(snapshot)){
   url
   } else {
-    sprintf("%s/%s", url, snapshot)
+    sprintf("%s/snapshot/%s", url, snapshot)
   }
 }
 CRAN <- function()getOption("repos")[1]
