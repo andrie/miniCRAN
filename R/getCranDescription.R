@@ -11,8 +11,11 @@ getCranDescription <- function(pkg, repos = getOption("repos"),
                                pkgs = pkgDep(pkg, repos=repos, type=type)){
 
   getOne <- function(package){
+    repos <- repos[[1]]
+    if(!grepl("/$", repos)) repos <- paste0(repos, "/")
+    
     url <- gsub("https://", "http://", 
-                sprintf("%sweb/packages/%s/index.html", repos[[1]], package)
+                sprintf("%sweb/packages/%s/index.html", repos, package)
     )
     x <- tryCatch({
       text <- paste(readLines(url), collapse = "\n")

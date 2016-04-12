@@ -24,7 +24,7 @@ Downloads the DESCRIPTION file from a package on github, parses the fields and a
 pdb <- cranJuly2014
 
 \dontrun{
-  pdb <- pkgAvail(repos=c(CRAN="http://cran.revolutionanalytics.com"))
+  pdb <- pkgAvail(repos = c(CRAN="http://mran.microsoft.com"))
   
   
   # Overwrite pdb with development version of miniCRAN at github
