@@ -37,6 +37,10 @@ plot.pkgDepGraph <- function(
 
   edgeColor <- c(Imports="red", Depends="orange", Suggests="grey80", Enhances="blue", LinkingTo="black")
   eColor <- edgeColor[igraph::get.edge.attribute(x, "type")]
+  
+  typesInGraph <- unique(igraph::get.edge.attribute(x, "type"))
+  edgeColor <- edgeColor[typesInGraph]
+  # eColor    <- eColor[typesInGraph]
 
   par(mai=rep(0.25, 4))
   # browser()

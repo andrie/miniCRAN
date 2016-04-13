@@ -1,13 +1,13 @@
 
 # Specify list of packages to download
-revolution <- c(CRAN="http://cran.revolutionanalytics.com")
+revolution <- c(CRAN = "http://mran.microsoft.com")
 pkgs <- c("foreach")
 
 pdb <- cranJuly2014
 
 \dontrun{
   pdb <- pkgAvail(
-    repos = c(CRAN="http://cran.revolutionanalytics.com"),
+    repos = c(CRAN = "http://mran.microsoft.com"),
     type="source"
   )
 }

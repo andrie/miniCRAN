@@ -9,18 +9,21 @@ repo_root <- file.path(tempdir(), "miniCRAN", Sys.Date())
 if(file.exists(repo_root)) unlink(repo_root, recursive=TRUE)
 dir.create(repo_root, recursive=TRUE, showWarnings=FALSE)
 
-revolution <- c(CRAN="http://mran.revolutionanalytics.com/snapshot/2014-10-15")
+revolution <- MRAN("2014-10-15")
 pkgs <- c("chron", "adaptivetau")
 
 types <- c("source", "win.binary", "mac.binary")
 names(types) <- types
 
-pdb <- lapply(types, pkgAvail, repos=revolution, Rversion = "3.1")
-pkgList <- lapply(types, function(type){
-  pkgDep(pkg=pkgs, type=types[type], availPkgs=pdb[[type]], repos=revolution, suggests=FALSE, Rversion = "3.1")
-})
 
 test_that("sample repo is setup correctly", {
+  skip_if_offline(revolution)
+  
+  pdb <<- lapply(types, pkgAvail, repos=revolution, Rversion = "3.1")
+  pkgList <<- lapply(types, function(type){
+    pkgDep(pkg=pkgs, type=types[type], availPkgs=pdb[[type]], repos=revolution, suggests=FALSE, Rversion = "3.1")
+  })
+  
   miniCRAN:::.createSampleRepo(path = repo_root, MRAN = revolution, Rversion = "3.1")
   expect_equal(unname(pkgAvail(repo_root)[, "Package"]), sort(pkgs))
 })
@@ -39,6 +42,7 @@ for(pkg_type in names(types)){
   test_that(sprintf("addPackage downloads %s files and rebuilds PACKAGES file", pkg_type), {
 
     skip_on_cran()
+    skip_if_offline(revolution)
     
     pkgListAdd <- pkgDep(pkgsAdd, availPkgs=pdb[[pkg_type]], 
                          repos = revolution, 
@@ -70,7 +74,7 @@ for(pkg_type in names(types)){
 # Check for updates -------------------------------------------------------
 
 
-MRAN <- c(CRAN="http://mran.revolutionanalytics.com/snapshot/2014-12-01")
+MRAN_mirror <- MRAN("2014-12-01")
 
 
 for(pkg_type in names(types)){
@@ -80,27 +84,17 @@ for(pkg_type in names(types)){
   test_that(sprintf("updatePackages downloads %s files and builds PACKAGES file", pkg_type), {
 
     skip_on_cran()
+    skip_if_offline(MRAN_mirror)
 
     prefix <- miniCRAN:::repoPrefix(pkg_type, Rversion = "3.1")
 
-    #     cat("\n")
-    #     print(pkgAvail(repo_root, type=pkg_type)[, c("Package", "Version")])
-    #     cat("\n")
+    old <- oldPackages(path=repo_root, repos=MRAN_mirror, type=pkg_type, Rversion = "3.1")
 
-    old <- oldPackages(path=repo_root, repos=MRAN, type=pkg_type, Rversion = "3.1")
-    #     cat("\n")
-    #     print(pkg_type)
-    #     cat("\n")
-    #     cat("Old packages\n")
-    #     print(old)
-    #     cat("\n")
-    
     expect_equal(nrow(old), 2)
     expect_equal(ncol(old), 4)
     expect_equal(rownames(old), c("adaptivetau", "aprof"))
-    #     expect_equal(rownames(old), c("adaptivetau"))
 
-    updatePackages(path=repo_root, repos=MRAN, type=pkg_type, ask=FALSE, quiet=TRUE, Rversion = "3.1")
+    updatePackages(path=repo_root, repos=MRAN_mirror, type=pkg_type, ask=FALSE, quiet=TRUE, Rversion = "3.1")
 
     updateVers <- miniCRAN:::getPkgVersFromFile(list.files(file.path(repo_root, prefix)))
 
@@ -112,7 +106,7 @@ for(pkg_type in names(types)){
       file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
     )
 
-    old <- oldPackages(path=repo_root, repos=MRAN, type=pkg_type, Rversion = "3.1")
+    old <- oldPackages(path=repo_root, repos=MRAN_mirror, type=pkg_type, Rversion = "3.1")
     # browser()
     expect_equal(nrow(old), 0)
     expect_equal(ncol(old), 4)
@@ -130,17 +124,18 @@ for(pkg_type in names(types)){
   test_that(sprintf("checkVersions() finds out-of-date %s packages", pkg_type), {
 
     skip_on_cran()
+    skip_if_offline(MRAN_mirror)
 
     oldVersions <- list(package=c("aprof"),
                         version=c("0.2.1"))
     if(pkg_type != "source"){
       expect_error(
         addOldPackage(oldVersions[["package"]], path=repo_root, vers=oldVersions[["version"]],
-                      repos=MRAN, type=pkg_type)
+                      repos=MRAN_mirror, type=pkg_type)
       )
     } else {
       addOldPackage(oldVersions[["package"]], path=repo_root, vers=oldVersions[["version"]],
-                    repos=MRAN, type=pkg_type)
+                    repos=MRAN_mirror, type=pkg_type)
       files <- suppressWarnings(
         checkVersions(path=repo_root, type=pkg_type)
         )

@@ -72,7 +72,8 @@ addPackageListing <- function(pdb=pkgAvail(), dcf, warnings=TRUE) {
 
 
 
-# from http://stackoverflow.com/questions/13163248/possible-to-override-the-blocking-of-a-packages-re-installation-after-it-has
+# from http://stackoverflow.com/questions/13163248
+# Possible to override the blocking of a package's (re-)installation after it has been required/loaded?
 
 #' @importFrom httr GET stop_for_status content
 readDescriptionGithub <- function(repo, username, branch="master", quiet=TRUE){

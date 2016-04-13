@@ -13,7 +13,7 @@
 
 # Create sample repo from MRAN snapshot
 .createSampleRepo <- function(MRAN, path, pkgs, Rversion="3.1"){
-  if(missing(MRAN)) MRAN <- c(CRAN="http://mran.revolutionanalytics.com/snapshot/2014-10-15")
+  if(missing(MRAN)) MRAN <- MRAN("2014-10-15")
   if(missing(path)) path <- file.path(tempdir(), "miniCRAN", Sys.Date())
   if(missing(pkgs)) pkgs <- c("chron", "adaptivetau")
   
