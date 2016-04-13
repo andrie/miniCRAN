@@ -1,7 +1,7 @@
 ### `oldPackages` and `updatePackages` require an existing miniCRAN repo
 
 # Specify list of packages to download
-revolution <- c(CRAN="http://cran.revolutionanalytics.com")
+revolution <- c(CRAN = "http://mran.microsoft.com")
 pkgs <- c("foreach")
 
 pdb <- cranJuly2014
@@ -25,7 +25,7 @@ pkgList
   oldVers <- data.frame(package=c("foreach", "codetools", "iterators"),
                         version=c("1.4.0", "0.2-7", "1.0.5"),
                         stringsAsFactors=FALSE)
-  addOldPackage(pkgList, path=pth, vers=oldVers$version, type="source")
+  addOldPackage(pkgList, path=pth, repos=revolution, vers=oldVers$version, type="source")
   # NOTE: older binary versions would need to be build from source
 
   # Check if updated packages are available
@@ -33,7 +33,7 @@ pkgList
   oldPackages(path=pth, repos=revolution, type="win.binary") # should be current
 
   # Update available packages
-  updatePackages(path=pth, repos=revolution, type="source") # should need update
+  updatePackages(path=pth, repos=revolution, type="source", ask=FALSE) # should need update
   updatePackages(path=pth, repos=revolution, type="win.binary") # should be current
 
   # Delete temporary folder

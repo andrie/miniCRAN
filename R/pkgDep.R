@@ -47,7 +47,7 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depe
   }
   if(missing(availPkgs)){
     if(!is.null(names(repos)) & repos["CRAN"] == "@CRAN@"){
-      repos <- c(CRAN="http://cran.revolutionanalytics.com")
+      repos <- MRAN()
     }
     if(is.na(type)) type <- "source"
     availPkgs <- pkgAvail(repos=repos, type=type, Rversion = Rversion, ...)
@@ -130,8 +130,8 @@ pkgAvail <- function(repos=getOption("repos"), type="source", Rversion = R.versi
   if(!grepl("^http://|file:///", repos[1]) && file.exists(repos[1])) {
      repos <- paste0("file:///", normalizePath(repos[1], mustWork = FALSE, winslash = "/"))
   } else {
-    if(!is.null(names(repos)) && repos["CRAN"] == "@CRAN@"){
-      repos <- c(CRAN="http://cran.revolutionanalytics.com")
+    if(!is.null(names(repos)) && isTRUE(unname(repos["CRAN"]) == "@CRAN@")){
+      repos <- MRAN()
     }
   }
   utils::available.packages(contribUrl(repos, type=type, Rversion = Rversion), type=type, filters=list())
