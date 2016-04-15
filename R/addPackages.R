@@ -126,9 +126,9 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
   if (is.null(path) || is.null(pkgs) || is.null(vers)) {
     stop("path, pkgs, and vers must all be specified.")
   }
-  if (type!="source") stop("Older binary versions are not normally available on CRAN. ",
-                           "You must build the binary versions from source.")
-  if(deps) {
+  if (type != "source") stop("Older binary versions are not normally available on CRAN. ",
+                             "You must build the binary versions from source.")
+  if (deps) {
     message("Unable to automatically determine dependency version information.\n",
             "Use pkgs and vers to identify which dependecies and their versions to download.")
   }
