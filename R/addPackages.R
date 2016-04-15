@@ -21,20 +21,25 @@ checkVersions <- function(pkgs=NULL, path=NULL, type="source",
                           Rversion=R.version) {
   if (is.null(path)) stop("path must be specified.")
   if (!file.exists(path)) stop("invalid path, ", path)
-  pkgPath <- repoBinPath(path, type, Rversion)
-  if (is.null(pkgs)) {
-    files = dir(pkgPath)
-  } else {
-    files = sapply(pkgs, function(x) list.files(pkgPath, pattern=paste0(x,"_")) )
-  }
-  files = unlist(files)
-  pkgFiles = grep("\\.(tar\\.gz|zip|tgz)$", basename(files), value=TRUE)
 
-  # identify duplicate packages and warn the user
-  pkgs = sapply(strsplit(files, "_"), "[[", 1)
-  dupes = pkgs[duplicated(pkgs)]
-  if (length(dupes)) warning("Duplicate package(s): ", paste(dupes, collapse=", "))
-  return(invisible(file.path(pkgPath, pkgFiles)))
+  duplicatePkgs <- sapply(type, function(type) {
+    pkgPath <- repoBinPath(path, type, Rversion)
+    if (is.null(pkgs)) {
+      files = dir(pkgPath)
+    } else {
+      files = sapply(pkgs, function(x) list.files(pkgPath, pattern=paste0(x,"_")) )
+    }
+    files = unlist(files)
+    pkgFiles = grep("\\.(tar\\.gz|zip|tgz)$", basename(files), value=TRUE)
+
+    # identify duplicate packages and warn the user
+    pkgs = sapply(strsplit(files, "_"), "[[", 1)
+    dupes = pkgs[duplicated(pkgs)]
+    if (length(dupes)) warning("Duplicate package(s): ", paste(dupes, collapse=", "))
+    file.path(pkgPath, pkgFiles)
+  })
+  names(duplicatePkgs) <- type
+  return(invisible(duplicatePkgs))
 }
 
 
