@@ -68,18 +68,18 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
                        writePACKAGES=TRUE, deps=TRUE, quiet=FALSE) {
   if (is.null(path) || is.null(pkgs)) stop("path and pkgs must both be specified.")
 
-  lapply(type, function(type) {
-    prev <- checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
+  lapply(type, function(t) {
+    prev <- checkVersions(pkgs=pkgs, path=path, type=t, Rversion=Rversion)
     prev.df <- getPkgVersFromFile(prev)
 
-    if (deps) pkgs <- pkgDep(pkgs, repos=repos, type=type)
+    if (deps) pkgs <- pkgDep(pkgs, repos=repos, type=t)
 
-    makeRepo(pkgs=pkgs, path=path, repos=repos, type=type, Rversion=Rversion,
+    makeRepo(pkgs=pkgs, path=path, repos=repos, type=t, Rversion=Rversion,
              download=TRUE, writePACKAGES=FALSE, quiet=quiet)
 
     if (length(prev)) {
       curr <- suppressWarnings(
-        checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
+        checkVersions(pkgs=pkgs, path=path, type=t, Rversion=Rversion)
       )
       curr.df <- getPkgVersFromFile(curr)
 

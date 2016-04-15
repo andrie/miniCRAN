@@ -71,10 +71,10 @@ updatePackages <- function (path=NULL, repos=getOption("repos"),
                             oldPkgs=NULL, type="source",
                             Rversion=R.version,
                             quiet=FALSE) {
-  lapply(type, function(type) {
+  lapply(type, function(t) {
     force(ask)
-    simplifyRepos <- function(repos, type) {
-      tail <- substring(contribUrl("---", type=type, Rversion=Rversion), 4)
+    simplifyRepos <- function(repos, t) {
+      tail <- substring(contribUrl("---", type=t, Rversion=Rversion), 4)
       ind <- regexpr(tail, repos, fixed=TRUE)
       ind <- ifelse(ind > 0, ind-1, nchar(repos, type="c"))
       substr(repos, 1, ind)
@@ -85,7 +85,7 @@ updatePackages <- function (path=NULL, repos=getOption("repos"),
         cat(old[k, "Package"], ":\n",
             "Local Version", old[k, "LocalVer"], "\n",
             "Repos Version", old[k, "ReposVer"],
-            "available at", simplifyRepos(old[k, "Repository"], type))
+            "available at", simplifyRepos(old[k, "Repository"], t))
         cat("\n")
         answer <- substr(readline("Update (y/N/c)?  "), 1L, 1L)
         if (answer == "c" | answer == "C") {
@@ -105,7 +105,7 @@ updatePackages <- function (path=NULL, repos=getOption("repos"),
     }
     if (is.null(oldPkgs)) {
       oldPkgs <- oldPackages(path=path, repos=repos,
-                             method=method, availPkgs=availPkgs, type=type,
+                             method=method, availPkgs=availPkgs, type=t,
                              Rversion=Rversion)
       if (is.null(oldPkgs)) {
         message("All packages are up to date from repos: ", names(repos))
@@ -133,7 +133,7 @@ updatePackages <- function (path=NULL, repos=getOption("repos"),
       oldPkgs
     }
     if (length(update[,"Package"])) {
-      addPackage(update[,"Package"], path=path, repos=repos, type=type, quiet=quiet, deps=FALSE, Rversion=Rversion)
+      addPackage(update[,"Package"], path=path, repos=repos, type=t, quiet=quiet, deps=FALSE, Rversion=Rversion)
     }
   })
 }
