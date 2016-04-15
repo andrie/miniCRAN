@@ -1,3 +1,7 @@
+if (getRversion() >= "3.1.0") {
+  utils::globalVariables(c("."))
+}
+
 #' Check for previous versions of packages in a miniCRAN repository.
 #'
 #' Checks for previous versions, and returns the file paths for packages with multiple versions. You can subsequently decide which version to keep.
@@ -152,19 +156,23 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
 
 #' List pre-built packages in a directory based on file extension
 #'
-#' @param path Character sting specifying the directory containing packages to be added.
+#' @param pkgs  Character vector of package names
+#' @param path  Character string specifying the directory containing packages to be added.
+#' @param type  Character indicating the package type (e.g., "source", "win.binary", etc.).
 #'
 #' @return Installs the packages and returns the new package index.
 #'
 #' @rdname listFiles
 #' @docType methods
 #'
+#' @importFrom magrittr '%>%'
+#'
 #' @examples
 #' \dontrun{
 #'  .listFiles('path/to/my/packages', type = "source")
 #' }
 #'
-.listFiles <- function(path, type) {
+.listFiles <- function(pkgs, path, type) {
   stopifnot(dir.exists(path))
   pattern <- switch(type,
                     mac.binary = ".tgz",
@@ -229,10 +237,12 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
 #'
 #' @examples
 #' \dontrun{
-#'  addLocalPackage("myPackage", "path/to/my/prebuilt/package", "path/to/my/miniCRAN/repo")
-#'  addLocalPackage("myPackage", "path/to/my/package/sourcecode", "path/to/my/miniCRAN/repo", build=TRUE)
+#'  addLocalPackage("myPackage", "path/to/my/prebuilt/package",
+#'                  "path/to/my/miniCRAN/repo")
+#'  addLocalPackage("myPackage", "path/to/my/package/sourcecode",
+#'                  "path/to/my/miniCRAN/repo", build=TRUE)
 #' }
-#'addLocalPackage("myPackage", "path/to/my/prebuilt/package", "path/to/my/miniCRAN/repo")
+#'
 addLocalPackage <- function(pkgs, pkgPath, path, type = "source",
                             Rversion = R.version, writePACKAGES = TRUE,
                             deps = FALSE, quiet = FALSE, build = FALSE) {
@@ -253,8 +263,9 @@ addLocalPackage <- function(pkgs, pkgPath, path, type = "source",
   }
 
   # get list of pre-built packages for each type, filter by pkgs to be added
-  sapply(type, function(type) {
-    files <- .listFiles(path = pkgPath, type = type)
+  sapply(type, function(t) {
+    repoPath <- file.path(path, repoPrefix(t, version))
+    files <- .listFiles(path = pkgPath, type = t)
 
     # check for previous package version and omit if identical
     prev <- checkVersions(pkgs)
@@ -271,21 +282,23 @@ addLocalPackage <- function(pkgs, pkgPath, path, type = "source",
     # copy other packages to their respective folders
     lapply(files, function(x) {
       paste("copying", x)
-      file.copy(from = file.path(pkgPath, x),
-                to = file.path(repoPath, repoPrefix(type, version), x))
-      system(paste0("chmod a-x ", src, "/", x))
+      file.copy(from = file.path(pkgPath, x), to = file.path(repoPath, x))
+      system(paste0("chmod a-x ", repoPath, "/", x))
     })
-    if (!all(file.exists(file.path(src, src.files)))) {
-      warning("some source packages could not be added.")
+
+    # check to ensure they all copied successfully
+    copied <- file.exists(file.path(repoPath, files))
+    if (!all(copied)) {
+      warning("the following ", t, " packages were not copied:\n",
+              paste(files[!copied], sep = ", "))
     }
 
     # remove previous package versions
     if (length(prev[-same]) > 0) unlink(prev[-same])
   })
 
-
   # write package index for each folder:
-  index <- updateRepoIndex(path = repoPath, type = type, Rversion = Rversion)
+  index <- updateRepoIndex(path = path, type = type, Rversion = Rversion)
 
   return(invisible(index))
 }

@@ -21,6 +21,7 @@ Date: 2016-04-15
 Imports:
     graphics,
     httr,
+    magrittr,
     methods,
     stats,
     tools,

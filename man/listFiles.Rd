@@ -5,10 +5,14 @@
 \alias{.listFiles}
 \title{List pre-built packages in a directory based on file extension}
 \usage{
-.listFiles(path, type)
+.listFiles(pkgs, path, type)
 }
 \arguments{
-\item{path}{Character sting specifying the directory containing packages to be added.}
+\item{pkgs}{Character vector of package names}
+
+\item{path}{Character string specifying the directory containing packages to be added.}
+
+\item{type}{Character indicating the package type (e.g., "source", "win.binary", etc.).}
 }
 \value{
 Installs the packages and returns the new package index.

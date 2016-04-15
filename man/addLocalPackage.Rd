@@ -31,20 +31,26 @@ addLocalPackage(pkgs, pkgPath, path, type = "source", Rversion = R.version,
 Installs the packages and returns the new package index.
 }
 \description{
-To add a pre-built binary or source package, use \code{build = FALSE}.
+Examine the contents of a directory specified by \code{pkgPath} for pre-built
+packages matching the names specified by \code{pkgs}, and add these to the
+miniCRAN repository.
+}
+\details{
 To build a package from source and then add it, use \code{build = TRUE} (NOT YET IMPLEMENTED).
 Note that package development libraries and the \code{devtools} package
 must be installed on your system in order to build packages.
 }
-\details{
-NOTE: Currently, adding local packages does not check nor download their dependencies.
+\note{
+Currently, adding local packages does not check nor download their dependencies.
 }
 \examples{
 \dontrun{
- addLocalPackage("myPackage", "path/to/my/prebuilt/package", "path/to/my/miniCRAN/repo")
- addLocalPackage("myPackage", "path/to/my/package/sourcecode", "path/to/my/miniCRAN/repo", build=TRUE)
+ addLocalPackage("myPackage", "path/to/my/prebuilt/package",
+                 "path/to/my/miniCRAN/repo")
+ addLocalPackage("myPackage", "path/to/my/package/sourcecode",
+                 "path/to/my/miniCRAN/repo", build=TRUE)
 }
-addLocalPackage("myPackage", "path/to/my/prebuilt/package", "path/to/my/miniCRAN/repo")
+
 }
 \author{
 Alex Chubaty
