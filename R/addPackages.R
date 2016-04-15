@@ -145,3 +145,147 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
   })
   if (writePACKAGES) invisible(updateRepoIndex(path=path, type=type, Rversion))
 }
+
+
+# ------------------------------------------------------------------------------
+
+
+#' List pre-built packages in a directory based on file extension
+#'
+#' @param path Character sting specifying the directory containing packages to be added.
+#'
+#' @return Installs the packages and returns the new package index.
+#'
+#' @rdname listFiles
+#' @docType methods
+#'
+#' @examples
+#' \dontrun{
+#'  .listFiles('path/to/my/packages', type = "source")
+#' }
+#'
+.listFiles <- function(path, type) {
+  stopifnot(dir.exists(path))
+  pattern <- switch(type,
+                    mac.binary = ".tgz",
+                    mac.binary.leopard = ".tgz",
+                    mac.binary.mavericks = ".tgz",
+                    source = ".tar.gz",
+                    win.binary = ".zip",
+                    stop("Type ", type, "not recognised."))
+
+  # get a list of all files in pkgPaths directory matching pattern
+  f <- list.files(path, pattern = pattern)
+
+  # we only care about the subset matching pkgs
+  f <- sapply(pkgs, function(x) { grep(x, f, value = TRUE)} )
+
+  if (length(f)) {
+    # if multiple versions present, always use latest
+    fp <- strsplit(f, "_") %>%
+      sapply(., `[[`, 1)
+
+    fv <- strsplit(f, "_") %>%
+      sapply(., `[[`, 2) %>%
+      strsplit(., pattern) %>%
+      sapply(., `[[`, 1) %>%
+      as.numeric_version()
+
+    fout <- sapply(fp, function(x) {
+      ids <- which(fp %in% x)
+      paste0(x, "_", max(fv[ids]))
+    }) %>% unique()
+
+    return(paste0(fout, pattern))
+  } else {
+    return(character())
+  }
+}
+
+
+
+#' Add local packages to a miniCRAN repository.
+#'
+#' Examine the contents of a directory specified by \code{pkgPath} for pre-built
+#' packages matching the names specified by \code{pkgs}, and add these to the
+#' miniCRAN repository.
+#'
+#' To build a package from source and then add it, use \code{build = TRUE} (NOT YET IMPLEMENTED).
+#' Note that package development libraries and the \code{devtools} package
+#' must be installed on your system in order to build packages.
+#'
+#' @note Currently, adding local packages does not check nor download their dependencies.
+#'
+#' @inheritParams addPackage
+#' @param pkgPath  Character vector of directory location containing packages to be added.
+#' @param build    Logical indicating whether packages should be build prior to adding.
+#'
+#' @return Installs the packages and returns the new package index.
+#'
+#' @export
+#' @docType methods
+#'
+#' @author Alex Chubaty
+#'
+#' @examples
+#' \dontrun{
+#'  addLocalPackage("myPackage", "path/to/my/prebuilt/package", "path/to/my/miniCRAN/repo")
+#'  addLocalPackage("myPackage", "path/to/my/package/sourcecode", "path/to/my/miniCRAN/repo", build=TRUE)
+#' }
+#'addLocalPackage("myPackage", "path/to/my/prebuilt/package", "path/to/my/miniCRAN/repo")
+addLocalPackage <- function(pkgs, pkgPath, path, type = "source",
+                            Rversion = R.version, writePACKAGES = TRUE,
+                            deps = FALSE, quiet = FALSE, build = FALSE) {
+  if (is.null(path) || is.null(pkgs)) stop("path, pkgs, and pkgPath must be specified.")
+
+  stopifnot(file.exists(file.path(pkgPath)))
+
+  # build local package if needed
+  if (build) {
+    warning("Building local packages has not yet been implemented.")
+    if (requireNamespace("devtools", quietly = TRUE)) {
+      lapply(df, function(x) {
+        #devtools::build(pkg = x, path = pkgPath, )
+      })
+    } else {
+      stop("To build packages, you must first install the 'devtools' package.")
+    }
+  }
+
+  # get list of pre-built packages for each type, filter by pkgs to be added
+  sapply(type, function(type) {
+    files <- .listFiles(path = pkgPath, type = type)
+
+    # check for previous package version and omit if identical
+    prev <- checkVersions(pkgs)
+    same <- which(basename(prev) %in% files)
+
+    if (length(same)) {
+      files <- files[-same]
+      if (length(files) == 0) {
+        if (!quiet) message("all packages up to date. nothing to add.")
+        return(invisible(NULL))
+      }
+    }
+
+    # copy other packages to their respective folders
+    lapply(files, function(x) {
+      paste("copying", x)
+      file.copy(from = file.path(pkgPath, x),
+                to = file.path(repoPath, repoPrefix(type, version), x))
+      system(paste0("chmod a-x ", src, "/", x))
+    })
+    if (!all(file.exists(file.path(src, src.files)))) {
+      warning("some source packages could not be added.")
+    }
+
+    # remove previous package versions
+    if (length(prev[-same]) > 0) unlink(prev[-same])
+  })
+
+
+  # write package index for each folder:
+  index <- updateRepoIndex(path = repoPath, type = type, Rversion = Rversion)
+
+  return(invisible(index))
+}

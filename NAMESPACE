@@ -2,6 +2,7 @@
 
 S3method(plot,pkgDepGraph)
 S3method(print,pkgDep)
+export(addLocalPackage)
 export(addOldPackage)
 export(addPackage)
 export(addPackageListingGithub)

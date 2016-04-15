@@ -19,17 +19,18 @@ URL: https://github.com/RevolutionAnalytics/miniCRAN
 BugReports: https://github.com/RevolutionAnalytics/miniCRAN/issues
 Date: 2016-04-15
 Imports:
-    tools,
-    XML,
+    graphics,
     httr,
     methods,
+    stats,
+    tools,
     utils,
-    graphics,
-    stats
+    XML
 Suggests:
-    testthat(>= 0.9),
+    devtools,
+    igraph,
     knitr,
     rmarkdown,
-    igraph
+    testthat(>= 0.9)
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
