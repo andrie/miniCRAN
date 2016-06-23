@@ -3,6 +3,7 @@
 # Specify list of packages to download
 revolution <- c(CRAN = "http://mran.microsoft.com")
 pkgs <- c("foreach")
+pkgTypes <- c("source", "win.binary")
 
 pdb <- cranJuly2014
 
@@ -18,8 +19,7 @@ pkgList
   dir.create(pth <- file.path(tempdir(), "miniCRAN"))
 
   # Make repo for source and win.binary
-  makeRepo(pkgList, path=pth, repos=revolution, type="source")
-  makeRepo(pkgList, path=pth, repos=revolution, type="win.binary")
+  makeRepo(pkgList, path=pth, repos=revolution, type=pkgTypes)
 
   # Add other versions of a package (and assume these were added previously)
   oldVers <- data.frame(package=c("foreach", "codetools", "iterators"),
@@ -39,13 +39,12 @@ pkgList
   file.remove(c(pkgVersionsSrc[1], pkgVersionsBin[1]))
 
   # Rebuild package index after adding/removing files
-  updateRepoIndex(pth, type=c("source", "win.binary"), Rversion=R.version)
-  
+  updateRepoIndex(pth, type=pkgTypes, Rversion=R.version)
+
   pkgAvail(pth, type="source")
 
   # Add new packages (from CRAN) to the miniCRAN repo
-  addPackage("Matrix", path=pth, repos=revolution, type="source")
-  addPackage("Matrix", path=pth, repos=revolution, type="win.binary")
+  addPackage("Matrix", path=pth, repos=revolution, type=pkgTypes)
 
   # Delete temporary folder
   unlink(pth, recursive=TRUE)
