@@ -1,15 +1,8 @@
 language: r
 sudo: required
+cache: packages
 
 env: NOT_CRAN="true"
-
-r_binary_packages:
-  - testthat
-  - knitr
-  - rmarkdown
-  - igraph
-  - XML
-  - httr
 
 branches:
   only:
