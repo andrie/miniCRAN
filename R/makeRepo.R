@@ -57,7 +57,7 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
                      Rversion=R.version, download=TRUE, writePACKAGES=TRUE, quiet=FALSE) {
   if(!file.exists(path)) stop("Download path does not exist")
 
-  lapply(type, function(type) {
+  downloaded <- lapply(type, function(type) {
     pkgPath <- repoBinPath(path=path, type=type, Rversion=Rversion)
     if(!file.exists(pkgPath)) {
       result <- dir.create(pkgPath, recursive=TRUE, showWarnings = FALSE)
@@ -76,8 +76,11 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
                                type=type, quiet=quiet)
     }
   })
+  
+  
 
   if(writePACKAGES) updateRepoIndex(path=path, type=type, Rversion=Rversion)
+  if(download) sapply(downloaded, "[[", 2) else character(0)
 }
 
 
