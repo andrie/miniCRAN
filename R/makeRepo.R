@@ -77,10 +77,21 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
     }
   })
   
-  
+  downloaded <- sapply(downloaded, "[[", 2)
+
+  fromLocalRepos <- grepl("^file://", repos)
+  if(fromLocalRepos){
+    # need to copy files to correct folder
+    repoPath <- gsub("^file:///", "", repos)
+    repoPath <- normalizePath(repoPath, winslash = "/")
+    newPath  <- gsub(repoPath, normalizePath(path, winslash = "/"), downloaded)
+    file.copy(downloaded, newPath)
+    downloaded <- newPath
+  }
+
 
   if(writePACKAGES) updateRepoIndex(path=path, type=type, Rversion=Rversion)
-  if(download) sapply(downloaded, "[[", 2) else character(0)
+  if(download) downloaded else character(0)
 }
 
 
