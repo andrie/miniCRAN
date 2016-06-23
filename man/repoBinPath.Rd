@@ -11,7 +11,7 @@ repoBinPath(path, type, Rversion)
 
 \item{type}{character, indicating the type of package to download and install. See \code{\link{install.packages}}.}
 
-\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}. Only used if \code{type} is not "source".}
+\item{Rversion}{List with two named elements: `major` and `minor`. If not supplied, defaults to system version of R, using \code{\link{R.version}}.  Only used if \code{type} is not "source"}
 }
 \description{
 Construct path to full binary location
