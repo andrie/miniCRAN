@@ -36,22 +36,22 @@
 #' @note Internally makes use of \code{\link[utils]{download.packages}} and \code{\link{write_PACKAGES}}
 #'
 #' @inheritParams pkgDep
-#' 
+#'
 #' @param pkgs Character vector of packages to download
-#' 
+#'
 #' @param path Destination download path. This path is the root folder of your new repository.
-#' 
-#' @param Rversion List with two named elements: `major` and `minor`. If not supplied, defaults to system version of R, using \code{\link{R.version}}.  Only used if \code{type} is not "source"
-#' 
+#'
+#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}. Only used if \code{type} is not "source".
+#'
 #' @param download If TRUE downloads packages.
-#' 
+#'
 #' @param quiet If TRUE, suppress status messages (if any), and the progress bar during download.
-#' 
+#'
 #' @param writePACKAGES If TRUE, calls \code{\link{write_PACKAGES}} to update the repository PACKAGES file.
 #'
 #' @export
 #' @family update repo functions
-#' 
+#'
 #' @example /inst/examples/example_makeRepo.R
 makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
                      Rversion=R.version, download=TRUE, writePACKAGES=TRUE, quiet=FALSE) {
@@ -65,10 +65,10 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
       stop("Unable to create repo path: ", pkgPath)
     }
   }
-  
+
   pdb <- pkgAvail(repos = repos, type=type, Rversion = Rversion)
 
-  if(download) utils::download.packages(pkgs, destdir=pkgPath, available=pdb, repos=repos, 
+  if(download) utils::download.packages(pkgs, destdir=pkgPath, available=pdb, repos=repos,
                                  contriburl = contribUrl(repos, type, Rversion),
                                  type=type, quiet=quiet)
   if(writePACKAGES) updateRepoIndex(path=path, type=type, Rversion=Rversion)

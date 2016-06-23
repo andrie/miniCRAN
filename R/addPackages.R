@@ -8,7 +8,7 @@
 #'
 #' @param type  character, indicating the type of package to download and install. See \code{\link{install.packages}}.
 #'
-#' @param Rversion numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.
+#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}
 #'
 #' @return Returns invisibly the filepaths to packages with multiple versions for removal.
 #'
@@ -46,7 +46,7 @@ checkVersions <- function(pkgs=NULL, path=NULL, type="source",
 #' @inheritParams makeRepo
 #' @inheritParams pkgDep
 #'
-#' @param Rversion numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.
+#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}
 #'
 #' @param deps logical indicating whether the package dependencies should be added (default \code{TRUE}).
 #'
