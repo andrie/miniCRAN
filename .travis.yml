@@ -2,6 +2,9 @@ language: r
 sudo: required
 cache: packages
 
+repos:
+  CRAN: https://cloud.r-project.org
+
 env: NOT_CRAN="true"
 
 branches:
