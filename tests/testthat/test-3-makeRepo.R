@@ -23,7 +23,7 @@ for(pkg_type in names(types)){
     
     pdb <- pkgAvail(repos = revolution, type=pkg_type)
     pkgList <- pkgDep(pkgs, availPkgs = pdb, repos=revolution, type=pkg_type, suggests=FALSE)
-    prefix <- miniCRAN:::repoPrefix(pkg_type, R.version)
+    prefix <- miniCRAN:::repoPrefix(pkg_type, Rversion = "3.2")
     dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
     
     makeRepo(pkgList, path=repo_root, repos=revolution, type=pkg_type, quiet=TRUE)
