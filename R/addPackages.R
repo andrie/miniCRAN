@@ -67,10 +67,10 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
     prev <- checkVersions(pkgs=pkgs, path=path, type=t, Rversion=Rversion)
     prev.df <- getPkgVersFromFile(prev)
 
-    if (deps) pkgs <- pkgDep(pkgs, repos=repos, type=t)
+    if (deps) pkgs <- pkgDep(pkgs, repos = repos, type = t, Rversion = Rversion)
 
-    makeRepo(pkgs=pkgs, path=path, repos=repos, type=t, Rversion=Rversion,
-             download=TRUE, writePACKAGES=FALSE, quiet=quiet)
+    makeRepo(pkgs = pkgs, path = path, repos = repos, type = t, Rversion = Rversion,
+             download = TRUE, writePACKAGES = FALSE, quiet = quiet)
 
     if (length(prev)) {
       curr <- suppressWarnings(

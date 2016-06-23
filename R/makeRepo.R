@@ -76,7 +76,7 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
                                type=type, quiet=quiet)
     }
   })
-  
+
   downloaded <- sapply(downloaded, "[[", 2)
 
   fromLocalRepos <- grepl("^file://", repos)
@@ -88,7 +88,6 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
     file.copy(downloaded, newPath)
     downloaded <- newPath
   }
-
 
   if(writePACKAGES) updateRepoIndex(path=path, type=type, Rversion=Rversion)
   if(download) downloaded else character(0)
