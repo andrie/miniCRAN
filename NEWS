@@ -1,7 +1,9 @@
-miniCRAN v0.2-6 (Release date: 2016-06-23)
+miniCRAN v0.2-6 (Release date: 2016-06-26)
 ==============
 
-* fix bug in `addPackage`
+* allow using `makeRepo()` to create a miniCRAN repo from an existing local miniCRAN, i.e. the repos contains file:/// prefix. This enables a use case in the AzureML package. (#76)
+* easily manage packages for all three Operating Systems (#24)
+* fix inconsistent use of Rversion in `addPackage()` (#42)
 
 
 miniCRAN v0.2-5 (Release date: 2016-04-12)
