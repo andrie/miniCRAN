@@ -3,6 +3,10 @@ if (interactive()) {library(testthat); Sys.setenv(NOT_CRAN = "true")}
 context("makeRepo")
 
 revolution <- MRAN("2014-10-15")
+if(!miniCRAN:::is.online(revolution, tryHttp = FALSE)) {
+  # Use http:// for older versions of R
+  revolution <- sub("^https://", "http://", revolution)
+}
 rvers = "3.2"
 pkgs <- c("Bmix")
 repo_root <- file.path(tempdir(), "miniCRAN", Sys.Date())
@@ -25,7 +29,11 @@ for (pkg_type in names(types)) {
     prefix <- miniCRAN:::repoPrefix(pkg_type, Rversion = rvers)
     dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
 
-    makeRepo(pkgList, path = repo_root, repos = revolution, type = pkg_type, quiet = TRUE, Rversion = rvers)
+    ret <- makeRepo(pkgList, path = repo_root, repos = revolution, 
+             type = pkg_type, quiet = TRUE, Rversion = rvers)
+    
+    expect_is(ret, "character")
+    expect_equal(length(ret), length(pkgList))
 
     expect_true(
       miniCRAN:::.checkForRepoFiles(repo_root, pkgList, prefix)

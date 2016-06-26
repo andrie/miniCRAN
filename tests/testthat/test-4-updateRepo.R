@@ -10,6 +10,10 @@ if (file.exists(repo_root)) unlink(repo_root, recursive = TRUE)
 dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
 
 revolution <- MRAN("2014-10-15")
+if(!miniCRAN:::is.online(revolution, tryHttp = FALSE)) {
+  # Use http:// for older versions of R
+  revolution <- sub("^https://", "http://", revolution)
+}
 rvers <- "3.1"
 pkgs <- c("chron", "adaptivetau")
 
@@ -73,6 +77,10 @@ for (pkg_type in names(types)) {
 
 
 MRAN_mirror <- MRAN("2014-12-01")
+if(!miniCRAN:::is.online(MRAN_mirror, tryHttp = FALSE)) {
+  # Use http:// for older versions of R
+  MRAN_mirror <- sub("^https://", "http://", revolution)
+}
 
 for (pkg_type in names(types)) {
   context(sprintf(" - Check for updates (%s)", pkg_type))

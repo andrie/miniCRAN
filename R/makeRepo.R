@@ -56,7 +56,7 @@
 makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
                      Rversion=R.version, download=TRUE, writePACKAGES=TRUE, quiet=FALSE) {
   if(!file.exists(path)) stop("Download path does not exist")
-
+  
   downloaded <- lapply(type, function(type) {
     pkgPath <- repoBinPath(path=path, type=type, Rversion=Rversion)
     if(!file.exists(pkgPath)) {
@@ -67,9 +67,9 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
         stop("Unable to create repo path: ", pkgPath)
       }
     }
-
+    
     pdb <- pkgAvail(repos = repos, type=type, Rversion = Rversion)
-
+    
     if(download) {
       utils::download.packages(pkgs, destdir=pkgPath, available=pdb, repos=repos,
                                contriburl = contribUrl(repos, type, Rversion),
@@ -79,8 +79,8 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
   
   if(download){
     
-  downloaded <- sapply(downloaded, "[[", 2)
-  
+    downloaded <- downloaded[[1]][, 2]
+    
     fromLocalRepos <- grepl("^file://", repos)
     if(fromLocalRepos){
       # need to copy files to correct folder
@@ -91,7 +91,7 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
       downloaded <- newPath
     }
   }
-
+  
   if(writePACKAGES) updateRepoIndex(path=path, type=type, Rversion=Rversion)
   if(download) downloaded else character(0)
 }
@@ -121,11 +121,11 @@ updateRepoIndex <- function(path, type="source", Rversion=R.version) {
 makeLibrary <- function(pkgs, path, type="source"){
   .Deprecated("makeRepo")
   NULL
-#   if(!file.exists(path)) stop("Download path does not exist")
-#   wd <- getwd()
-#   on.exit(setwd(wd))
-#   setwd(normalizePath(path))
-#   message(getwd())
-#   download.packages(pkgs, destdir=path, type=type)
+  #   if(!file.exists(path)) stop("Download path does not exist")
+  #   wd <- getwd()
+  #   on.exit(setwd(wd))
+  #   setwd(normalizePath(path))
+  #   message(getwd())
+  #   download.packages(pkgs, destdir=path, type=type)
 }
 
