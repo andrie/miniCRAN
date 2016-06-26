@@ -8,7 +8,7 @@
 #'
 #' @param type  character, indicating the type of package to download and install. See \code{\link{install.packages}}.
 #'
-#' @param Rversion numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.
+#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}
 #'
 #' @return Returns invisibly the filepaths to packages with multiple versions for removal.
 #'
@@ -46,11 +46,11 @@ checkVersions <- function(pkgs=NULL, path=NULL, type="source",
 #' @inheritParams makeRepo
 #' @inheritParams pkgDep
 #'
-#' @param Rversion numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.
+#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}
 #'
 #' @param deps logical indicating whether the package dependencies should be added (default \code{TRUE}).
 #'
-#' @return Installs the packages, rebuilds the package index, and invisibly returns the number of packages writen to the index files.
+#' @return Installs the packages, rebuilds the package index, and invisibly returns the number of packages written to the index files.
 #'
 #' @importFrom tools write_PACKAGES
 #' @export
@@ -62,27 +62,32 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
                        type="source", Rversion=R.version,
                        writePACKAGES=TRUE, deps=TRUE, quiet=FALSE) {
   if (is.null(path) || is.null(pkgs)) stop("path and pkgs must both be specified.")
-  prev <- checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
-  prev.df <- getPkgVersFromFile(prev)
 
-  if (deps) pkgs <- pkgDep(pkgs, repos=repos, type=type)
+  lapply(type, function(t) {
+    prev <- checkVersions(pkgs=pkgs, path=path, type=t, Rversion=Rversion)
+    prev.df <- getPkgVersFromFile(prev)
 
-  makeRepo(pkgs=pkgs, path=path, repos=repos, type=type, Rversion=Rversion,
-           download=TRUE, writePACKAGES=FALSE, quiet=quiet)
+    if (deps) pkgs <- pkgDep(pkgs, repos = repos, type = t, Rversion = Rversion)
 
-  if (length(prev)) {
-    curr <- suppressWarnings(
-              checkVersions(pkgs=pkgs, path=path, type=type, Rversion=Rversion)
-            )
-    curr.df <- getPkgVersFromFile(curr)
+    makeRepo(pkgs = pkgs, path = path, repos = repos, type = t, Rversion = Rversion,
+             download = TRUE, writePACKAGES = FALSE, quiet = quiet)
 
-    dupes <- with(curr.df, package[duplicated(package)])
-    if (length(dupes)) {
-      old <- lapply(dupes, function(x) { grep(paste0("^", x), basename(prev)) } )
-      file.remove(prev[unlist(old)])
+    if (length(prev)) {
+      curr <- suppressWarnings(
+        checkVersions(pkgs=pkgs, path=path, type=t, Rversion=Rversion)
+      )
+      curr.df <- getPkgVersFromFile(curr)
+
+      dupes <- with(curr.df, package[duplicated(package)])
+      if (length(dupes)) {
+        old <- lapply(dupes, function(x) { grep(paste0("^", x), basename(prev)) } )
+        file.remove(prev[unlist(old)])
+      }
     }
-  }
-  if (writePACKAGES) invisible(updateRepoIndex(path=path, type=type, Rversion=Rversion))
+  })
+
+  n <- if (writePACKAGES) updateRepoIndex(path=path, type=type, Rversion=Rversion)
+  return(invisible(n))
 }
 
 
@@ -99,7 +104,7 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
 #'
 #' @param vers The package version to install.
 #'
-#' @return Installs the packages, rebuilds the package index, and invisibly returns the number of packages writen to the index files.
+#' @return Adds the packages, rebuilds the package index, and invisibly returns the number of packages written to the index files.
 #'
 #' @note Dependencies for old package versions cannot be determined automatically and must be specified by the user in \code{pkgs} and \code{vers}. Thus, \code{deps=FALSE} is the default for this function.
 #'
@@ -119,8 +124,8 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
   if (type!="source") stop("Older binary versions are not normally available on CRAN. ",
                            "You must build the binary versions from source.")
   if(deps) {
-    message("Unable to automatically determine dependency version information.")
-    message("Use pkgs and vers to identify which dependecies and their versions to download.")
+    message("Unable to automatically determine dependency version information.\n",
+            "Use pkgs and vers to identify which dependecies and their versions to download.")
   }
   vers <- as.character(vers)
   oldPkgs <- file.path(repos, repoPrefix(type, R.version), "Archive",
@@ -129,10 +134,8 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
   pkgPath <- repoBinPath(path=path, type=type, Rversion=Rversion)
   if(!file.exists(pkgPath)) dir.create(pkgPath, recursive=TRUE)
   sapply(oldPkgs, function(x) {
-    result <- download.file(x, destfile=file.path(pkgPath, basename(x)),
-                            method="auto",
-                            mode="wb",
-                            quiet=quiet)
+    result <- utils::download.file(x, destfile=file.path(pkgPath, basename(x)),
+                                   method="auto", mode="wb", quiet=quiet)
     if(result!=0) warning("error downloading file ", x)
   })
   if (writePACKAGES) invisible(updateRepoIndex(path=path, type=type, Rversion))

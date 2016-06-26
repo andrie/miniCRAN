@@ -10,7 +10,7 @@
 
 <meta name="author" content="Andrie de Vries and Alex Chubaty" />
 
-<meta name="date" content="2016-04-12" />
+<meta name="date" content="2016-04-13" />
 
 <title>Using miniCRAN to create a local CRAN repository</title>
 
@@ -64,7 +64,7 @@ img {
 <div id="header">
 <h1 class="title">Using miniCRAN to create a local CRAN repository</h1>
 <h4 class="author"><em>Andrie de Vries and Alex Chubaty</em></h4>
-<h4 class="date"><em>April 12, 2016</em></h4>
+<h4 class="date"><em>April 13, 2016</em></h4>
 </div>
 
 <div id="TOC">
@@ -97,8 +97,7 @@ pkgList</code></pre>
 dir.create(pth &lt;- file.path(tempdir(), &quot;miniCRAN&quot;))
 
 # Make repo for source and win.binary
-makeRepo(pkgList, path=pth, repos=revolution, type=&quot;source&quot;)
-makeRepo(pkgList, path=pth, repos=revolution, type=&quot;win.binary&quot;)</code></pre>
+makeRepo(pkgList, path=pth, repos=revolution, type=c(&quot;source&quot;, &quot;win.binary&quot;))</code></pre>
 <p>Investigate the repository file structure:</p>
 <pre class="r"><code># List all files in miniCRAN
 list.files(pth, recursive=TRUE, full.names=FALSE)</code></pre>
@@ -118,8 +117,9 @@ pkgAvail(repos=pth, type=&quot;win.binary&quot;)[, c(1:3, 5)]</code></pre>
 <h2>Adding new packages from CRAN</h2>
 <p>After creating a local miniCRAN repository, additional packages and their dependencies can easily be added. This mechanism can also be used to re-add an existing package to the miniCRAN repo.</p>
 <pre class="r"><code># Add new packages (from CRAN) to the miniCRAN repo
-addPackage(&quot;Matrix&quot;, path=pth, repos=revolution, type=&quot;source&quot;)</code></pre>
-<p>The value that is returned via <code>addPackage</code> is the number of packages written to the index file, <em>i.e.</em>, the total number of packages in the repo of that type.</p>
+addPackage(&quot;Matrix&quot;, path=pth, repos=revolution, type=c(&quot;source&quot;, &quot;win.binary&quot;))
+pkgAvail(repos=pth, type=&quot;win.binary&quot;)[, c(1:3, 5)]</code></pre>
+<p>The value that is returned (invisibly) via <code>addPackage</code> is the number of packages written to the index file, <em>i.e.</em>, the total number of packages in the repo of that type.</p>
 </div>
 <div id="adding-an-older-version-of-a-package-from-cran" class="section level2">
 <h2>Adding an older version of a package from CRAN</h2>

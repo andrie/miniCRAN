@@ -1,6 +1,6 @@
 #' Get the path to the repo directory containing the package files.
 #'
-#' @param Rversion numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.
+#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}
 #'
 #' @param type  character, indicating the type of package to download and install. See \code{\link{install.packages}}.
 #'

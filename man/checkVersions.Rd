@@ -14,7 +14,7 @@ checkVersions(pkgs = NULL, path = NULL, type = "source",
 
 \item{type}{character, indicating the type of package to download and install. See \code{\link{install.packages}}.}
 
-\item{Rversion}{numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.}
+\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}}
 }
 \value{
 Returns invisibly the filepaths to packages with multiple versions for removal.
@@ -28,6 +28,7 @@ Checks for previous versions, and returns the file paths for packages with multi
 # Specify list of packages to download
 revolution <- c(CRAN = "http://mran.microsoft.com")
 pkgs <- c("foreach")
+pkgTypes <- c("source", "win.binary")
 
 pdb <- cranJuly2014
 
@@ -43,8 +44,7 @@ pkgList
   dir.create(pth <- file.path(tempdir(), "miniCRAN"))
 
   # Make repo for source and win.binary
-  makeRepo(pkgList, path=pth, repos=revolution, type="source")
-  makeRepo(pkgList, path=pth, repos=revolution, type="win.binary")
+  makeRepo(pkgList, path=pth, repos=revolution, type=pkgTypes)
 
   # Add other versions of a package (and assume these were added previously)
   oldVers <- data.frame(package=c("foreach", "codetools", "iterators"),
@@ -64,13 +64,12 @@ pkgList
   file.remove(c(pkgVersionsSrc[1], pkgVersionsBin[1]))
 
   # Rebuild package index after adding/removing files
-  updateRepoIndex(pth, type=c("source", "win.binary"), Rversion=R.version)
-  
+  updateRepoIndex(pth, type=pkgTypes, Rversion=R.version)
+
   pkgAvail(pth, type="source")
 
   # Add new packages (from CRAN) to the miniCRAN repo
-  addPackage("Matrix", path=pth, repos=revolution, type="source")
-  addPackage("Matrix", path=pth, repos=revolution, type="win.binary")
+  addPackage("Matrix", path=pth, repos=revolution, type=pkgTypes)
 
   # Delete temporary folder
   unlink(pth, recursive=TRUE)

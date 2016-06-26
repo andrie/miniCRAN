@@ -1,3 +1,4 @@
+if(interactive()) library(testthat)
 context("pkgDep")
 
 

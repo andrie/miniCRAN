@@ -19,7 +19,7 @@ addOldPackage(pkgs = NULL, path = NULL, vers = NULL,
 
 \item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.}
 
-\item{Rversion}{numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.}
+\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}}
 
 \item{writePACKAGES}{If TRUE, calls \code{\link{write_PACKAGES}} to update the repository PACKAGES file.}
 
@@ -28,7 +28,7 @@ addOldPackage(pkgs = NULL, path = NULL, vers = NULL,
 \item{quiet}{If TRUE, suppress status messages (if any), and the progress bar during download.}
 }
 \value{
-Installs the packages, rebuilds the package index, and invisibly returns the number of packages writen to the index files.
+Adds the packages, rebuilds the package index, and invisibly returns the number of packages written to the index files.
 }
 \description{
 Will download and add older source package versions. Older binary versions are not normally available on CRAN and should be build from source on the platform for which they are required. As such, specifying \code{type!="source"} will likely fail as the download will not be successful.
@@ -42,6 +42,7 @@ Dependencies for old package versions cannot be determined automatically and mus
 # Specify list of packages to download
 revolution <- c(CRAN = "http://mran.microsoft.com")
 pkgs <- c("foreach")
+pkgTypes <- c("source", "win.binary")
 
 pdb <- cranJuly2014
 
@@ -57,8 +58,7 @@ pkgList
   dir.create(pth <- file.path(tempdir(), "miniCRAN"))
 
   # Make repo for source and win.binary
-  makeRepo(pkgList, path=pth, repos=revolution, type="source")
-  makeRepo(pkgList, path=pth, repos=revolution, type="win.binary")
+  makeRepo(pkgList, path=pth, repos=revolution, type=pkgTypes)
 
   # Add other versions of a package (and assume these were added previously)
   oldVers <- data.frame(package=c("foreach", "codetools", "iterators"),
@@ -78,13 +78,12 @@ pkgList
   file.remove(c(pkgVersionsSrc[1], pkgVersionsBin[1]))
 
   # Rebuild package index after adding/removing files
-  updateRepoIndex(pth, type=c("source", "win.binary"), Rversion=R.version)
-  
+  updateRepoIndex(pth, type=pkgTypes, Rversion=R.version)
+
   pkgAvail(pth, type="source")
 
   # Add new packages (from CRAN) to the miniCRAN repo
-  addPackage("Matrix", path=pth, repos=revolution, type="source")
-  addPackage("Matrix", path=pth, repos=revolution, type="win.binary")
+  addPackage("Matrix", path=pth, repos=revolution, type=pkgTypes)
 
   # Delete temporary folder
   unlink(pth, recursive=TRUE)

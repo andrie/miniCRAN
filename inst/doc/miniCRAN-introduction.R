@@ -14,8 +14,7 @@ pkgList
 #  dir.create(pth <- file.path(tempdir(), "miniCRAN"))
 #  
 #  # Make repo for source and win.binary
-#  makeRepo(pkgList, path=pth, repos=revolution, type="source")
-#  makeRepo(pkgList, path=pth, repos=revolution, type="win.binary")
+#  makeRepo(pkgList, path=pth, repos=revolution, type=c("source", "win.binary"))
 
 ## ----make-repo-3, eval=FALSE---------------------------------------------
 #  # List all files in miniCRAN
@@ -32,7 +31,8 @@ pkgList
 
 ## ----addto-repo-new-1, eval=FALSE----------------------------------------
 #  # Add new packages (from CRAN) to the miniCRAN repo
-#  addPackage("Matrix", path=pth, repos=revolution, type="source")
+#  addPackage("Matrix", path=pth, repos=revolution, type=c("source", "win.binary"))
+#  pkgAvail(repos=pth, type="win.binary")[, c(1:3, 5)]
 
 ## ----addto-repo-old-1, eval=FALSE----------------------------------------
 #  # create a data frame with the package and version info

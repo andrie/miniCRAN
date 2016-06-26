@@ -1,12 +1,23 @@
+miniCRAN v0.2-6 (Release date: 2016-06-26)
+==============
+
+* allow using `makeRepo()` to create a miniCRAN repo from an existing local miniCRAN, i.e. the repos contains file:/// prefix. This enables a use case in the AzureML package. (#76)
+* easily manage packages for all three Operating Systems (#24)
+* fix inconsistent use of Rversion in `addPackage()` (#42)
+
+
 miniCRAN v0.2-5 (Release date: 2016-04-12)
 ==============
 
 * plot.pkgDepGraph() now displays legend only for edges that are actually in graph
+* make consistent use of Rversion argument (#42)
+
 
 miniCRAN v0.2-4 (Release date: 2016-03-27)
 ==============
 
 * Changed copyright to Microsoft
+
 
 miniCRAN v0.2-2 (Release date: 2015-03-25)
 ==============
