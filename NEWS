@@ -1,3 +1,9 @@
+miniCRAN v0.2-7 (Release date: 2016-08-19)
+==============
+
+* Apply fix when using `makeRepo()` from a local miniCRAN. (#76)
+
+
 miniCRAN v0.2-6 (Release date: 2016-06-26)
 ==============
 
