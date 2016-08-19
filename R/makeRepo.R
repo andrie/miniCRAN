@@ -85,8 +85,10 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
     if(fromLocalRepos){
       # need to copy files to correct folder
       repoPath <- gsub("^file:///", "", repos)
-      repoPath <- normalizePath(repoPath, winslash = "/")
-      newPath  <- gsub(repoPath, normalizePath(path, winslash = "/"), downloaded)
+      repoPath   <- normalizePath(repoPath, winslash = "/")
+      path       <- normalizePath(path    , winslash = "/")
+      downloaded <- normalizePath(downloaded, winslash = "/")
+      newPath  <- gsub(repoPath, path, downloaded)
       file.copy(downloaded, newPath)
       downloaded <- newPath
     }

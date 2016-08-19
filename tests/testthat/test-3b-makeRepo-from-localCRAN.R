@@ -10,7 +10,9 @@ if(!miniCRAN:::is.online(revolution, tryHttp = FALSE)) {
 rvers = "3.2"
 pkgs <- c("MASS")
 repo_root <- file.path(tempdir(), "miniCRAN", Sys.Date())
+new_repo_root <- file.path(tempdir(), "newMiniCRAN", Sys.Date())
 if (file.exists(repo_root)) unlink(repo_root, recursive = TRUE)
+if (file.exists(new_repo_root)) unlink(new_repo_root, recursive = TRUE)
 
 # list.files(repo_root, recursive = TRUE)
 
@@ -57,23 +59,23 @@ for (pkg_type in names(types)) {
     pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = localCRAN, type = pkg_type,
                       suggests = FALSE, Rversion = rvers)
     prefix <- miniCRAN:::repoPrefix(pkg_type, Rversion = rvers)
-    dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
+    dir.create(new_repo_root, recursive = TRUE, showWarnings = FALSE)
     
-    ret <- makeRepo(pkgList, path = repo_root, repos = localCRAN, 
+    ret <- makeRepo(pkgList, path = new_repo_root, repos = localCRAN, 
                     type = pkg_type, quiet = TRUE, Rversion = rvers)
     
     expect_is(ret, "character")
     expect_equal(length(ret), length(pkgList))
     
     expect_true(
-      miniCRAN:::.checkForRepoFiles(repo_root, pkgList, prefix)
+      miniCRAN:::.checkForRepoFiles(new_repo_root, pkgList, prefix)
     )
     expect_true(
-      file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
+      file.exists(file.path(new_repo_root, prefix, "PACKAGES.gz"))
     )
     expect_true(
       all(
-        pkgList %in% pkgAvail(repos = repo_root, type = pkg_type, Rversion = rvers)[, "Package"]
+        pkgList %in% pkgAvail(repos = new_repo_root, type = pkg_type, Rversion = rvers)[, "Package"]
       )
     )
     
