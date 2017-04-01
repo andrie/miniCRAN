@@ -17,7 +17,7 @@ addLocalPackage(pkgs, pkgPath, path, type = "source", Rversion = R.version,
 
 \item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.}
 
-\item{Rversion}{numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.}
+\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}}
 
 \item{writePACKAGES}{If TRUE, calls \code{\link{write_PACKAGES}} to update the repository PACKAGES file.}
 
@@ -55,4 +55,3 @@ Currently, adding local packages does not check nor download their dependencies.
 \author{
 Alex Chubaty
 }
-

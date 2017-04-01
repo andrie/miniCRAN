@@ -64,4 +64,3 @@ plot(dg, legendPosition=c(1, 1), vertex.size=20,  cex=0.5)
 Other dependency functions: \code{\link{basePkgs}},
   \code{\link{makeDepGraph}}, \code{\link{pkgDep}}
 }
-

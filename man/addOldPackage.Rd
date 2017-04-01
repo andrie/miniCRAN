@@ -94,4 +94,3 @@ Other update repo functions: \code{\link{addPackage}},
   \code{\link{checkVersions}}, \code{\link{makeRepo}},
   \code{\link{updatePackages}}
 }
-

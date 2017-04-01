@@ -16,4 +16,3 @@ makeLibrary(pkgs, path, type = "source")
 \description{
 Deprecated function to download packages to local folder.
 }
-
