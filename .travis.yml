@@ -7,16 +7,34 @@ repos:
 
 env: NOT_CRAN="true"
 
+matrix:
+  include:
+
+  - os: linux
+    dist: trusty
+    r: oldrel
+
+  - os: linux
+    dist: trusty
+    r: release
+
+  - os: linux
+    dist: trusty
+    r: devel
+
+  - os: osx
+    osx_image: xcode8
+    latex: false
+    r_build_args: '--no-build-vignettes'
+    r_check_args: '--as-cran --ignore-vignettes --no-examples'
+
 branches:
   only:
     - master
     - release
     - dev
-    
+
 notifications:
   email:
     on_success: change
     on_failure: change
-
-
-
