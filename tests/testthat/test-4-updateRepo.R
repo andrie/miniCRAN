@@ -86,7 +86,8 @@ for (pkg_type in names(types)) {
     skip_if_offline(revolution)
 
     tmpdir <- file.path(tempdir(), "miniCRAN", "local", pkg_type)
-    dir.create(tmpdir, recursive = TRUE); on.exit(unlink(tmpdir, recursive = TRUE))
+    dir.create(tmpdir, recursive = TRUE)
+    on.exit(unlink(tmpdir, recursive = TRUE), add = TRUE)
 
     # get most recent version
     res <- download.packages(pkgsAddLocal, destdir = tmpdir, type = pkg_type,
@@ -99,11 +100,10 @@ for (pkg_type in names(types)) {
       length(list.files(tmpdir)) == 2
     )
 
-    prefix <- miniCRAN:::repoPrefix(pkg_type, Rversion = rvers)
-
     addLocalPackage(pkgs = pkgsAddLocal, pkgPath = tmpdir, path = repo_root, type = pkg_type,
                     quiet = TRUE, Rversion = rvers)
 
+    prefix <- miniCRAN:::repoPrefix(pkg_type, Rversion = rvers)
     expect_true(
       miniCRAN:::.checkForRepoFiles(repo_root, pkgsAddLocal, prefix)
     )
