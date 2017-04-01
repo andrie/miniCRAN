@@ -10,7 +10,7 @@ if (file.exists(repo_root)) unlink(repo_root, recursive = TRUE)
 dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
 
 revolution <- MRAN("2014-10-15")
-if(!miniCRAN:::is.online(revolution, tryHttp = FALSE)) {
+if (!miniCRAN:::is.online(revolution, tryHttp = FALSE)) {
   # Use http:// for older versions of R
   revolution <- sub("^https://", "http://", revolution)
 }
@@ -72,12 +72,58 @@ for (pkg_type in names(types)) {
 }
 
 
+# Add local packages to repo ----------------------------------------------------
+
+pkgsAddLocal <- c("MASS")
+
+for (pkg_type in names(types)) {
+
+  context(sprintf(" - Add local packages to repo (%s)", pkg_type))
+
+  test_that(sprintf("addLocalPackage copies %s files and rebuilds PACKAGES file", pkg_type), {
+
+    skip_on_cran()
+    skip_if_offline(revolution)
+
+    tmpdir <- file.path(tempdir(), "miniCRAN", "local", pkg_type)
+    dir.create(tmpdir, recursive = TRUE); on.exit(unlink(tmpdir, recursive = TRUE))
+
+    # get most recent version
+    res <- download.packages(pkgsAddLocal, destdir = tmpdir, type = pkg_type,
+                             contriburl = contribUrl(revolution, pkg_type, rvers))
+
+    # simulate older version also present in pkgPath directory
+    f <- res[, 2]
+    file.copy(from = f, to = file.path(tmpdir, "MASS_7.3-0.tar.gz"))
+    expect_true(
+      length(list.files(tmpdir)) == 2
+    )
+
+    prefix <- miniCRAN:::repoPrefix(pkg_type, Rversion = rvers)
+
+    addLocalPackage(pkgs = pkgsAddLocal, pkgPath = tmpdir, path = repo_root, type = pkg_type,
+                    quiet = TRUE, Rversion = rvers)
+
+    expect_true(
+      miniCRAN:::.checkForRepoFiles(repo_root, pkgsAddLocal, prefix)
+    )
+    expect_true(
+      file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
+    )
+    expect_true(
+      all(
+        pkgsAddLocal %in% pkgAvail(repo_root, type = pkg_type, Rversion = rvers)[, "Package"]
+      )
+    )
+  })
+}
+
 
 # Check for updates -------------------------------------------------------
 
 
 MRAN_mirror <- MRAN("2014-12-01")
-if(!miniCRAN:::is.online(MRAN_mirror, tryHttp = FALSE)) {
+if (!miniCRAN:::is.online(MRAN_mirror, tryHttp = FALSE)) {
   # Use http:// for older versions of R
   MRAN_mirror <- sub("^https://", "http://", revolution)
 }

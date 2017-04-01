@@ -186,7 +186,7 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
   f <- list.files(path, pattern = pattern)
 
   # we only care about the subset matching pkgs
-  f <- sapply(pkgs, function(x) { grep(x, f, value = TRUE)} )
+  f <- sapply(pkgs, function(x) { grep(x, f, value = TRUE) })
 
   if (length(f)) {
     # if multiple versions present, always use latest
@@ -200,11 +200,16 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
       as.numeric_version()
 
     fout <- sapply(fp, function(x) {
-      ids <- which(fp %in% x)
-      paste0(x, "_", max(fv[ids]))
+      ids.p <- which(fp %in% x)
+
+      # numeric_version always returns version using '.' as separator,
+      #   even if the package uses '-', so we need to ensure either will work
+      id.v <- which(fv == max(fv[ids.p]))
+
+      f[id.v]
     }) %>% unique()
 
-    return(paste0(fout, pattern))
+    return(fout)
   } else {
     return(character())
   }
@@ -239,6 +244,8 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
 #' \dontrun{
 #'  addLocalPackage("myPackage", "path/to/my/prebuilt/package",
 #'                  "path/to/my/miniCRAN/repo")
+#'
+#'  ## not yet implemented:
 #'  addLocalPackage("myPackage", "path/to/my/package/sourcecode",
 #'                  "path/to/my/miniCRAN/repo", build=TRUE)
 #' }
@@ -248,10 +255,10 @@ addLocalPackage <- function(pkgs, pkgPath, path, type = "source",
                             deps = FALSE, quiet = FALSE, build = FALSE) {
   if (is.null(path) || is.null(pkgs)) stop("path, pkgs, and pkgPath must be specified.")
 
-  stopifnot(file.exists(file.path(pkgPath)))
+  stopifnot(dir.exists(file.path(pkgPath)))
 
   # build local package if needed
-  if (build) {
+  if (isTRUE(build)) {
     stop("Building local packages has not yet been implemented.")
     if (requireNamespace("devtools", quietly = TRUE)) {
       lapply(pkgs, function(x) {
@@ -264,12 +271,13 @@ addLocalPackage <- function(pkgs, pkgPath, path, type = "source",
 
   # get list of pre-built packages for each type, filter by pkgs to be added
   sapply(type, function(t) {
-    repoPath <- file.path(path, repoPrefix(t, version))
-    files <- .listFiles(path = pkgPath, type = t)
+    repoPath <- file.path(path, repoPrefix(t, Rversion))
+    if (!dir.exists(repoPath)) dir.create(repoPath, recursive = TRUE)
+    files <- .listFiles(pkgs = pkgs, path = pkgPath, type = t)
 
     # check for previous package version and omit if identical
-    prev <- checkVersions(pkgs)
-    same <- which(basename(prev) %in% files)
+    prev <- checkVersions(pkgs, path)
+    same <- which(basename(as.character(prev)) %in% files)
 
     if (length(same)) {
       files <- files[-same]
@@ -281,8 +289,13 @@ addLocalPackage <- function(pkgs, pkgPath, path, type = "source",
 
     # copy other packages to their respective folders
     lapply(files, function(x) {
-      paste("copying", x)
-      file.copy(from = file.path(pkgPath, x), to = file.path(repoPath, x))
+      f.src <- file.path(pkgPath, x)
+      f.dst <- file.path(repoPath, x)
+
+      file.exists(f.src)
+
+      if (!isTRUE(quiet)) message("copying ", x, "\n")
+      file.copy(from = f.src, to = f.dst)
       #system(paste0("chmod a-x ", repoPath, "/", x))
     })
 

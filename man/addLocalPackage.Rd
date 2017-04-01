@@ -47,6 +47,8 @@ Currently, adding local packages does not check nor download their dependencies.
 \dontrun{
  addLocalPackage("myPackage", "path/to/my/prebuilt/package",
                  "path/to/my/miniCRAN/repo")
+
+ ## not yet implemented:
  addLocalPackage("myPackage", "path/to/my/package/sourcecode",
                  "path/to/my/miniCRAN/repo", build=TRUE)
 }

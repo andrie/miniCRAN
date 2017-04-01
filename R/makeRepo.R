@@ -56,7 +56,7 @@
 makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
                      Rversion=R.version, download=TRUE, writePACKAGES=TRUE, quiet=FALSE) {
   if(!file.exists(path)) stop("Download path does not exist")
-  
+
   downloaded <- lapply(type, function(type) {
     pkgPath <- repoBinPath(path=path, type=type, Rversion=Rversion)
     if(!file.exists(pkgPath)) {
@@ -67,20 +67,20 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
         stop("Unable to create repo path: ", pkgPath)
       }
     }
-    
+
     pdb <- pkgAvail(repos = repos, type=type, Rversion = Rversion)
-    
+
     if(download) {
       utils::download.packages(pkgs, destdir=pkgPath, available=pdb, repos=repos,
                                contriburl = contribUrl(repos, type, Rversion),
                                type=type, quiet=quiet)
     }
   })
-  
+
   if(download){
-    
+
     downloaded <- downloaded[[1]][, 2]
-    
+
     fromLocalRepos <- grepl("^file://", repos)
     if(fromLocalRepos){
       # need to copy files to correct folder
@@ -93,7 +93,7 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
       downloaded <- newPath
     }
   }
-  
+
   if(writePACKAGES) updateRepoIndex(path=path, type=type, Rversion=Rversion)
   if(download) downloaded else character(0)
 }
@@ -103,11 +103,11 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
 
 #' @rdname makeRepo
 #' @export
-updateRepoIndex <- function(path, type="source", Rversion=R.version) {
+updateRepoIndex <- function(path, type = "source", Rversion = R.version) {
   n <- lapply(type, function(type){
-    pkgPath <- repoBinPath(path=path, type=type, Rversion=Rversion)
-    if(grepl("mac.binary", type)) type <- "mac.binary"
-    tools::write_PACKAGES(dir=pkgPath, type=type)
+    pkgPath <- repoBinPath(path = path, type = type, Rversion = Rversion)
+    if (grepl("mac.binary", type)) type <- "mac.binary"
+    tools::write_PACKAGES(dir = pkgPath, type = type)
   })
   names(n) <- type
   return(n)
