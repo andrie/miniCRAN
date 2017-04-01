@@ -1,29 +1,22 @@
-language: c
+language: r
+sudo: false
+cache: packages
 
-before_install:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
+repos:
+  CRAN: https://cloud.r-project.org
 
 env: NOT_CRAN="true"
-
-install:
-  - ./travis-tool.sh install_deps
-  - Rscript -e 'install.packages("igraph", repos=c(CRAN="http:/cran.revolutionanalytics.com"))'
-
-script: ./travis-tool.sh run_tests
-
-after_failure:
-  - ./travis-tool.sh dump_logs
-
-notifications:
-  email:
-    on_success: change
-    on_failure: change
 
 branches:
   only:
     - master
     - release
     - dev
-    - update-repo
+    
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
+
+

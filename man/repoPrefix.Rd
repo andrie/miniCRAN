@@ -9,7 +9,7 @@ repoPrefix(type, Rversion)
 \arguments{
 \item{type}{character, indicating the type of package to download and install. See \code{\link{install.packages}}.}
 
-\item{Rversion}{numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.}
+\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}}
 }
 \value{
 The filepath to the package files directory.

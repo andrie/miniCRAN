@@ -1,5 +1,5 @@
 MRAN <- function(snapshot){
-  url <- "http://mran.microsoft.com"
+  url <- "https://mran.microsoft.com"
   if(missing("snapshot") || is.null(snapshot)){
   url
   } else {

@@ -12,7 +12,7 @@ if (getRversion() >= "3.1.0") {
 #'
 #' @param type  character, indicating the type of package to download and install. See \code{\link{install.packages}}.
 #'
-#' @param Rversion numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.
+#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}
 #'
 #' @return Returns invisibly the filepaths to packages with multiple versions for removal.
 #'
@@ -55,7 +55,7 @@ checkVersions <- function(pkgs=NULL, path=NULL, type="source",
 #' @inheritParams makeRepo
 #' @inheritParams pkgDep
 #'
-#' @param Rversion numeric version of the R system for which to fetch packages. See \code{\link{R_system_version}}.
+#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}
 #'
 #' @param deps logical indicating whether the package dependencies should be added (default \code{TRUE}).
 #'
@@ -76,10 +76,10 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
     prev <- checkVersions(pkgs=pkgs, path=path, type=t, Rversion=Rversion)
     prev.df <- getPkgVersFromFile(prev)
 
-    if (deps) pkgs <- pkgDep(pkgs, repos=repos, type=t)
+    if (deps) pkgs <- pkgDep(pkgs, repos = repos, type = t, Rversion = Rversion)
 
-    makeRepo(pkgs=pkgs, path=path, repos=repos, type=t, Rversion=Rversion,
-             download=TRUE, writePACKAGES=FALSE, quiet=quiet)
+    makeRepo(pkgs = pkgs, path = path, repos = repos, type = t, Rversion = Rversion,
+             download = TRUE, writePACKAGES = FALSE, quiet = quiet)
 
     if (length(prev)) {
       curr <- suppressWarnings(

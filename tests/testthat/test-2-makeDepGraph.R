@@ -5,7 +5,9 @@ checkPkgDepFunctions <- function(pkg, availPkgs = cranJuly2014,
                                  enhances=FALSE, 
                                  includeBasePkgs=FALSE){
   
-  require(igraph, quietly = TRUE)
+  if(!require(igraph, quietly = TRUE)){
+    skip("package igraph not installed")
+  }
   p1 <- pkgDep(pkg, availPkgs=availPkgs, 
                repos=repos, type=type, 
                suggests=suggests, enhances=enhances, 
@@ -14,7 +16,7 @@ checkPkgDepFunctions <- function(pkg, availPkgs = cranJuly2014,
                      repos=repos, type=type, 
                      suggests=suggests, enhances=enhances, 
                      includeBasePkgs=includeBasePkgs)
-  
+
   vnames <- V(p2)$name
   diff1 <- setdiff(vnames, p1)
   diff2 <- setdiff(p1, vnames)
