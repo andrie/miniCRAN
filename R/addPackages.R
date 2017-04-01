@@ -223,7 +223,7 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
 #' packages matching the names specified by \code{pkgs}, and add these to the
 #' miniCRAN repository.
 #'
-#' To build a package from source and then add it, use \code{build = TRUE} (NOT YET IMPLEMENTED).
+#' To build a package from source and then add it, use \code{build = TRUE}.
 #' Note that package development libraries and the \code{devtools} package
 #' must be installed on your system in order to build packages.
 #'
@@ -245,9 +245,8 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
 #'  addLocalPackage("myPackage", "path/to/my/prebuilt/package",
 #'                  "path/to/my/miniCRAN/repo")
 #'
-#'  ## not yet implemented:
 #'  addLocalPackage("myPackage", "path/to/my/package/sourcecode",
-#'                  "path/to/my/miniCRAN/repo", build=TRUE)
+#'                  "path/to/my/miniCRAN/repo", build = TRUE)
 #' }
 #'
 addLocalPackage <- function(pkgs, pkgPath, path, type = "source",
@@ -259,10 +258,12 @@ addLocalPackage <- function(pkgs, pkgPath, path, type = "source",
 
   # build local package if needed
   if (isTRUE(build)) {
-    stop("Building local packages has not yet been implemented.")
+    warning("Building local packages is still being tested.")
     if (requireNamespace("devtools", quietly = TRUE)) {
       lapply(pkgs, function(x) {
-        #devtools::build(pkg = x, path = pkgPath, )
+        devtools::build(pkg = file.path(pkgPath, x), path = pkgPath,
+                        binary = ifelse(type == "source", FALSE, TRUE),
+                        quiet = quiet)
       })
     } else {
       stop("To build packages, you must first install the 'devtools' package.")
@@ -296,7 +297,6 @@ addLocalPackage <- function(pkgs, pkgPath, path, type = "source",
 
       if (!isTRUE(quiet)) message("copying ", x, "\n")
       file.copy(from = f.src, to = f.dst)
-      #system(paste0("chmod a-x ", repoPath, "/", x))
     })
 
     # check to ensure they all copied successfully

@@ -36,7 +36,7 @@ packages matching the names specified by \code{pkgs}, and add these to the
 miniCRAN repository.
 }
 \details{
-To build a package from source and then add it, use \code{build = TRUE} (NOT YET IMPLEMENTED).
+To build a package from source and then add it, use \code{build = TRUE}.
 Note that package development libraries and the \code{devtools} package
 must be installed on your system in order to build packages.
 }
@@ -48,9 +48,8 @@ Currently, adding local packages does not check nor download their dependencies.
  addLocalPackage("myPackage", "path/to/my/prebuilt/package",
                  "path/to/my/miniCRAN/repo")
 
- ## not yet implemented:
  addLocalPackage("myPackage", "path/to/my/package/sourcecode",
-                 "path/to/my/miniCRAN/repo", build=TRUE)
+                 "path/to/my/miniCRAN/repo", build = TRUE)
 }
 
 }
