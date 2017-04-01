@@ -21,25 +21,25 @@ if (getRversion() >= "3.1.0") {
 #'
 #' @example /inst/examples/example_checkVersions.R
 #'
-checkVersions <- function(pkgs=NULL, path=NULL, type="source",
-                          Rversion=R.version) {
+checkVersions <- function(pkgs = NULL, path = NULL, type = "source",
+                          Rversion = R.version) {
   if (is.null(path)) stop("path must be specified.")
   if (!file.exists(path)) stop("invalid path, ", path)
 
   duplicatePkgs <- sapply(type, function(type) {
     pkgPath <- repoBinPath(path, type, Rversion)
     if (is.null(pkgs)) {
-      files = dir(pkgPath)
+      files <- dir(pkgPath)
     } else {
-      files = sapply(pkgs, function(x) list.files(pkgPath, pattern=paste0(x,"_")) )
+      files <- sapply(pkgs, function(x) list.files(pkgPath, pattern = paste0(x, "_")) )
     }
-    files = unlist(files)
-    pkgFiles = grep("\\.(tar\\.gz|zip|tgz)$", basename(files), value=TRUE)
+    files <- unlist(files)
+    pkgFiles <- grep("\\.(tar\\.gz|zip|tgz)$", basename(files), value = TRUE)
 
     # identify duplicate packages and warn the user
-    pkgs = sapply(strsplit(files, "_"), "[[", 1)
-    dupes = pkgs[duplicated(pkgs)]
-    if (length(dupes)) warning("Duplicate package(s): ", paste(dupes, collapse=", "))
+    pkgs <- sapply(strsplit(files, "_"), "[[", 1)
+    dupes <- pkgs[duplicated(pkgs)]
+    if (length(dupes)) warning("Duplicate package(s): ", paste(dupes, collapse = ", "))
     file.path(pkgPath, pkgFiles)
   })
   names(duplicatePkgs) <- type
@@ -67,13 +67,13 @@ checkVersions <- function(pkgs=NULL, path=NULL, type="source",
 #'
 #' @example /inst/examples/example_checkVersions.R
 #'
-addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
-                       type="source", Rversion=R.version,
-                       writePACKAGES=TRUE, deps=TRUE, quiet=FALSE) {
+addPackage <- function(pkgs = NULL, path = NULL, repos = getOption("repos"),
+                       type = "source", Rversion = R.version,
+                       writePACKAGES = TRUE, deps = TRUE, quiet = FALSE) {
   if (is.null(path) || is.null(pkgs)) stop("path and pkgs must both be specified.")
 
   lapply(type, function(t) {
-    prev <- checkVersions(pkgs=pkgs, path=path, type=t, Rversion=Rversion)
+    prev <- checkVersions(pkgs = pkgs, path = path, type = t, Rversion = Rversion)
     prev.df <- getPkgVersFromFile(prev)
 
     if (deps) pkgs <- pkgDep(pkgs, repos = repos, type = t, Rversion = Rversion)
@@ -83,7 +83,7 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
 
     if (length(prev)) {
       curr <- suppressWarnings(
-        checkVersions(pkgs=pkgs, path=path, type=t, Rversion=Rversion)
+        checkVersions(pkgs = pkgs, path = path, type = t, Rversion = Rversion)
       )
       curr.df <- getPkgVersFromFile(curr)
 
@@ -95,7 +95,7 @@ addPackage <- function(pkgs=NULL, path=NULL, repos=getOption("repos"),
     }
   })
 
-  n <- if (writePACKAGES) updateRepoIndex(path=path, type=type, Rversion=Rversion)
+  n <- if (writePACKAGES) updateRepoIndex(path = path, type = type, Rversion = Rversion)
   return(invisible(n))
 }
 
@@ -140,14 +140,14 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
   oldPkgs <- file.path(repos, repoPrefix(type, R.version), "Archive",
                        pkgs, sprintf("%s_%s%s", pkgs, vers, pkgFileExt(type)))
 
-  pkgPath <- repoBinPath(path=path, type=type, Rversion=Rversion)
-  if(!file.exists(pkgPath)) dir.create(pkgPath, recursive=TRUE)
+  pkgPath <- repoBinPath(path = path, type = type, Rversion = Rversion)
+  if (!file.exists(pkgPath)) dir.create(pkgPath, recursive = TRUE)
   sapply(oldPkgs, function(x) {
-    result <- utils::download.file(x, destfile=file.path(pkgPath, basename(x)),
-                                   method="auto", mode="wb", quiet=quiet)
-    if(result!=0) warning("error downloading file ", x)
+    result <- utils::download.file(x, destfile = file.path(pkgPath, basename(x)),
+                                   method = "auto", mode = "wb", quiet = quiet)
+    if (result != 0) warning("error downloading file ", x)
   })
-  if (writePACKAGES) invisible(updateRepoIndex(path=path, type=type, Rversion))
+  if (writePACKAGES) invisible(updateRepoIndex(path = path, type = type, Rversion))
 }
 
 
@@ -252,9 +252,9 @@ addLocalPackage <- function(pkgs, pkgPath, path, type = "source",
 
   # build local package if needed
   if (build) {
-    warning("Building local packages has not yet been implemented.")
+    stop("Building local packages has not yet been implemented.")
     if (requireNamespace("devtools", quietly = TRUE)) {
-      lapply(df, function(x) {
+      lapply(pkgs, function(x) {
         #devtools::build(pkg = x, path = pkgPath, )
       })
     } else {
@@ -274,7 +274,7 @@ addLocalPackage <- function(pkgs, pkgPath, path, type = "source",
     if (length(same)) {
       files <- files[-same]
       if (length(files) == 0) {
-        if (!quiet) message("all packages up to date. nothing to add.")
+        if (!quiet) message("All packages up to date. Nothing to add.")
         return(invisible(NULL))
       }
     }
@@ -283,7 +283,7 @@ addLocalPackage <- function(pkgs, pkgPath, path, type = "source",
     lapply(files, function(x) {
       paste("copying", x)
       file.copy(from = file.path(pkgPath, x), to = file.path(repoPath, x))
-      system(paste0("chmod a-x ", repoPath, "/", x))
+      #system(paste0("chmod a-x ", repoPath, "/", x))
     })
 
     # check to ensure they all copied successfully
