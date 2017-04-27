@@ -46,6 +46,7 @@ repoPrefix <- function(type, Rversion){
     "mac.binary" = sprintf("bin/macosx/contrib/%s", Rversion),
     "mac.binary.mavericks" =  sprintf("bin/macosx/mavericks/contrib/%s", Rversion),
     "mac.binary.leopard"= sprintf("bin/macosx/leopard/contrib/%s", Rversion),
+    "mac.binary.el-capitan"= sprintf("bin/macosx/el-capitan/contrib/%s", Rversion),
     stop("Type ", type, "not recognised.")
   )
 }
