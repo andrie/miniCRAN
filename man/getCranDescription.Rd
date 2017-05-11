@@ -26,4 +26,3 @@ getCranDescription(c("igraph", "ggplot2", "XML"),
 )
 }
 }
-

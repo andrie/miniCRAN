@@ -40,4 +40,3 @@ pdb <- cranJuly2014
   plot(makeDepGraph("checkpoint", availPkgs = newpdb, suggests=TRUE))
 }
 }
-

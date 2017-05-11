@@ -66,6 +66,7 @@ The folder structure of a repository
  }
 }
 }
+
 \examples{
 
 # Specify list of packages to download
@@ -111,4 +112,3 @@ Other update repo functions: \code{\link{addOldPackage}},
   \code{\link{addPackage}}, \code{\link{checkVersions}},
   \code{\link{updatePackages}}
 }
-

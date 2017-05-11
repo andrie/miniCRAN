@@ -12,4 +12,3 @@ cranJuly2014
 Copy of the result of \code{\link[utils]{available.packages}} on July 1, 2014.
 }
 \keyword{datasets}
-

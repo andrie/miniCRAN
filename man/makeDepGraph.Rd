@@ -68,4 +68,3 @@ if(require(igraph)) plot(p)
 Other dependency functions: \code{\link{basePkgs}},
   \code{\link{pkgDep}}, \code{\link{plot.pkgDepGraph}}
 }
-

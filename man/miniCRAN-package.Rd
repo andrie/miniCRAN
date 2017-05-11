@@ -2,8 +2,8 @@
 % Please edit documentation in R/minicran-package.R
 \docType{package}
 \name{miniCRAN-package}
-\alias{miniCRAN}
 \alias{miniCRAN-package}
+\alias{miniCRAN}
 \alias{minicran}
 \title{Create a Private Version of CRAN Containing Only Selected Packages}
 \description{
@@ -62,8 +62,8 @@ To get a recursive list of dependencies as well as a plot, use \code{\link{pkgDe
 \item \code{\link{plot.pkgDepGraph}}: Create a visualization of the dependency graph
 }
 }
+
 \author{
 Andrie de Vries \email{adevries@microsoft.com} with contributions from Alex Chubaty \email{alex.chubaty@gmail.com}
 }
 \keyword{package}
-

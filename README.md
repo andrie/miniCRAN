@@ -1,13 +1,11 @@
 miniCRAN
 ========
 
-**Build status**
-
-master: 
 [![Build Status](https://travis-ci.org/RevolutionAnalytics/miniCRAN.svg?branch=master)](https://travis-ci.org/RevolutionAnalytics/miniCRAN)
-release:
-[![Build Status](https://travis-ci.org/RevolutionAnalytics/miniCRAN.svg?branch=release)](https://travis-ci.org/RevolutionAnalytics/miniCRAN)
-dev: [![Build Status](https://travis-ci.org/RevolutionAnalytics/miniCRAN.svg?branch=dev)](https://travis-ci.org/RevolutionAnalytics/miniCRAN)
+[![Build Status](https://travis-ci.org/RevolutionAnalytics/miniCRAN.svg?branch=dev)](https://travis-ci.org/RevolutionAnalytics/miniCRAN)
+[![](http://www.r-pkg.org/badges/version/miniCRAN)](http://www.r-pkg.org/pkg/miniCRAN)
+[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/miniCRAN)](http://www.r-pkg.org/pkg/miniCRAN)
+[![Coverage Status](https://img.shields.io/codecov/c/github/RevolutionAnalytics/miniCRAN/master.svg)](https://codecov.io/github/RevolutionAnalytics/miniCRAN?branch=master)
 
 Create a mini version of CRAN containing only selected packages
 

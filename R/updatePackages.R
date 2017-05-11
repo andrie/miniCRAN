@@ -65,12 +65,12 @@ oldPackages <- function (path = NULL,
 #'
 #' @export
 #'
-updatePackages <- function (path=NULL, repos=getOption("repos"),
-                            method, ask=TRUE,
-                            availPkgs=pkgAvail(repos=repos, type=type, Rversion=Rversion),
-                            oldPkgs=NULL, type="source",
-                            Rversion=R.version,
-                            quiet=FALSE) {
+updatePackages <- function(path=NULL, repos=getOption("repos"),
+                           method, ask=TRUE,
+                           availPkgs=pkgAvail(repos=repos, type=type, Rversion=Rversion),
+                           oldPkgs=NULL, type="source",
+                           Rversion=R.version,
+                           quiet=FALSE) {
   lapply(type, function(t) {
     force(ask)
     simplifyRepos <- function(repos, t) {
@@ -133,7 +133,8 @@ updatePackages <- function (path=NULL, repos=getOption("repos"),
       oldPkgs
     }
     if (length(update[,"Package"])) {
-      addPackage(update[,"Package"], path=path, repos=repos, type=t, quiet=quiet, deps=FALSE, Rversion=Rversion)
+      addPackage(update[,"Package"], path=path, repos=repos, type=t,
+                 quiet=quiet, deps=FALSE, Rversion=Rversion)
     }
   })
 }
