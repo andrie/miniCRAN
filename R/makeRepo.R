@@ -81,10 +81,15 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
     
     downloaded <- downloaded[[1]][, 2]
     
+    ## allow for more than one repo
     fromLocalRepos <- grepl("^file://", repos)
-    if(fromLocalRepos){
+    
+    if(any(fromLocalRepos)){
       # need to copy files to correct folder
-      repoPath <- gsub("^file:///", "", repos)
+      if (sum(fromLocalRepos) > 1) 
+        warning("More than one local repos provided. Only the first listed will be used.")
+      pat <- ifelse(Sys.info()["sysname"] == "Windows", "^file:///", "^file://")
+      repoPath <- gsub(pat, "", repos[fromLocalRepos][1])
       repoPath   <- normalizePath(repoPath, winslash = "/")
       path       <- normalizePath(path    , winslash = "/")
       downloaded <- normalizePath(downloaded, winslash = "/")
