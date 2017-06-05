@@ -5,8 +5,9 @@
 \alias{addLocalPackage}
 \title{Add local packages to a miniCRAN repository.}
 \usage{
-addLocalPackage(pkgs, pkgPath, path, type = "source", Rversion = R.version,
-  writePACKAGES = TRUE, deps = FALSE, quiet = FALSE, build = FALSE)
+addLocalPackage(pkgs = NULL, pkgPath = NULL, path = NULL,
+  type = "source", Rversion = R.version, writePACKAGES = TRUE,
+  deps = FALSE, quiet = FALSE, build = FALSE)
 }
 \arguments{
 \item{pkgs}{Character vector of packages to download}

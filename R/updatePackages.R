@@ -22,12 +22,11 @@
 #'
 #' @example /inst/examples/example_updatePackages.R
 #'
-oldPackages <- function (path = NULL,
-                         repos = getOption("repos"),
-                         availPkgs = pkgAvail(repos=repos, type=type, Rversion=Rversion),
-                         method,
-                         availableLocal = pkgAvail(repos=path, type=type, Rversion=Rversion), type="source",
-                         Rversion = R.version) {
+oldPackages <- function(path = NULL, repos = getOption("repos"),
+                        availPkgs = pkgAvail(repos = repos, type = type, Rversion = Rversion),
+                        method,
+                        availableLocal = pkgAvail(repos = path, type = type, Rversion = Rversion),
+                        type = "source", Rversion = R.version) {
   if (is.null(path)) stop("path to miniCRAN repo must be specified")
   if (!missing(availPkgs)) {
     if (!is.matrix(availPkgs) || !is.character(availPkgs[, "Package"]))
@@ -37,7 +36,7 @@ oldPackages <- function (path = NULL,
   if (NROW(availableLocal) == 0L) stop("Invalid local repository")
 
   idx <- match(availableLocal[, "Package"], availPkgs[, "Package"])
-  compare <- sapply(seq_along(idx), function(i){
+  compare <- sapply(seq_along(idx), function(i) {
     compareVersion(
       (availPkgs[idx[i], "Version"]),
       (availableLocal[i, "Version"])
@@ -45,13 +44,12 @@ oldPackages <- function (path = NULL,
   })
 
   update <- cbind(
-    availableLocal[compare, c("Package", "Version"), drop=FALSE],
-    availPkgs[idx[compare], c("Version", "Repository"), drop=FALSE]
+    availableLocal[compare, c("Package", "Version"), drop = FALSE],
+    availPkgs[idx[compare], c("Version", "Repository"), drop = FALSE]
   )
   colnames(update) <- c("Package", "LocalVer", "ReposVer", "Repository")
   update
 }
-
 
 
 
@@ -65,18 +63,15 @@ oldPackages <- function (path = NULL,
 #'
 #' @export
 #'
-updatePackages <- function(path=NULL, repos=getOption("repos"),
-                           method, ask=TRUE,
-                           availPkgs=pkgAvail(repos=repos, type=type, Rversion=Rversion),
-                           oldPkgs=NULL, type="source",
-                           Rversion=R.version,
-                           quiet=FALSE) {
+updatePackages <- function(path = NULL, repos = getOption("repos"), method, ask = TRUE,
+                           availPkgs = pkgAvail(repos = repos, type = type, Rversion = Rversion),
+                           oldPkgs = NULL, type = "source", Rversion = R.version, quiet = FALSE) {
   lapply(type, function(t) {
     force(ask)
     simplifyRepos <- function(repos, t) {
-      tail <- substring(contribUrl("---", type=t, Rversion=Rversion), 4)
-      ind <- regexpr(tail, repos, fixed=TRUE)
-      ind <- ifelse(ind > 0, ind-1, nchar(repos, type="c"))
+      tail <- substring(contribUrl("---", type = t, Rversion = Rversion), 4)
+      ind <- regexpr(tail, repos, fixed = TRUE)
+      ind <- ifelse(ind > 0, ind - 1, nchar(repos, type = "c"))
       substr(repos, 1, ind)
     }
     text.select <- function(old) {
@@ -104,9 +99,8 @@ updatePackages <- function(path=NULL, repos=getOption("repos"),
       subset <- NULL
     }
     if (is.null(oldPkgs)) {
-      oldPkgs <- oldPackages(path=path, repos=repos,
-                             method=method, availPkgs=availPkgs, type=t,
-                             Rversion=Rversion)
+      oldPkgs <- oldPackages(path = path, repos = repos, method = method,
+                             availPkgs = availPkgs, type = t, Rversion = Rversion)
       if (is.null(oldPkgs)) {
         message("All packages are up to date from repos: ", names(repos))
         return(invisible())
@@ -119,10 +113,10 @@ updatePackages <- function(path=NULL, repos=getOption("repos"),
       if (nrow(oldPkgs)==0) return(invisible())
     }
     update <- if (is.character(ask) && ask == "graphics") {
-      if (.Platform$OS.type=="windows" || .Platform$GUI ==
-            "AQUA" || (capabilities("tcltk") && capabilities("X11"))) {
-        k <- select.list(oldPkgs[, 1L], oldPkgs[, 1L], multiple=TRUE,
-                         title="Packages to be updated", graphics = TRUE)
+      if (.Platform$OS.type ==" windows" || .Platform$GUI == "AQUA" ||
+          (capabilities("tcltk") && capabilities("X11"))) {
+        k <- select.list(oldPkgs[, 1L], oldPkgs[, 1L], multiple = TRUE,
+                         title = "Packages to be updated", graphics = TRUE)
         oldPkgs[match(k, oldPkgs[, 1L]), , drop = FALSE]
       } else {
         text.select(oldPkgs)
@@ -132,9 +126,9 @@ updatePackages <- function(path=NULL, repos=getOption("repos"),
     } else {
       oldPkgs
     }
-    if (length(update[,"Package"])) {
-      addPackage(update[,"Package"], path=path, repos=repos, type=t,
-                 quiet=quiet, deps=FALSE, Rversion=Rversion)
+    if (length(update[, "Package"])) {
+      addPackage(update[, "Package"], path = path, repos = repos, type = t,
+                 quiet = quiet, deps = FALSE, Rversion = Rversion)
     }
   })
 }

@@ -86,22 +86,27 @@ for (pkg_type in names(types)) {
     skip_if_offline(revolution)
 
     tmpdir <- file.path(tempdir(), "miniCRAN", "local", pkg_type)
-    dir.create(tmpdir, recursive = TRUE)
+    expect_true(dir.create(tmpdir, recursive = TRUE))
+    tmpdir <- normalizePath(tmpdir)
+    expect_true(dir.exists(tmpdir))
     on.exit(unlink(tmpdir, recursive = TRUE), add = TRUE)
 
     # get most recent version
     res <- download.packages(pkgsAddLocal, destdir = tmpdir, type = pkg_type,
+                             available = pkgAvail(revolution, pkg_type, rvers),
                              contriburl = contribUrl(revolution, pkg_type, rvers))
-
+    
     # simulate older version also present in pkgPath directory
     f <- res[, 2]
-    file.copy(from = f, to = file.path(tmpdir, "MASS_7.3-0.tar.gz"))
+    expect_true(
+      file.copy(from = f, to = file.path(tmpdir, "MASS_7.3-0.tar.gz"))
+    )
     expect_true(
       length(list.files(tmpdir)) == 2
     )
 
-    addLocalPackage(pkgs = pkgsAddLocal, pkgPath = tmpdir, path = repo_root, type = pkg_type,
-                    quiet = TRUE, Rversion = rvers)
+    addLocalPackage(pkgs = pkgsAddLocal, pkgPath = tmpdir, path = repo_root,
+                    type = pkg_type, quiet = TRUE, Rversion = rvers)
 
     prefix <- miniCRAN:::repoPrefix(pkg_type, Rversion = rvers)
     expect_true(

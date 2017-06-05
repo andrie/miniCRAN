@@ -123,9 +123,9 @@ addPackage <- function(pkgs = NULL, path = NULL, repos = getOption("repos"),
 #'
 #' @example /inst/examples/example_checkVersions.R
 #'
-addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
-                          repos=getOption("repos"),
-                          type="source", Rversion=R.version,
+addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
+                          repos = getOption("repos"),
+                          type = "source", Rversion = R.version,
                           writePACKAGES=TRUE, deps=FALSE, quiet=TRUE) {
   if (is.null(path) || is.null(pkgs) || is.null(vers)) {
     stop("path, pkgs, and vers must all be specified.")
@@ -249,10 +249,13 @@ addOldPackage <- function(pkgs=NULL, path=NULL, vers=NULL,
 #'                  "path/to/my/miniCRAN/repo", build = TRUE)
 #' }
 #'
-addLocalPackage <- function(pkgs, pkgPath, path, type = "source",
-                            Rversion = R.version, writePACKAGES = TRUE,
-                            deps = FALSE, quiet = FALSE, build = FALSE) {
-  if (is.null(path) || is.null(pkgs)) stop("path, pkgs, and pkgPath must be specified.")
+addLocalPackage <- function(pkgs = NULL, pkgPath = NULL, path = NULL,
+                            type = "source", Rversion = R.version,
+                            writePACKAGES = TRUE, deps = FALSE,
+                            quiet = FALSE, build = FALSE) {
+  if (is.null(path) || is.null(pkgs) || is.null(pkgPath)) {
+    stop("path, pkgs, and pkgPath must be specified.")
+  }
 
   stopifnot(dir.exists(file.path(pkgPath)))
 

@@ -45,30 +45,30 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depe
   if(missing(pkg) || !is.character(pkg)){
     stop("pkg should be a character vector with package names")
   }
-  if(missing(availPkgs)){
-    if(!is.null(names(repos)) & repos["CRAN"] == "@CRAN@"){
+  if (missing(availPkgs)) {
+    if (!is.null(names(repos)) & repos["CRAN"] == "@CRAN@") {
       repos <- MRAN()
     }
-    if(is.na(type)) type <- "source"
-    availPkgs <- pkgAvail(repos=repos, type=type, Rversion = Rversion, ...)
+    if (is.na(type)) type <- "source"
+    availPkgs <- pkgAvail(repos = repos, type = type, Rversion = Rversion, ...)
   }
-  if(nrow(availPkgs) == 0){
+  if (nrow(availPkgs) == 0) {
     stop("Unable to retrieve available packages from CRAN")
   }
 
   pkgInAvail <- pkg %in% availPkgs[, "Package"]
-  if(sum(pkgInAvail) == 0 ) stop("No valid packages in pkg")
-  if(sum(pkgInAvail) < length(pkg)){
-    warning("Package not recognized: ", paste(pkg[!pkgInAvail], collapse=", "))
+  if (sum(pkgInAvail) == 0 ) stop("No valid packages in pkg")
+  if (sum(pkgInAvail) < length(pkg)) {
+    warning("Package not recognized: ", paste(pkg[!pkgInAvail], collapse = ", "))
   }
 
   n_req <- pkg[pkgInAvail]
   n_req_all <- pkg
 
   # Suggests
-  if(suggests) {
+  if (suggests) {
     p_sug <- tools::package_dependencies(n_req, availPkgs,
-                                         which="Suggests", recursive=FALSE)
+                                         which = "Suggests", recursive = FALSE)
     n_sug <- unique(unname(unlist(p_sug)))
     n_req_all <- c(n_req_all, n_sug)
   } else{
@@ -76,9 +76,9 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depe
   }
 
   # Enhances
-  if(enhances){
+  if (enhances) {
     p_enh <- tools::package_dependencies(n_req, availPkgs,
-                                         which="Enhances", recursive=FALSE)
+                                         which = "Enhances", recursive = FALSE)
     n_enh <- unique(unname(unlist(p_enh)))
     n_req_all <- c(n_req_all, n_enh)
   } else {
@@ -87,11 +87,9 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depe
 
   # Depends, Imports and LinkingTo
   p_dep <- tools::package_dependencies(n_req_all, availPkgs,
-                                       which=c("Depends", "Imports", "LinkingTo"),
-                                       recursive=TRUE)
+                                       which = c("Depends", "Imports", "LinkingTo"),
+                                       recursive = TRUE)
   n_dep <- unique(unname(unlist(p_dep)))
-
-
 
   p_all <- p_dep
   n_all <- unique(c(n_dep, n_req_all))
@@ -112,7 +110,7 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depe
 }
 
 #' @export
-print.pkgDep <- function(x, ...){
+print.pkgDep <- function(x, ...) {
   attr(x, "pkgs") <- NULL
   class(x) <- "character"
   print(as.vector(x), ...)
@@ -126,16 +124,17 @@ print.pkgDep <- function(x, ...){
 #' @export
 #' @family create repo functions
 #' @seealso \code{\link{pkgDep}}
-pkgAvail <- function(repos=getOption("repos"), type="source", Rversion = R.version){
-  if(!grepl("^http://|file:///", repos[1]) && file.exists(repos[1])) {
+pkgAvail <- function(repos = getOption("repos"), type = "source", Rversion = R.version) {
+  if (!grepl("^http://|file:///", repos[1]) && file.exists(repos[1])) {
      repos <- paste0("file:///", normalizePath(repos[1], mustWork = FALSE, winslash = "/"))
   } else {
-    if(!is.null(names(repos)) && isTRUE(unname(repos["CRAN"]) == "@CRAN@")){
+    if (!is.null(names(repos)) && isTRUE(unname(repos["CRAN"]) == "@CRAN@")) {
       repos <- MRAN()
     }
   }
-  utils::available.packages(contribUrl(repos, type=type, Rversion = Rversion), type=type, filters=list())
+  utils::available.packages(contribUrl(repos, type = type, Rversion = Rversion), type = type, filters = list())
 }
+
 
 
 # Modified copy of utils::contrib.url()

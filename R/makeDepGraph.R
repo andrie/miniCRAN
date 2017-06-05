@@ -6,9 +6,8 @@ fastdf <- function (list) {
   list
 }
 
-addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests")
-                       , pdb){
-  if(!p %in% rownames(pdb)) {
+addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests"), pdb){
+  if (!p %in% rownames(pdb)) {
     fastdf(list(
       dep = character(0),
       package = character(0),
@@ -42,14 +41,14 @@ igraphNotAvailableMessage <- "makeDepGraph requires igraph.  Install igraph and 
 #' 
 #' @example /inst/examples/example_makeDepGraph.R
 makeDepGraph <- function(
-  pkg, availPkgs, repos=getOption("repos"), type="source",
-  suggests=TRUE, enhances=FALSE,
-  includeBasePkgs=FALSE, ...)
+  pkg, availPkgs, repos = getOption("repos"), type = "source",
+  suggests = TRUE, enhances = FALSE,
+  includeBasePkgs = FALSE, ...)
 {
-  if(!requireNamespace("igraph")){stop(igraphNotAvailableMessage)}
+  if (!requireNamespace("igraph")) stop(igraphNotAvailableMessage)
   
-  if(missing(availPkgs)) {
-    availPkgs <- pkgAvail(repos=repos, type=type)
+  if (missing(availPkgs)) {
+    availPkgs <- pkgAvail(repos = repos, type = type)
   }
   pkgs <- availPkgs
   rownames(pkgs) <- as.vector(pkgs[, "Package"])
@@ -59,46 +58,47 @@ makeDepGraph <- function(
 
 
 
-  pkgEdge <- function(p, type=c("Imports", "Depends", "LinkingTo"), pdb){
-    do.call(rbind, lapply(type, function(t)addDepType(p, t, pdb=pdb)))
+  pkgEdge <- function(p, type = c("Imports", "Depends", "LinkingTo"), pdb) {
+    do.call(rbind, lapply(type, function(t)addDepType(p, t, pdb = pdb)))
   }
-  pkgEdges <- function(pp, type=c("Imports", "Depends", "LinkingTo"), pdb){
-    do.call(rbind, lapply(pp, pkgEdge, type=type, pdb=pdb))
+  pkgEdges <- function(pp, type = c("Imports", "Depends", "LinkingTo"), pdb) {
+    do.call(rbind, lapply(pp, pkgEdge, type = type, pdb = pdb))
   }
 
   # Build depends edge list for original pkg list, combined with top level suggests
 
   pkg_orig <- pkg
 
-  if(suggests){
-    edges1 <- pkgEdges(pkg, type=c("Suggests"), availPkgs)
+  if (suggests) {
+    edges1 <- pkgEdges(pkg, type = c("Suggests"), availPkgs)
     p_sug <- unique(unlist(
-      tools::package_dependencies(pkg, db=availPkgs,
-                                  which="Suggests", recursive=FALSE)
+      tools::package_dependencies(pkg, db = availPkgs,
+                                  which = "Suggests", recursive = FALSE)
     ))
     pkg <- unique(c(p_sug, pkg))
   }
 
-  if(enhances){
-    edges2 <- pkgEdges(pkg_orig, type=c("Enhances"), availPkgs)
+  if (enhances) {
+    edges2 <- pkgEdges(pkg_orig, type = c("Enhances"), availPkgs)
     p_enh <- unique(unlist(
-      tools::package_dependencies(pkg_orig, db=availPkgs,
-                                  which="Enhances", recursive=FALSE)
+      tools::package_dependencies(pkg_orig, db = availPkgs,
+                                  which = "Enhances", recursive = FALSE)
     ))
     pkg <- unique(c(p_enh, pkg))
   }
   p_dep <- unique(unlist(
-                  tools::package_dependencies(pkg, db=availPkgs,
-                                       which=c("Imports", "Depends", "LinkingTo"), recursive=TRUE)
+                  tools::package_dependencies(
+                    pkg, db = availPkgs,
+                    which = c("Imports", "Depends", "LinkingTo"), recursive = TRUE)
   ))
   pkg <- unique(c(p_dep, pkg))
 
-  edges <- pkgEdges(pkg, type=c("Imports", "Depends", "LinkingTo"), availPkgs)
+  edges <- pkgEdges(pkg, type = c("Imports", "Depends", "LinkingTo"), availPkgs)
 
-  if(suggests){
+  if (suggests) {
     edges <- rbind(edges, edges1)
   }
-  if(enhances) {
+  if (enhances) {
     edges <- rbind(edges, edges2)
   }
   nedges <- nrow(edges)
@@ -106,7 +106,7 @@ makeDepGraph <- function(
     edges <- edges[!(edges[["dep"]] %in% basePkgs()), ]
 
   vert <- unique(c(pkg_orig, edges[["dep"]], edges[["package"]]))
-  ret <- igraph::graph.data.frame(d=edges, directed=TRUE, vertices = vert)
+  ret <- igraph::graph.data.frame(d = edges, directed = TRUE, vertices = vert)
   class(ret) <- c("pkgDepGraph", "igraph")
   attr(ret, "pkgs") <- pkg_orig
   ret

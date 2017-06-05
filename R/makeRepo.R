@@ -53,14 +53,14 @@
 #' @family update repo functions
 #'
 #' @example /inst/examples/example_makeRepo.R
-makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
-                     Rversion=R.version, download=TRUE, writePACKAGES=TRUE, quiet=FALSE) {
-  if(!file.exists(path)) stop("Download path does not exist")
+makeRepo <- function(pkgs, path, repos = getOption("repos"), type = "source",
+                     Rversion = R.version, download = TRUE, writePACKAGES = TRUE, quiet = FALSE) {
+  if (!file.exists(path)) stop("Download path does not exist")
 
-  downloaded <- lapply(type, function(type) {
-    pkgPath <- repoBinPath(path=path, type=type, Rversion=Rversion)
+  downloaded <- lapply(type, function(t) {
+    pkgPath <- repoBinPath(path = path, type = t, Rversion = Rversion)
     if(!file.exists(pkgPath)) {
-      result <- dir.create(pkgPath, recursive=TRUE, showWarnings = FALSE)
+      result <- dir.create(pkgPath, recursive = TRUE, showWarnings = FALSE)
       if(result) {
         if(!quiet) message("Created new folder: ", pkgPath)
       } else {
@@ -68,25 +68,24 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
       }
     }
 
-    pdb <- pkgAvail(repos = repos, type=type, Rversion = Rversion)
+    pdb <- pkgAvail(repos = repos, type = t, Rversion = Rversion)
 
-    if(download) {
-      utils::download.packages(pkgs, destdir=pkgPath, available=pdb, repos=repos,
+    if (download) {
+      utils::download.packages(pkgs, destdir = pkgPath, available = pdb, repos = repos,
                                contriburl = contribUrl(repos, type, Rversion),
-                               type=type, quiet=quiet)
+                               type = t, quiet = quiet)
     }
   })
 
-  if(download){
-
+  if (download) {
     downloaded <- downloaded[[1]][, 2]
 
     fromLocalRepos <- grepl("^file://", repos)
     if(fromLocalRepos){
       # need to copy files to correct folder
       repoPath <- gsub("^file:///", "", repos)
-      repoPath   <- normalizePath(repoPath, winslash = "/")
-      path       <- normalizePath(path    , winslash = "/")
+      repoPath   <- normalizePath(repoPath,   winslash = "/")
+      path       <- normalizePath(path    ,   winslash = "/")
       downloaded <- normalizePath(downloaded, winslash = "/")
       newPath  <- gsub(repoPath, path, downloaded)
       file.copy(downloaded, newPath)
@@ -94,20 +93,19 @@ makeRepo <- function(pkgs, path, repos=getOption("repos"), type="source",
     }
   }
 
-  if(writePACKAGES) updateRepoIndex(path=path, type=type, Rversion=Rversion)
-  if(download) downloaded else character(0)
+  if (writePACKAGES) updateRepoIndex(path = path, type = type, Rversion = Rversion)
+  if (download) downloaded else character(0)
 }
-
 
 
 
 #' @rdname makeRepo
 #' @export
 updateRepoIndex <- function(path, type = "source", Rversion = R.version) {
-  n <- lapply(type, function(type){
-    pkgPath <- repoBinPath(path = path, type = type, Rversion = Rversion)
-    if (grepl("mac.binary", type)) type <- "mac.binary"
-    tools::write_PACKAGES(dir = pkgPath, type = type)
+  n <- lapply(type, function(t) {
+    pkgPath <- repoBinPath(path = path, type = t, Rversion = Rversion)
+    if (grepl("mac.binary", t)) t <- "mac.binary"
+    tools::write_PACKAGES(dir = pkgPath, type = t)
   })
   names(n) <- type
   return(n)
@@ -115,12 +113,11 @@ updateRepoIndex <- function(path, type = "source", Rversion = R.version) {
 
 
 
-
 #' Deprecated function to download packages to local folder.
 #'
 #' @inheritParams makeRepo
 #' @export
-makeLibrary <- function(pkgs, path, type="source"){
+makeLibrary <- function(pkgs, path, type = "source"){
   .Deprecated("makeRepo")
   NULL
   #   if(!file.exists(path)) stop("Download path does not exist")
@@ -128,6 +125,6 @@ makeLibrary <- function(pkgs, path, type="source"){
   #   on.exit(setwd(wd))
   #   setwd(normalizePath(path))
   #   message(getwd())
-  #   download.packages(pkgs, destdir=path, type=type)
+  #   download.packages(pkgs, destdir = path, type = type)
 }
 
