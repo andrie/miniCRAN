@@ -1,3 +1,10 @@
+miniCRAN v0.2-7.9000
+==============
+
+* new function `addLocalPackage()` to add source or pre-built packages from a local directory (#23).
+* updates for R 3.4.0 on macOS (#82; PR #84; PR #86) @vnijs
+
+
 miniCRAN v0.2-7 (Release date: 2016-08-19)
 ==============
 
