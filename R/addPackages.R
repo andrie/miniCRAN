@@ -231,6 +231,7 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 #'
 #' @inheritParams addPackage
 #' @param pkgPath  Character vector of directory location containing packages to be added.
+#'                 Note that \code{pkgPath} should be the parent directory of the package (i.e., the package directory path is constructed from \code{file.path(pkgPath, pkgs)}).
 #' @param build    Logical indicating whether packages should be build prior to adding.
 #'
 #' @return Installs the packages and returns the new package index.
