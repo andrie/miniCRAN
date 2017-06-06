@@ -17,6 +17,9 @@ The filepath to the package files directory.
 \description{
 Get the path to the repo directory containing the package files.
 }
+\note{
+Not all versions of R are compatible with with all package types (e.g., \code{mac.binary.el-capitan} in only valid for R > 3.4.0).
+}
 \section{Repo folder structure}{
 
 The folder structure of a repository
@@ -37,11 +40,15 @@ The folder structure of a repository
      \itemize{
        \item{PACKAGES}
      }
-     \item{macosx/mavericks/contrib/version}
+     \item{macosx/el-capitan/contrib/version}
      \itemize{
        \item{PACKAGES}
      }
      \item{macosx/leopard/contrib/version}
+     \itemize{
+       \item{PACKAGES}
+     }
+     \item{macosx/mavericks/contrib/version}
      \itemize{
        \item{PACKAGES}
      }
