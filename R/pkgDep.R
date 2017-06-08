@@ -35,14 +35,16 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #' @family dependency functions
 #'
 #' @example /inst/examples/example_pkgDep.R
-
-pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depends=TRUE, suggests=TRUE, enhances=FALSE, includeBasePkgs=FALSE, Rversion = R.version, ...){
-  if(!depends & !suggests & !enhances) {
+#' 
+pkgDep <- function(pkg, availPkgs, repos = getOption("repos"), type = "source",
+                   depends = TRUE, suggests = TRUE, enhances = FALSE,
+                   includeBasePkgs = FALSE, Rversion = R.version, ...) {
+  if (!depends & !suggests & !enhances) {
     warning("Returning nothing, since depends, suggests and enhances are all FALSE")
     return(character(0))
   }
 
-  if(missing(pkg) || !is.character(pkg)){
+  if (missing(pkg) || !is.character(pkg)) {
     stop("pkg should be a character vector with package names")
   }
   if (missing(availPkgs)) {
@@ -71,7 +73,7 @@ pkgDep <- function(pkg, availPkgs, repos=getOption("repos"), type="source", depe
                                          which = "Suggests", recursive = FALSE)
     n_sug <- unique(unname(unlist(p_sug)))
     n_req_all <- c(n_req_all, n_sug)
-  } else{
+  } else {
     p_sug <- NA
   }
 
