@@ -10,7 +10,7 @@ if (file.exists(repo_root)) unlink(repo_root, recursive = TRUE)
 dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
 
 revolution <- MRAN("2014-10-15")
-if (!miniCRAN:::is.online(revolution, tryHttp = FALSE)) {
+if (!is.online(revolution, tryHttp = FALSE)) {
   # Use http:// for older versions of R
   revolution <- sub("^https://", "http://", revolution)
 }
@@ -23,14 +23,17 @@ names(types) <- types
 test_that("sample repo is setup correctly", {
   skip_if_offline(revolution)
 
-  pdb <<- lapply(types, pkgAvail, repos = revolution, Rversion = rvers)
+  pdb <<- lapply(types, pkgAvail, repos = revolution, Rversion = rvers, quiet = TRUE)
+  expect_is(pdb, "list")
   pkgList <<- lapply(types, function(type) {
     pkgDep(pkg = pkgs, type = types[type], availPkgs = pdb[[type]],
            repos = revolution, suggests = FALSE, Rversion = rvers)
   })
+  expect_is(pkgList, "list")
 
-  miniCRAN:::.createSampleRepo(path = repo_root, MRAN = revolution, Rversion = rvers)
-  expect_equal(unname(pkgAvail(repo_root)[, "Package"]), sort(pkgs))
+  z <- .createSampleRepo(path = repo_root, MRAN = revolution, Rversion = rvers)
+  expect_is(z, "character")
+  expect_equal(unname(pkgAvail(repo_root, quiet = TRUE)[, "Package"]), sort(pkgs))
 })
 
 
@@ -42,7 +45,9 @@ for (pkg_type in names(types)) {
 
   context(sprintf(" - Add packages to repo (%s)", pkg_type))
 
-  test_that(sprintf("addPackage downloads %s files and rebuilds PACKAGES file", pkg_type), {
+  test_that(sprintf(
+    "addPackage downloads %s files and rebuilds PACKAGES file", 
+    pkg_type), {
 
     skip_on_cran()
     skip_if_offline(revolution)
@@ -52,20 +57,23 @@ for (pkg_type in names(types)) {
                          type  = pkg_type,
                          suggests = FALSE,
                          Rversion = rvers)
-    prefix <- miniCRAN:::repoPrefix(pkg_type, Rversion = rvers)
+    prefix <- repoPrefix(pkg_type, Rversion = rvers)
 
     addPackage(pkgListAdd, path = repo_root, repos = revolution, type = pkg_type,
                quiet = TRUE, Rversion = rvers)
 
     expect_true(
-      miniCRAN:::.checkForRepoFiles(repo_root, pkgListAdd, prefix)
+      .checkForRepoFiles(repo_root, pkgListAdd, prefix)
     )
     expect_true(
       file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
     )
     expect_true(
       all(
-        pkgListAdd %in% pkgAvail(repo_root, type = pkg_type, Rversion = rvers)[, "Package"]
+        pkgListAdd %in% pkgAvail(repo_root, 
+                                 type = pkg_type, 
+                                 Rversion = rvers,
+                                 quiet = TRUE)[, "Package"]
       )
     )
   })
@@ -80,7 +88,8 @@ for (pkg_type in names(types)) {
 
   context(sprintf(" - Add local packages to repo (%s)", pkg_type))
 
-  test_that(sprintf("addLocalPackage copies %s files and rebuilds PACKAGES file", pkg_type), {
+  test_that(sprintf("addLocalPackage copies %s files and rebuilds PACKAGES", 
+                    pkg_type), {
 
     skip_on_cran()
     skip_if_offline(revolution)
@@ -92,9 +101,11 @@ for (pkg_type in names(types)) {
     on.exit(unlink(tmpdir, recursive = TRUE), add = TRUE)
 
     # get most recent version
-    res <- download.packages(pkgsAddLocal, destdir = tmpdir, type = pkg_type,
+    res <- download.packages(pkgsAddLocal, destdir = tmpdir, 
+                             type = pkg_type,
                              available = pkgAvail(revolution, pkg_type, rvers),
-                             contriburl = contribUrl(revolution, pkg_type, rvers))
+                             contriburl = contribUrl(revolution, pkg_type, rvers),
+                             quiet = TRUE)
     
     # simulate older version also present in pkgPath directory
     f <- res[, 2]
@@ -108,16 +119,17 @@ for (pkg_type in names(types)) {
     addLocalPackage(pkgs = pkgsAddLocal, pkgPath = tmpdir, path = repo_root,
                     type = pkg_type, quiet = TRUE, Rversion = rvers)
 
-    prefix <- miniCRAN:::repoPrefix(pkg_type, Rversion = rvers)
+    prefix <- repoPrefix(pkg_type, Rversion = rvers)
     expect_true(
-      miniCRAN:::.checkForRepoFiles(repo_root, pkgsAddLocal, prefix)
+      .checkForRepoFiles(repo_root, pkgsAddLocal, prefix)
     )
     expect_true(
       file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
     )
     expect_true(
       all(
-        pkgsAddLocal %in% pkgAvail(repo_root, type = pkg_type, Rversion = rvers)[, "Package"]
+        pkgsAddLocal %in% pkgAvail(repo_root, type = pkg_type, 
+                                   Rversion = rvers)[, "Package"]
       )
     )
   })
@@ -128,7 +140,7 @@ for (pkg_type in names(types)) {
 
 
 MRAN_mirror <- MRAN("2014-12-01")
-if (!miniCRAN:::is.online(MRAN_mirror, tryHttp = FALSE)) {
+if (!is.online(MRAN_mirror, tryHttp = FALSE)) {
   # Use http:// for older versions of R
   MRAN_mirror <- sub("^https://", "http://", revolution)
 }
@@ -136,14 +148,19 @@ if (!miniCRAN:::is.online(MRAN_mirror, tryHttp = FALSE)) {
 for (pkg_type in names(types)) {
   context(sprintf(" - Check for updates (%s)", pkg_type))
 
-  test_that(sprintf("updatePackages downloads %s files and builds PACKAGES file", pkg_type), {
+  test_that(sprintf("updatePackages downloads %s files and builds PACKAGES", 
+                    pkg_type), {
 
     skip_on_cran()
     skip_if_offline(MRAN_mirror)
 
-    prefix <- miniCRAN:::repoPrefix(pkg_type, Rversion = rvers)
+    prefix <- repoPrefix(pkg_type, Rversion = rvers)
 
-    old <- oldPackages(path = repo_root, repos = MRAN_mirror, type = pkg_type, Rversion = rvers)
+    suppressWarnings(
+    old <- oldPackages(path = repo_root, repos = MRAN_mirror, 
+                       type = pkg_type, Rversion = rvers,
+                       quiet = TRUE)
+    )
 
     expect_equal(nrow(old), 2)
     expect_equal(ncol(old), 4)
@@ -152,17 +169,20 @@ for (pkg_type in names(types)) {
     updatePackages(path = repo_root, repos = MRAN_mirror, type = pkg_type,
                    ask = FALSE, quiet = TRUE, Rversion = rvers)
 
-    updateVers <- miniCRAN:::getPkgVersFromFile(list.files(file.path(repo_root, prefix)))
+    updateVers <- getPkgVersFromFile(
+      list.files(file.path(repo_root, prefix))
+      )
 
     expect_true(
-      miniCRAN:::.checkForRepoFiles(repo_root, pkgList[[pkg_type]], prefix)
+      .checkForRepoFiles(repo_root, pkgList[[pkg_type]], prefix)
     )
 
     expect_true(
       file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
     )
 
-    old <- oldPackages(path = repo_root, repos = MRAN_mirror, type = pkg_type, Rversion = rvers)
+    old <- oldPackages(path = repo_root, repos = MRAN_mirror, 
+                       type = pkg_type, Rversion = rvers)
     # browser()
     expect_equal(nrow(old), 0)
     expect_equal(ncol(old), 4)
@@ -186,11 +206,13 @@ for (pkg_type in names(types)) {
                         version = c("0.2.1"))
     if (pkg_type != "source") {
       expect_error(
-        addOldPackage(oldVersions[["package"]], path = repo_root, vers = oldVersions[["version"]],
+        addOldPackage(oldVersions[["package"]], path = repo_root, 
+                      vers = oldVersions[["version"]],
                       repos = MRAN_mirror, type = pkg_type)
       )
     } else {
-      addOldPackage(oldVersions[["package"]], path = repo_root, vers = oldVersions[["version"]],
+      addOldPackage(oldVersions[["package"]], path = repo_root, 
+                    vers = oldVersions[["version"]],
                     repos = MRAN_mirror, type = pkg_type)
       files <- suppressWarnings(
         checkVersions(path = repo_root, type = pkg_type)

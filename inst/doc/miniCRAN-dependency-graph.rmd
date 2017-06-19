@@ -20,7 +20,6 @@ The `miniCRAN` package exposes two functions that provide information about depe
 
 - The function `makeDepGraph()` creates a graph representation of the dependencies.
 
-
 The package `chron` neatly illustrates the different roles of Imports, Suggests and Enhances:
 
 - `chron` **Imports** the base packages graphics and stats. This means that `chron` internally makes use of graphics and stats and will always load these packages.

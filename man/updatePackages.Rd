@@ -9,7 +9,8 @@
 oldPackages(path = NULL, repos = getOption("repos"),
   availPkgs = pkgAvail(repos = repos, type = type, Rversion = Rversion),
   method, availableLocal = pkgAvail(repos = path, type = type, Rversion =
-  Rversion), type = "source", Rversion = R.version)
+  Rversion, quiet = quiet), type = "source", Rversion = R.version,
+  quiet = FALSE)
 
 updatePackages(path = NULL, repos = getOption("repos"), method,
   ask = TRUE, availPkgs = pkgAvail(repos = repos, type = type, Rversion =
@@ -31,11 +32,11 @@ updatePackages(path = NULL, repos = getOption("repos"), method,
 
 \item{Rversion}{List with two named elements: `major` and `minor`. If not supplied, defaults to system version of R, using \code{\link{R.version}}.  Only used if \code{type} is not "source"}
 
+\item{quiet}{If TRUE, suppress status messages (if any), and the progress bar during download.}
+
 \item{ask}{logical indicating whether to ask user before packages are actually downloaded and installed, or the character string "\code{graphics}", which brings up a widget to allow the user to (de-)select from the list of packages which could be updated or added. The latter value only works on systems with a GUI version of \code{\link{select.list}}, and is otherwise equivalent to \code{ask = TRUE}.}
 
 \item{oldPkgs}{if specified as non-NULL, \code{updatePackages()} only considers these packages for updating. This may be a character vector of package names or a matrix as returned by \code{oldPackages()}.}
-
-\item{quiet}{If TRUE, suppress status messages (if any), and the progress bar during download.}
 }
 \value{
 \code{oldPackages} returns a matrix with one row per package and columns for "Package", "LocalVer", "ReposVer" and "Repository".  The matrix row names the package names.

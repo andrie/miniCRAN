@@ -3,7 +3,7 @@ if (interactive()) {library(testthat); Sys.setenv(NOT_CRAN = "true")}
 context("makeRepo from local miniCRAN")
 
 revolution <- MRAN("2014-10-15")
-if(!miniCRAN:::is.online(revolution, tryHttp = FALSE)) {
+if(!is.online(revolution, tryHttp = FALSE)) {
   # Use http:// for older versions of R
   revolution <- sub("^https://", "http://", revolution)
 }
@@ -27,10 +27,10 @@ for (pkg_type in names(types)) {
     
     # Create local miniCRAN
     
-    pdb <- pkgAvail(repos = revolution, type = pkg_type, Rversion = rvers)
+    pdb <- pkgAvail(repos = revolution, type = pkg_type, Rversion = rvers, quiet = TRUE)
     pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = revolution, type = pkg_type,
                       suggests = FALSE, Rversion = rvers)
-    prefix <- miniCRAN:::repoPrefix(pkg_type, Rversion = rvers)
+    prefix <- repoPrefix(pkg_type, Rversion = rvers)
     dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
     
     ret <- makeRepo(pkgList, path = repo_root, repos = revolution, 
@@ -40,7 +40,7 @@ for (pkg_type in names(types)) {
     expect_equal(length(ret), length(pkgList))
     
     expect_true(
-      miniCRAN:::.checkForRepoFiles(repo_root, pkgList, prefix)
+      .checkForRepoFiles(repo_root, pkgList, prefix)
     )
     expect_true(
       file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
@@ -58,7 +58,7 @@ for (pkg_type in names(types)) {
     pdb <- pkgAvail(repos = localCRAN, type = pkg_type, Rversion = rvers)
     pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = localCRAN, type = pkg_type,
                       suggests = FALSE, Rversion = rvers)
-    prefix <- miniCRAN:::repoPrefix(pkg_type, Rversion = rvers)
+    prefix <- repoPrefix(pkg_type, Rversion = rvers)
     dir.create(new_repo_root, recursive = TRUE, showWarnings = FALSE)
     
     ret <- makeRepo(pkgList, path = new_repo_root, repos = localCRAN, 
@@ -68,7 +68,7 @@ for (pkg_type in names(types)) {
     expect_equal(length(ret), length(pkgList))
     
     expect_true(
-      miniCRAN:::.checkForRepoFiles(new_repo_root, pkgList, prefix)
+      .checkForRepoFiles(new_repo_root, pkgList, prefix)
     )
     expect_true(
       file.exists(file.path(new_repo_root, prefix, "PACKAGES.gz"))

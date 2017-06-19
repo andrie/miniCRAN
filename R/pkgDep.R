@@ -26,6 +26,7 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #' @param depends If TRUE, retrieves Depends, Imports and LinkingTo dependencies (non-recursively)
 #' @param suggests If TRUE, retrieves Suggests dependencies (non-recursively)
 #' @param enhances If TRUE, retrieves Enhances dependencies (non-recursively)
+#' @param quiet If TRUE, suppresses warnings
 #' 
 #' @param includeBasePkgs If TRUE, include base R packages in results
 #' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}
@@ -38,7 +39,7 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #' 
 pkgDep <- function(pkg, availPkgs, repos = getOption("repos"), type = "source",
                    depends = TRUE, suggests = TRUE, enhances = FALSE,
-                   includeBasePkgs = FALSE, Rversion = R.version, ...) {
+                   includeBasePkgs = FALSE, Rversion = R.version, quiet = FALSE, ...) {
   if (!depends & !suggests & !enhances) {
     warning("Returning nothing, since depends, suggests and enhances are all FALSE")
     return(character(0))
@@ -52,7 +53,8 @@ pkgDep <- function(pkg, availPkgs, repos = getOption("repos"), type = "source",
       repos <- MRAN()
     }
     if (is.na(type)) type <- "source"
-    availPkgs <- pkgAvail(repos = repos, type = type, Rversion = Rversion, ...)
+    availPkgs <- pkgAvail(repos = repos, type = type, Rversion = Rversion,
+                          quiet = quiet, ...)
   }
   if (nrow(availPkgs) == 0) {
     stop("Unable to retrieve available packages from CRAN")
@@ -126,15 +128,26 @@ print.pkgDep <- function(x, ...) {
 #' @export
 #' @family create repo functions
 #' @seealso \code{\link{pkgDep}}
-pkgAvail <- function(repos = getOption("repos"), type = "source", Rversion = R.version) {
+pkgAvail <- function(repos = getOption("repos"), 
+                     type = "source", 
+                     Rversion = R.version, quiet = FALSE) {
   if (!grepl("^http://|file:///", repos[1]) && file.exists(repos[1])) {
-     repos <- paste0("file:///", normalizePath(repos[1], mustWork = FALSE, winslash = "/"))
+     repos <- paste0("file:///", normalizePath(repos[1],
+                                               mustWork = FALSE, 
+                                               winslash = "/"))
   } else {
     if (!is.null(names(repos)) && isTRUE(unname(repos["CRAN"]) == "@CRAN@")) {
       repos <- MRAN()
     }
   }
-  utils::available.packages(contribUrl(repos, type = type, Rversion = Rversion), type = type, filters = list())
+  ap <- function() {
+    utils::available.packages(contribUrl(repos, 
+                                         type = type, 
+                                         Rversion = Rversion), 
+                              type = type, 
+                              filters = list())
+  }
+  if(quiet) suppressWarnings(ap()) else ap()
 }
 
 
@@ -170,8 +183,14 @@ contribUrl <- function (repos, type = getOption("pkgType"), Rversion = R.version
     type <- "mac.binary"
   }
   res <- switch(type, 
-                source = paste(gsub("/$", "", repos), "src", "contrib", sep = "/"), 
-                mac.binary = paste(gsub("/$", "", repos), "bin", mac.path, "contrib", ver, sep = "/"), 
-                win.binary = paste(gsub("/$", "", repos), "bin", "windows", "contrib", ver, sep = "/"))
+                source = paste(gsub("/$", "", repos), 
+                               "src", "contrib", 
+                               sep = "/"), 
+                mac.binary = paste(gsub("/$", "", repos), 
+                                   "bin", mac.path, "contrib", 
+                                   ver, sep = "/"), 
+                win.binary = paste(gsub("/$", "", repos), 
+                                   "bin", "windows", "contrib", 
+                                   ver, sep = "/"))
   res
 }

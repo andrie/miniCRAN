@@ -25,8 +25,9 @@ matrix:
   - os: osx
     osx_image: xcode8
     latex: false
-    r_build_args: '--no-build-vignettes'
-    r_check_args: '--as-cran --ignore-vignettes --no-examples'
+    
+r_build_args: '--no-build-vignettes'
+r_check_args: '--as-cran --ignore-vignettes --no-examples'
 
 branches:
   only:
