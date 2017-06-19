@@ -1,4 +1,4 @@
-miniCRAN v0.2-7.9000
+miniCRAN v0.2.8 (Release date: 2017-06-19)
 ==============
 
 * new function `addLocalPackage()` to add source or pre-built packages from a local directory (#23).
