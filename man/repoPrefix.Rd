@@ -7,9 +7,9 @@
 repoPrefix(type, Rversion)
 }
 \arguments{
-\item{type}{character, indicating the type of package to download and install. See \code{\link{install.packages}}.}
+\item{type}{character, indicating the type of package to download and install. See \code{\link[=install.packages]{install.packages()}}.}
 
-\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}}
+\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \link{R.version}}
 }
 \value{
 The filepath to the package files directory.
@@ -17,36 +17,43 @@ The filepath to the package files directory.
 \description{
 Get the path to the repo directory containing the package files.
 }
+\note{
+Not all versions of R are compatible with with all package types (e.g., \code{mac.binary.el-capitan} is only valid for R > 3.4.0).
+}
 \section{Repo folder structure}{
 
 The folder structure of a repository
 \itemize{
- \item{Root}
- \itemize{
-   \item{src/contrib}
-   \itemize{
-     \item{PACKAGES}
-   }
-   \item{bin}
-   \itemize{
-     \item{windows/contrib/version}
-     \itemize{
-       \item{PACKAGES}
-     }
-     \item{macosx/contrib/version}
-     \itemize{
-       \item{PACKAGES}
-     }
-     \item{macosx/mavericks/contrib/version}
-     \itemize{
-       \item{PACKAGES}
-     }
-     \item{macosx/leopard/contrib/version}
-     \itemize{
-       \item{PACKAGES}
-     }
-   }
- }
+\item{Root}
+\itemize{
+\item{src/contrib}
+\itemize{
+\item{PACKAGES}
+}
+\item{bin}
+\itemize{
+\item{windows/contrib/version}
+\itemize{
+\item{PACKAGES}
+}
+\item{macosx/contrib/version}
+\itemize{
+\item{PACKAGES}
+}
+\item{macosx/el-capitan/contrib/version}
+\itemize{
+\item{PACKAGES}
+}
+\item{macosx/leopard/contrib/version}
+\itemize{
+\item{PACKAGES}
+}
+\item{macosx/mavericks/contrib/version}
+\itemize{
+\item{PACKAGES}
+}
+}
+}
 }
 }
 

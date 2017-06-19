@@ -10,5 +10,5 @@ pdb <- cranJuly2014
 pdb <- pkgAvail(repos = c(CRAN = "http://mran.microsoft.com"))
 }
 
-pkgDep(pkg=c("ggplot2", "plyr", "reshape2"), pdb)
+pkgDep(pkg = c("ggplot2", "plyr", "reshape2"), pdb)
 

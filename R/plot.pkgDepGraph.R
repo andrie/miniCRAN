@@ -1,11 +1,11 @@
 #' Plots a package dependency graph.
 #'
 #' @param x pkgDepGraph object
-#' @param pkgsToHighlight Optional character vector with names of package to hightlight. If missing, defaults to packages used in original call to \code{\link{makeDepGraph}}
+#' @param pkgsToHighlight Optional character vector with names of package to hightlight. If missing, defaults to packages used in original call to [makeDepGraph()]
 #' @param main Title of plot
-#' @param legendPosition Numeric vector of length 2, indicating (x, y) position of edge legend. Both values should be in the range [-1; 1].  If NULL, the edge legend is not displayed.
-#' @param shape Shape of edge.  See \code{\link[igraph]{igraph.plotting}}. Could be "none", "circle", "square", ...
-#' @param vertex.size Size of vertex shape. See \code{\link[igraph]{igraph.plotting}}
+#' @param legendPosition Numeric vector of length 2, indicating (x, y) position of edge legend. Both values should be in the range `[-1; 1]`.  If `NULL`, the edge legend is not displayed.
+#' @param shape Shape of edge.  See [igraph::igraph.plotting()]. Could be "none", "circle", "square", ...
+#' @param vertex.size Size of vertex shape. [igraph::igraph.plotting()]
 #' @param cex Vertex label size.
 #' @param ... Ignored
 #' @export

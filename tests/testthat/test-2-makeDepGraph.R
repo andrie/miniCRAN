@@ -5,9 +5,8 @@ checkPkgDepFunctions <- function(pkg, availPkgs = cranJuly2014,
                                  enhances=FALSE, 
                                  includeBasePkgs=FALSE){
   
-  if(!require(igraph, quietly = TRUE)){
-    skip("package igraph not installed")
-  }
+  skip_if_no_igraph()
+  
   p1 <- pkgDep(pkg, availPkgs=availPkgs, 
                repos=repos, type=type, 
                suggests=suggests, enhances=enhances, 
@@ -17,13 +16,15 @@ checkPkgDepFunctions <- function(pkg, availPkgs = cranJuly2014,
                      suggests=suggests, enhances=enhances, 
                      includeBasePkgs=includeBasePkgs)
 
-  vnames <- V(p2)$name
+  vnames <- igraph::V(p2)$name
   diff1 <- setdiff(vnames, p1)
   diff2 <- setdiff(p1, vnames)
   result <- length(diff1) == 0 & length(diff2) == 0
   if(!result) {
-    msg <- paste0("\nmakeDepGraph() results not in pkgDep(): \n - ", paste(diff1, collapse=", "),
-                  "\npkgDep() results not in makeDepGraph(): \n - ", paste(diff2, collapse=", "))
+    msg <- paste0("\nmakeDepGraph() results not in pkgDep(): \n - ", 
+                  paste(diff1, collapse=", "),
+                  "\npkgDep() results not in makeDepGraph(): \n - ", 
+                  paste(diff2, collapse=", "))
     
     warning(msg)
   }
@@ -36,7 +37,9 @@ context("makeDepGraph ")
 mock_require <- function(pkg, ...){
   packages.to.exclude <- c("igraph")
   inSearchPath <- any(
-    grepl(sprintf("package:%s$", paste(packages.to.exclude, collapse = "|")), search())
+    grepl(sprintf("package:%s$", 
+                  paste(packages.to.exclude, collapse = "|")), 
+          search())
   )
   if(inSearchPath) stop("Required package already in search path")
   
@@ -54,7 +57,8 @@ test_that("throws error if igraph not available", {
     `base::requireNamespace` = function(pkg, ...){
       packages.to.exclude <- c("igraph")
       inSearchPath <- any(
-        grepl(sprintf("package:%s$", paste(packages.to.exclude, collapse = "|")), search())
+        grepl(sprintf("package:%s$", paste(packages.to.exclude, collapse = "|")), 
+              search())
       )
       if(inSearchPath) stop("Required package already in search path")
       
@@ -87,6 +91,7 @@ test_that("makeDepGraph and pgkDep gives similar results for MASS", {
   )
   
   skip_on_cran()
+  skip_if_no_igraph()
   
   expect_true(
     checkPkgDepFunctions(tag, includeBasePkgs = TRUE)
@@ -105,6 +110,7 @@ test_that("makeDepGraph and pgkDep gives similar results for MASS", {
 test_that("makeDepGraph and pgkDep gives similar results for chron", {
   
   skip_on_cran()
+  skip_if_no_igraph()
   
   tag <- "chron"
   
@@ -127,6 +133,7 @@ test_that("makeDepGraph and pgkDep gives similar results for chron", {
 test_that("makeDepGraph and pgkDep gives similar results for data.table", {
   
   skip_on_cran()
+  skip_if_no_igraph()
   
   tag <- "data.table"
   
@@ -148,6 +155,7 @@ test_that("makeDepGraph and pgkDep gives similar results for data.table", {
 test_that("makeDepGraph and pgkDep gives similar results for ggplot2", {
   
   skip_on_cran()
+  skip_if_no_igraph()
   
   tag <- "ggplot2"
   
@@ -170,6 +178,7 @@ test_that("makeDepGraph and pgkDep gives similar results for ggplot2", {
 test_that("makeDepGraph and pgkDep gives similar results for complex query", {
   
   skip_on_cran()
+  skip_if_no_igraph()
   
   tag <- c("ggplot2", "data.table", "plyr", "knitr", "shiny", "xts", "lattice")
   

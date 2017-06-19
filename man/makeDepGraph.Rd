@@ -10,11 +10,11 @@ makeDepGraph(pkg, availPkgs, repos = getOption("repos"), type = "source",
 \arguments{
 \item{pkg}{Character vector of packages.}
 
-\item{availPkgs}{Vector of available packages.  Defaults to reading this list from CRAN, using \code{\link{available.packages}}}
+\item{availPkgs}{Vector of available packages.  Defaults to reading this list from CRAN, using \code{\link[=available.packages]{available.packages()}}}
 
-\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link{available.packages}}}
+\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link[=available.packages]{available.packages()}}}
 
-\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.}
+\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
 
 \item{suggests}{If TRUE, retrieves Suggests dependencies (non-recursively)}
 
@@ -22,7 +22,7 @@ makeDepGraph(pkg, availPkgs, repos = getOption("repos"), type = "source",
 
 \item{includeBasePkgs}{If TRUE, include base R packages in results}
 
-\item{...}{Other arguments passed to \code{\link{available.packages}}}
+\item{...}{Other arguments passed to \code{\link[=available.packages]{available.packages()}}}
 }
 \description{
 Each package is a node, and a dependency is an edge
@@ -35,8 +35,8 @@ availPkgs <- cranJuly2014
 
 \dontrun{
 availPkgs <- pkgAvail(
-  repos = c(CRAN="http://mran.microsoft.com"),
-  type="source"
+  repos = c(CRAN = "http://mran.microsoft.com"),
+  type = "source"
   )
 }
 
@@ -57,15 +57,14 @@ if(require(igraph)) plot(p)
   p <- makeDepGraph(
   c("ggplot2", "forecast"), 
   repos = c(CRAN = "http://mran.microsoft.com"), 
-  type="source"
+  type = "source"
 )
 if(require(igraph)) plot(p)
 }
 }
 \seealso{
-\code{\link{pkgDep}} to extract package dependencies
+\code{\link[=pkgDep]{pkgDep()}} to extract package dependencies
 
 Other dependency functions: \code{\link{basePkgs}},
   \code{\link{pkgDep}}, \code{\link{plot.pkgDepGraph}}
 }
-

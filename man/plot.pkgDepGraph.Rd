@@ -11,15 +11,15 @@
 \arguments{
 \item{x}{pkgDepGraph object}
 
-\item{pkgsToHighlight}{Optional character vector with names of package to hightlight. If missing, defaults to packages used in original call to \code{\link{makeDepGraph}}}
+\item{pkgsToHighlight}{Optional character vector with names of package to hightlight. If missing, defaults to packages used in original call to \code{\link[=makeDepGraph]{makeDepGraph()}}}
 
 \item{main}{Title of plot}
 
-\item{legendPosition}{Numeric vector of length 2, indicating (x, y) position of edge legend. Both values should be in the range [-1; 1].  If NULL, the edge legend is not displayed.}
+\item{legendPosition}{Numeric vector of length 2, indicating (x, y) position of edge legend. Both values should be in the range \code{[-1; 1]}.  If \code{NULL}, the edge legend is not displayed.}
 
-\item{shape}{Shape of edge.  See \code{\link[igraph]{igraph.plotting}}. Could be "none", "circle", "square", ...}
+\item{shape}{Shape of edge.  See \code{\link[igraph:igraph.plotting]{igraph::igraph.plotting()}}. Could be "none", "circle", "square", ...}
 
-\item{vertex.size}{Size of vertex shape. See \code{\link[igraph]{igraph.plotting}}}
+\item{vertex.size}{Size of vertex shape. \code{\link[igraph:igraph.plotting]{igraph::igraph.plotting()}}}
 
 \item{cex}{Vertex label size.}
 
@@ -37,31 +37,31 @@ pdb <- cranJuly2014
 \dontrun{
   pdb <- pkgAvail(
     repos = c(CRAN = "http://mran.microsoft.com"),
-    type="source"
+    type = "source"
   )
 }
 
-dg <- makeDepGraph(tags, availPkgs = pdb  , includeBasePkgs=FALSE, suggests=TRUE, enhances=TRUE)
+dg <- makeDepGraph(tags, availPkgs = pdb  , includeBasePkgs = FALSE,
+                   suggests = TRUE, enhances = TRUE)
 
 set.seed(42); 
 plot(dg)
 
 # Move edge legend to top left
 set.seed(42); 
-plot(dg, legendPosition=c(-1, 1))
+plot(dg, legendPosition = c(-1, 1))
 
 # Change font size and shape size
 set.seed(42); 
-plot(dg, legendPosition=c(-1, 1), vertex.size=20,  cex=0.5)
+plot(dg, legendPosition = c(-1, 1), vertex.size = 20,  cex = 0.5)
 
 
 # Move vertex legend to top right
 set.seed(42); 
-plot(dg, legendPosition=c(1, 1), vertex.size=20,  cex=0.5)
+plot(dg, legendPosition = c(1, 1), vertex.size = 20,  cex = 0.5)
 
 }
 \seealso{
 Other dependency functions: \code{\link{basePkgs}},
   \code{\link{makeDepGraph}}, \code{\link{pkgDep}}
 }
-

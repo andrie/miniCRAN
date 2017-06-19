@@ -1,3 +1,12 @@
+miniCRAN v0.2.8 (Release date: 2017-06-19)
+==============
+
+* new function `addLocalPackage()` to add source or pre-built packages from a local directory (#23).
+* updates for R 3.4.0 on macOS (#82; PR #84; PR #86) @vnijs
+* improve documentation for `pkgPath` (#85)
+* fix bug in `makeRepo()` when creating repo with multiple package types
+
+
 miniCRAN v0.2-7 (Release date: 2016-08-19)
 ==============
 
@@ -7,7 +16,7 @@ miniCRAN v0.2-7 (Release date: 2016-08-19)
 miniCRAN v0.2-6 (Release date: 2016-06-26)
 ==============
 
-* allow using `makeRepo()` to create a miniCRAN repo from an existing local miniCRAN, i.e. the repos contains file:/// prefix. This enables a use case in the AzureML package. (#76)
+* allow using `makeRepo()` to create a miniCRAN repo from an existing local miniCRAN, *i.e.*, the repos contains `file:///` prefix. This enables a use case in the AzureML package. (#76)
 * easily manage packages for all three Operating Systems (#24)
 * fix inconsistent use of Rversion in `addPackage()` (#42)
 

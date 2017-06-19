@@ -11,9 +11,8 @@ makeLibrary(pkgs, path, type = "source")
 
 \item{path}{Destination download path. This path is the root folder of your new repository.}
 
-\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.}
+\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
 }
 \description{
 Deprecated function to download packages to local folder.
 }
-
