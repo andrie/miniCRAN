@@ -96,10 +96,10 @@ readDescriptionGithub <- function(repo, username, branch = "master", quiet = TRU
 #'
 #' Downloads the DESCRIPTION file from a package on github, parses the fields and adds (or replaces) a row in the available package database.
 #'
-#' @param pdb Package database, usually the result of \code{\link{pkgAvail}} or \code{\link{available.packages}}
-#' @param repo Character vector. Name of repository on github, e.g. \code{"RevolutionAnalytics/checkpoint"}
-#' @param username Optional character vector. Name of repository on github, e.g. \code{"RevolutionAnalytics/checkpoint"}
-#' @param branch name of branch, defaults to \code{"master"}
+#' @param pdb Package database, usually the result of [pkgAvail()] or [available.packages()]
+#' @param repo Character vector. Name of repository on github, e.g. `"RevolutionAnalytics/checkpoint"`
+#' @param username Optional character vector. Name of repository on github, e.g. `"RevolutionAnalytics/checkpoint"``
+#' @param branch name of branch, defaults to `"master"`
 
 #' @export
 #' @family github functions

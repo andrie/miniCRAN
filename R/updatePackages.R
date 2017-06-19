@@ -1,21 +1,21 @@
 #' Check for available package updates in a miniCRAN repo.
 #'
-#' \code{oldPackages} indicates packages which have a (suitable) later version on the repositories whereas \code{updatePackages} offers to download and install such packages.
+#' `oldPackages()` indicates packages which have a (suitable) later version on the repositories whereas `updatePackages()` offers to download and install such packages.
 #'
-#' These functions are based on \code{\link{update.packages}}.  However, rather than looking for locally installed packages they look for the package source and binaries in the miniCRAN repository.
+#' These functions are based on [update.packages()].  However, rather than looking for locally installed packages they look for the package source and binaries in the miniCRAN repository.
 #'
 #' @name updatePackages
 #'
 #' @inheritParams makeRepo
 #' @inheritParams pkgDep
 #'
-#' @param method  Download method, see \code{\link{download.file}}.
+#' @param method  Download method, see [download.file()].
 #'
-#' @param availableLocal all packages hosted in the miniCRAN repo, as returned by \code{\link{pkgAvail}}. A subset can be specified; currently this must be in the same (character matrix) format as returned by \code{\link{pkgAvail}}.
+#' @param availableLocal all packages hosted in the miniCRAN repo, as returned by [pkgAvail()]. A subset can be specified; currently this must be in the same (character matrix) format as returned by [pkgAvail()].
 #'
-#' @return \code{oldPackages} returns a matrix with one row per package and columns for "Package", "LocalVer", "ReposVer" and "Repository".  The matrix row names the package names.
+#' @return `oldPackages()` returns a matrix with one row per package and columns for "Package", "LocalVer", "ReposVer" and "Repository".  The matrix row names the package names.
 #'
-#' @seealso \code{\link{updatePackages}}, \code{\link{pkgAvail}}.
+#' @seealso [updatePackages()], [pkgAvail()].
 #'
 #' @export
 #' @family update repo functions
@@ -62,11 +62,11 @@ oldPackages <- function(path = NULL, repos = getOption("repos"),
 
 #' @inheritParams makeRepo
 #'
-#' @param oldPkgs if specified as non-NULL, \code{updatePackages()} only considers these packages for updating. This may be a character vector of package names or a matrix as returned by \code{oldPackages()}.
+#' @param oldPkgs if specified as non-NULL, `updatePackages()` only considers these packages for updating. This may be a character vector of package names or a matrix as returned by `oldPackages()`.
 #'
-#' @param ask logical indicating whether to ask user before packages are actually downloaded and installed, or the character string "\code{graphics}", which brings up a widget to allow the user to (de-)select from the list of packages which could be updated or added. The latter value only works on systems with a GUI version of \code{\link{select.list}}, and is otherwise equivalent to \code{ask = TRUE}.
+#' @param ask logical indicating whether to ask user before packages are actually downloaded and installed, or the character string `"graphics"``, which brings up a widget to allow the user to (de-)select from the list of packages which could be updated or added. The latter value only works on systems with a GUI version of [select.list()], and is otherwise equivalent to `ask = TRUE`.
 #'
-#' @return \code{updatePackages} returns \code{NULL} invisibly.
+#' @return `updatePackages` returns `NULL` invisibly.
 #'
 #' @export
 #'

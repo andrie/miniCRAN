@@ -16,54 +16,54 @@ updateRepoIndex(path, type = "source", Rversion = R.version)
 
 \item{path}{Destination download path. This path is the root folder of your new repository.}
 
-\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link{available.packages}}}
+\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link[=available.packages]{available.packages()}}}
 
-\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.}
+\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
 
-\item{Rversion}{List with two named elements: `major` and `minor`. If not supplied, defaults to system version of R, using \code{\link{R.version}}.  Only used if \code{type} is not "source"}
+\item{Rversion}{List with two named elements: \code{major} and \code{minor}. If not supplied, defaults to system version of R, using \link{R.version}.  Only used if \code{type} is not "source"}
 
 \item{download}{If TRUE downloads packages.}
 
-\item{writePACKAGES}{If TRUE, calls \code{\link{write_PACKAGES}} to update the repository PACKAGES file.}
+\item{writePACKAGES}{If TRUE, calls \code{\link[=write_PACKAGES]{write_PACKAGES()}} to update the repository PACKAGES file.}
 
 \item{quiet}{If TRUE, suppress status messages (if any), and the progress bar during download.}
 }
 \description{
-Given a list of packages, downloads these packages to a specified destination folder using the required CRAN folder structure, and finally creates the PACKAGES index file.  Since the folder structure mimics the required structure and files of a CRAN repository, it supports functions like \code{\link[utils]{install.packages}()}.
+Given a list of packages, downloads these packages to a specified destination folder using the required CRAN folder structure, and finally creates the PACKAGES index file.  Since the folder structure mimics the required structure and files of a CRAN repository, it supports functions like \code{\link[utils:install.packages]{utils::install.packages()}}.
 }
 \note{
-Internally makes use of \code{\link[utils]{download.packages}} and \code{\link{write_PACKAGES}}
+Internally makes use of \code{\link[utils:download.packages]{utils::download.packages()}} and \code{\link[=write_PACKAGES]{write_PACKAGES()}}
 }
 \section{Repo folder structure}{
 
 The folder structure of a repository
 \itemize{
- \item{Root}
- \itemize{
-   \item{src/contrib}
-   \itemize{
-     \item{PACKAGES}
-   }
-   \item{bin}
-   \itemize{
-     \item{windows/contrib/version}
-     \itemize{
-       \item{PACKAGES}
-     }
-     \item{macosx/contrib/version}
-     \itemize{
-       \item{PACKAGES}
-     }
-     \item{macosx/mavericks/contrib/version}
-     \itemize{
-       \item{PACKAGES}
-     }
-     \item{macosx/leopard/contrib/version}
-     \itemize{
-       \item{PACKAGES}
-     }
-   }
- }
+\item{Root}
+\itemize{
+\item{src/contrib}
+\itemize{
+\item{PACKAGES}
+}
+\item{bin}
+\itemize{
+\item{windows/contrib/version}
+\itemize{
+\item{PACKAGES}
+}
+\item{macosx/contrib/version}
+\itemize{
+\item{PACKAGES}
+}
+\item{macosx/mavericks/contrib/version}
+\itemize{
+\item{PACKAGES}
+}
+\item{macosx/leopard/contrib/version}
+\itemize{
+\item{PACKAGES}
+}
+}
+}
 }
 }
 

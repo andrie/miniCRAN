@@ -1,6 +1,6 @@
 #' Downloads packages from CRAN to specified path and creates a local repository.
 #'
-#' Given a list of packages, downloads these packages to a specified destination folder using the required CRAN folder structure, and finally creates the PACKAGES index file.  Since the folder structure mimics the required structure and files of a CRAN repository, it supports functions like \code{\link[utils]{install.packages}()}.
+#' Given a list of packages, downloads these packages to a specified destination folder using the required CRAN folder structure, and finally creates the PACKAGES index file.  Since the folder structure mimics the required structure and files of a CRAN repository, it supports functions like [utils::install.packages()].
 #'
 #' @section Repo folder structure:
 #' The folder structure of a repository
@@ -33,7 +33,7 @@
 #'  }
 #' }
 #'
-#' @note Internally makes use of \code{\link[utils]{download.packages}} and \code{\link{write_PACKAGES}}
+#' @note Internally makes use of [utils::download.packages()] and [write_PACKAGES()]
 #'
 #' @inheritParams pkgDep
 #'
@@ -41,13 +41,13 @@
 #'
 #' @param path Destination download path. This path is the root folder of your new repository.
 #'
-#' @param Rversion List with two named elements: `major` and `minor`. If not supplied, defaults to system version of R, using \code{\link{R.version}}.  Only used if \code{type} is not "source"
+#' @param Rversion List with two named elements: `major` and `minor`. If not supplied, defaults to system version of R, using [R.version].  Only used if `type` is not "source"
 #'
 #' @param download If TRUE downloads packages.
 #'
 #' @param quiet If TRUE, suppress status messages (if any), and the progress bar during download.
 #'
-#' @param writePACKAGES If TRUE, calls \code{\link{write_PACKAGES}} to update the repository PACKAGES file.
+#' @param writePACKAGES If TRUE, calls [write_PACKAGES()] to update the repository PACKAGES file.
 #'
 #' @export
 #' @family update repo functions

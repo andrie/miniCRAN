@@ -15,13 +15,13 @@ addOldPackage(pkgs = NULL, path = NULL, vers = NULL,
 
 \item{vers}{The package version to install.}
 
-\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link{available.packages}}}
+\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link[=available.packages]{available.packages()}}}
 
-\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.}
+\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
 
-\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}}
+\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \link{R.version}}
 
-\item{writePACKAGES}{If TRUE, calls \code{\link{write_PACKAGES}} to update the repository PACKAGES file.}
+\item{writePACKAGES}{If TRUE, calls \code{\link[=write_PACKAGES]{write_PACKAGES()}} to update the repository PACKAGES file.}
 
 \item{deps}{logical indicating whether the package dependencies should be added (default \code{TRUE}).}
 

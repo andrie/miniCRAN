@@ -10,9 +10,9 @@ if (getRversion() >= "3.1.0") {
 #'
 #' @param path The local path to the directory where the miniCRAN repo resides.
 #'
-#' @param type  character, indicating the type of package to download and install. See \code{\link{install.packages}}.
+#' @param type  character, indicating the type of package to download and install. See [install.packages()].
 #'
-#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}
+#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to [R.version]
 #'
 #' @return Returns invisibly the filepaths to packages with multiple versions for removal.
 #'
@@ -55,9 +55,9 @@ checkVersions <- function(pkgs = NULL, path = NULL, type = "source",
 #' @inheritParams makeRepo
 #' @inheritParams pkgDep
 #'
-#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}
+#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to [R.version]
 #'
-#' @param deps logical indicating whether the package dependencies should be added (default \code{TRUE}).
+#' @param deps logical indicating whether the package dependencies should be added (default `TRUE`).
 #'
 #' @return Installs the packages, rebuilds the package index, and invisibly returns the number of packages written to the index files.
 #'
@@ -106,7 +106,7 @@ addPackage <- function(pkgs = NULL, path = NULL, repos = getOption("repos"),
 
 #' Add old package versions to a miniCRAN repository.
 #'
-#' Will download and add older source package versions. Older binary versions are not normally available on CRAN and should be build from source on the platform for which they are required. As such, specifying \code{type!="source"} will likely fail as the download will not be successful.
+#' Will download and add older source package versions. Older binary versions are not normally available on CRAN and should be build from source on the platform for which they are required. As such, specifying `type!="source"` will likely fail as the download will not be successful.
 #'
 #' @inheritParams addPackage
 #' @inheritParams makeRepo
@@ -115,7 +115,7 @@ addPackage <- function(pkgs = NULL, path = NULL, repos = getOption("repos"),
 #'
 #' @return Adds the packages, rebuilds the package index, and invisibly returns the number of packages written to the index files.
 #'
-#' @note Dependencies for old package versions cannot be determined automatically and must be specified by the user in \code{pkgs} and \code{vers}. Thus, \code{deps=FALSE} is the default for this function.
+#' @note Dependencies for old package versions cannot be determined automatically and must be specified by the user in `pkgs` and `vers`. Thus, `deps=FALSE` is the default for this function.
 #'
 #' @importFrom tools write_PACKAGES
 #' @export
@@ -219,19 +219,14 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 
 #' Add local packages to a miniCRAN repository.
 #'
-#' Examine the contents of a directory specified by \code{pkgPath} for pre-built
-#' packages matching the names specified by \code{pkgs}, and add these to the
-#' miniCRAN repository.
+#' Examine the contents of a directory specified by `pkgPath` for pre-built packages matching the names specified by `pkgs`, and add these to the miniCRAN repository.
 #'
-#' To build a package from source and then add it, use \code{build = TRUE}.
-#' Note that package development libraries and the \code{devtools} package
-#' must be installed on your system in order to build packages.
+#' To build a package from source and then add it, use `build = TRUE`. Note that package development libraries and the `devtools` package must be installed on your system in order to build packages.
 #'
 #' @note Currently, adding local packages does not check nor download their dependencies.
 #'
 #' @inheritParams addPackage
-#' @param pkgPath  Character vector of directory location containing packages to be added.
-#'                 Note that \code{pkgPath} should be the parent directory of the package (i.e., the package directory path is constructed from \code{file.path(pkgPath, pkgs)}).
+#' @param pkgPath  Character vector of directory location containing packages to be added. Note that `pkgPath` should be the parent directory of the package (i.e., the package directory path is constructed from `file.path(pkgPath, pkgs)`).
 #' @param build    Logical indicating whether packages should be build prior to adding.
 #'
 #' @return Installs the packages and returns the new package index.

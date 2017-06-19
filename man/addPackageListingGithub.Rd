@@ -8,11 +8,11 @@ addPackageListingGithub(pdb = pkgAvail(), repo, username = NULL,
   branch = "master")
 }
 \arguments{
-\item{pdb}{Package database, usually the result of \code{\link{pkgAvail}} or \code{\link{available.packages}}}
+\item{pdb}{Package database, usually the result of \code{\link[=pkgAvail]{pkgAvail()}} or \code{\link[=available.packages]{available.packages()}}}
 
 \item{repo}{Character vector. Name of repository on github, e.g. \code{"RevolutionAnalytics/checkpoint"}}
 
-\item{username}{Optional character vector. Name of repository on github, e.g. \code{"RevolutionAnalytics/checkpoint"}}
+\item{username}{Optional character vector. Name of repository on github, e.g. `"RevolutionAnalytics/checkpoint"``}
 
 \item{branch}{name of branch, defaults to \code{"master"}}
 }

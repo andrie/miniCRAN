@@ -12,9 +12,9 @@ checkVersions(pkgs = NULL, path = NULL, type = "source",
 
 \item{path}{The local path to the directory where the miniCRAN repo resides.}
 
-\item{type}{character, indicating the type of package to download and install. See \code{\link{install.packages}}.}
+\item{type}{character, indicating the type of package to download and install. See \code{\link[=install.packages]{install.packages()}}.}
 
-\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}}
+\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \link{R.version}}
 }
 \value{
 Returns invisibly the filepaths to packages with multiple versions for removal.

@@ -37,7 +37,7 @@ igraphNotAvailableMessage <- "makeDepGraph requires igraph.  Install igraph and 
 #' @export
 #' @family dependency functions
 #' 
-#' @seealso \code{\link{pkgDep}} to extract package dependencies
+#' @seealso [pkgDep()] to extract package dependencies
 #' 
 #' @example /inst/examples/example_makeDepGraph.R
 makeDepGraph <- function(

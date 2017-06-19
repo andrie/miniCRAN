@@ -12,16 +12,15 @@ addLocalPackage(pkgs = NULL, pkgPath = NULL, path = NULL,
 \arguments{
 \item{pkgs}{Character vector of packages to download}
 
-\item{pkgPath}{Character vector of directory location containing packages to be added.
-Note that \code{pkgPath} should be the parent directory of the package (i.e., the package directory path is constructed from \code{file.path(pkgPath, pkgs)}).}
+\item{pkgPath}{Character vector of directory location containing packages to be added. Note that \code{pkgPath} should be the parent directory of the package (i.e., the package directory path is constructed from \code{file.path(pkgPath, pkgs)}).}
 
 \item{path}{Destination download path. This path is the root folder of your new repository.}
 
-\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link{download.packages}}.}
+\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
 
-\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}}
+\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \link{R.version}}
 
-\item{writePACKAGES}{If TRUE, calls \code{\link{write_PACKAGES}} to update the repository PACKAGES file.}
+\item{writePACKAGES}{If TRUE, calls \code{\link[=write_PACKAGES]{write_PACKAGES()}} to update the repository PACKAGES file.}
 
 \item{deps}{logical indicating whether the package dependencies should be added (default \code{TRUE}).}
 
@@ -33,14 +32,10 @@ Note that \code{pkgPath} should be the parent directory of the package (i.e., th
 Installs the packages and returns the new package index.
 }
 \description{
-Examine the contents of a directory specified by \code{pkgPath} for pre-built
-packages matching the names specified by \code{pkgs}, and add these to the
-miniCRAN repository.
+Examine the contents of a directory specified by \code{pkgPath} for pre-built packages matching the names specified by \code{pkgs}, and add these to the miniCRAN repository.
 }
 \details{
-To build a package from source and then add it, use \code{build = TRUE}.
-Note that package development libraries and the \code{devtools} package
-must be installed on your system in order to build packages.
+To build a package from source and then add it, use \code{build = TRUE}. Note that package development libraries and the \code{devtools} package must be installed on your system in order to build packages.
 }
 \note{
 Currently, adding local packages does not check nor download their dependencies.

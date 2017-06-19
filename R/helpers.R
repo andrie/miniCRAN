@@ -1,10 +1,10 @@
 #' Get the path to the repo directory containing the package files.
 #' 
-#' @note Not all versions of R are compatible with with all package types (e.g., \code{mac.binary.el-capitan} in only valid for R > 3.4.0).
+#' @note Not all versions of R are compatible with with all package types (e.g., `mac.binary.el-capitan` is only valid for R > 3.4.0).
 #'
-#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \code{\link{R.version}}
+#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to [R.version]
 #'
-#' @param type  character, indicating the type of package to download and install. See \code{\link{install.packages}}.
+#' @param type  character, indicating the type of package to download and install. See [install.packages()].
 #'
 #' @section Repo folder structure:
 #' The folder structure of a repository
@@ -75,7 +75,7 @@ repoBinPath <- function(path, type, Rversion){
 
 #' Get a two-digit version of the R version
 #'
-#' @param R Either a list of the format \code{\link{R.version}}, a character string (e.g., \code{"3.1.2"}), or a numeric version of the type \code{\link{R_system_version}}.
+#' @param R Either a list of the format [R.version], a character string (e.g., `"3.1.2"`), or a numeric version of the type [R_system_version()].
 #'
 #' @return A character string representing the two-digit R version.
 #'
