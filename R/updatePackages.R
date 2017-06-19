@@ -23,10 +23,17 @@
 #' @example /inst/examples/example_updatePackages.R
 #'
 oldPackages <- function(path = NULL, repos = getOption("repos"),
-                        availPkgs = pkgAvail(repos = repos, type = type, Rversion = Rversion),
+                        availPkgs = pkgAvail(repos = repos, 
+                                             type = type, 
+                                             Rversion = Rversion),
                         method,
-                        availableLocal = pkgAvail(repos = path, type = type, Rversion = Rversion),
-                        type = "source", Rversion = R.version) {
+                        availableLocal = pkgAvail(repos = path, 
+                                                  type = type, 
+                                                  Rversion = Rversion, 
+                                                  quiet = quiet),
+                        type = "source", 
+                        Rversion = R.version,
+                        quiet = FALSE) {
   if (is.null(path)) stop("path to miniCRAN repo must be specified")
   if (!missing(availPkgs)) {
     if (!is.matrix(availPkgs) || !is.character(availPkgs[, "Package"]))
