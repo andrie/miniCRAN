@@ -14,11 +14,11 @@ if (file.exists(repo_root)) unlink(repo_root, recursive = TRUE)
 
 # list.files(repo_root, recursive = TRUE)
 
+unlink(list.files(tempdir(), pattern = ".rds$", full.names = TRUE))
 
 types <- c("source", "win.binary", "mac.binary", "mac.binary.mavericks")
-names(types) <- c("source", "win.binary", "mac.binary", "mac.binary")
 
-for (pkg_type in names(types)) {
+for (pkg_type in (types)) {
   context(sprintf(" - %s", pkg_type))
   test_that(sprintf("makeRepo downloads %s files and builds PACKAGES",
                     pkg_type), {
@@ -27,7 +27,7 @@ for (pkg_type in names(types)) {
 
     pdb <- pkgAvail(repos = revolution, type = pkg_type, Rversion = rvers, quiet = TRUE)
     pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = revolution, type = pkg_type,
-                      suggests = FALSE, Rversion = rvers, quiet = TRUE)
+                      suggests = FALSE, Rversion = rvers, quiet = FALSE)
     prefix <- repoPrefix(pkg_type, Rversion = rvers)
     dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
 

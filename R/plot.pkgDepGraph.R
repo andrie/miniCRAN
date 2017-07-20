@@ -8,6 +8,8 @@
 #' @param vertex.size Size of vertex shape. [igraph::igraph.plotting()]
 #' @param cex Vertex label size.
 #' @param ... Ignored
+#' 
+#' @importFrom igraph V get.edge.attribute plot.igraph
 #' @export
 #'
 #' @family dependency functions
@@ -23,7 +25,6 @@ plot.pkgDepGraph <- function(
   cex=1,
   ...)
 {
-  if(!requireNamespace("igraph")){stop(igraphNotAvailableMessage)}
   class(x) <- "igraph"
   plotColours <- c("grey80", "orange")
   if(missing("pkgsToHighlight")) {

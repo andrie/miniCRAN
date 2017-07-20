@@ -5,8 +5,7 @@ checkPkgDepFunctions <- function(pkg, availPkgs = cranJuly2014,
                                  enhances=FALSE, 
                                  includeBasePkgs=FALSE){
   
-  skip_if_no_igraph()
-  
+
   p1 <- pkgDep(pkg, availPkgs=availPkgs, 
                repos=repos, type=type, 
                suggests=suggests, enhances=enhances, 
@@ -51,34 +50,15 @@ mock_require <- function(pkg, ...){
 }
 
 
-test_that("throws error if igraph not available", {
-  skip_if_offline()
-  with_mock(
-    `base::requireNamespace` = function(pkg, ...){
-      packages.to.exclude <- c("igraph")
-      inSearchPath <- any(
-        grepl(sprintf("package:%s$", paste(packages.to.exclude, collapse = "|")), 
-              search())
-      )
-      if(inSearchPath) stop("Required package already in search path")
-      
-      package <- as.character(substitute(pkg))
-      if(package %in% packages.to.exclude)
-        FALSE 
-      else 
-        base::requireNamespace(package, character.only = TRUE, ...)
-    }, 
-{
-  expect_false(requireNamespace("igraph"))
-  
-  tag <- "MASS"
-  
-  expect_error(
-    makeDepGraph(tag, availPkgs=cranJuly2014)
-  )
-  
-})
+test_that("plots depGraph", {
 
+  tag <- "MASS"
+  g <- makeDepGraph(tag, availPkgs=cranJuly2014)
+  pdf(tempfile(fileext = ".pdf"))
+  expect_null(
+    plot.pkgDepGraph(g, legendPosition = NULL)
+  )
+  dev.off()
 })
 
 test_that("makeDepGraph and pgkDep gives similar results for MASS", {
@@ -91,8 +71,7 @@ test_that("makeDepGraph and pgkDep gives similar results for MASS", {
   )
   
   skip_on_cran()
-  skip_if_no_igraph()
-  
+
   expect_true(
     checkPkgDepFunctions(tag, includeBasePkgs = TRUE)
   )
@@ -110,8 +89,7 @@ test_that("makeDepGraph and pgkDep gives similar results for MASS", {
 test_that("makeDepGraph and pgkDep gives similar results for chron", {
   
   skip_on_cran()
-  skip_if_no_igraph()
-  
+
   tag <- "chron"
   
   expect_true(
@@ -133,8 +111,7 @@ test_that("makeDepGraph and pgkDep gives similar results for chron", {
 test_that("makeDepGraph and pgkDep gives similar results for data.table", {
   
   skip_on_cran()
-  skip_if_no_igraph()
-  
+
   tag <- "data.table"
   
   expect_true(
@@ -155,8 +132,7 @@ test_that("makeDepGraph and pgkDep gives similar results for data.table", {
 test_that("makeDepGraph and pgkDep gives similar results for ggplot2", {
   
   skip_on_cran()
-  skip_if_no_igraph()
-  
+
   tag <- "ggplot2"
   
   expect_true(
@@ -178,8 +154,7 @@ test_that("makeDepGraph and pgkDep gives similar results for ggplot2", {
 test_that("makeDepGraph and pgkDep gives similar results for complex query", {
   
   skip_on_cran()
-  skip_if_no_igraph()
-  
+
   tag <- c("ggplot2", "data.table", "plyr", "knitr", "shiny", "xts", "lattice")
   
   expect_true(
