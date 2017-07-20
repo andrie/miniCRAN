@@ -1,6 +1,5 @@
-#' Scrape DESCRIPTION from CRAN for each pkg.
-#'
 
+#' @importFrom XML readHTMLTable
 oldGetCranDescription <- function(pkg, repos = getOption("repos"), 
                                   type = "source", 
                                   pkgs = pkgDep(pkg, repos = repos, type = type)){
@@ -33,6 +32,8 @@ oldGetCranDescription <- function(pkg, repos = getOption("repos"),
   ret
 }
 
+#' Scrape DESCRIPTION from CRAN for each pkg.
+#'
 #' @inheritParams pkgDep
 #' @inheritParams makeRepo
 #' 

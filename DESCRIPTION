@@ -16,8 +16,6 @@ Date: 2017-07-20
 Version: 0.2.9
 URL: https://github.com/RevolutionAnalytics/miniCRAN
 BugReports: https://github.com/RevolutionAnalytics/miniCRAN/issues
-Depends:
-    R
 Imports:
     graphics,
     httr,
@@ -26,6 +24,7 @@ Imports:
     stats,
     tools,
     utils,
+    XML,
     igraph
 Suggests:
     devtools,
