@@ -1,8 +1,3 @@
-skip_if_no_igraph <- function(){
-  if(!requireNamespace("igraph", quietly = TRUE)) 
-    testthat::skip("package igraph not installed")
-}
-
 # helper functions for testing
 
 # Returns TRUE if a URL can be accessed

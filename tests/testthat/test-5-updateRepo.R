@@ -159,7 +159,7 @@ for (pkg_type in names(types)) {
     suppressWarnings(
     old <- oldPackages(path = repo_root, repos = MRAN_mirror, 
                        type = pkg_type, Rversion = rvers,
-                       quiet = TRUE)
+                       quiet = FALSE)
     )
 
     expect_equal(nrow(old), 2)

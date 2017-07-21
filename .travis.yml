@@ -39,3 +39,7 @@ notifications:
   email:
     on_success: change
     on_failure: change
+    
+after_success:
+  - test $TRAVIS_R_VERSION_STRING = "release" && Rscript -e 'withr::with_envvar(c(NOT_CRAN="true"), {covr::codecov()})'
+

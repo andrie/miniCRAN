@@ -145,7 +145,8 @@ pkgAvail <- function(repos = getOption("repos"),
                                          type = type, 
                                          Rversion = Rversion), 
                               type = type, 
-                              filters = list())
+                              filters = list(),
+                              repos = repos)
   }
   if(quiet) suppressWarnings(ap()) else ap()
 }
@@ -153,7 +154,9 @@ pkgAvail <- function(repos = getOption("repos"),
 
 
 # Modified copy of utils::contrib.url()
-contribUrl <- function (repos, type = getOption("pkgType"), Rversion = R.version) {
+contribUrl <- function (repos = getOption("repos"), 
+                        type = getOption("pkgType"), 
+                        Rversion = R.version) {
   Rversion <- twodigitRversion(Rversion)
   if (type == "both") 
     type <- "source"

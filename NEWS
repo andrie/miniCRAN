@@ -1,47 +1,55 @@
-miniCRAN v0.2.8 (Release date: 2017-06-19)
-==============
+miniCRAN v0.2.9 (Release date: 2017-07-20)
+===============
 
-* new function `addLocalPackage()` to add source or pre-built packages from a local directory (#23).
-* updates for R 3.4.0 on macOS (#82; PR #84; PR #86) @vnijs
-* improve documentation for `pkgPath` (#85)
-* fix bug in `makeRepo()` when creating repo with multiple package types
+* The igraph now gets imported (previously it was a Suggests)
+* Use `tools::CRAN_package_db()` to read package description on CRAN
+* Extend test suite coverage
+
+
+miniCRAN v0.2.8 (Release date: 2017-06-19)
+===============
+
+* New function `addLocalPackage()` to add source or pre-built packages from a local directory (#23).
+* Updates for R 3.4.0 on macOS (#82; PR #84; PR #86) @vnijs
+* Improve documentation for `pkgPath` (#85)
+* Fix bug in `makeRepo()` when creating repo with multiple package types
 
 
 miniCRAN v0.2-7 (Release date: 2016-08-19)
-==============
+===============
 
 * Apply fix when using `makeRepo()` from a local miniCRAN. (#76)
 
 
 miniCRAN v0.2-6 (Release date: 2016-06-26)
-==============
+===============
 
-* allow using `makeRepo()` to create a miniCRAN repo from an existing local miniCRAN, *i.e.*, the repos contains `file:///` prefix. This enables a use case in the AzureML package. (#76)
-* easily manage packages for all three Operating Systems (#24)
-* fix inconsistent use of Rversion in `addPackage()` (#42)
+* Allow using `makeRepo()` to create a miniCRAN repo from an existing local miniCRAN, *i.e.*, the repos contains `file:///` prefix. This enables a use case in the AzureML package. (#76)
+* Easily manage packages for all three Operating Systems (#24)
+* Fix inconsistent use of Rversion in `addPackage()` (#42)
 
 
 miniCRAN v0.2-5 (Release date: 2016-04-12)
-==============
+===============
 
-* plot.pkgDepGraph() now displays legend only for edges that are actually in graph
-* make consistent use of Rversion argument (#42)
+* The function plot.pkgDepGraph() now displays legend only for edges that are actually in graph
+* Make consistent use of Rversion argument (#42)
 
 
 miniCRAN v0.2-4 (Release date: 2016-03-27)
-==============
+===============
 
 * Changed copyright to Microsoft
 
 
 miniCRAN v0.2-2 (Release date: 2015-03-25)
-==============
+===============
 
 Changes:
 * Additional vignettes and documentation
 
 miniCRAN v0.2-0 (Release date: 2014-12-16)
-==============
+===============
 
 License change:
 * New licence: GPL-2 (changed from Apache 2)
@@ -55,13 +63,13 @@ New functionality:
 
 
 miniCRAN v0.1-1 (Release date: 2014-10-01)
-==============
+===============
 
 Changes:
 
 
 miniCRAN v0.1-0 (Release date: 2014-09-16)
-==============
+===============
 
 Changes:
 
@@ -70,14 +78,14 @@ Changes:
 
 
 miniCRAN v0.0-21 (Release date: 2014-08-18)
-==============
+===============
 
 Changes:
 
 * Changes to defaults in plot.pkgDepGraph() to move legend to left of plot area.
 
 miniCRAN v0.0-20 (Release date: 2014-08-18)
-==============
+================
 
 Changes:
 
@@ -85,7 +93,7 @@ Changes:
 
 
 miniCRAN v0.0-19 (Release date: 2014-08-17)
-==============
+================
 
 Changes:
 
@@ -93,7 +101,7 @@ Changes:
 * Small documentation improvements
 
 miniCRAN v0.0-18 (Release date: 2014-08-14)
-==============
+================
 
 Changes:
 
@@ -102,7 +110,7 @@ Changes:
 
 
 miniCRAN v0.0-17 (Release date: 2014-08-13)
-==============
+================
 
 Changes:
 
@@ -110,12 +118,12 @@ Changes:
 
 
 miniCRAN v0.0-16 (Release date: 2014-07-23)
-==============
+================
 
 Minor changes to pass CRAN incoming checks. First version on CRAN.
 
 miniCRAN v0.0-15 (Release date: 2014-07-23)
-==============
+================
 
 Changes:
 
@@ -124,7 +132,7 @@ Changes:
 
 
 miniCRAN v0.0-14 (Release date: 2014-07-22)
-==============
+================
 
 Changes:
 
@@ -132,7 +140,7 @@ Changes:
 
 
 miniCRAN v0.0-13 (Release date: 2014-07-21)
-==============
+================
 
 Changes:
 
@@ -140,7 +148,7 @@ Changes:
 
 
 miniCRAN v0.0-12 (Release date: 2014-07-16)
-==============
+================
 
 Changes:
 
@@ -149,7 +157,7 @@ Changes:
 
 
 miniCRAN v0.0-11 (Release date: 2014-07-12)
-==============
+================
 
 Changes:
 
@@ -159,7 +167,7 @@ Changes:
 
 
 miniCRAN v0.0-10 (Release date: 2014-07-01)
-==============
+================
 
 Changes:
 
@@ -167,7 +175,7 @@ Changes:
 
 
 miniCRAN v0.0-08 (Release date: 2014-06-05)
-==============
+================
 
 New functionality:
 
@@ -184,14 +192,14 @@ Documentation changes:
 
 
 miniCRAN v0.0-07 (Release date: 2014-05-28)
-==============
+================
 
 New functionality:
 
 * New function getCranDescription() that scrapes information from the CRAN website for each package.
 
 miniCRAN v0.0-06 (Release date: 2014-05-27)
-==============
+================
 
 New functionality:
 
@@ -199,7 +207,7 @@ New functionality:
 * New function makeRsyncInclude() to create include file for use with rsync (experimental)
 
 miniCRAN v0.0-05 (Release date: 2014-05-22)
-==============
+================
 
 Enhancements:
 
@@ -210,7 +218,7 @@ Enhancements:
 
 
 miniCRAN v0.0-01 (Release date: 2014-01-30)
-==============
+================
 
 First commit.
 
