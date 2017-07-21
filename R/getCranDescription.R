@@ -37,7 +37,6 @@ oldGetCranDescription <- function(pkg, repos = getOption("repos"),
 #' @inheritParams pkgDep
 #' @inheritParams makeRepo
 #' 
-#' @importFrom tools CRAN_package_db
 #' @export
 #' 
 #' @example /inst/examples/example_getCranDescription.R
