@@ -1,9 +1,9 @@
-MRAN <- function(snapshot){
-  url <- "https://mran.microsoft.com"
-  if(missing("snapshot") || is.null(snapshot)){
-  url
+MRAN <- function(snapshot) {
+  url <- getOption("minicran.mran")
+  if (missing("snapshot") || is.null(snapshot)) {
+    url
   } else {
     sprintf("%s/snapshot/%s", url, snapshot)
   }
 }
-CRAN <- function()getOption("repos")[1]
+CRAN <- function() getOption("repos")[1]

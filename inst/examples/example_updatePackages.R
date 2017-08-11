@@ -1,7 +1,7 @@
 ### `oldPackages` and `updatePackages` require an existing miniCRAN repo
 
 # Specify list of packages to download
-revolution <- c(CRAN = "http://mran.microsoft.com")
+revolution <- c(CRAN = getOption("minicran.mran"))
 pkgs <- c("foreach")
 
 pdb <- cranJuly2014

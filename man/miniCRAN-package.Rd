@@ -57,6 +57,15 @@ To get a recursive list of dependencies as well as a plot, use \code{\link[=pkgD
 }
 }
 
+\section{Package options}{
+
+
+\describe{
+\item{\code{minicran.mran}}{preferred MRAN URL. Defaults to \url{https://mran.microsoft.com}
+for R versions 3.2.2 and greater. Versions earlier than 3.2.2 use HTTP instead of HTTPS.}
+}
+}
+
 \author{
 Andrie de Vries \email{adevries@microsoft.com} with contributions from Alex Chubaty \email{alex.chubaty@gmail.com}
 }
