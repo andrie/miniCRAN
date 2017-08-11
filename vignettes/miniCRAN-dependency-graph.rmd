@@ -31,7 +31,7 @@ The package `chron` neatly illustrates the different roles of Imports, Suggests 
 
 ## A worked example using the package chron
 
-The function `pkgDep()` exposes not only these dependencies, but also also all recursive dependencies. In other words, it answers the question which packages need to be installed to satsify all dependencies of dependencies.
+The function `pkgDep()` exposes not only these dependencies, but also all recursive dependencies. In other words, it answers the question which packages need to be installed to satisfy all dependencies of dependencies.
 
 This means that the algorithm is as follows:
 

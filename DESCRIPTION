@@ -30,7 +30,9 @@ Suggests:
     devtools,
     knitr,
     rmarkdown,
-    testthat(>= 0.9)
+    testthat(>= 0.9),
+    covr,
+    withr
 LazyData: true
 LazyLoad: true
 VignetteBuilder: knitr
