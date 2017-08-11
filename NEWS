@@ -2,6 +2,7 @@ miniCRAN v0.2.10
 ================
 
 * fixed typos in vignettes (@ryanatanner PR#93 and PR#94)
+* added package option `miricran.mran` which sets default preferred MRAN url (#72)
 
 miniCRAN v0.2.9 (Release date: 2017-07-20)
 ===============
