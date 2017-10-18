@@ -39,7 +39,7 @@ test_that("sample repo is setup correctly", {
 
 # Add packages to repo ----------------------------------------------------
 
-pkgsAdd <- c("aprof")
+pkgsAdd <- c("forecast")
 
 for (pkg_type in names(types)) {
 
