@@ -26,7 +26,7 @@ checkVersions <- function(pkgs = NULL, path = NULL, type = "source",
   if (is.null(path)) stop("path must be specified.")
   if (!file.exists(path)) stop("invalid path, ", path)
 
-  duplicatePkgs <- sapply(type, function(type) {
+  do_one <- function(type) {
     pkgPath <- repoBinPath(path, type, Rversion)
     if (is.null(pkgs)) {
       files <- dir(pkgPath)
@@ -35,15 +35,17 @@ checkVersions <- function(pkgs = NULL, path = NULL, type = "source",
     }
     files <- unlist(files)
     pkgFiles <- grep("\\.(tar\\.gz|zip|tgz)$", basename(files), value = TRUE)
-
+    
     # identify duplicate packages and warn the user
     pkgs <- sapply(strsplit(files, "_"), "[[", 1)
     dupes <- pkgs[duplicated(pkgs)]
     if (length(dupes)) warning("Duplicate package(s): ", paste(dupes, collapse = ", "))
     file.path(pkgPath, pkgFiles)
-  })
+  }
+  
+  duplicatePkgs <- sapply(type, do_one, simplify = FALSE)
   names(duplicatePkgs) <- type
-  return(invisible(duplicatePkgs))
+  duplicatePkgs
 }
 
 
@@ -72,31 +74,41 @@ addPackage <- function(pkgs = NULL, path = NULL, repos = getOption("repos"),
                        writePACKAGES = TRUE, deps = TRUE, quiet = FALSE) {
   if (is.null(path) || is.null(pkgs)) stop("path and pkgs must both be specified.")
 
-  lapply(type, function(t) {
+  do_one <- function(t) {
     prev <- checkVersions(pkgs = pkgs, path = path, type = t, Rversion = Rversion)
+    prev <- prev[[1]]
     prev.df <- getPkgVersFromFile(prev)
-
+    
     if (deps) pkgs <- pkgDep(pkgs, repos = repos, type = t, Rversion = Rversion)
-
+    
     makeRepo(pkgs = pkgs, path = path, repos = repos, type = t, Rversion = Rversion,
              download = TRUE, writePACKAGES = FALSE, quiet = quiet)
-
+    
     if (length(prev)) {
       curr <- suppressWarnings(
         checkVersions(pkgs = pkgs, path = path, type = t, Rversion = Rversion)
       )
+      curr <- curr[[1]]
       curr.df <- getPkgVersFromFile(curr)
-
+        
+      findPrevPackage <- function(x) {
+        grep(paste0("^", x), basename(prev)) 
+        }
+      
       dupes <- with(curr.df, package[duplicated(package)])
       if (length(dupes)) {
-        old <- lapply(dupes, function(x) { grep(paste0("^", x), basename(prev)) } )
-        file.remove(prev[unlist(old)])
+        to_remove <- lapply(dupes, findPrevPackage)
+        if(length(unlist(to_remove))){
+          file.remove(prev[unlist(to_remove)])
+        }
       }
     }
-  })
+  }
+
+  lapply(type, do_one)
 
   n <- if (writePACKAGES) updateRepoIndex(path = path, type = type, Rversion = Rversion)
-  return(invisible(n))
+  invisible(n)
 }
 
 
@@ -142,11 +154,13 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 
   pkgPath <- repoBinPath(path = path, type = type, Rversion = Rversion)
   if (!file.exists(pkgPath)) dir.create(pkgPath, recursive = TRUE)
-  sapply(oldPkgs, function(x) {
+  
+  do_one <- function(x) {
     result <- utils::download.file(x, destfile = file.path(pkgPath, basename(x)),
                                    method = "auto", mode = "wb", quiet = quiet)
     if (result != 0) warning("error downloading file ", x)
-  })
+  }
+  sapply(oldPkgs, do_one)
   if (writePACKAGES) invisible(updateRepoIndex(path = path, type = type, Rversion))
 }
 
