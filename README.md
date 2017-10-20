@@ -39,6 +39,23 @@ Get the latest stable development version from github:
 library(devtools)
 install_github("RevolutionAnalytics/miniCRAN")
 ```
+
+## System requirements
+
+The `miniCRAN` package itself doesn't introduce any system dependencies.  However, the package imports [`curl`](https://cran.r-project.org/package=curl) and `XML` packages. These have system requirements on `libxml2-devel`, `libcurl-devel` and `openssl-devel`.
+
+On systems with the `rpm` package manager (Red Hat, CentOS) try:
+
+```bash
+yum install libcurl-devel libxml2-devel openssl-devel
+```
+
+On systems with the `atp` package manager (Debian, Ubuntu) try:
+
+```bash
+apt-get install libcurl4-openssl-dev libxml2-devel openssl-devel
+```
+
     
 ## Example:
 
