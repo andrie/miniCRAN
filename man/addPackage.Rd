@@ -35,7 +35,7 @@ Add packages to a miniCRAN repository.
 ### `checkVersions` and `add.packages.miniCRAN` require an existing miniCRAN repo
 
 # Specify list of packages to download
-revolution <- c(CRAN = "http://mran.microsoft.com")
+revolution <- c(CRAN = getOption("miniCRAN.mran"))
 pkgs <- c("foreach")
 pkgTypes <- c("source", "win.binary")
 

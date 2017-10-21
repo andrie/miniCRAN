@@ -1,13 +1,13 @@
 
 #' @importFrom XML readHTMLTable
-oldGetCranDescription <- function(pkg, repos = getOption("repos"), 
-                                  type = "source", 
+oldGetCranDescription <- function(pkg, repos = getOption("repos"),
+                                  type = "source",
                                   pkgs = pkgDep(pkg, repos = repos, type = type)){
   getOne <- function(package) {
     repos <- repos[[1]]
     if(!grepl("/$", repos)) repos <- paste0(repos, "/")
-    
-    url <- gsub("https://", "http://", 
+
+    url <- gsub("https://", "http://",
                 sprintf("%sweb/packages/%s/index.html", repos, package)
     )
     x <- tryCatch({
@@ -36,20 +36,18 @@ oldGetCranDescription <- function(pkg, repos = getOption("repos"),
 #'
 #' @inheritParams pkgDep
 #' @inheritParams makeRepo
-#' 
+#'
 #' @export
-#' 
+#'
 #' @example /inst/examples/example_getCranDescription.R
-getCranDescription <- function(pkg, repos = getOption("repos"), 
-                               type = "source", 
+getCranDescription <- function(pkg, repos = getOption("repos"),
+                               type = "source",
                                pkgs = pkgDep(pkg, repos = repos, type = type)){
-  
-  if(getRversion() >= "3.4.1"){
+
+  if (getRversion() >= "3.4.1"){
     pdb <- tools::CRAN_package_db()
     pdb[match(pkgs, pdb$Package), ]
   } else {
     oldGetCranDescription(pkg = pkg, repos = repos, type = type, pkgs = pkgs)
   }
 }
-
-

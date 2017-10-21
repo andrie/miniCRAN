@@ -18,7 +18,7 @@ Although the package name `miniCRAN` seems to indicate you can only use CRAN as 
 
 This vignette contains some examples of how to refer to different package repositories, including CRAN, alternative mirrors of CRAN, R-Forge as well as BioConductor.
 
-To make simplify the code to show the salient features, we use a little helper function, `index()` that is a simple wrapper around `available.packages()`:
+To simplify the code to show the salient features, we use a little helper function, `index()` that is a simple wrapper around `available.packages()`:
 
 
 ```{r setup}

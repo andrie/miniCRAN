@@ -1,3 +1,16 @@
+miniCRAN v0.2.10
+================
+
+New features: 
+* Added package option `minicran.mran` which sets default preferred MRAN url (#72)
+
+Bug fixes:
+* Fixed 'Error in basename(prev)' when calling `addPackage()` (#99)
+
+Other improvements:
+* Fixed typos in vignettes (@ryanatanner PR#93 and PR#94)
+* Added note on system requirements of curl and XML (#98)
+
 miniCRAN v0.2.9 (Release date: 2017-07-20)
 ===============
 

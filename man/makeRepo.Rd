@@ -70,14 +70,14 @@ The folder structure of a repository
 \examples{
 
 # Specify list of packages to download
-revolution <- c(CRAN = "http://mran.microsoft.com")
+revolution <- c(CRAN = getOption("minicran.mran"))
 pkgs <- c("foreach")
 
 pdb <- cranJuly2014
 
 \dontrun{
   pdb <- pkgAvail(
-    repos = c(CRAN = "http://mran.microsoft.com"),
+    repos = c(CRAN = getOption("minicran.mran")),
     type = "source"
   )
 }

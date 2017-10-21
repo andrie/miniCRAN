@@ -73,7 +73,8 @@ oldPackages <- function(path = NULL, repos = getOption("repos"),
 updatePackages <- function(path = NULL, repos = getOption("repos"), method, ask = TRUE,
                            availPkgs = pkgAvail(repos = repos, type = type, Rversion = Rversion),
                            oldPkgs = NULL, type = "source", Rversion = R.version, quiet = FALSE) {
-  lapply(type, function(t) {
+  
+  do_one <- function(t){
     force(ask)
     simplifyRepos <- function(repos, t) {
       tail <- substring(contribUrl("---", type = t, Rversion = Rversion), 4)
@@ -137,5 +138,7 @@ updatePackages <- function(path = NULL, repos = getOption("repos"), method, ask 
       addPackage(update[, "Package"], path = path, repos = repos, type = t,
                  quiet = quiet, deps = FALSE, Rversion = Rversion)
     }
-  })
+  }
+  
+  lapply(type, do_one)
 }

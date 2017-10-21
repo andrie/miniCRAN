@@ -17,7 +17,9 @@ if (!is.online(revolution, tryHttp = FALSE)) {
 rvers <- "3.1"
 pkgs <- c("chron", "adaptivetau")
 
-types <- c("source", "win.binary", "mac.binary")
+types <- c("win.binary", "mac.binary", "source")
+# types <- c("win.binary")
+
 names(types) <- types
 
 test_that("sample repo is setup correctly", {
@@ -39,8 +41,9 @@ test_that("sample repo is setup correctly", {
 
 # Add packages to repo ----------------------------------------------------
 
-pkgsAdd <- c("aprof")
+pkgsAdd <- c("forecast")
 
+pkg_type <- names(types)[1]
 for (pkg_type in names(types)) {
 
   context(sprintf(" - Add packages to repo (%s)", pkg_type))
@@ -112,9 +115,7 @@ for (pkg_type in names(types)) {
     expect_true(
       file.copy(from = f, to = file.path(tmpdir, "MASS_7.3-0.tar.gz"))
     )
-    expect_true(
-      length(list.files(tmpdir)) == 2
-    )
+    expect_equal(length(list.files(tmpdir)), 2)
 
     addLocalPackage(pkgs = pkgsAddLocal, pkgPath = tmpdir, path = repo_root,
                     type = pkg_type, quiet = TRUE, Rversion = rvers)
@@ -139,7 +140,7 @@ for (pkg_type in names(types)) {
 # Check for updates -------------------------------------------------------
 
 
-MRAN_mirror <- MRAN("2014-12-01")
+MRAN_mirror <- MRAN("2015-01-01")
 if (!is.online(MRAN_mirror, tryHttp = FALSE)) {
   # Use http:// for older versions of R
   MRAN_mirror <- sub("^https://", "http://", revolution)
@@ -157,21 +158,30 @@ for (pkg_type in names(types)) {
     prefix <- repoPrefix(pkg_type, Rversion = rvers)
 
     suppressWarnings(
-    old <- oldPackages(path = repo_root, repos = MRAN_mirror, 
-                       type = pkg_type, Rversion = rvers,
-                       quiet = FALSE)
+      old <- oldPackages(path = repo_root, repos = MRAN_mirror, 
+                         type = pkg_type, Rversion = rvers,
+                         quiet = FALSE)
     )
 
-    expect_equal(nrow(old), 2)
+    # In the following allow for differences between mac.binary and other types
+    expect_true(nrow(old) >= 10)
+    expect_true(nrow(old) <= 12)
     expect_equal(ncol(old), 4)
-    expect_equal(rownames(old), c("adaptivetau", "aprof"))
+    expect_true(
+      all(
+        rownames(old) %in% 
+          c("adaptivetau", "BH", "digest", "forecast", "Hmisc", "mvtnorm", 
+            "RColorBrewer", "RcppArmadillo", "reshape2", "timeDate", 
+            "timeSeries", "tis")
+      )
+    )
 
     updatePackages(path = repo_root, repos = MRAN_mirror, type = pkg_type,
                    ask = FALSE, quiet = TRUE, Rversion = rvers)
 
     updateVers <- getPkgVersFromFile(
       list.files(file.path(repo_root, prefix))
-      )
+    )
 
     expect_true(
       .checkForRepoFiles(repo_root, pkgList[[pkg_type]], prefix)
@@ -202,8 +212,8 @@ for (pkg_type in names(types)) {
     skip_on_cran()
     skip_if_offline(MRAN_mirror)
 
-    oldVersions <- list(package = c("aprof"),
-                        version = c("0.2.1"))
+    oldVersions <- list(package = c("acepack"),
+                        version = c("1.3-2"))
     if (pkg_type != "source") {
       expect_error(
         addOldPackage(oldVersions[["package"]], path = repo_root, 
@@ -215,7 +225,7 @@ for (pkg_type in names(types)) {
                     vers = oldVersions[["version"]],
                     repos = MRAN_mirror, type = pkg_type)
       files <- suppressWarnings(
-        checkVersions(path = repo_root, type = pkg_type)
+        checkVersions(path = repo_root, type = pkg_type)[[pkg_type]]
       )
 
       expect_true(
