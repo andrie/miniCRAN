@@ -67,6 +67,6 @@ for R versions 3.2.2 and greater. Versions earlier than 3.2.2 use HTTP instead o
 }
 
 \author{
-Andrie de Vries \email{adevries@microsoft.com} with contributions from Alex Chubaty \email{alex.chubaty@gmail.com}
+Andrie de Vries \email{apdevries@gmail.com} with contributions from Alex Chubaty \email{alex.chubaty@gmail.com}
 }
 \keyword{package}

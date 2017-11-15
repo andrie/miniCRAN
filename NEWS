@@ -1,4 +1,4 @@
-miniCRAN v0.2.10
+miniCRAN v0.2.10 (Release date: 2017-10-21)
 ================
 
 New features: 
@@ -10,6 +10,9 @@ Bug fixes:
 Other improvements:
 * Fixed typos in vignettes (@ryanatanner PR#93 and PR#94)
 * Added note on system requirements of curl and XML (#98)
+
+Changed maintainer to apdevries@gmail.com #103
+
 
 miniCRAN v0.2.9 (Release date: 2017-07-20)
 ===============

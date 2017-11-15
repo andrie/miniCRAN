@@ -1,11 +1,11 @@
 miniCRAN
 ========
 
-[![Build Status](https://travis-ci.org/RevolutionAnalytics/miniCRAN.svg?branch=master)](https://travis-ci.org/RevolutionAnalytics/miniCRAN)
-[![Build Status](https://travis-ci.org/RevolutionAnalytics/miniCRAN.svg?branch=dev)](https://travis-ci.org/RevolutionAnalytics/miniCRAN)
+[![Build Status](https://travis-ci.org/andrie/miniCRAN.svg?branch=master)](https://travis-ci.org/andrie/miniCRAN)
+[![Build Status](https://travis-ci.org/andrie/miniCRAN.svg?branch=dev)](https://travis-ci.org/andrie/miniCRAN)
 [![](http://www.r-pkg.org/badges/version/miniCRAN)](http://www.r-pkg.org/pkg/miniCRAN)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/miniCRAN)](http://www.r-pkg.org/pkg/miniCRAN)
-[![Coverage Status](https://img.shields.io/codecov/c/github/RevolutionAnalytics/miniCRAN/master.svg)](https://codecov.io/github/RevolutionAnalytics/miniCRAN?branch=master)
+[![Coverage Status](https://img.shields.io/codecov/c/github/andrie/miniCRAN/master.svg)](https://codecov.io/github/andrie/miniCRAN?branch=master)
 
 Create a mini version of CRAN containing only selected packages
 
@@ -38,7 +38,7 @@ Get the latest stable development version from github:
 ```r
 # Use `devtools` to install directly from github
 library(devtools)
-install_github("RevolutionAnalytics/miniCRAN")
+install_github("andrie/miniCRAN")
 ```
 
 ### System requirements
@@ -68,6 +68,6 @@ pkgs <- c("ggplot2", "plyr", "reshape2")
 makeRepo(pkgDep(pkgs), path=file.path(tempdir(), "miniCRAN"), download=TRUE)
 ```
 
-## Code of conduct
+## Supported by Microsoft
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+I started this project while employed by Revolution Analytics and Microsoft.  Microsoft has kindly agreed that I maintain the project individually, and retains copyright to all work on the project until October 2017.
