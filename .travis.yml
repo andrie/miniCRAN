@@ -23,9 +23,9 @@ matrix:
     r: devel
 
   - os: osx
-    osx_image: xcode8
+    osx_image: xcode9
     latex: false
-    
+
 r_build_args: '--no-build-vignettes'
 r_check_args: '--as-cran --ignore-vignettes --no-examples'
 
@@ -39,7 +39,7 @@ notifications:
   email:
     on_success: change
     on_failure: change
-    
+
 after_success:
   - test $TRAVIS_R_VERSION_STRING = "release" && Rscript -e 'withr::with_envvar(c(NOT_CRAN="true"), {covr::codecov()})'
 
