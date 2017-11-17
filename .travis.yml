@@ -34,7 +34,6 @@ branches:
     - master
     - release
     - dev
-    - split-tests
 
 notifications:
   email:
