@@ -2,10 +2,7 @@
 title: "Using miniCRAN to create a local CRAN repository"
 author: "Andrie de Vries and Alex Chubaty"
 date:   "`r as.character(format(Sys.Date(), format='%B %d, %Y'))`"
-output:
-  html_document:
-    self_contained: yes
-    toc: yes
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Using miniCRAN to create and maintain a local CRAN repository}
@@ -28,7 +25,8 @@ revolution <- c(CRAN = "http://cran.microsoft.com")
 
 # Specify list of packages to download
 pkgs <- c("foreach")
-pkgList <- pkgDep(pkgs, repos = revolution, type = "source", suggests = FALSE, availPkgs = cranJuly2014)
+pkgList <- pkgDep(pkgs, repos = revolution, type = "source", suggests = FALSE, 
+                  availPkgs = cranJuly2014)
 pkgList
 ```
 
@@ -39,7 +37,7 @@ Next, create a repository with the function `makeRepo()`.  In this example, get 
 dir.create(pth <- file.path(tempdir(), "miniCRAN"))
 
 # Make repo for source and win.binary
-makeRepo(pkgList, path = pth, repos = revolution, type = c("source", "win.binary"))
+makeRepo(pkgList, path=pth, repos=revolution, type=c("source", "win.binary"))
 ```
 
 
@@ -91,9 +89,11 @@ To add a specific version of a package from CRAN (or another CRAN-like repositor
 
 ```{r addto-repo-old-1, eval=FALSE}
 # create a data frame with the package and version info
-oldVers <- data.frame(package = c("foreach", "codetools", "iterators"),
-                      version = c("1.4.0", "0.2-7", "1.0.5"),
-                      stringsAsFactors = FALSE)
+oldVers <- data.frame(
+  package = c("foreach", "codetools", "iterators"),
+  version = c("1.4.0", "0.2-7", "1.0.5"),
+  stringsAsFactors = FALSE
+)
 
 # download old source package version and create repo index
 addOldPackage(pkgList, path = pth, vers = oldVers$version, repos = revolution, type = "source")
@@ -143,7 +143,7 @@ oldPackages(path = pth, repos = revolution, type = "win.binary")[, 1:3] # should
 ```
 
 
-Update the versions of the packages currently stored in the miniCRAN repository. By default, a prompt is given to confirm the update for each package. This prompt can be suppressed using `ask=FALSE`, which will update all packages. Be careful using this option if you want to keep certain packages at an older version.
+Update the versions of the packages currently stored in the miniCRAN repository. By default, a prompt is given to confirm the update for each package. This prompt can be suppressed using `ask = FALSE`, which will update all packages. Be careful using this option if you want to keep certain packages at an older version.
 
 ```{r update-repo-2, eval=FALSE}
 # Update available packages
