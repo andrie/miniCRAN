@@ -1,7 +1,28 @@
-miniCRAN v0.2.10 (Release date: 2017-10-21)
+miniCRAN v0.2.11.9000 (Release date: in development)
 ================
 
 New features: 
+
+* Used `pkgdown` to build documentation site
+
+
+miniCRAN v0.2.10.9000
+=====================
+
+New features:
+* NULL
+
+Bug fixes:
+* use cran.microsoft.com instead of mran.microsoft.com for MRAN url (#104)
+
+Other improvements:
+* NULL
+
+
+miniCRAN v0.2.10 (Release date: 2017-10-21)
+================
+
+New features:
 * Added package option `minicran.mran` which sets default preferred MRAN url (#72)
 
 Bug fixes:

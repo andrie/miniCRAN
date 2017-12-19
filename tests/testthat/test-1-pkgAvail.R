@@ -1,15 +1,14 @@
 context("pkgAvail")
 
 test_that("pkgAvail throws warnings and errors for incorrect CRAN repos", {
-  expect_warning(pkgAvail(repos=""))
+  expect_warning(pkgAvail(repos = ""))
 
-  
-  is.available.packages <- function(x){
-    all(is.matrix(x), dim(x)[2] == 17, names(x)[1:3] == c("Package", "Version","Priority", "Depends"))
+  is.available.packages <- function(x) {
+    all(is.matrix(x), dim(x)[2] == 17, names(x)[1:3] == c("Package", "Version", "Priority", "Depends"))
   }
 
   skip_if_offline(MRAN())
-  
+
   expect_true(is.available.packages(
     pkgAvail(repos = unname(MRAN()))
   ))
@@ -17,7 +16,6 @@ test_that("pkgAvail throws warnings and errors for incorrect CRAN repos", {
     pkgAvail(repos = MRAN())
   ))
   expect_true(is.available.packages(
-    pkgAvail(repos=c(CRAN="@CRAN@"))
+    pkgAvail(repos = c(CRAN = "@CRAN@"))
   ))
-
 })

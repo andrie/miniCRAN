@@ -1,9 +1,9 @@
 ## ----setup---------------------------------------------------------------
 # Wrapper around available.packages ---------------------------------------
  
-index <- function(url, type="source", filters=NULL, head=5, cols=c("Package", "Version")){
-  contribUrl <- contrib.url(url, type=type)
-  p <- available.packages(contribUrl, type=type, filters=filters)
+index <- function(url, type = "source", filters = NULL, head = 5, cols = c("Package", "Version")){
+  contribUrl <- contrib.url(url, type = type)
+  p <- available.packages(contribUrl, type = type, filters = filters)
   p[1:head, cols]
 }
  
@@ -27,7 +27,7 @@ index <- function(url, type="source", filters=NULL, head=5, cols=c("Package", "V
 #  bioc <- local({
 #    env <- new.env()
 #    on.exit(rm(env))
-#    evalq(source("http://bioconductor.org/biocLite.R", local=TRUE), env)
+#    evalq(source("http://bioconductor.org/biocLite.R", local = TRUE), env)
 #    biocinstallRepos()
 #  })
 #  

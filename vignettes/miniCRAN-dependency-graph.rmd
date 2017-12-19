@@ -2,10 +2,7 @@
 title:  "Using miniCRAN to identify package dependencies"
 author: "Andrie de Vries"
 date:   "`r as.character(format(Sys.Date(), format='%B %d, %Y'))`"
-output:
-  html_document:
-    self_contained: yes
-    toc: yes
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Using miniCRAN to identify package dependencies}

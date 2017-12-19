@@ -11,16 +11,18 @@ Create a mini version of CRAN containing only selected packages
 
 ## Introduction
 
-At the end of 2014, CRAN consisted of more than 6,000 packages.  Many organisations need to maintain a private mirror of CRAN, but with only a subset of packages that are relevant to them.
+At the end of 2014, CRAN consisted of more than 6,000 packages. By then end of 2017, the number of packages doubled to more than 12,000.  Many organisations need to maintain a private mirror of CRAN, but with only a subset of packages that are relevant to them.
 
-`miniCRAN` makes it possible to create an internally consistent repository consisting of selected packages from CRAN-like repositories.  The user specifies a set of desired packages, and miniCRAN recursively reads the dependency tree for these packages, then downloads only this subset.  
+The `miniCRAN` package makes it possible to create an internally consistent repository consisting of selected packages from CRAN-like repositories.  The user specifies a set of desired packages, and `miniCRAN` recursively reads the dependency tree for these packages, then downloads only this subset.  
 
 ## Important functions:
 
-* Find package dependencies: `pkgDep()`
-* Make repository (with or without downloading packages): `makeRepo()`
-* Add additonal packages (and their dependencies) to existing repository: `addPackage()`
-* Update the versions of packages currently in the repository: `updatePackages()`
+Function           | Use it for
+--------------     | ------------------------------------------
+`pkgDep()`         | Find package dependencies
+`makeRepo()`       | Make repository (with or without downloading packages)
+`addPackage()`     | Add additonal packages (and their dependencies) to existing repository
+`updatePackages()` | Update the versions of packages currently in the repository
 
 ## Installation:
 
@@ -33,7 +35,7 @@ library("miniCRAN")
 
 ### Development version
 
-Get the latest stable development version from github:
+Get the latest development version from github:
 
 ```r
 # Use `devtools` to install directly from github
@@ -43,19 +45,19 @@ install_github("andrie/miniCRAN")
 
 ### System requirements
 
-The `miniCRAN` package itself doesn't introduce any system dependencies.  However, the package imports [`curl`](https://cran.r-project.org/package=curl) and `XML` packages. These have system requirements on `libxml2-devel`, `libcurl-devel` and `openssl-devel`.
+The `miniCRAN` package itself doesn't introduce any system dependencies.  However, the package imports the  [`curl`](https://cran.r-project.org/package=curl) and [`XML`](https://cran.r-project.org/package=XML) packages. These have system requirements on `libxml2-devel`, `libcurl-devel` and `openssl-devel`.
 
-On systems with the `rpm` package manager (Red Hat, CentOS) try:
+* On systems with the `rpm` package manager (Red Hat, CentOS) try:
 
-```bash
-yum install libcurl-devel libxml2-devel openssl-devel
-```
+    ```sh
+    yum install libcurl-devel libxml2-devel openssl-devel
+    ```
 
-On systems with the `aptitude` package manager (Debian, Ubuntu) try:
+* On systems with the `aptitude` package manager (Debian, Ubuntu) try:
 
-```bash
-apt-get install libcurl4-openssl-dev libxml2-devel openssl-devel
-```
+    ```sh
+    apt-get install libcurl4-openssl-dev libxml2-devel openssl-devel
+    ```
 
     
 ## Example:
@@ -65,7 +67,7 @@ apt-get install libcurl4-openssl-dev libxml2-devel openssl-devel
 
 library("miniCRAN")
 pkgs <- c("ggplot2", "plyr", "reshape2")
-makeRepo(pkgDep(pkgs), path=file.path(tempdir(), "miniCRAN"), download=TRUE)
+makeRepo(pkgDep(pkgs), path = file.path(tempdir(), "miniCRAN"))
 ```
 
 ## Supported by Microsoft
