@@ -21,7 +21,6 @@ SystemRequirements: Imports the `curl` and `XML` packages. These have system
 Imports:
     graphics,
     httr,
-    magrittr,
     methods,
     stats,
     tools,

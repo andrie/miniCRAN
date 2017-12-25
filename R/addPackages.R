@@ -179,8 +179,6 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 #' @rdname listFiles
 #' @docType methods
 #'
-#' @importFrom magrittr '%>%'
-#'
 #' @examples
 #' \dontrun{
 #'  .listFiles('path/to/my/packages', type = "source")
@@ -204,15 +202,19 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 
   if (length(f)) {
     # if multiple versions present, always use latest
-    fp <- strsplit(f, "_") %>%
-      sapply(., `[[`, 1)
-
-    fv <- strsplit(f, "_") %>%
-      sapply(., `[[`, 2) %>%
-      strsplit(., pattern) %>%
-      sapply(., `[[`, 1) %>%
-      as.numeric_version()
-
+    fp <- local({
+      x <- strsplit(f, "_")
+      sapply(x, `[[`, 1)
+    })
+    
+    fv <- local({
+      x <- strsplit(f, "_")
+      x <- sapply(x, `[[`, 2)
+      x <- strsplit(x, pattern)
+      x <- sapply(x, `[[`, 1)
+      as.numeric_version(x)
+    })
+    
     fout <- sapply(fp, function(x) {
       ids.p <- which(fp %in% x)
 
