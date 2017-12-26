@@ -24,7 +24,7 @@ is.online <- function(url = MRAN(), tryHttp = TRUE){
 
 # Interrupt the test if url can not be reached
 skip_if_offline <- function(url = MRAN()){
-  if(!is.online(url)) testthat::skip("offline")
+  if (!is.online(url)) testthat::skip("offline")
 }
 
 
@@ -41,6 +41,12 @@ skip_if_offline <- function(url = MRAN()){
 }
 
 
+mock.makeRepo <- function(...){
+  mockery::stub(makeRepo, "download.packages", mock.download.packages)
+  mockery::stub(makeRepo, "updateRepoIndex", mock.updateRepoIndex)
+  makeRepo(...)
+}
+
 # Create sample repo from MRAN snapshot
 .createSampleRepo <- function(MRAN, path, pkgs, Rversion = "3.1"){
   if (missing(MRAN)) MRAN <- MRAN("2014-10-15")
@@ -55,21 +61,21 @@ skip_if_offline <- function(url = MRAN()){
   pkgList_source <- pkgDep(pkgs, availPkgs = pdb_source, repos = MRAN, 
                            type = "source", 
                            suggests = FALSE, Rversion = Rversion)
-  makeRepo(pkgList_source, path = path, repos = MRAN, 
+  mock.makeRepo(pkgList_source, path = path, repos = MRAN, 
            type = "source",
            quiet = TRUE, Rversion = Rversion)
   
   pkgList_win <- pkgDep(pkgs, availPkgs = pdb_win, repos = MRAN, 
                         type = "win.binary", 
                         suggests = FALSE, Rversion = Rversion)
-  makeRepo(pkgList_win, path = path, repos = MRAN, 
+  mock.makeRepo(pkgList_win, path = path, repos = MRAN, 
            type = "win.binary",
            quiet = TRUE, Rversion = Rversion)
   
   pkgList_mac <- pkgDep(pkgs, availPkgs = pdb_mac, repos = MRAN, 
                         type = "mac.binary", 
                         suggests = FALSE, Rversion = Rversion)
-  makeRepo(pkgList_mac, path = path, repos = MRAN, 
+  mock.makeRepo(pkgList_mac, path = path, repos = MRAN, 
            type = "mac.binary",
            quiet = TRUE, Rversion = Rversion)
 }

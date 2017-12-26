@@ -11,19 +11,18 @@ pkgFileExt <- function(type) {
 }
 
 
-
 getPkgVersFromFile <- function(file) {
   file <- grep("\\.(tar\\.gz|zip|tgz)$", basename(as.character(file)), value = TRUE)
   if (length(file)) {
     file <- sapply(strsplit(file, "\\.tar\\.gz"), "[[", 1)
     file <- sapply(strsplit(file, "\\.zip"), "[[", 1)
     file <- sapply(strsplit(file, "\\.tgz"), "[[", 1)
-    pkg <- sapply(strsplit(file, "_"), "[[", 1)
+    pkg  <- sapply(strsplit(file, "_"), "[[", 1)
     vers <- sapply(strsplit(file, "_"), "[[", 2)
     df <- data.frame(package = pkg, version = vers, stringsAsFactors = FALSE)
-    return(df[order(df$package),])
+    df[order(df$package),]
   } else {
-    return(NULL)
+    NULL
   }
 }
 

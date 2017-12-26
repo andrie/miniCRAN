@@ -186,13 +186,7 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 #'
 .listFiles <- function(pkgs, path, type) {
   stopifnot(dir.exists(path))
-  pattern <- switch(type,
-                    mac.binary = ".tgz",
-                    mac.binary.leopard = ".tgz",
-                    mac.binary.mavericks = ".tgz",
-                    source = ".tar.gz",
-                    win.binary = ".zip",
-                    stop("Type ", type, "not recognised."))
+  pattern <- pkgFileExt(type)
 
   # get a list of all files in pkgPaths directory matching pattern
   f <- list.files(path, pattern = pattern)
@@ -223,11 +217,10 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
       id.v <- which(fv == max(fv[ids.p]))
 
       f[id.v]
-    }) %>% unique()
-
-    return(fout)
+    })
+    unique(fout)
   } else {
-    return(character())
+    character()
   }
 }
 
@@ -328,5 +321,5 @@ addLocalPackage <- function(pkgs = NULL, pkgPath = NULL, path = NULL,
   # write package index for each folder:
   index <- updateRepoIndex(path = path, type = type, Rversion = Rversion)
 
-  return(invisible(index))
+  invisible(index)
 }

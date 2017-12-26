@@ -51,6 +51,8 @@
 #'
 #' @export
 #' @family update repo functions
+#' 
+#' @importFrom utils download.packages
 #'
 #' @example /inst/examples/example_makeRepo.R
 makeRepo <- function(pkgs, path, repos = getOption("repos"), type = "source",
@@ -59,10 +61,10 @@ makeRepo <- function(pkgs, path, repos = getOption("repos"), type = "source",
 
   downloaded <- lapply(type, function(t) {
     pkgPath <- repoBinPath(path = path, type = t, Rversion = Rversion)
-    if(!file.exists(pkgPath)) {
+    if (!file.exists(pkgPath)) {
       result <- dir.create(pkgPath, recursive = TRUE, showWarnings = FALSE)
-      if(result) {
-        if(!quiet) message("Created new folder: ", pkgPath)
+      if (result) {
+        if (!quiet) message("Created new folder: ", pkgPath)
       } else {
         stop("Unable to create repo path: ", pkgPath)
       }
@@ -71,7 +73,7 @@ makeRepo <- function(pkgs, path, repos = getOption("repos"), type = "source",
     pdb <- pkgAvail(repos = repos, type = t, Rversion = Rversion)
 
     if (download) {
-      utils::download.packages(pkgs, destdir = pkgPath, available = pdb, repos = repos,
+      download.packages(pkgs, destdir = pkgPath, available = pdb, repos = repos,
                                contriburl = contribUrl(repos, t, Rversion),
                                type = t, quiet = quiet)
     }
@@ -83,7 +85,7 @@ makeRepo <- function(pkgs, path, repos = getOption("repos"), type = "source",
     ## allow for more than one repo
     fromLocalRepos <- grepl("^file://", repos)
     
-    if(any(fromLocalRepos)){
+    if (any(fromLocalRepos)) {
       # need to copy files to correct folder
       if (sum(fromLocalRepos) > 1) 
         warning("More than one local repos provided. Only the first listed will be used.")
@@ -113,7 +115,7 @@ updateRepoIndex <- function(path, type = "source", Rversion = R.version) {
     tools::write_PACKAGES(dir = pkgPath, type = t)
   })
   names(n) <- type
-  return(n)
+  n
 }
 
 
@@ -125,11 +127,5 @@ updateRepoIndex <- function(path, type = "source", Rversion = R.version) {
 makeLibrary <- function(pkgs, path, type = "source"){
   .Deprecated("makeRepo")
   NULL
-  #   if(!file.exists(path)) stop("Download path does not exist")
-  #   wd <- getwd()
-  #   on.exit(setwd(wd))
-  #   setwd(normalizePath(path))
-  #   message(getwd())
-  #   download.packages(pkgs, destdir = path, type = type)
 }
 

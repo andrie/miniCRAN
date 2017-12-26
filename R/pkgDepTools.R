@@ -36,9 +36,8 @@ split_op_version <- function (x) {
 
 # @rdname pkgDepTools
 # @keywords internal
-split_dependencies <- function (x) {
-  if (!length(x)) 
-    return(list())
+split_dependencies <- function(x) {
+  if (!length(x)) return(list())
   x <- unlist(strsplit(x, ","))
   x <- sub("[[:space:]]+$", "", x)
   x <- unique(sub("^[[:space:]]*(.*)", "\\1", x))
@@ -54,13 +53,10 @@ split_dependencies <- function (x) {
 # @rdname pkgDepTools
 # @keywords internal
 cleanPkgField <- function(val) {
-  if (is.na(val))
-    return(character(0))
+  if (is.na(val)) return(character(0))
   val <- names(split_dependencies(val))
-  if (is.null(val))
-    return(character(0))
-  val <- val[! val %in% "R"]
-  if (length(val))
-    return(val)
-  return(character(0))
+  if (is.null(val)) return(character(0))
+  val <- val[!val %in% "R"]
+  if (length(val)) return(val)
+  character(0)
 }

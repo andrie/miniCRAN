@@ -1,4 +1,4 @@
 if (require(testthat)) {
   source(file.path("testthat", "helpers.R"))
-  test_check("miniCRAN", filter = "addGithubPackage")
+  test_check("miniCRAN")
 }

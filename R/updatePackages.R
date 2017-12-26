@@ -118,10 +118,10 @@ updatePackages <- function(path = NULL, repos = getOption("repos"), method, ask 
     }
     if (!is.null(subset)) {
       oldPkgs <- oldPkgs[rownames(oldPkgs) %in% subset, , drop = FALSE]
-      if (nrow(oldPkgs)==0) return(invisible())
+      if (nrow(oldPkgs) == 0) return(invisible())
     }
     update <- if (is.character(ask) && ask == "graphics") {
-      if (.Platform$OS.type ==" windows" || .Platform$GUI == "AQUA" ||
+      if (.Platform$OS.type == " windows" || .Platform$GUI == "AQUA" ||
           (capabilities("tcltk") && capabilities("X11"))) {
         k <- select.list(oldPkgs[, 1L], oldPkgs[, 1L], multiple = TRUE,
                          title = "Packages to be updated", graphics = TRUE)
