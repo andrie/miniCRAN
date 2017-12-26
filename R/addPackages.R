@@ -98,7 +98,7 @@ addPackage <- function(pkgs = NULL, path = NULL, repos = getOption("repos"),
       dupes <- with(curr.df, package[duplicated(package)])
       if (length(dupes)) {
         to_remove <- lapply(dupes, findPrevPackage)
-        if(length(unlist(to_remove))){
+        if (length(unlist(to_remove))) {
           file.remove(prev[unlist(to_remove)])
         }
       }

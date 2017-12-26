@@ -167,8 +167,8 @@ for (pkg_type in names(types)) {
       skip_on_cran()
       skip_if_offline(MRAN_mirror)
 
-      mockery::stub(updatePackages, "updateRepoIndex", mock.updateRepoIndex, depth = 3)
-      mockery::stub(updatePackages, "makeRepo", mock.makeRepo, depth = 3)
+      mockery::stub(updatePackages, "updateRepoIndex", mock.updateRepoIndex, depth = 2)
+      mockery::stub(updatePackages, "makeRepo", mock.makeRepo, depth = 2)
 
       prefix <- repoPrefix(pkg_type, Rversion = rvers)
       
