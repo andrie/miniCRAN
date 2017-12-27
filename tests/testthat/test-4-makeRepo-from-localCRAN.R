@@ -25,8 +25,6 @@ for (pkg_type in names(types)) {
   test_that(sprintf("makeRepo downloads %s files and builds PACKAGES file", pkg_type), {
     # skip_on_cran()
     skip_if_offline()
-    mockery::stub(makeRepo, "download.packages", mock.download.packages)
-    mockery::stub(makeRepo, "updateRepoIndex", mock.updateRepoIndex)
     
     # Create local miniCRAN
     

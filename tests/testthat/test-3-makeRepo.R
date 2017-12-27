@@ -29,9 +29,6 @@ for (pkg_type in (types)) {
     skip_on_cran()
     skip_if_offline()
     
-    mockery::stub(makeRepo, "download.packages", mock.download.packages)
-    mockery::stub(makeRepo, "updateRepoIndex", mock.updateRepoIndex)
-    
     pdb <- pkgAvail(repos = revolution, type = pkg_type, Rversion = rvers, quiet = TRUE)
     pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = revolution, type = pkg_type,
                       suggests = FALSE, Rversion = rvers, quiet = FALSE)

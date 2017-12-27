@@ -41,38 +41,6 @@ skip_if_offline <- function(url = MRAN()){
 }
 
 
-mock.makeRepo <- function(...){
-  mockery::stub(makeRepo, "download.packages", mock.download.packages)
-  mockery::stub(makeRepo, "updateRepoIndex", mock.updateRepoIndex)
-  makeRepo(...)
-}
-
-mock.addPackage <- function(...){
-  # mockery::stub(addPackage, "makeRepo", mock.makeRepo)
-  mockery::stub(addPackage, "download.packages", mock.download.packages, depth = 2)
-  mockery::stub(addPackage, "updateRepoIndex", mock.updateRepoIndex, depth = 2)
-  addPackage(...)
-}
-
-mock.updatePackages <- function(...){
-  mockery::stub(updatePackages, "download.packages", mock.download.packages, depth = 3)
-  mockery::stub(updatePackages, "updateRepoIndex", mock.updateRepoIndex, depth = 3)
-  updatePackages(...)
-}
-
-mock.addLocalPackage <- function(...){
-  mockery::stub(addLocalPackage, "updateRepoIndex", mock.updateRepoIndex)
-  addLocalPackage(...)
-}
-
-
-mock.addOldPackage <- function(...){
-  mockery::stub(addOldPackage, "download.packages", mock.download.packages, depth = 2)
-  mockery::stub(addOldPackage, "updateRepoIndex", mock.updateRepoIndex, depth = 2)
-  addOldPackage(...)
-}
-
-
 # Create sample repo from MRAN snapshot
 .createSampleRepo <- function(MRAN, path, pkgs, Rversion = "3.1"){
   if (missing(MRAN)) MRAN <- MRAN("2014-10-15")
@@ -87,21 +55,21 @@ mock.addOldPackage <- function(...){
   pkgList_source <- pkgDep(pkgs, availPkgs = pdb_source, repos = MRAN, 
                            type = "source", 
                            suggests = FALSE, Rversion = Rversion)
-  mock.makeRepo(pkgList_source, path = path, repos = MRAN, 
+  makeRepo(pkgList_source, path = path, repos = MRAN, 
            type = "source",
            quiet = TRUE, Rversion = Rversion)
   
   pkgList_win <- pkgDep(pkgs, availPkgs = pdb_win, repos = MRAN, 
                         type = "win.binary", 
                         suggests = FALSE, Rversion = Rversion)
-  mock.makeRepo(pkgList_win, path = path, repos = MRAN, 
+  makeRepo(pkgList_win, path = path, repos = MRAN, 
            type = "win.binary",
            quiet = TRUE, Rversion = Rversion)
   
   pkgList_mac <- pkgDep(pkgs, availPkgs = pdb_mac, repos = MRAN, 
                         type = "mac.binary", 
                         suggests = FALSE, Rversion = Rversion)
-  mock.makeRepo(pkgList_mac, path = path, repos = MRAN, 
+  makeRepo(pkgList_mac, path = path, repos = MRAN, 
            type = "mac.binary",
            quiet = TRUE, Rversion = Rversion)
 }
