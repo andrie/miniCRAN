@@ -70,7 +70,7 @@ oldPackages <- function(path = NULL, repos = getOption("repos"),
 #'
 #' @export
 #'
-updatePackages <- function(path = NULL, repos = getOption("repos"), method, ask = TRUE,
+updatePackages <- function(path = NULL, repos = getOption("repos"), method = NULL, ask = TRUE,
                            availPkgs = pkgAvail(repos = repos, type = type, Rversion = Rversion),
                            oldPkgs = NULL, type = "source", Rversion = R.version, quiet = FALSE) {
   

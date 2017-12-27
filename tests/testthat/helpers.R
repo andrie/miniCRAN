@@ -47,6 +47,32 @@ mock.makeRepo <- function(...){
   makeRepo(...)
 }
 
+mock.addPackage <- function(...){
+  # mockery::stub(addPackage, "makeRepo", mock.makeRepo)
+  mockery::stub(addPackage, "download.packages", mock.download.packages, depth = 2)
+  mockery::stub(addPackage, "updateRepoIndex", mock.updateRepoIndex, depth = 2)
+  addPackage(...)
+}
+
+mock.updatePackages <- function(...){
+  mockery::stub(updatePackages, "download.packages", mock.download.packages, depth = 3)
+  mockery::stub(updatePackages, "updateRepoIndex", mock.updateRepoIndex, depth = 3)
+  updatePackages(...)
+}
+
+mock.addLocalPackage <- function(...){
+  mockery::stub(addLocalPackage, "updateRepoIndex", mock.updateRepoIndex)
+  addLocalPackage(...)
+}
+
+
+mock.addOldPackage <- function(...){
+  mockery::stub(addOldPackage, "download.packages", mock.download.packages, depth = 2)
+  mockery::stub(addOldPackage, "updateRepoIndex", mock.updateRepoIndex, depth = 2)
+  addOldPackage(...)
+}
+
+
 # Create sample repo from MRAN snapshot
 .createSampleRepo <- function(MRAN, path, pkgs, Rversion = "3.1"){
   if (missing(MRAN)) MRAN <- MRAN("2014-10-15")

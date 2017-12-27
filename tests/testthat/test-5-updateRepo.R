@@ -58,8 +58,8 @@ for (pkg_type in names(types)) {
       skip_on_cran()
       skip_if_offline(revolution)
       
-      mockery::stub(addPackage, "makeRepo", mock.makeRepo)
-      mockery::stub(addPackage, "updateRepoIndex", mock.updateRepoIndex)
+      # mockery::stub(addPackage, "makeRepo", mock.makeRepo)
+      # mockery::stub(addPackage, "updateRepoIndex", mock.updateRepoIndex)
       
       pkgListAdd <- pkgDep(pkgsAdd, availPkgs = pdb[[pkg_type]],
                            repos = revolution,
@@ -68,9 +68,9 @@ for (pkg_type in names(types)) {
                            Rversion = rvers)
       prefix <- repoPrefix(pkg_type, Rversion = rvers)
       
-      addPackage(pkgListAdd, path = repo_root, repos = revolution, type = pkg_type,
+      mock.addPackage(pkgListAdd, path = repo_root, repos = revolution, type = pkg_type,
                  quiet = TRUE, Rversion = rvers)
-      
+
       expect_true(
         .checkForRepoFiles(repo_root, pkgListAdd, prefix)
       )
@@ -105,7 +105,7 @@ for (pkg_type in names(types)) {
       skip_on_cran()
       skip_if_offline(revolution)
       
-      mockery::stub(addLocalPackage, "updateRepoIndex", mock.updateRepoIndex)
+      # mockery::stub(addLocalPackage, "updateRepoIndex", mock.updateRepoIndex)
 
       tmpdir <- file.path(tempdir(), "miniCRAN", "local", pkg_type)
       expect_true(dir.create(tmpdir, recursive = TRUE, showWarnings = FALSE))
@@ -128,7 +128,7 @@ for (pkg_type in names(types)) {
       )
       expect_equal(length(list.files(tmpdir)), 2)
       
-      addLocalPackage(pkgs = pkgsAddLocal, pkgPath = tmpdir, path = repo_root,
+      mock.addLocalPackage(pkgs = pkgsAddLocal, pkgPath = tmpdir, path = repo_root,
                       type = pkg_type, quiet = TRUE, Rversion = rvers)
 
       prefix <- repoPrefix(pkg_type, Rversion = rvers)
@@ -157,6 +157,7 @@ if (!is.online(MRAN_mirror, tryHttp = FALSE)) {
   MRAN_mirror <- sub("^https://", "http://", revolution)
 }
 
+pkg_type <- names(types)[1]
 for (pkg_type in names(types)) {
   context(sprintf(" - Check for updates (%s)", pkg_type))
   
@@ -167,9 +168,9 @@ for (pkg_type in names(types)) {
       skip_on_cran()
       skip_if_offline(MRAN_mirror)
 
-      mockery::stub(updatePackages, "updateRepoIndex", mock.updateRepoIndex, depth = 2)
-      mockery::stub(updatePackages, "makeRepo", mock.makeRepo, depth = 2)
-
+      # mockery::stub(addPackage, "makeRepo", mock.makeRepo)
+      # mockery::stub(addPackage, "updateRepoIndex", mock.updateRepoIndex)
+      
       prefix <- repoPrefix(pkg_type, Rversion = rvers)
       
       suppressWarnings(
@@ -190,8 +191,12 @@ for (pkg_type in names(types)) {
               "timeSeries", "tis")
         )
       )
+     
+      # mockery::stub(updatePackages, "download.packages", mock.download.packages, depth = 2)
+      # mockery::stub(updatePackages, "updateRepoIndex", mock.updateRepoIndex, depth = 2)
+      # # mockery::stub(updatePackages, "updateRepoIndex", mock.updateRepoIndex)
       
-      updatePackages(path = repo_root, repos = MRAN_mirror, type = pkg_type,
+      mock.updatePackages(path = repo_root, repos = MRAN_mirror, type = pkg_type,
                      ask = FALSE, quiet = TRUE, Rversion = rvers)
 
       updateVers <- getPkgVersFromFile(
@@ -228,21 +233,17 @@ for (pkg_type in names(types)) {
       
       skip_on_cran()
       skip_if_offline(MRAN_mirror)
-      with_mock(
-        download.packages = mock.download.packages, 
-        updateRepoIndex = mock.updateRepoIndex,
-        {
           
           oldVersions <- list(package = c("acepack"),
                               version = c("1.3-2"))
           if (pkg_type != "source") {
             expect_error(
-              addOldPackage(oldVersions[["package"]], path = repo_root, 
+              mock.addOldPackage(oldVersions[["package"]], path = repo_root, 
                             vers = oldVersions[["version"]],
                             repos = MRAN_mirror, type = pkg_type)
             )
           } else {
-            addOldPackage(oldVersions[["package"]], path = repo_root, 
+            mock.addOldPackage(oldVersions[["package"]], path = repo_root, 
                           vers = oldVersions[["version"]],
                           repos = MRAN_mirror, type = pkg_type)
             files <- suppressWarnings(
@@ -260,6 +261,5 @@ for (pkg_type in names(types)) {
             )
             
           }
-        })
     })
 }

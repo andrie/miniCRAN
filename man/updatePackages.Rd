@@ -12,7 +12,7 @@ oldPackages(path = NULL, repos = getOption("repos"),
   Rversion, quiet = quiet), type = "source", Rversion = R.version,
   quiet = FALSE)
 
-updatePackages(path = NULL, repos = getOption("repos"), method,
+updatePackages(path = NULL, repos = getOption("repos"), method = NULL,
   ask = TRUE, availPkgs = pkgAvail(repos = repos, type = type, Rversion =
   Rversion), oldPkgs = NULL, type = "source", Rversion = R.version,
   quiet = FALSE)

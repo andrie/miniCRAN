@@ -156,7 +156,7 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
   if (!file.exists(pkgPath)) dir.create(pkgPath, recursive = TRUE)
   
   do_one <- function(x) {
-    result <- utils::download.file(x, destfile = file.path(pkgPath, basename(x)),
+    result <- download.file(x, destfile = file.path(pkgPath, basename(x)),
                                    method = "auto", mode = "wb", quiet = quiet)
     if (result != 0) warning("error downloading file ", x)
   }
