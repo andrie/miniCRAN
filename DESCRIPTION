@@ -27,7 +27,7 @@ Imports:
     utils,
     XML,
     igraph,
-    mockery(>=0.4.0)
+    mockery(>= 0.4.0)
 Suggests:
     devtools,
     knitr,
