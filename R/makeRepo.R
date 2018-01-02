@@ -51,14 +51,14 @@
 #'
 #' @export
 #' @family update repo functions
-#' 
+#'
 #' @importFrom utils download.packages
 #'
 #' @example /inst/examples/example_makeRepo.R
 makeRepo <- function(pkgs, path, repos = getOption("repos"), type = "source",
                      Rversion = R.version, download = TRUE, writePACKAGES = TRUE, quiet = FALSE) {
   if (!file.exists(path)) stop("Download path does not exist")
-  
+
   downloaded <- lapply(type, function(t) {
     pkgPath <- repoBinPath(path = path, type = t, Rversion = Rversion)
     if (!file.exists(pkgPath)) {
@@ -69,25 +69,25 @@ makeRepo <- function(pkgs, path, repos = getOption("repos"), type = "source",
         stop("Unable to create repo path: ", pkgPath)
       }
     }
-    
+
     pdb <- pkgAvail(repos = repos, type = t, Rversion = Rversion)
-    
+
     if (download) {
       download.packages(pkgs, destdir = pkgPath, available = pdb, repos = repos,
                         contriburl = contribUrl(repos, t, Rversion),
                         type = t, quiet = quiet)
     }
   })
-  
+
   if (download) {
     downloaded <- downloaded[[1]][, 2]
-    
+
     ## allow for more than one repo
     fromLocalRepos <- grepl("^file://", repos)
-    
+
     if (any(fromLocalRepos)) {
       # need to copy files to correct folder
-      if (sum(fromLocalRepos) > 1) 
+      if (sum(fromLocalRepos) > 1)
         warning("More than one local repos provided. Only the first listed will be used.")
       pat <- ifelse(Sys.info()["sysname"] == "Windows", "^file:///", "^file://")
       repoPath <- gsub(pat, "", repos[fromLocalRepos][1])
@@ -99,7 +99,7 @@ makeRepo <- function(pkgs, path, repos = getOption("repos"), type = "source",
       downloaded <- newPath
     }
   }
-  
+
   if (writePACKAGES) updateRepoIndex(path = path, type = type, Rversion = Rversion)
   if (download) downloaded else character(0)
 }
@@ -124,7 +124,7 @@ updateRepoIndex <- function(path, type = "source", Rversion = R.version) {
 #'
 #' @inheritParams makeRepo
 #' @export
-makeLibrary <- function(pkgs, path, type = "source"){
+makeLibrary <- function(pkgs, path, type = "source") {
   .Deprecated("makeRepo")
   NULL
 }

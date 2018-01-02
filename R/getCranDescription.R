@@ -2,7 +2,7 @@
 #' @importFrom XML readHTMLTable
 oldGetCranDescription <- function(pkg, repos = getOption("repos"),
                                   type = "source",
-                                  pkgs = pkgDep(pkg, repos = repos, type = type)){
+                                  pkgs = pkgDep(pkg, repos = repos, type = type)) {
   getOne <- function(package) {
     repos <- repos[[1]]
     if(!grepl("/$", repos)) repos <- paste0(repos, "/")
@@ -42,9 +42,9 @@ oldGetCranDescription <- function(pkg, repos = getOption("repos"),
 #' @example /inst/examples/example_getCranDescription.R
 getCranDescription <- function(pkg, repos = getOption("repos"),
                                type = "source",
-                               pkgs = pkgDep(pkg, repos = repos, type = type)){
+                               pkgs = pkgDep(pkg, repos = repos, type = type)) {
 
-  if (getRversion() >= "3.4.1"){
+  if (getRversion() >= "3.4.1") {
     pdb <- tools::CRAN_package_db()
     pdb[match(pkgs, pdb$Package), ]
   } else {

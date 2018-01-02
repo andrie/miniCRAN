@@ -30,7 +30,7 @@ getPkgVersFromFile <- function(file) {
 
 readDescription <- function(file) {
   stopifnot(file.exists(file))
-  trimSpaces <- function(x){
+  trimSpaces <- function(x) {
     gsub("^\\s+|\\s+$", "", x)
   }
 
@@ -76,7 +76,7 @@ addPackageListing <- function(pdb = pkgAvail(), dcf, warnings = TRUE) {
 # Possible to override the blocking of a package's (re-)installation after it has been required/loaded?
 
 #' @importFrom httr GET stop_for_status content
-readDescriptionGithub <- function(repo, username, branch = "master", quiet = TRUE){
+readDescriptionGithub <- function(repo, username, branch = "master", quiet = TRUE) {
   if (!missing(username) && !is.null(username)) repo <- paste(username, repo, sep = "/")
   pkg <- sprintf("https://github.com/%s/raw/%s/DESCRIPTION", repo, branch)
   ff <- tempfile()

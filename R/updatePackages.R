@@ -23,15 +23,15 @@
 #' @example /inst/examples/example_updatePackages.R
 #'
 oldPackages <- function(path = NULL, repos = getOption("repos"),
-                        availPkgs = pkgAvail(repos = repos, 
-                                             type = type, 
+                        availPkgs = pkgAvail(repos = repos,
+                                             type = type,
                                              Rversion = Rversion),
                         method,
-                        availableLocal = pkgAvail(repos = path, 
-                                                  type = type, 
-                                                  Rversion = Rversion, 
+                        availableLocal = pkgAvail(repos = path,
+                                                  type = type,
+                                                  Rversion = Rversion,
                                                   quiet = quiet),
-                        type = "source", 
+                        type = "source",
                         Rversion = R.version,
                         quiet = FALSE) {
   if (is.null(path)) stop("path to miniCRAN repo must be specified")
@@ -73,8 +73,8 @@ oldPackages <- function(path = NULL, repos = getOption("repos"),
 updatePackages <- function(path = NULL, repos = getOption("repos"), method = NULL, ask = TRUE,
                            availPkgs = pkgAvail(repos = repos, type = type, Rversion = Rversion),
                            oldPkgs = NULL, type = "source", Rversion = R.version, quiet = FALSE) {
-  
-  do_one <- function(t){
+
+  do_one <- function(t) {
     force(ask)
     simplifyRepos <- function(repos, t) {
       tail <- substring(contribUrl("---", type = t, Rversion = Rversion), 4)
@@ -139,6 +139,6 @@ updatePackages <- function(path = NULL, repos = getOption("repos"), method = NUL
                  quiet = quiet, deps = FALSE, Rversion = Rversion)
     }
   }
-  
+
   lapply(type, do_one)
 }

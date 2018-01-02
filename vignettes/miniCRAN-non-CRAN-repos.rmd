@@ -21,7 +21,7 @@ To simplify the code to show the salient features, we use a little helper functi
 ```{r setup}
 # Wrapper around available.packages ---------------------------------------
  
-index <- function(url, type = "source", filters = NULL, head = 5, cols = c("Package", "Version")){
+index <- function(url, type = "source", filters = NULL, head = 5, cols = c("Package", "Version")) {
   contribUrl <- contrib.url(url, type = type)
   p <- available.packages(contribUrl, type = type, filters = filters)
   p[1:head, cols]
