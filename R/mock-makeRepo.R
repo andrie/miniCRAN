@@ -1,8 +1,8 @@
 # These functions mock downloading of packages, for fast testing purposes only
 
-is_mock_environment <- function()Sys.getenv("miniCRAN.mock.download") == TRUE
-set_mock_environment <- function()Sys.setenv("miniCRAN.mock.download" = TRUE)
-reset_mock_environment <- function()Sys.setenv("miniCRAN.mock.download" = FALSE)
+is_mock_environment <- function() Sys.getenv("miniCRAN.mock.download") == TRUE
+set_mock_environment <- function() Sys.setenv("miniCRAN.mock.download" = TRUE)
+reset_mock_environment <- function() Sys.setenv("miniCRAN.mock.download" = FALSE)
 
 
 # lib_in_tempdir <- function(lib) {
