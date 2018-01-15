@@ -9,8 +9,10 @@
 
 ## R CMD check results
 
-There were no ERRORs or WARNINGs or NOTEs.
+There were no ERRORs or WARNINGs.
 
+There is a NOTE on old releases, that `tools::CRAN_package_db()` is not exported.
+In my code I use `if (getRversion() >= "3.4.1") {...}` to test for this condition, and only refer to `CRAN_package_db()` in more recent releases.
 
 ## Downstream dependencies
 
