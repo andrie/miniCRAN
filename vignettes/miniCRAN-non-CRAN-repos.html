@@ -12,7 +12,7 @@
 
 <meta name="author" content="Andrie de Vries" />
 
-<meta name="date" content="2017-12-26" />
+<meta name="date" content="2018-01-15" />
 
 <title>Using repositories other than CRAN with miniCRAN</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Using repositories other than CRAN with miniCRAN</h1>
 <h4 class="author"><em>Andrie de Vries</em></h4>
-<h4 class="date"><em>December 26, 2017</em></h4>
+<h4 class="date"><em>January 15, 2018</em></h4>
 
 
 
@@ -79,7 +79,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>To simplify the code to show the salient features, we use a little helper function, <code>index()</code> that is a simple wrapper around <code>available.packages()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Wrapper around available.packages ---------------------------------------</span>
  
-index &lt;-<span class="st"> </span><span class="cf">function</span>(url, <span class="dt">type =</span> <span class="st">&quot;source&quot;</span>, <span class="dt">filters =</span> <span class="ot">NULL</span>, <span class="dt">head =</span> <span class="dv">5</span>, <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;Package&quot;</span>, <span class="st">&quot;Version&quot;</span>)){
+index &lt;-<span class="st"> </span><span class="cf">function</span>(url, <span class="dt">type =</span> <span class="st">&quot;source&quot;</span>, <span class="dt">filters =</span> <span class="ot">NULL</span>, <span class="dt">head =</span> <span class="dv">5</span>, <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;Package&quot;</span>, <span class="st">&quot;Version&quot;</span>)) {
   contribUrl &lt;-<span class="st"> </span><span class="kw">contrib.url</span>(url, <span class="dt">type =</span> type)
   p &lt;-<span class="st"> </span><span class="kw">available.packages</span>(contribUrl, <span class="dt">type =</span> type, <span class="dt">filters =</span> filters)
   p[<span class="dv">1</span><span class="op">:</span>head, cols]

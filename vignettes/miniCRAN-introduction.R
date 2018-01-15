@@ -15,7 +15,7 @@ pkgList
 #  dir.create(pth <- file.path(tempdir(), "miniCRAN"))
 #  
 #  # Make repo for source and win.binary
-#  makeRepo(pkgList, path=pth, repos=revolution, type=c("source", "win.binary"))
+#  makeRepo(pkgList, path = pth, repos = revolution, type = c("source", "win.binary"))
 
 ## ----make-repo-3, eval=FALSE---------------------------------------------
 #  # List all files in miniCRAN
