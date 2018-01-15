@@ -1,5 +1,5 @@
 #' Get the path to the repo directory containing the package files.
-#' 
+#'
 #' @note Not all versions of R are compatible with with all package types (e.g., `mac.binary.el-capitan` is only valid for R > 3.4.0).
 #'
 #' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to [R.version]
@@ -45,13 +45,13 @@
 #'
 repoPrefix <- function(type, Rversion) {
   Rversion <- twodigitRversion(Rversion)
-  
+
   if ((type == "mac.binary.el-capitan") && (numeric_version(Rversion) < "3.4")) {
     warning("Type mac.binary.el-capitan only valid for R >= 3.4")
   } else if ((type == "mac.binary.mavericks") && (numeric_version(Rversion) >= "3.4")) {
     warning("Type mac.binary.mavericks only valid for R < 3.4")
   }
-  
+
   switch(
     type,
     "source" = "src/contrib",
@@ -67,11 +67,9 @@ repoPrefix <- function(type, Rversion) {
 #' Construct path to full binary location
 #' @inheritParams makeRepo
 #' @inheritParams repoPrefix
-repoBinPath <- function(path, type, Rversion){
+repoBinPath <- function(path, type, Rversion) {
   normalizePath(file.path(path, repoPrefix(type, Rversion)), mustWork = FALSE, winslash = "/")
 }
-
-
 
 #' Get a two-digit version of the R version
 #'
@@ -81,12 +79,12 @@ repoBinPath <- function(path, type, Rversion){
 #'
 #' @importFrom methods is
 #'
-twodigitRversion <- function(R=R.version){
+twodigitRversion <- function(R = R.version) {
   if ("simple.list" %in% is(R)) {
     paste(R$major, strsplit(R$minor, ".", fixed = TRUE)[[1L]][1L], sep = ".")
   } else if ("R_system_version" %in% is(R)) {
-    paste(strsplit(as.character(R), ".", fixed=TRUE)[[1L]][1L:2L], collapse=".")
+    paste(strsplit(as.character(R), ".", fixed = TRUE)[[1L]][1L:2L], collapse = ".")
   } else if (is.character(R)) {
-    paste(strsplit(R, ".", fixed=TRUE)[[1L]][1L:2L], collapse=".")
+    paste(strsplit(R, ".", fixed = TRUE)[[1L]][1L:2L], collapse = ".")
   }
 }

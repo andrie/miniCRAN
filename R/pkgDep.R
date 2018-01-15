@@ -162,8 +162,8 @@ contribUrl <- function (repos = getOption("repos"),
     type <- "source"
   if (type == "binary") 
     type <- .Platform$pkgType
-  if (is.null(repos)) 
-    return(NULL)
+  if (is.null(repos)) return(NULL)
+  
   if ("@CRAN@" %in% repos && interactive()) {
     cat(gettext("--- Please select a CRAN mirror for use in this session ---"), 
         "\n", sep = "")

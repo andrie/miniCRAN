@@ -23,15 +23,15 @@
 #' @example /inst/examples/example_updatePackages.R
 #'
 oldPackages <- function(path = NULL, repos = getOption("repos"),
-                        availPkgs = pkgAvail(repos = repos, 
-                                             type = type, 
+                        availPkgs = pkgAvail(repos = repos,
+                                             type = type,
                                              Rversion = Rversion),
                         method,
-                        availableLocal = pkgAvail(repos = path, 
-                                                  type = type, 
-                                                  Rversion = Rversion, 
+                        availableLocal = pkgAvail(repos = path,
+                                                  type = type,
+                                                  Rversion = Rversion,
                                                   quiet = quiet),
-                        type = "source", 
+                        type = "source",
                         Rversion = R.version,
                         quiet = FALSE) {
   if (is.null(path)) stop("path to miniCRAN repo must be specified")
@@ -70,11 +70,11 @@ oldPackages <- function(path = NULL, repos = getOption("repos"),
 #'
 #' @export
 #'
-updatePackages <- function(path = NULL, repos = getOption("repos"), method, ask = TRUE,
+updatePackages <- function(path = NULL, repos = getOption("repos"), method = NULL, ask = TRUE,
                            availPkgs = pkgAvail(repos = repos, type = type, Rversion = Rversion),
                            oldPkgs = NULL, type = "source", Rversion = R.version, quiet = FALSE) {
-  
-  do_one <- function(t){
+
+  do_one <- function(t) {
     force(ask)
     simplifyRepos <- function(repos, t) {
       tail <- substring(contribUrl("---", type = t, Rversion = Rversion), 4)
@@ -118,10 +118,10 @@ updatePackages <- function(path = NULL, repos = getOption("repos"), method, ask 
     }
     if (!is.null(subset)) {
       oldPkgs <- oldPkgs[rownames(oldPkgs) %in% subset, , drop = FALSE]
-      if (nrow(oldPkgs)==0) return(invisible())
+      if (nrow(oldPkgs) == 0) return(invisible())
     }
     update <- if (is.character(ask) && ask == "graphics") {
-      if (.Platform$OS.type ==" windows" || .Platform$GUI == "AQUA" ||
+      if (.Platform$OS.type == " windows" || .Platform$GUI == "AQUA" ||
           (capabilities("tcltk") && capabilities("X11"))) {
         k <- select.list(oldPkgs[, 1L], oldPkgs[, 1L], multiple = TRUE,
                          title = "Packages to be updated", graphics = TRUE)
@@ -139,6 +139,6 @@ updatePackages <- function(path = NULL, repos = getOption("repos"), method, ask 
                  quiet = quiet, deps = FALSE, Rversion = Rversion)
     }
   }
-  
+
   lapply(type, do_one)
 }

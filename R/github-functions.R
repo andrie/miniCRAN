@@ -11,19 +11,20 @@ pkgFileExt <- function(type) {
 }
 
 
-
 getPkgVersFromFile <- function(file) {
   file <- grep("\\.(tar\\.gz|zip|tgz)$", basename(as.character(file)), value = TRUE)
   if (length(file)) {
     file <- sapply(strsplit(file, "\\.tar\\.gz"), "[[", 1)
     file <- sapply(strsplit(file, "\\.zip"), "[[", 1)
     file <- sapply(strsplit(file, "\\.tgz"), "[[", 1)
-    pkg <- sapply(strsplit(file, "_"), "[[", 1)
+    pkg  <- sapply(strsplit(file, "_"), "[[", 1)
     vers <- sapply(strsplit(file, "_"), "[[", 2)
-    df <- data.frame(package = pkg, version = vers, stringsAsFactors = FALSE)
-    return(df[order(df$package),])
+    df <- data.frame(package = pkg, version = vers, stringsAsFactors = FALSE, row.names = NULL)
+    df <- df[order(df$package),]
+    row.names(df) <- seq_len(nrow(df))
+    df
   } else {
-    return(NULL)
+    data.frame(package = character(0), version = character(0))
   }
 }
 
@@ -31,7 +32,7 @@ getPkgVersFromFile <- function(file) {
 
 readDescription <- function(file) {
   stopifnot(file.exists(file))
-  trimSpaces <- function(x){
+  trimSpaces <- function(x) {
     gsub("^\\s+|\\s+$", "", x)
   }
 
@@ -77,7 +78,7 @@ addPackageListing <- function(pdb = pkgAvail(), dcf, warnings = TRUE) {
 # Possible to override the blocking of a package's (re-)installation after it has been required/loaded?
 
 #' @importFrom httr GET stop_for_status content
-readDescriptionGithub <- function(repo, username, branch = "master", quiet = TRUE){
+readDescriptionGithub <- function(repo, username, branch = "master", quiet = TRUE) {
   if (!missing(username) && !is.null(username)) repo <- paste(username, repo, sep = "/")
   pkg <- sprintf("https://github.com/%s/raw/%s/DESCRIPTION", repo, branch)
   ff <- tempfile()

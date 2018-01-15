@@ -98,7 +98,7 @@ addPackage <- function(pkgs = NULL, path = NULL, repos = getOption("repos"),
       dupes <- with(curr.df, package[duplicated(package)])
       if (length(dupes)) {
         to_remove <- lapply(dupes, findPrevPackage)
-        if(length(unlist(to_remove))){
+        if (length(unlist(to_remove))) {
           file.remove(prev[unlist(to_remove)])
         }
       }
@@ -156,7 +156,7 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
   if (!file.exists(pkgPath)) dir.create(pkgPath, recursive = TRUE)
   
   do_one <- function(x) {
-    result <- utils::download.file(x, destfile = file.path(pkgPath, basename(x)),
+    result <- download.file(x, destfile = file.path(pkgPath, basename(x)),
                                    method = "auto", mode = "wb", quiet = quiet)
     if (result != 0) warning("error downloading file ", x)
   }
@@ -179,8 +179,6 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 #' @rdname listFiles
 #' @docType methods
 #'
-#' @importFrom magrittr '%>%'
-#'
 #' @examples
 #' \dontrun{
 #'  .listFiles('path/to/my/packages', type = "source")
@@ -188,13 +186,7 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 #'
 .listFiles <- function(pkgs, path, type) {
   stopifnot(dir.exists(path))
-  pattern <- switch(type,
-                    mac.binary = ".tgz",
-                    mac.binary.leopard = ".tgz",
-                    mac.binary.mavericks = ".tgz",
-                    source = ".tar.gz",
-                    win.binary = ".zip",
-                    stop("Type ", type, "not recognised."))
+  pattern <- pkgFileExt(type)
 
   # get a list of all files in pkgPaths directory matching pattern
   f <- list.files(path, pattern = pattern)
@@ -204,15 +196,19 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 
   if (length(f)) {
     # if multiple versions present, always use latest
-    fp <- strsplit(f, "_") %>%
-      sapply(., `[[`, 1)
-
-    fv <- strsplit(f, "_") %>%
-      sapply(., `[[`, 2) %>%
-      strsplit(., pattern) %>%
-      sapply(., `[[`, 1) %>%
-      as.numeric_version()
-
+    fp <- local({
+      x <- strsplit(f, "_")
+      sapply(x, `[[`, 1)
+    })
+    
+    fv <- local({
+      x <- strsplit(f, "_")
+      x <- sapply(x, `[[`, 2)
+      x <- strsplit(x, pattern)
+      x <- sapply(x, `[[`, 1)
+      as.numeric_version(x)
+    })
+    
     fout <- sapply(fp, function(x) {
       ids.p <- which(fp %in% x)
 
@@ -221,11 +217,10 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
       id.v <- which(fv == max(fv[ids.p]))
 
       f[id.v]
-    }) %>% unique()
-
-    return(fout)
+    })
+    unique(fout)
   } else {
-    return(character())
+    character()
   }
 }
 
@@ -326,5 +321,5 @@ addLocalPackage <- function(pkgs = NULL, pkgPath = NULL, path = NULL,
   # write package index for each folder:
   index <- updateRepoIndex(path = path, type = type, Rversion = Rversion)
 
-  return(invisible(index))
+  invisible(index)
 }

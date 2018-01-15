@@ -136,13 +136,15 @@
 <a href="#system-requirements" class="anchor"></a>System requirements</h3>
 <p>The <code>miniCRAN</code> package itself doesn’t introduce any system dependencies. However, the package imports the <a href="https://cran.r-project.org/package=curl"><code>curl</code></a> and <a href="https://cran.r-project.org/package=XML"><code>XML</code></a> packages. These have system requirements on <code>libxml2-devel</code>, <code>libcurl-devel</code> and <code>openssl-devel</code>.</p>
 <ul>
-<li>On systems with the <code>rpm</code> package manager (Red Hat, CentOS) try:</li>
+<li>
+<p>On systems with the <code>rpm</code> package manager (Red Hat, CentOS) try:</p>
+<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="ex">yum</span> install libcurl-devel libxml2-devel openssl-devel</code></pre></div>
+</li>
+<li>
+<p>On systems with the <code>aptitude</code> package manager (Debian, Ubuntu) try:</p>
+<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="ex">apt-get</span> install libcurl4-openssl-dev libxml2-devel openssl-devel</code></pre></div>
+</li>
 </ul>
-<p><code>sh   yum install libcurl-devel libxml2-devel openssl-devel</code></p>
-<ul>
-<li>On systems with the <code>aptitude</code> package manager (Debian, Ubuntu) try:</li>
-</ul>
-<p><code>sh   apt-get install libcurl4-openssl-dev libxml2-devel openssl-devel</code></p>
 </div>
 </div>
 <div id="example" class="section level2">

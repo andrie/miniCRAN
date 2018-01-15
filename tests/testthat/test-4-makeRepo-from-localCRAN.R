@@ -2,20 +2,21 @@ if (interactive()) {library(testthat); Sys.setenv(NOT_CRAN = "true")}
 
 context("makeRepo from local miniCRAN")
 
-revolution <- MRAN("2014-10-15")
-if(!is.online(revolution, tryHttp = FALSE)) {
-  # Use http:// for older versions of R
-  revolution <- sub("^https://", "http://", revolution)
+{
+  revolution <- MRAN("2014-10-15")
+  if (!is.online(revolution, tryHttp = FALSE)) {
+    # Use http:// for older versions of R
+    revolution <- sub("^https://", "http://", revolution)
+  }
+  rvers = "3.2"
+  pkgs <- c("MASS")
+  repo_root <- file.path(tempdir(), "miniCRAN", Sys.Date())
+  new_repo_root <- file.path(tempdir(), "newMiniCRAN", Sys.Date())
+  if (file.exists(repo_root)) unlink(repo_root, recursive = TRUE)
+  if (file.exists(new_repo_root)) unlink(new_repo_root, recursive = TRUE)
+  
+  # list.files(repo_root, recursive = TRUE)
 }
-rvers = "3.2"
-pkgs <- c("MASS")
-repo_root <- file.path(tempdir(), "miniCRAN", Sys.Date())
-new_repo_root <- file.path(tempdir(), "newMiniCRAN", Sys.Date())
-if (file.exists(repo_root)) unlink(repo_root, recursive = TRUE)
-if (file.exists(new_repo_root)) unlink(new_repo_root, recursive = TRUE)
-
-# list.files(repo_root, recursive = TRUE)
-
 
 types <- c("win.binary")
 names(types) <- c("win.binary")

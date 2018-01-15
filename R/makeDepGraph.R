@@ -6,7 +6,7 @@ fastdf <- function (list) {
   list
 }
 
-addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests"), pdb){
+addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests"), pdb) {
   if (!p %in% rownames(pdb)) {
     fastdf(list(
       dep = character(0),
@@ -35,9 +35,9 @@ addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests"
 #' @importFrom igraph graph.data.frame
 #' @export
 #' @family dependency functions
-#' 
+#'
 #' @seealso [pkgDep()] to extract package dependencies
-#' 
+#'
 #' @example /inst/examples/example_makeDepGraph.R
 makeDepGraph <- function(
   pkg, availPkgs, repos = getOption("repos"), type = "source",
@@ -109,4 +109,3 @@ makeDepGraph <- function(
   attr(ret, "pkgs") <- pkg_orig
   ret
 }
-

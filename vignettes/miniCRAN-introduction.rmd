@@ -4,11 +4,13 @@ author: "Andrie de Vries and Alex Chubaty"
 date:   "`r as.character(format(Sys.Date(), format='%B %d, %Y'))`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Using miniCRAN to create and maintain a local CRAN repository}
   %\VignettePackage{miniCRAN}
   %\VignetteKeyword{miniCRAN}
   %\usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 
 Start by creating the recursive dependency tree for your target packages.
@@ -37,7 +39,7 @@ Next, create a repository with the function `makeRepo()`.  In this example, get 
 dir.create(pth <- file.path(tempdir(), "miniCRAN"))
 
 # Make repo for source and win.binary
-makeRepo(pkgList, path=pth, repos=revolution, type=c("source", "win.binary"))
+makeRepo(pkgList, path = pth, repos = revolution, type = c("source", "win.binary"))
 ```
 
 

@@ -78,7 +78,7 @@
       <h1>Using miniCRAN to create a local CRAN repository</h1>
                         <h4 class="author">Andrie de Vries and Alex Chubaty</h4>
             
-            <h4 class="date">December 19, 2017</h4>
+            <h4 class="date">January 15, 2018</h4>
           </div>
 
     
@@ -103,7 +103,7 @@ pkgList</code></pre></div>
 <span class="kw">dir.create</span>(pth &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="kw">tempdir</span>(), <span class="st">"miniCRAN"</span>))
 
 <span class="co"># Make repo for source and win.binary</span>
-<span class="kw"><a href="../reference/makeRepo.html">makeRepo</a></span>(pkgList, <span class="dt">path=</span>pth, <span class="dt">repos=</span>revolution, <span class="dt">type=</span><span class="kw">c</span>(<span class="st">"source"</span>, <span class="st">"win.binary"</span>))</code></pre></div>
+<span class="kw"><a href="../reference/makeRepo.html">makeRepo</a></span>(pkgList, <span class="dt">path =</span> pth, <span class="dt">repos =</span> revolution, <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">"source"</span>, <span class="st">"win.binary"</span>))</code></pre></div>
 <p>Investigate the repository file structure:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># List all files in miniCRAN</span>
 <span class="kw">list.files</span>(pth, <span class="dt">recursive =</span> <span class="ot">TRUE</span>, <span class="dt">full.names =</span> <span class="ot">FALSE</span>)</code></pre></div>
