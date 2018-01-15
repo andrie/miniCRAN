@@ -34,7 +34,8 @@ Suggests:
     testthat(>= 0.9),
     covr,
     withr,
-    mockery
+    mockery,
+    testthis
 LazyData: true
 LazyLoad: true
 VignetteBuilder: knitr
