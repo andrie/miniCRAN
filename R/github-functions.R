@@ -19,10 +19,12 @@ getPkgVersFromFile <- function(file) {
     file <- sapply(strsplit(file, "\\.tgz"), "[[", 1)
     pkg  <- sapply(strsplit(file, "_"), "[[", 1)
     vers <- sapply(strsplit(file, "_"), "[[", 2)
-    df <- data.frame(package = pkg, version = vers, stringsAsFactors = FALSE)
-    df[order(df$package),]
+    df <- data.frame(package = pkg, version = vers, stringsAsFactors = FALSE, row.names = NULL)
+    df <- df[order(df$package),]
+    row.names(df) <- seq_len(nrow(df))
+    df
   } else {
-    NULL
+    data.frame(package = character(0), version = character(0))
   }
 }
 
