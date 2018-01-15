@@ -11,7 +11,7 @@
 \arguments{
 \item{x}{pkgDepGraph object}
 
-\item{pkgsToHighlight}{Optional character vector with names of package to hightlight. If missing, defaults to packages used in original call to \code{\link[=makeDepGraph]{makeDepGraph()}}}
+\item{pkgsToHighlight}{Optional character vector with names of package to highlight. If missing, defaults to packages used in original call to \code{\link[=makeDepGraph]{makeDepGraph()}}}
 
 \item{main}{Title of plot}
 
