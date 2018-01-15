@@ -78,7 +78,7 @@
       <h1>Using repositories other than CRAN with miniCRAN</h1>
                         <h4 class="author">Andrie de Vries</h4>
             
-            <h4 class="date">December 19, 2017</h4>
+            <h4 class="date">January 15, 2018</h4>
           </div>
 
     
@@ -89,7 +89,7 @@
 <p>To simplify the code to show the salient features, we use a little helper function, <code>index()</code> that is a simple wrapper around <code>available.packages()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Wrapper around available.packages ---------------------------------------</span>
  
-index &lt;-<span class="st"> </span><span class="cf">function</span>(url, <span class="dt">type =</span> <span class="st">"source"</span>, <span class="dt">filters =</span> <span class="ot">NULL</span>, <span class="dt">head =</span> <span class="dv">5</span>, <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">"Package"</span>, <span class="st">"Version"</span>)){
+index &lt;-<span class="st"> </span><span class="cf">function</span>(url, <span class="dt">type =</span> <span class="st">"source"</span>, <span class="dt">filters =</span> <span class="ot">NULL</span>, <span class="dt">head =</span> <span class="dv">5</span>, <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">"Package"</span>, <span class="st">"Version"</span>)) {
   contribUrl &lt;-<span class="st"> </span><span class="kw">contrib.url</span>(url, <span class="dt">type =</span> type)
   p &lt;-<span class="st"> </span><span class="kw">available.packages</span>(contribUrl, <span class="dt">type =</span> type, <span class="dt">filters =</span> filters)
   p[<span class="dv">1</span><span class="op">:</span>head, cols]
