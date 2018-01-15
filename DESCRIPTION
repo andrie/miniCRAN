@@ -1,6 +1,6 @@
 Package: miniCRAN
 Authors@R: c(person("Microsoft Corporation", role="cph"), person("Andrie", "de
-    Vries", role=c("aut", "cre"), email="apdevries@gmail.com"),
+    Vries", role=c("aut", "cre", "cph"), email="apdevries@gmail.com"),
     person("Alex", "Chubaty", role="ctb", email="alex.chubaty@gmail.com"))
 License: GPL-2
 Copyright: Microsoft Corporation
@@ -33,7 +33,8 @@ Suggests:
     rmarkdown,
     testthat(>= 0.9),
     covr,
-    withr
+    withr,
+    mockery
 LazyData: true
 LazyLoad: true
 VignetteBuilder: knitr
