@@ -141,14 +141,26 @@ pkgAvail <- function(repos = getOption("repos"),
     }
   }
   ap <- function() {
-    utils::available.packages(contribUrl(repos, 
-                                         type = type, 
-                                         Rversion = Rversion), 
-                              type = type, 
-                              filters = list(),
-                              repos = repos)
+    if (getRversion() >= "3.3.0") {
+    utils::available.packages(
+      contribUrl(repos, 
+                 type = type, 
+                 Rversion = Rversion), 
+      type = type, 
+      filters = list(),
+      repos = repos
+    )
+    } else {
+      utils::available.packages(
+        contribUrl(repos, 
+                   type = type, 
+                   Rversion = Rversion), 
+        type = type, 
+        filters = list()
+      )
+    }
   }
-  if(quiet) suppressWarnings(ap()) else ap()
+  if (quiet) suppressWarnings(ap()) else ap()
 }
 
 
