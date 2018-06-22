@@ -1,27 +1,16 @@
-miniCRAN v0.2.11 (Release date: in development)
+miniCRAN v0.2.11 (Release date: 2018-01-15)
 ================
 
 New features: 
-
 * None
-
-Other changes:
-
-* Use `pkgdown` to build documentation site
-* Speed up unit testing by mocking internal functions
-
-
-miniCRAN v0.2.10.9000
-=====================
-
-New features:
-* NULL
 
 Bug fixes:
 * use cran.microsoft.com instead of mran.microsoft.com for MRAN url (#104)
 
-Other improvements:
-* NULL
+Other changes:
+* Use `pkgdown` to build documentation site
+* Speed up unit testing by mocking internal functions
+
 
 
 miniCRAN v0.2.10 (Release date: 2017-10-21)
