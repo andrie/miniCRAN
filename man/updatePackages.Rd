@@ -22,7 +22,7 @@ updatePackages(path = NULL, repos = getOption("repos"), method = NULL,
 
 \item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link[=available.packages]{available.packages()}}}
 
-\item{availPkgs}{Vector of available packages.  Defaults to reading this list from CRAN, using \code{\link[=available.packages]{available.packages()}}}
+\item{availPkgs}{Data frame with an element called \code{package}. The \code{package} element is a vector of available packages.  Defaults to reading this list from CRAN, using \code{\link[=available.packages]{available.packages()}}}
 
 \item{method}{Download method, see \code{\link[=download.file]{download.file()}}.}
 

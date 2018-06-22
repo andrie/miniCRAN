@@ -17,7 +17,7 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #'
 #' @param pkg Character vector of packages.
 #' 
-#' @param availPkgs Vector of available packages.  Defaults to reading this list from CRAN, using [available.packages()]
+#' @param availPkgs Data frame with an element called `package`. The `package` element is a vector of available packages.  Defaults to reading this list from CRAN, using [available.packages()]
 #' 
 #' @param repos URL(s) of the 'contrib' sections of the repositories, e.g. `"http://cran.us.r-project.org"`. Passed to [available.packages()]
 #' 
