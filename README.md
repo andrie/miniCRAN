@@ -11,7 +11,7 @@ Create a mini version of CRAN containing only selected packages
 
 ## Introduction
 
-At the end of 201, CRAN consisted of more than 6,000 packages, and by 2017 this number doubled to more than 12,000.  Many organisations need to maintain a private mirror of CRAN, but with only a subset of packages that are relevant to them.
+At the end of 2014, CRAN consisted of more than 6,000 packages, and by 2017 this number doubled to more than 12,000.  Many organisations need to maintain a private mirror of CRAN, but with only a subset of packages that are relevant to them.
 
 The `miniCRAN` package makes it possible to create an internally consistent repository consisting of selected packages from CRAN-like repositories.  The user specifies a set of desired packages, and `miniCRAN` recursively reads the dependency tree for these packages, then downloads only this subset.  
 
