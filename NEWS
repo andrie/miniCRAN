@@ -1,3 +1,20 @@
+miniCRAN v0.2.11.9000 (Dev)
+================
+
+New features: 
+* None
+
+Bug fixes:
+* Experimental support for mac.binary.el-capitan (#111)
+* Fixed description of `availPkgs` in documentation (#108)
+* Added backward compatibility for R<3.3.0 when `repos` argument to `available.packages()` was added (#109)
+
+Internal changes
+* Rewrote mocking mechanism in tests
+
+
+
+
 miniCRAN v0.2.11 (Release date: 2018-01-15)
 ================
 
@@ -8,8 +25,9 @@ Bug fixes:
 * use cran.microsoft.com instead of mran.microsoft.com for MRAN url (#104)
 
 Other changes:
-* Use `pkgdown` to build documentation site
-* Speed up unit testing by mocking internal functions
+* Use `pkgdown` to build documentation site (#105)
+* Speed up unit testing by mocking internal functions (#107)
+
 
 
 
