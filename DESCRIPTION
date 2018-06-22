@@ -1,6 +1,6 @@
 Package: miniCRAN
 Date: 2018-01-15
-Version: 0.2.11
+Version: 0.2.11.9000
 Authors@R: c(person("Microsoft Corporation", role="cph"), person("Andrie", "de
     Vries", role=c("aut", "cre", "cph"), email="apdevries@gmail.com"),
     person("Alex", "Chubaty", role="ctb", email="alex.chubaty@gmail.com"))
