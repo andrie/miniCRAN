@@ -34,8 +34,13 @@ for (pkg_type in names(types)) {
     prefix <- repoPrefix(pkg_type, Rversion = rvers)
     dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
     
-    ret <- makeRepo(pkgList, path = repo_root, repos = revolution, 
-                    type = pkg_type, quiet = TRUE, Rversion = rvers)
+    with_mock(
+      download_packages = mock_download_packages,
+      write_packages = mock_write_packages,
+      {
+        ret <- makeRepo(pkgList, path = repo_root, repos = revolution, 
+                        type = pkg_type, quiet = TRUE, Rversion = rvers)
+      })
     
     expect_is(ret, "character")
     expect_equal(length(ret), length(pkgList))
@@ -62,8 +67,13 @@ for (pkg_type in names(types)) {
     prefix <- repoPrefix(pkg_type, Rversion = rvers)
     dir.create(new_repo_root, recursive = TRUE, showWarnings = FALSE)
     
-    ret <- makeRepo(pkgList, path = new_repo_root, repos = localCRAN, 
+    with_mock(
+      download_packages = mock_download_packages,
+      write_packages = mock_write_packages,
+      {
+        ret <- makeRepo(pkgList, path = new_repo_root, repos = localCRAN, 
                     type = pkg_type, quiet = TRUE, Rversion = rvers)
+      })
     
     expect_is(ret, "character")
     expect_equal(length(ret), length(pkgList))

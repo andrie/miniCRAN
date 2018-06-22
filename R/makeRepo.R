@@ -73,7 +73,7 @@ makeRepo <- function(pkgs, path, repos = getOption("repos"), type = "source",
     pdb <- pkgAvail(repos = repos, type = t, Rversion = Rversion)
 
     if (download) {
-      download.packages(pkgs, destdir = pkgPath, available = pdb, repos = repos,
+      download_packages(pkgs, destdir = pkgPath, available = pdb, repos = repos,
                         contriburl = contribUrl(repos, t, Rversion),
                         type = t, quiet = quiet)
     }

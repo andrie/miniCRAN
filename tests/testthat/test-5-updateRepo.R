@@ -66,8 +66,14 @@ for (pkg_type in names(types)) {
                            Rversion = rvers)
       prefix <- repoPrefix(pkg_type, Rversion = rvers)
       
-      addPackage(pkgListAdd, path = repo_root, repos = revolution, type = pkg_type,
+      
+      with_mock(
+        download_packages = mock_download_packages,
+        write_packages = mock_write_packages,
+        {
+          addPackage(pkgListAdd, path = repo_root, repos = revolution, type = pkg_type,
                  quiet = TRUE, Rversion = rvers)
+        })
 
       expect_true(
         .checkForRepoFiles(repo_root, pkgListAdd, prefix)
@@ -124,8 +130,13 @@ for (pkg_type in names(types)) {
       )
       expect_equal(length(list.files(tmpdir)), 2)
       
-      addLocalPackage(pkgs = pkgsAddLocal, pkgPath = tmpdir, path = repo_root,
+      with_mock(
+        download_packages = mock_download_packages,
+        write_packages = mock_write_packages,
+        {
+          addLocalPackage(pkgs = pkgsAddLocal, pkgPath = tmpdir, path = repo_root,
                       type = pkg_type, quiet = TRUE, Rversion = rvers)
+        })
 
       prefix <- repoPrefix(pkg_type, Rversion = rvers)
       expect_true(
@@ -185,8 +196,12 @@ for (pkg_type in names(types)) {
         )
       )
      
-      updatePackages(path = repo_root, repos = MRAN_mirror, type = pkg_type,
-                     ask = FALSE, quiet = TRUE, Rversion = rvers)
+      with_mock(
+        download_packages = mock_download_packages,
+        write_packages = mock_write_packages,{
+          updatePackages(path = repo_root, repos = MRAN_mirror, type = pkg_type,
+                         ask = FALSE, quiet = TRUE, Rversion = rvers)
+        })
 
       updateVers <- getPkgVersFromFile(
         list.files(file.path(repo_root, prefix))
@@ -200,8 +215,13 @@ for (pkg_type in names(types)) {
         file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
       )
       
-      old <- oldPackages(path = repo_root, repos = MRAN_mirror, 
-                         type = pkg_type, Rversion = rvers)
+      with_mock(
+        download_packages = mock_download_packages,
+        write_packages = mock_write_packages,
+        {
+          old <- oldPackages(path = repo_root, repos = MRAN_mirror, 
+                             type = pkg_type, Rversion = rvers)
+        })
       # browser()
       expect_equal(nrow(old), 0)
       expect_equal(ncol(old), 4)
@@ -223,18 +243,31 @@ for (pkg_type in names(types)) {
       skip_on_cran()
       skip_if_offline(MRAN_mirror)
           
+      
           oldVersions <- list(package = c("acepack"),
                               version = c("1.3-2"))
+          
           if (pkg_type != "source") {
+            
             expect_error(
-              addOldPackage(oldVersions[["package"]], path = repo_root, 
-                            vers = oldVersions[["version"]],
-                            repos = MRAN_mirror, type = pkg_type)
+              with_mock(
+                download_packages = mock_download_packages,
+                write_packages = mock_write_packages,
+                {
+                  addOldPackage(oldVersions[["package"]], path = repo_root, 
+                                vers = oldVersions[["version"]],
+                                repos = MRAN_mirror, type = pkg_type)
+                })
             )
           } else {
-            addOldPackage(oldVersions[["package"]], path = repo_root, 
-                          vers = oldVersions[["version"]],
-                          repos = MRAN_mirror, type = pkg_type)
+            with_mock(
+              download_packages = mock_download_packages,
+              write_packages = mock_write_packages,
+              {
+                addOldPackage(oldVersions[["package"]], path = repo_root, 
+                              vers = oldVersions[["version"]],
+                              repos = MRAN_mirror, type = pkg_type)
+              })
             files <- suppressWarnings(
               checkVersions(path = repo_root, type = pkg_type)[[pkg_type]]
             )

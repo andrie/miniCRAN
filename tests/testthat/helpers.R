@@ -53,21 +53,27 @@ skip_if_offline <- function(url = MRAN()) {
 
   pkgList_source <- pkgDep(pkgs, availPkgs = pdb_source, repos = MRAN,
                            type = "source", suggests = FALSE, Rversion = Rversion)
-  makeRepo(pkgList_source, path = path, repos = MRAN,
-           type = "source",
-           quiet = TRUE, Rversion = Rversion)
-
-  pkgList_win <- pkgDep(pkgs, availPkgs = pdb_win, repos = MRAN,
-                        type = "win.binary",
-                        suggests = FALSE, Rversion = Rversion)
-  makeRepo(pkgList_win, path = path, repos = MRAN,
-           type = "win.binary",
-           quiet = TRUE, Rversion = Rversion)
-
-  pkgList_mac <- pkgDep(pkgs, availPkgs = pdb_mac, repos = MRAN,
-                        type = "mac.binary",
-                        suggests = FALSE, Rversion = Rversion)
-  makeRepo(pkgList_mac, path = path, repos = MRAN,
-           type = "mac.binary",
-           quiet = TRUE, Rversion = Rversion)
+  
+  with_mock(
+    download_packages = mock_download_packages,
+    write_packages = mock_write_packages,
+    {
+      makeRepo(pkgList_source, path = path, repos = MRAN,
+               type = "source",
+               quiet = TRUE, Rversion = Rversion)
+      
+      pkgList_win <- pkgDep(pkgs, availPkgs = pdb_win, repos = MRAN,
+                            type = "win.binary",
+                            suggests = FALSE, Rversion = Rversion)
+      makeRepo(pkgList_win, path = path, repos = MRAN,
+               type = "win.binary",
+               quiet = TRUE, Rversion = Rversion)
+      
+      pkgList_mac <- pkgDep(pkgs, availPkgs = pdb_mac, repos = MRAN,
+                            type = "mac.binary",
+                            suggests = FALSE, Rversion = Rversion)
+      makeRepo(pkgList_mac, path = path, repos = MRAN,
+               type = "mac.binary",
+               quiet = TRUE, Rversion = Rversion)
+    })
 }
