@@ -68,8 +68,8 @@ for (pkg_type in names(types)) {
       
       
       with_mock(
-        download_packages = miniCRAN:::mock_download_packages,
-        write_packages = miniCRAN:::mock_write_packages,
+        download_packages = mock_download_packages,
+        write_packages = mock_write_packages,
         {
           addPackage(pkgListAdd, path = repo_root, repos = revolution, type = pkg_type,
                  quiet = TRUE, Rversion = rvers)
@@ -116,12 +116,18 @@ for (pkg_type in names(types)) {
       on.exit(unlink(tmpdir, recursive = TRUE), add = TRUE)
       
       # get most recent version
-      res <- download.packages(
-        pkgsAddLocal, destdir = tmpdir, 
-        type = pkg_type,
-        available = pkgAvail(revolution, pkg_type, rvers),
-        contriburl = contribUrl(revolution, pkg_type, rvers),
-        quiet = TRUE)
+      with_mock(
+        download_packages = mock_download_packages,
+        write_packages = mock_write_packages,
+        {
+          
+          res <- download_packages(
+            pkgsAddLocal, destdir = tmpdir, 
+            type = pkg_type,
+            available = pkgAvail(revolution, pkg_type, rvers),
+            contriburl = contribUrl(revolution, pkg_type, rvers),
+            quiet = TRUE)
+        })
       
       # simulate older version also present in pkgPath directory
       f <- res[, 2]
@@ -131,8 +137,8 @@ for (pkg_type in names(types)) {
       expect_equal(length(list.files(tmpdir)), 2)
       
       with_mock(
-        download_packages = miniCRAN:::mock_download_packages,
-        write_packages = miniCRAN:::mock_write_packages,
+        download_packages = mock_download_packages,
+        write_packages = mock_write_packages,
         {
           addLocalPackage(pkgs = pkgsAddLocal, pkgPath = tmpdir, path = repo_root,
                       type = pkg_type, quiet = TRUE, Rversion = rvers)
@@ -197,8 +203,8 @@ for (pkg_type in names(types)) {
       )
      
       with_mock(
-        download_packages = miniCRAN:::mock_download_packages,
-        write_packages = miniCRAN:::mock_write_packages,
+        download_packages = mock_download_packages,
+        write_packages = mock_write_packages,
         {
           updatePackages(path = repo_root, repos = MRAN_mirror, type = pkg_type,
                          ask = FALSE, quiet = TRUE, Rversion = rvers)
@@ -217,8 +223,8 @@ for (pkg_type in names(types)) {
       )
       
       with_mock(
-        download_packages = miniCRAN:::mock_download_packages,
-        write_packages = miniCRAN:::mock_write_packages,
+        download_packages = mock_download_packages,
+        write_packages = mock_write_packages,
         {
           old <- oldPackages(path = repo_root, repos = MRAN_mirror, 
                              type = pkg_type, Rversion = rvers)
@@ -252,8 +258,8 @@ for (pkg_type in names(types)) {
             
             expect_error(
               with_mock(
-                download_packages = miniCRAN:::mock_download_packages,
-                write_packages = miniCRAN:::mock_write_packages,
+                download_packages = mock_download_packages,
+                write_packages = mock_write_packages,
                 {
                   addOldPackage(oldVersions[["package"]], path = repo_root, 
                                 vers = oldVersions[["version"]],
@@ -262,8 +268,8 @@ for (pkg_type in names(types)) {
             )
           } else {
             with_mock(
-              download_packages = miniCRAN:::mock_download_packages,
-              write_packages = miniCRAN:::mock_write_packages,
+              download_packages = mock_download_packages,
+              write_packages = mock_write_packages,
               {
                 addOldPackage(oldVersions[["package"]], path = repo_root, 
                               vers = oldVersions[["version"]],

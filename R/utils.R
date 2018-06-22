@@ -5,8 +5,8 @@ download_packages <- function(pkgs, destdir, available, repos, contriburl, type,
     destdir = destdir,
     available = available,
     repos = repos,
-    contriburl = contribUrl,
-    type = t, 
+    contriburl = contriburl,
+    type = type, 
     quiet = quiet
   )
 }
@@ -15,3 +15,5 @@ download_packages <- function(pkgs, destdir, available, repos, contriburl, type,
 write_packages <- function(dir, type) {
   tools::write_PACKAGES(dir = dir, type = type)
 }
+
+
