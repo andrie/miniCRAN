@@ -54,9 +54,9 @@ skip_if_offline <- function(url = MRAN()) {
   pkgList_source <- pkgDep(pkgs, availPkgs = pdb_source, repos = MRAN,
                            type = "source", suggests = FALSE, Rversion = Rversion)
   
-  with_mock(
-    download_packages = mock_download_packages,
-    write_packages = mock_write_packages,
+  testthat::with_mock(
+    download_packages = miniCRAN:::mock_download_packages,
+    write_packages = miniCRAN:::mock_write_packages,
     {
       makeRepo(pkgList_source, path = path, repos = MRAN,
                type = "source",

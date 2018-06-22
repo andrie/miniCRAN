@@ -35,8 +35,8 @@ for (pkg_type in names(types)) {
     dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
     
     with_mock(
-      download_packages = mock_download_packages,
-      write_packages = mock_write_packages,
+      download_packages = miniCRAN:::mock_download_packages,
+      write_packages = miniCRAN:::mock_write_packages,
       {
         ret <- makeRepo(pkgList, path = repo_root, repos = revolution, 
                         type = pkg_type, quiet = TRUE, Rversion = rvers)
@@ -68,8 +68,8 @@ for (pkg_type in names(types)) {
     dir.create(new_repo_root, recursive = TRUE, showWarnings = FALSE)
     
     with_mock(
-      download_packages = mock_download_packages,
-      write_packages = mock_write_packages,
+      download_packages = miniCRAN:::mock_download_packages,
+      write_packages = miniCRAN:::mock_write_packages,
       {
         ret <- makeRepo(pkgList, path = new_repo_root, repos = localCRAN, 
                     type = pkg_type, quiet = TRUE, Rversion = rvers)
