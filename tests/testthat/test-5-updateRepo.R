@@ -70,6 +70,7 @@ for (pkg_type in names(types)) {
       with_mock(
         download_packages = mock_download_packages,
         write_packages = mock_write_packages,
+        .env = "miniCRAN",
         {
           addPackage(pkgListAdd, path = repo_root, repos = revolution, type = pkg_type,
                  quiet = TRUE, Rversion = rvers)
@@ -119,6 +120,7 @@ for (pkg_type in names(types)) {
       with_mock(
         download_packages = mock_download_packages,
         write_packages = mock_write_packages,
+        .env = "miniCRAN",
         {
           
           res <- download_packages(
@@ -139,6 +141,7 @@ for (pkg_type in names(types)) {
       with_mock(
         download_packages = mock_download_packages,
         write_packages = mock_write_packages,
+        .env = "miniCRAN",
         {
           addLocalPackage(pkgs = pkgsAddLocal, pkgPath = tmpdir, path = repo_root,
                       type = pkg_type, quiet = TRUE, Rversion = rvers)
@@ -205,6 +208,7 @@ for (pkg_type in names(types)) {
       with_mock(
         download_packages = mock_download_packages,
         write_packages = mock_write_packages,
+        .env = "miniCRAN",
         {
           updatePackages(path = repo_root, repos = MRAN_mirror, type = pkg_type,
                          ask = FALSE, quiet = TRUE, Rversion = rvers)
@@ -225,6 +229,7 @@ for (pkg_type in names(types)) {
       with_mock(
         download_packages = mock_download_packages,
         write_packages = mock_write_packages,
+        .env = "miniCRAN",
         {
           old <- oldPackages(path = repo_root, repos = MRAN_mirror, 
                              type = pkg_type, Rversion = rvers)
@@ -260,6 +265,7 @@ for (pkg_type in names(types)) {
               with_mock(
                 download_packages = mock_download_packages,
                 write_packages = mock_write_packages,
+                .env = "miniCRAN",
                 {
                   addOldPackage(oldVersions[["package"]], path = repo_root, 
                                 vers = oldVersions[["version"]],
@@ -270,6 +276,7 @@ for (pkg_type in names(types)) {
             with_mock(
               download_packages = mock_download_packages,
               write_packages = mock_write_packages,
+              .env = "miniCRAN",
               {
                 addOldPackage(oldVersions[["package"]], path = repo_root, 
                               vers = oldVersions[["version"]],

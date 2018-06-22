@@ -38,6 +38,7 @@ for (pkg_type in (types)) {
     with_mock(
       download_packages = mock_download_packages,
       write_packages = mock_write_packages,
+      .env = "miniCRAN",
       {
         ret <- makeRepo(pkgList, path = repo_root, repos = revolution,
                         type = pkg_type, quiet = TRUE, Rversion = rvers)
