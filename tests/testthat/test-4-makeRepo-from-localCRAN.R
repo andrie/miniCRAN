@@ -21,12 +21,16 @@ context("makeRepo from local miniCRAN")
 types <- c("win.binary")
 names(types) <- c("win.binary")
 
+pkg_type <- names(types)
+
 for (pkg_type in names(types)) {
   test_that(sprintf("makeRepo downloads %s files and builds PACKAGES file", pkg_type), {
     # skip_on_cran()
     skip_if_offline()
     
     # Create local miniCRAN
+    # mockery::stub(makeRepo, "download_packages", mock_download_packages, depth = 1)
+    # mockery::stub(updateRepoIndex, "write_packages", mock_write_packages, depth = 1)
     
     pdb <- pkgAvail(repos = revolution, type = pkg_type, Rversion = rvers, quiet = TRUE)
     pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = revolution, type = pkg_type,

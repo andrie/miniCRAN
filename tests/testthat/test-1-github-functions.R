@@ -12,6 +12,7 @@ test_that("package file extension is computed correctly", {
 })
 
 test_that("package verson is extracted correctly", {
+  skip_on_cran()
   ff <- c(
     "KernSmooth_2.23-15.tar.gz",
     "MASS_7.3-47.tar.gz",

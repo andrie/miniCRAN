@@ -5,3 +5,4 @@ LICENSE.md
 ^\.Rproj\.user$
 ^docs$
 ^_pkgdown\.yml$
+cran-comments.md

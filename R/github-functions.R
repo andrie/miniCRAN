@@ -6,7 +6,8 @@ pkgFileExt <- function(type) {
     "mac.binary" = ".tgz",
     "mac.binary.mavericks" = ".tgz",
     "mac.binary.leopard" = ".tgz",
-    stop("Type ", type, "not recognised.")
+    "mac.binary.el-capitan" = ".tgz",
+    stop("Type ", type, " not recognised.")
   )
 }
 

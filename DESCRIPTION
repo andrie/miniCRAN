@@ -1,6 +1,6 @@
 Package: miniCRAN
-Date: 2018-01-15
-Version: 0.2.11
+Date: 2018-06-22
+Version: 0.2.11.9000
 Authors@R: c(person("Microsoft Corporation", role="cph"), person("Andrie", "de
     Vries", role=c("aut", "cre", "cph"), email="apdevries@gmail.com"),
     person("Alex", "Chubaty", role="ctb", email="alex.chubaty@gmail.com"))
@@ -26,7 +26,7 @@ Imports:
     tools,
     utils,
     XML,
-    igraph,
+    igraph
 Suggests:
     devtools,
     knitr,
@@ -34,7 +34,8 @@ Suggests:
     testthat(>= 0.9),
     covr,
     withr,
-    mockery
+    mockery,
+    testthis
 LazyData: true
 LazyLoad: true
 VignetteBuilder: knitr

@@ -1,4 +1,4 @@
-MRAN <- function(snapshot) {
+MRAN <- function(snapshot = NULL) {
   url <- getOption("minicran.mran")
   if (missing("snapshot") || is.null(snapshot)) {
     url
