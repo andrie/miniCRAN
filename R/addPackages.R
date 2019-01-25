@@ -285,7 +285,7 @@ addLocalPackage <- function(pkgs = NULL, pkgPath = NULL, path = NULL,
     files <- .listFiles(pkgs = pkgs, path = pkgPath, type = t)
 
     # check for previous package version and omit if identical
-    prev <- checkVersions(pkgs, path)$source
+    prev <- checkVersions(pkgs, path, type = type)[type]
     same <- which(basename(as.character(prev)) %in% files)
 
     if (length(same)) {
