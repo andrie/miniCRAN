@@ -5,8 +5,7 @@
 \title{Remove packages from a miniCRAN repository.}
 \usage{
 deletePackage(pkgs = NULL, path = NULL, type = "source",
-  Rversion = R.version, writePACKAGES = TRUE, deps = TRUE,
-  recursive = TRUE)
+  Rversion = R.version, writePACKAGES = TRUE, deps = TRUE, ...)
 }
 \arguments{
 \item{pkgs}{Character vector of packages to download}
@@ -21,7 +20,8 @@ deletePackage(pkgs = NULL, path = NULL, type = "source",
 
 \item{deps}{logical indicating whether the package reverse dependencies should be removed (default \code{TRUE}).}
 
-\item{recursive}{(only if \code{deps = TRUE}) logical indicating whether dependencies should be removed recursively (default \code{TRUE})}
+\item{...}{arguments passed over to \code{tools::package_dependencies}: use \code{which}, \code{recursive}, \code{reverse}
+to specify what should happen to dependencies of removed packages}
 }
 \description{
 Remove packages from a miniCRAN repository.
