@@ -2,7 +2,7 @@
 % Please edit documentation in R/deletePackages.R
 \name{deletePackage}
 \alias{deletePackage}
-\title{Remove packages from a miniCRAN repository.}
+\title{Delete packages from a miniCRAN repository.}
 \usage{
 deletePackage(pkgs = NULL, path = NULL, type = "source",
   Rversion = R.version, writePACKAGES = TRUE, deps = TRUE, ...)
@@ -24,7 +24,7 @@ deletePackage(pkgs = NULL, path = NULL, type = "source",
 to specify what should happen to dependencies of removed packages}
 }
 \description{
-Remove packages from a miniCRAN repository.
+Delete packages from a miniCRAN repository.
 }
 \seealso{
 Other update repo functions: \code{\link{addOldPackage}},
