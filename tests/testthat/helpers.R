@@ -61,7 +61,7 @@ mock_download_packages <- function(pkgs, destdir, available, type, ...) {
   t(downloads)
 }
 
-mock_write_packages <- function(dir, type = "source") {
+mock_write_packages <- function(dir, type = "source", db = NULL) {
   pattern <- ".tgz$|.zip$|.tar.gz$"
   if (grepl("mac.binary", type)) type <- "mac.binary"
   ff <- list.files(dir, recursive = TRUE, full.names = TRUE, pattern = pattern)
@@ -69,10 +69,12 @@ mock_write_packages <- function(dir, type = "source") {
   pkgs <- ffb[!grepl("^PACKAGES.*", ffb)]
   np <- length(pkgs)
   pkg_names <- gsub(pattern, "", pkgs)
-  db <- matrix(unlist(strsplit(pkg_names, "_")), ncol = 2, byrow = TRUE)
-  colnames(db) <- c("Package", "Version")
-  db
-  
+  if (is.null(db)) {
+    db <- matrix(unlist(strsplit(pkg_names, "_")), ncol = 2, byrow = TRUE)
+    colnames(db) <- c("Package", "Version")
+    db
+  }
+
   if (np > 0L) {
     db[!is.na(db) & (db == "")] <- NA_character_
     con <- file(file.path(dir, "PACKAGES"), "wt")
@@ -100,18 +102,18 @@ mock_write_packages <- function(dir, type = "source") {
 
   pkgList_source <- pkgDep(pkgs, availPkgs = pdb_source, repos = MRAN,
                            type = "source", suggests = FALSE, Rversion = Rversion)
-  
+
   makeRepo(pkgList_source, path = path, repos = MRAN,
            type = "source",
            quiet = TRUE, Rversion = Rversion)
-  
+
   pkgList_win <- pkgDep(pkgs, availPkgs = pdb_win, repos = MRAN,
                         type = "win.binary",
                         suggests = FALSE, Rversion = Rversion)
   makeRepo(pkgList_win, path = path, repos = MRAN,
            type = "win.binary",
            quiet = TRUE, Rversion = Rversion)
-  
+
   pkgList_mac <- pkgDep(pkgs, availPkgs = pdb_mac, repos = MRAN,
                         type = "mac.binary",
                         suggests = FALSE, Rversion = Rversion)

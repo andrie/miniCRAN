@@ -16,8 +16,10 @@ deletePackage <- function(pkgs = NULL, path = NULL,
     purgePackage(pkgs, db, t, repoPath)
 
     if (deps) {
-      d <- tools::package_dependencies(pkgs, db, ...)
-      depends <- if (!is.null(d[[pkgs]])) d[[pkgs]] else character()
+      d <- tools::package_dependencies(db = db, ...)
+      depends <- unique(unlist(lapply(pkgs, function(pkg) {
+        if (!is.null(d[[pkg]])) d[[pkg]] else character()
+      })))
       needed <- unique(unlist(d[!names(d) %in% c(pkgs, depends)]))
       toRemoveDeps <- depends[!depends %in% needed]
       if (length(toRemoveDeps)) {
@@ -35,6 +37,6 @@ purgePackage <- function(pkgs, db, type, repoPath) {
 
   if (length(w)) {
     toRemove <- paste0(db[w, "Package"], "_", db[w, "Version"], pkgFileExt(type))
-    file.remove(file.path(repoPath, toRemove), force = TRUE)
+    file.remove(file.path(repoPath, toRemove))
   }
 }
