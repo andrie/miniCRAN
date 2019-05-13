@@ -17,7 +17,7 @@ context("deleteRepo")
   }
   rvers <- "3.5"
 
-  # types <- c("win.binary", "mac.binary", "source")
+  #types <- c("win.binary", "mac.binary", "source")
   types <- c("win.binary", "source")
 
   names(types) <- types
@@ -119,7 +119,7 @@ for (pkg_type in names(types)) {
         )
       )
 
-      # Add the package once again, remove with all dependencies
+      # Add the package once again, remove with all first-tier dependencies
       restoreTestRepo(pkgsAdd)
 
       with_mock(
@@ -138,6 +138,52 @@ for (pkg_type in names(types)) {
       expect_true(
         all(
           c(!(pkgsAdd %in% pdb), !(pkgsDep1 %in% pdb),
+            pkgsDep2 %in% pdb, !(pkgsDep3 %in% pdb))
+        )
+      )
+
+      # Add the package once again, remove with all recursive dependencies
+      restoreTestRepo(pkgsAdd)
+
+      with_mock(
+        download_packages = mock_download_packages,
+        write_packages = mock_write_packages,
+        .env = "miniCRAN",
+        {
+          deletePackage(pkgsAdd, path = repo_root, type = pkg_type, Rversion = rvers,
+                        deps = TRUE, recursive = TRUE)
+          pdb <- pkgAvail(repo_root,
+                          type = pkg_type,
+                          Rversion = rvers,
+                          quiet = TRUE)[, "Package"]
+        })
+
+      expect_true(
+        all(
+          c(!(pkgsAdd %in% pdb), !(pkgsDep1 %in% pdb),
+            !(pkgsDep2 %in% pdb), !(pkgsDep3 %in% pdb))
+        )
+      )
+
+      # Add the package once again, remove with all reverse recursive dependencies
+      restoreTestRepo(pkgsAdd)
+
+      with_mock(
+        download_packages = mock_download_packages,
+        write_packages = mock_write_packages,
+        .env = "miniCRAN",
+        {
+          deletePackage(pkgsDep3, path = repo_root, type = pkg_type, Rversion = rvers,
+                        deps = TRUE, recursive = TRUE, reverse = TRUE)
+          pdb <- pkgAvail(repo_root,
+                          type = pkg_type,
+                          Rversion = rvers,
+                          quiet = TRUE)[, "Package"]
+        })
+
+      expect_true(
+        all(
+          c(!(pkgsAdd %in% pdb),
             pkgsDep2 %in% pdb, !(pkgsDep3 %in% pdb))
         )
       )

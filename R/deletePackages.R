@@ -20,7 +20,15 @@ deletePackage <- function(pkgs = NULL, path = NULL,
       depends <- unique(unlist(lapply(pkgs, function(pkg) {
         if (!is.null(d[[pkg]])) d[[pkg]] else character()
       })))
+      l <- list(...)
+      if ('reverse' %in% names(l)) {
+        # Check for needed packages, which uses direct dependencies
+        l[['reverse']] <- FALSE
+        l[['db']] <- db
+        d <- do.call(tools::package_dependencies, l)
+      }
       needed <- unique(unlist(d[!names(d) %in% c(pkgs, depends)]))
+
       toRemoveDeps <- depends[!depends %in% needed]
       if (length(toRemoveDeps)) {
         purgePackage(toRemoveDeps, db, t, repoPath)
