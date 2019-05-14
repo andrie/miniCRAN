@@ -1,8 +1,8 @@
 miniCRAN v0.2.11.9000 (Dev)
 ================
 
-New features: 
-* None
+New features:
+* Added `deletePackage` to remove packages and their dependencies (#81)
 
 Bug fixes:
 * Experimental support for mac.binary.el-capitan (#111)
@@ -18,7 +18,7 @@ Internal changes
 miniCRAN v0.2.11 (Release date: 2018-01-15)
 ================
 
-New features: 
+New features:
 * None
 
 Bug fixes:

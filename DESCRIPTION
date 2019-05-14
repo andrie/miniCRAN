@@ -3,7 +3,8 @@ Date: 2018-06-22
 Version: 0.2.11.9000
 Authors@R: c(person("Microsoft Corporation", role="cph"), person("Andrie", "de
     Vries", role=c("aut", "cre", "cph"), email="apdevries@gmail.com"),
-    person("Alex", "Chubaty", role="ctb", email="alex.chubaty@gmail.com"))
+    person("Alex", "Chubaty", role="ctb", email="alex.chubaty@gmail.com"),
+    person("Anton", "Antonov", role="ctb", email="tonytonov@gmail.com"))
 License: GPL-2
 Copyright: Microsoft Corporation, Andrie de Vries
 Title: Create a Mini Version of CRAN Containing Only Selected Packages
