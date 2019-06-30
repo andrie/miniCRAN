@@ -1,10 +1,3 @@
-#
-#  miniCRAN/R/minicran-package.R by Revolution Analytics  Copyright (C) 2014-2015
-#
-
-
-#' Create a Private Version of CRAN Containing Only Selected Packages
-#'
 #'@description
 #'
 #' At the end of 2014, CRAN consisted of more than 6,000 packages.  Many organisations need to maintain a private mirror of CRAN, but with only a subset of packages that are relevant to them.
@@ -62,12 +55,13 @@
 #' @name miniCRAN-package
 #' @aliases miniCRAN minicran
 #' @docType package
-#' @author Andrie de Vries \email{apdevries@@gmail.com} with contributions from Alex Chubaty \email{alex.chubaty@@gmail.com}
 #' @keywords package
 #' @importFrom graphics legend par title
 #' @importFrom stats reshape setNames
 #' @importFrom utils chooseCRANmirror compareVersion download.file flush.console installed.packages select.list
-NULL
+#' @importFrom assertthat assert_that
+"_PACKAGE"
+
 
 
 

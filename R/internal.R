@@ -42,6 +42,8 @@
 #' }
 #'
 #' @return The filepath to the package files directory.
+#' 
+#' @keywords Internal
 #'
 repoPrefix <- function(type, Rversion) {
   Rversion <- twodigitRversion(Rversion)
@@ -67,6 +69,8 @@ repoPrefix <- function(type, Rversion) {
 #' Construct path to full binary location
 #' @inheritParams makeRepo
 #' @inheritParams repoPrefix
+#' 
+#' @keywords Internal
 repoBinPath <- function(path, type, Rversion) {
   normalizePath(file.path(path, repoPrefix(type, Rversion)), mustWork = FALSE, winslash = "/")
 }
@@ -78,6 +82,8 @@ repoBinPath <- function(path, type, Rversion) {
 #' @return A character string representing the two-digit R version.
 #'
 #' @importFrom methods is
+#' 
+#' @keywords Internal
 #'
 twodigitRversion <- function(R = R.version) {
   if ("simple.list" %in% is(R)) {

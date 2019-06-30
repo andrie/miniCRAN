@@ -22,3 +22,4 @@ This is a thin wrapper around \code{\link[utils:available.packages]{utils::avail
 \seealso{
 \code{\link[=pkgDep]{pkgDep()}}
 }
+\concept{create repo functions}

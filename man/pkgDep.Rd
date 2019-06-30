@@ -55,3 +55,4 @@ Other dependency functions: \code{\link{basePkgs}},
   \code{\link{makeDepGraph}},
   \code{\link{plot.pkgDepGraph}}
 }
+\concept{dependency functions}

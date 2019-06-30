@@ -15,3 +15,4 @@ A character string representing the two-digit R version.
 \description{
 Get a two-digit version of the R version
 }
+\keyword{Internal}

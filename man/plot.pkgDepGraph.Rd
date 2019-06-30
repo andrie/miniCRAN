@@ -4,9 +4,9 @@
 \alias{plot.pkgDepGraph}
 \title{Plots a package dependency graph.}
 \usage{
-\method{plot}{pkgDepGraph}(x, pkgsToHighlight, main = paste(attr(x, "pkgs"),
-  collapse = ", "), legendPosition = c(-1.2, -1), shape = "circle",
-  vertex.size = 8, cex = 1, ...)
+\method{plot}{pkgDepGraph}(x, pkgsToHighlight, main = paste(attr(x,
+  "pkgs"), collapse = ", "), legendPosition = c(-1.2, -1),
+  shape = "circle", vertex.size = 8, cex = 1, ...)
 }
 \arguments{
 \item{x}{pkgDepGraph object}
@@ -65,3 +65,4 @@ plot(dg, legendPosition = c(1, 1), vertex.size = 20,  cex = 0.5)
 Other dependency functions: \code{\link{basePkgs}},
   \code{\link{makeDepGraph}}, \code{\link{pkgDep}}
 }
+\concept{dependency functions}
