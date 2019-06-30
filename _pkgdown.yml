@@ -1,4 +1,5 @@
 destination: docs
+url: http://andrie.github.io/miniCRAN/
 reference:
 - title: Making a private repo
   desc: ~

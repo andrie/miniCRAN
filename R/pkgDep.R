@@ -41,7 +41,9 @@ pkgDep <- function(pkg, availPkgs, repos = getOption("repos"), type = "source",
                    depends = TRUE, suggests = TRUE, enhances = FALSE,
                    includeBasePkgs = FALSE, Rversion = R.version, quiet = FALSE, ...) 
 {
-  assert_that(is.character(pkg))
+  assert_that(is.character(pkg), 
+              msg = "pkg should be a character vector with package names"
+  )
   
   if (!depends & !suggests & !enhances) {
     warning("Returning nothing, since depends, suggests and enhances are all FALSE")

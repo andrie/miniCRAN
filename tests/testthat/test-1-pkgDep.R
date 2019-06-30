@@ -9,7 +9,7 @@ test_that("pkgDep throws warnings and errors", {
   
   expect_error(
     pkgDep(availPkgs = cranJuly2014), 
-    "pkg should be a character vector with package names"
+    "argument \"pkg\" is missing, with no default"
   )
   
   expect_error(

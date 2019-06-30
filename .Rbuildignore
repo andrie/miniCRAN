@@ -8,3 +8,4 @@ LICENSE.md
 cran-comments.md
 ^README\.Rmd$
 ^pkgdown$
+^codecov\.yml$
