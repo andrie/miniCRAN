@@ -17,7 +17,7 @@ downloads](http://cranlogs.r-pkg.org/badges/miniCRAN)](http://www.r-pkg.org/pkg/
 status](https://www.r-pkg.org/badges/version/miniCRAN)](https://cran.r-project.org/package=miniCRAN)
 <!-- badges: end -->
 
-Create a mini version of CRAN containing only selected packages
+Create a mini version of CRAN containing only selected packages.
 
 ## Introduction
 
