@@ -5,7 +5,7 @@
 .Rproj.user
 
 ## Pkgdown docs
-docs
+docs/*
 
 ## Windows detritus
 
