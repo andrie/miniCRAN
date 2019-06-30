@@ -41,7 +41,7 @@
 #'
 #' @param path Destination download path. This path is the root folder of your new repository.
 #'
-#' @param Rversion List with two named elements: `major` and `minor`. If not supplied, defaults to system version of R, using [R.version].  Only used if `type` is not "source"
+#' @template Rversion
 #'
 #' @param download If TRUE downloads packages.
 #'

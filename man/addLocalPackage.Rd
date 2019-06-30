@@ -18,7 +18,13 @@ addLocalPackage(pkgs = NULL, pkgPath = NULL, path = NULL,
 
 \item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
 
-\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \link{R.version}}
+\item{Rversion}{Version of R (only used if \code{type} is not \code{source}.) Defaults to \link{R.version}, but this can be specified as any of the following formats:
+\itemize{
+\item a character string with the two digit R version, e.g. "3.1"
+\item a list with components \code{major} and \code{minor}
+\item the result of \code{\link[=getRversion]{getRversion()}}
+\item the result of \code{\link[=R.version]{R.version()}}
+}}
 
 \item{writePACKAGES}{If TRUE, calls \code{\link[=write_PACKAGES]{write_PACKAGES()}} to update the repository PACKAGES file.}
 

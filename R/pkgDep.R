@@ -29,7 +29,7 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #' @param quiet If TRUE, suppresses warnings
 #' 
 #' @param includeBasePkgs If TRUE, include base R packages in results
-#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to [R.version]
+#' @template Rversion
 #' @param ... Other arguments passed to [available.packages()]
 #'
 #' @export

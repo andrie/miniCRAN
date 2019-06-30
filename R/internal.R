@@ -2,7 +2,7 @@
 #'
 #' @note Not all versions of R are compatible with with all package types (e.g., `mac.binary.el-capitan` is only valid for R > 3.4.0).
 #'
-#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to [R.version]
+#' @template Rversion
 #'
 #' @param type  character, indicating the type of package to download and install. See [install.packages()].
 #'
@@ -47,13 +47,13 @@
 #'
 repoPrefix <- function(type, Rversion) {
   Rversion <- twodigitRversion(Rversion)
-
+  
   if ((type == "mac.binary.el-capitan") && (numeric_version(Rversion) < "3.4")) {
     warning("Type mac.binary.el-capitan only valid for R >= 3.4")
   } else if ((type == "mac.binary.mavericks") && (numeric_version(Rversion) >= "3.4")) {
     warning("Type mac.binary.mavericks only valid for R < 3.4")
   }
-
+  
   switch(
     type,
     "source" = "src/contrib",
@@ -77,7 +77,7 @@ repoBinPath <- function(path, type, Rversion) {
 
 #' Get a two-digit version of the R version
 #'
-#' @param R Either a list of the format [R.version], a character string (e.g., `"3.1.2"`), or a numeric version of the type [R_system_version()].
+#' @template Rversion
 #'
 #' @return A character string representing the two-digit R version.
 #'
@@ -85,12 +85,17 @@ repoBinPath <- function(path, type, Rversion) {
 #' 
 #' @keywords Internal
 #'
-twodigitRversion <- function(R = R.version) {
-  if ("simple.list" %in% is(R)) {
-    paste(R$major, strsplit(R$minor, ".", fixed = TRUE)[[1L]][1L], sep = ".")
-  } else if ("R_system_version" %in% is(R)) {
-    paste(strsplit(as.character(R), ".", fixed = TRUE)[[1L]][1L:2L], collapse = ".")
-  } else if (is.character(R)) {
-    paste(strsplit(R, ".", fixed = TRUE)[[1L]][1L:2L], collapse = ".")
+twodigitRversion <- function(Rversion = R.version) {
+  if ("simple.list" %in% is(Rversion)) {
+    paste(Rversion$major, strsplit(Rversion$minor, ".", fixed = TRUE)[[1L]][1L], sep = ".")
+  } else if ("R_system_version" %in% is(Rversion)) {
+    paste(strsplit(as.character(Rversion), ".", fixed = TRUE)[[1L]][1L:2L], collapse = ".")
+  } else if (is.character(Rversion)) {
+    paste(strsplit(Rversion, ".", fixed = TRUE)[[1L]][1L:2L], collapse = ".")
+  } else if (is.list(Rversion)) {
+    paste(Rversion$major, Rversion$minor, sep = ".")
+  } else {
+    Rversion
   }
 }
+  

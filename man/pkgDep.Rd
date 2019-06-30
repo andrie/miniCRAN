@@ -25,7 +25,13 @@ pkgDep(pkg, availPkgs, repos = getOption("repos"), type = "source",
 
 \item{includeBasePkgs}{If TRUE, include base R packages in results}
 
-\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \link{R.version}}
+\item{Rversion}{Version of R (only used if \code{type} is not \code{source}.) Defaults to \link{R.version}, but this can be specified as any of the following formats:
+\itemize{
+\item a character string with the two digit R version, e.g. "3.1"
+\item a list with components \code{major} and \code{minor}
+\item the result of \code{\link[=getRversion]{getRversion()}}
+\item the result of \code{\link[=R.version]{R.version()}}
+}}
 
 \item{quiet}{If TRUE, suppresses warnings}
 

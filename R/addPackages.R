@@ -12,7 +12,7 @@ if (getRversion() >= "3.1.0") {
 #'
 #' @param type  character, indicating the type of package to download and install. See [install.packages()].
 #'
-#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to [R.version]
+#' @template Rversion
 #'
 #' @return Returns invisibly the filepaths to packages with multiple versions for removal.
 #'
@@ -57,8 +57,8 @@ checkVersions <- function(pkgs = NULL, path = NULL, type = "source",
 #' @inheritParams makeRepo
 #' @inheritParams pkgDep
 #'
-#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to [R.version]
-#'
+#' @template Rversion
+#' 
 #' @param deps logical indicating whether the package dependencies should be added (default `TRUE`).
 #'
 #' @return Installs the packages, rebuilds the package index, and invisibly returns the number of packages written to the index files.

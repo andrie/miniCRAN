@@ -14,7 +14,13 @@ checkVersions(pkgs = NULL, path = NULL, type = "source",
 
 \item{type}{character, indicating the type of package to download and install. See \code{\link[=install.packages]{install.packages()}}.}
 
-\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \link{R.version}}
+\item{Rversion}{Version of R (only used if \code{type} is not \code{source}.) Defaults to \link{R.version}, but this can be specified as any of the following formats:
+\itemize{
+\item a character string with the two digit R version, e.g. "3.1"
+\item a list with components \code{major} and \code{minor}
+\item the result of \code{\link[=getRversion]{getRversion()}}
+\item the result of \code{\link[=R.version]{R.version()}}
+}}
 }
 \value{
 Returns invisibly the filepaths to packages with multiple versions for removal.
