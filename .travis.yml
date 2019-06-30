@@ -23,7 +23,7 @@ matrix:
 
     - name: "As CRAN"
       r: release
-      NOT_CRAN=false
+      env: NOT_CRAN=false
 
     - name: "Old Release"
       r: oldrel
