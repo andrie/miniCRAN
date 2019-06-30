@@ -7,13 +7,12 @@
 
 [![Build
 Status](https://travis-ci.org/andrie/miniCRAN.svg?branch=master)](https://travis-ci.org/andrie/miniCRAN)
-[![Build
-Status](https://travis-ci.org/andrie/miniCRAN.svg?branch=dev)](https://travis-ci.org/andrie/miniCRAN)
-[![](http://www.r-pkg.org/badges/version/miniCRAN)](http://www.r-pkg.org/pkg/miniCRAN)
+[![Codecov test
+coverage](https://codecov.io/gh/andrie/miniCRAN/branch/master/graph/badge.svg)](https://codecov.io/gh/andrie/miniCRAN?branch=master)
+[![CRAN
+version](http://www.r-pkg.org/badges/version/miniCRAN)](http://www.r-pkg.org/pkg/miniCRAN)
 [![CRAN RStudio mirror
 downloads](http://cranlogs.r-pkg.org/badges/miniCRAN)](http://www.r-pkg.org/pkg/miniCRAN)
-[![Coverage
-Status](https://img.shields.io/codecov/c/github/andrie/miniCRAN/master.svg)](https://codecov.io/github/andrie/miniCRAN?branch=master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/miniCRAN)](https://cran.r-project.org/package=miniCRAN)
 <!-- badges: end -->

@@ -1,5 +1,4 @@
 language: r
-sudo: false
 cache: packages
 
 repos:
@@ -9,24 +8,33 @@ env: NOT_CRAN="true"
 
 matrix:
   include:
+    - name: "Release"
+      r: release
+      after_success:
+      - Rscript -e 'covr::codecov()'
+      - find . -name testthat.Rout | xargs cat
+      after_failure:
+      - find . -name testthat.Rout | xargs cat
+      before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
+      deploy:
+        provider: script
+        script: Rscript -e 'pkgdown::deploy_site_github()'
+        skip_cleanup: true
 
-  - os: linux
-    dist: trusty
-    r: oldrel
+    - name: "As CRAN"
+      r: release
+      NOT_CRAN=false
 
-  - os: linux
-    dist: trusty
-    r: release
-    after_success:
-    - Rscript -e 'withr::with_envvar(c(NOT_CRAN="true"), {covr::codecov()})'
+    - name: "Old Release"
+      r: oldrel
 
-  - os: linux
-    dist: trusty
-    r: devel
+    - name: "Devel"
+      r: devel
 
-  - os: osx
-    osx_image: xcode9
-    latex: false
+    - name: "Mac OSX"
+      os: osx
+      osx_image: xcode9
+      latex: false
 
 r_build_args: '--no-build-vignettes'
 r_check_args: '--as-cran --ignore-vignettes --no-examples'
@@ -34,7 +42,6 @@ r_check_args: '--as-cran --ignore-vignettes --no-examples'
 branches:
   only:
     - master
-    - release
     - dev
 
 notifications:
