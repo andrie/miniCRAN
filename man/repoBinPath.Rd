@@ -16,3 +16,4 @@ repoBinPath(path, type, Rversion)
 \description{
 Construct path to full binary location
 }
+\keyword{Internal}

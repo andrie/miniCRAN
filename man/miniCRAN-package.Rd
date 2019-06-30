@@ -3,9 +3,10 @@
 \docType{package}
 \name{miniCRAN-package}
 \alias{miniCRAN-package}
+\alias{_PACKAGE}
 \alias{miniCRAN}
 \alias{minicran}
-\title{Create a Private Version of CRAN Containing Only Selected Packages}
+\title{miniCRAN: Create a Mini Version of CRAN Containing Only Selected Packages}
 \description{
 At the end of 2014, CRAN consisted of more than 6,000 packages.  Many organisations need to maintain a private mirror of CRAN, but with only a subset of packages that are relevant to them.
 
@@ -66,7 +67,22 @@ for R versions 3.2.2 and greater. Versions earlier than 3.2.2 use HTTP instead o
 }
 }
 
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/andrie/miniCRAN}
+  \item Report bugs at \url{https://github.com/andrie/miniCRAN/issues}
+}
+
+}
 \author{
-Andrie de Vries \email{apdevries@gmail.com} with contributions from Alex Chubaty \email{alex.chubaty@gmail.com}
+\strong{Maintainer}: Andrie de Vries \email{apdevries@gmail.com} [copyright holder]
+
+Other contributors:
+\itemize{
+  \item Alex Chubaty \email{alex.chubaty@gmail.com} [contributor]
+  \item Microsoft Corporation [copyright holder]
+}
+
 }
 \keyword{package}

@@ -1,54 +1,46 @@
-navbar:
-  title: miniCRAN
-  type: default
-  left:
-  - icon: fa-home fa-lg
-    href: index.html
-  - text: Reference
-    href: reference/index.html
-  - text: Articles
-    menu:
-    - text: Using miniCRAN to identify package dependencies
-      href: articles/miniCRAN-dependency-graph.html
-    - text: Using miniCRAN to create a local CRAN repository
-      href: articles/miniCRAN-introduction.html
-    - text: Using repositories other than CRAN with miniCRAN
-      href: articles/miniCRAN-non-CRAN-repos.html
-  right:
-  - icon: fa-github fa-lg
-    href: https://github.com/andrie/miniCRAN
-
+destination: docs
 reference:
-- title: Create
-  desc: Creating a miniCRAN
-  contents:
-  - '`makeRepo`'
-- title: Dependencies
-  desc: Identify and plot dependency tree
-  contents:
-  - '`pkgDep`'
-  - '`plot.pkgDepGraph`'
-  - '`makeDepGraph`'
-- title: Extend
-  desc: Add additional packages
-  contents:
-  - '`addLocalPackage`'
-  - '`addOldPackage`'
-  - '`addPackage`'
-  - '`updatePackages`'
-- title: Internal functions
+- title: Making a private repo
   desc: ~
   contents:
-  - '`addPackageListingGithub`'
-  - '`basePkgs`'
-  - '`checkVersions`'
-  - '`cranJuly2014`'
-  - '`getCranDescription`'
-  - '`.listFiles`'
-  - '`makeLibrary`'
-  - '`miniCRAN-package`'
-  - '`pkgAvail`'
-  - '`repoBinPath`'
-  - '`repoPrefix`'
-  - '`twodigitRversion`'
+  - pkgAvail
+  - pkgDep
+  - makeRepo
+- title: Updating packages in a repo
+  desc: ~
+  contents:
+  - oldPackages
+  - updatePackages
+  - addLocalPackage
+  - addOldPackage
+  - addPackage
+- title: Dependency functions
+  desc: ~
+  contents:
+  - basePkgs
+- title: Github functions
+  desc: ~
+  contents:
+  - addPackageListingGithub
+- title: Creating dependencies
+  desc: ~
+  contents:
+  - pkgDep
+  - makeDepGraph
+  - plot.pkgDepGraph
+- title: Deprecated
+  desc: ~
+  contents:
+  - makeLibrary
+- title: Other
+  desc: ~
+  contents:
+  - checkVersions
+  - cranJuly2014
+  - getCranDescription
+  - .listFiles
+  - miniCRAN-package
+  - repoPrefix
+  - twodigitRversion
+
 

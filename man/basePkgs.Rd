@@ -15,3 +15,4 @@ Retrieves names of installed packages by calling \code{\link[utils:installed.pac
 Other dependency functions: \code{\link{makeDepGraph}},
   \code{\link{pkgDep}}, \code{\link{plot.pkgDepGraph}}
 }
+\concept{dependency functions}

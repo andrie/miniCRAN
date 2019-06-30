@@ -3,7 +3,6 @@
 \name{updatePackages}
 \alias{updatePackages}
 \alias{oldPackages}
-\alias{updatePackages}
 \title{Check for available package updates in a miniCRAN repo.}
 \usage{
 oldPackages(path = NULL, repos = getOption("repos"),
@@ -12,10 +11,10 @@ oldPackages(path = NULL, repos = getOption("repos"),
   Rversion, quiet = quiet), type = "source", Rversion = R.version,
   quiet = FALSE)
 
-updatePackages(path = NULL, repos = getOption("repos"), method = NULL,
-  ask = TRUE, availPkgs = pkgAvail(repos = repos, type = type, Rversion =
-  Rversion), oldPkgs = NULL, type = "source", Rversion = R.version,
-  quiet = FALSE)
+updatePackages(path = NULL, repos = getOption("repos"),
+  method = NULL, ask = TRUE, availPkgs = pkgAvail(repos = repos, type
+  = type, Rversion = Rversion), oldPkgs = NULL, type = "source",
+  Rversion = R.version, quiet = FALSE)
 }
 \arguments{
 \item{path}{Destination download path. This path is the root folder of your new repository.}
@@ -34,7 +33,7 @@ updatePackages(path = NULL, repos = getOption("repos"), method = NULL,
 
 \item{quiet}{If TRUE, suppress status messages (if any), and the progress bar during download.}
 
-\item{ask}{logical indicating whether to ask user before packages are actually downloaded and installed, or the character string \code{"graphics"``, which brings up a widget to allow the user to (de-)select from the list of packages which could be updated or added. The latter value only works on systems with a GUI version of [select.list()], and is otherwise equivalent to}ask = TRUE`.}
+\item{ask}{logical indicating whether to ask user before packages are actually downloaded and installed, or the character string \code{"graphics"``, which brings up a widget to allow the user to (de-)select from the list of packages which could be updated or added. The latter value only works on systems with a GUI version of [select.list()], and is otherwise equivalent to }ask = TRUE`.}
 
 \item{oldPkgs}{if specified as non-NULL, \code{updatePackages()} only considers these packages for updating. This may be a character vector of package names or a matrix as returned by \code{oldPackages()}.}
 }
@@ -99,3 +98,4 @@ Other update repo functions: \code{\link{addOldPackage}},
   \code{\link{addPackage}}, \code{\link{checkVersions}},
   \code{\link{makeRepo}}
 }
+\concept{update repo functions}

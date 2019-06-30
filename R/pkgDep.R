@@ -39,15 +39,16 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #' 
 pkgDep <- function(pkg, availPkgs, repos = getOption("repos"), type = "source",
                    depends = TRUE, suggests = TRUE, enhances = FALSE,
-                   includeBasePkgs = FALSE, Rversion = R.version, quiet = FALSE, ...) {
+                   includeBasePkgs = FALSE, Rversion = R.version, quiet = FALSE, ...) 
+{
+  assert_that(is.character(pkg))
+  
   if (!depends & !suggests & !enhances) {
     warning("Returning nothing, since depends, suggests and enhances are all FALSE")
     return(character(0))
   }
+  
 
-  if (missing(pkg) || !is.character(pkg)) {
-    stop("pkg should be a character vector with package names")
-  }
   if (missing(availPkgs)) {
     if (!is.null(names(repos)) & repos["CRAN"] == "@CRAN@") {
       repos <- MRAN()
@@ -56,9 +57,9 @@ pkgDep <- function(pkg, availPkgs, repos = getOption("repos"), type = "source",
     availPkgs <- pkgAvail(repos = repos, type = type, Rversion = Rversion,
                           quiet = quiet, ...)
   }
-  if (nrow(availPkgs) == 0) {
-    stop("Unable to retrieve available packages from CRAN")
-  }
+  
+  assert_that(nrow(availPkgs) > 0, msg = "Unable to retrieve available packages from CRAN")
+
 
   pkgInAvail <- pkg %in% availPkgs[, "Package"]
   if (sum(pkgInAvail) == 0 ) stop("No valid packages in pkg")
