@@ -1,11 +1,15 @@
 Package: miniCRAN
-Date: 2018-06-22
-Version: 0.2.11.9000
-Authors@R: c(person("Microsoft Corporation", role="cph"), person("Andrie", "de
-    Vries", role=c("aut", "cre", "cph"), email="apdevries@gmail.com"),
-    person("Alex", "Chubaty", role="ctb", email="alex.chubaty@gmail.com"))
+Date: 2019-06-30
+Version: 0.2.12.9000
+Authors@R: c(
+    person("Andrie", "de Vries", role=c("aut", "cre", "cph"), 
+        email="apdevries@gmail.com"),
+    person("Alex", "Chubaty", role="ctb", 
+        email="alex.chubaty@gmail.com"),
+    person("Microsoft Corporation", role="cph")
+    )
 License: GPL-2
-Copyright: Microsoft Corporation, Andrie de Vries
+Copyright: Andrie de Vries, Microsoft Corporation
 Title: Create a Mini Version of CRAN Containing Only Selected Packages
 Description: Makes it possible to create an internally consistent
     repository consisting of selected packages from CRAN-like repositories.
@@ -26,7 +30,8 @@ Imports:
     tools,
     utils,
     XML,
-    igraph
+    igraph,
+    assertthat
 Suggests:
     devtools,
     knitr,
@@ -39,5 +44,5 @@ Suggests:
 LazyData: true
 LazyLoad: true
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
