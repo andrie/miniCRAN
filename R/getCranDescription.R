@@ -1,8 +1,10 @@
 
 #' @importFrom XML readHTMLTable
-oldGetCranDescription <- function(pkg, repos = getOption("repos"),
+oldGetCranDescription <- function(
+  pkg, repos = getOption("repos"),
                                   type = "source",
-                                  pkgs = pkgDep(pkg, repos = repos, type = type)) {
+                                  pkgs = pkgDep(pkg, repos = repos, type = type)
+) {
   getOne <- function(package) {
     repos <- repos[[1]]
     if(!grepl("/$", repos)) repos <- paste0(repos, "/")
@@ -26,7 +28,8 @@ oldGetCranDescription <- function(pkg, repos = getOption("repos"),
     }
   }
   ret <- do.call(rbind, lapply(pkgs, getOne))
-  ret <- reshape(ret, direction = "wide", timevar = "Field", idvar = "Package", v.names = "Value")
+  ret <- reshape(ret, direction = "wide", timevar = "Field", 
+                 idvar = "Package", v.names = "Value")
   names(ret) <- gsub("Value.", "", names(ret))
   rownames(ret) <- ret$Package
   ret

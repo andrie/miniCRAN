@@ -1,50 +1,19 @@
 #' Get the path to the repo directory containing the package files.
 #'
-#' @note Not all versions of R are compatible with with all package types (e.g., `mac.binary.el-capitan` is only valid for R > 3.4.0).
+#' @note Not all versions of R are compatible with with all package types (e.g.,
+#'   `mac.binary.el-capitan` is only valid for R > 3.4.0).
 #'
 #' @template Rversion
 #'
-#' @param type  character, indicating the type of package to download and install. See [install.packages()].
+#' @param type  character, indicating the type of package to download and
+#'   install. See [install.packages()].
 #'
-#' @section Repo folder structure:
-#' The folder structure of a repository
-#' \itemize{
-#'  \item{Root}
-#'  \itemize{
-#'    \item{src/contrib}
-#'    \itemize{
-#'      \item{PACKAGES}
-#'    }
-#'    \item{bin}
-#'    \itemize{
-#'      \item{windows/contrib/version}
-#'      \itemize{
-#'        \item{PACKAGES}
-#'      }
-#'      \item{macosx/contrib/version}
-#'      \itemize{
-#'        \item{PACKAGES}
-#'      }
-#'      \item{macosx/el-capitan/contrib/version}
-#'      \itemize{
-#'        \item{PACKAGES}
-#'      }
-#'      \item{macosx/leopard/contrib/version}
-#'      \itemize{
-#'        \item{PACKAGES}
-#'      }
-#'      \item{macosx/mavericks/contrib/version}
-#'      \itemize{
-#'        \item{PACKAGES}
-#'      }
-#'    }
-#'  }
-#' }
+#' @template repo_folder_structure
 #'
 #' @return The filepath to the package files directory.
-#' 
-#' @keywords Internal
 #'
+#' @keywords Internal
+#'   
 repoPrefix <- function(type, Rversion) {
   Rversion <- twodigitRversion(Rversion)
   

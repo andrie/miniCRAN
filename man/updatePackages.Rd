@@ -17,17 +17,25 @@ updatePackages(path = NULL, repos = getOption("repos"),
   Rversion = R.version, quiet = FALSE)
 }
 \arguments{
-\item{path}{Destination download path. This path is the root folder of your new repository.}
+\item{path}{Destination download path. This path is the root folder of your
+new repository.}
 
-\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link[=available.packages]{available.packages()}}}
+\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g.
+\code{"http://cran.us.r-project.org"}. Passed to \code{\link[=available.packages]{available.packages()}}}
 
-\item{availPkgs}{Data frame with an element called \code{package}. The \code{package} element is a vector of available packages.  Defaults to reading this list from CRAN, using \code{\link[=available.packages]{available.packages()}}}
+\item{availPkgs}{Data frame with an element called \code{package}. The \code{package}
+element is a vector of available packages.  Defaults to reading this list
+from CRAN, using \code{\link[=available.packages]{available.packages()}}}
 
 \item{method}{Download method, see \code{\link[=download.file]{download.file()}}.}
 
-\item{availableLocal}{all packages hosted in the miniCRAN repo, as returned by \code{\link[=pkgAvail]{pkgAvail()}}. A subset can be specified; currently this must be in the same (character matrix) format as returned by \code{\link[=pkgAvail]{pkgAvail()}}.}
+\item{availableLocal}{all packages hosted in the miniCRAN repo, as returned
+by \code{\link[=pkgAvail]{pkgAvail()}}. A subset can be specified; currently this must be in the
+same (character matrix) format as returned by \code{\link[=pkgAvail]{pkgAvail()}}.}
 
-\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
+\item{type}{Possible values are (currently) "source", "mac.binary" and
+"win.binary": the binary types can be listed and downloaded but not
+installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
 
 \item{Rversion}{Version of R (only used if \code{type} is not \code{source}.) Defaults to \link{R.version}, but this can be specified as any of the following formats:
 \itemize{
@@ -37,22 +45,32 @@ updatePackages(path = NULL, repos = getOption("repos"),
 \item the result of \code{\link[=R.version]{R.version()}}
 }}
 
-\item{quiet}{If TRUE, suppress status messages (if any), and the progress bar during download.}
+\item{quiet}{If TRUE, suppress status messages (if any), and the progress bar
+during download.}
 
-\item{ask}{logical indicating whether to ask user before packages are actually downloaded and installed, or the character string \code{"graphics"``, which brings up a widget to allow the user to (de-)select from the list of packages which could be updated or added. The latter value only works on systems with a GUI version of [select.list()], and is otherwise equivalent to }ask = TRUE`.}
+\item{ask}{logical indicating whether to ask user before packages are
+actually downloaded and installed, or the character string \code{"graphics"``, which brings up a widget to allow the user to (de-)select from the list of packages which could be updated or added. The latter value only works on systems with a GUI version of [select.list()], and is otherwise equivalent to }ask = TRUE`.}
 
-\item{oldPkgs}{if specified as non-NULL, \code{updatePackages()} only considers these packages for updating. This may be a character vector of package names or a matrix as returned by \code{oldPackages()}.}
+\item{oldPkgs}{if specified as non-NULL, \code{updatePackages()} only considers
+these packages for updating. This may be a character vector of package
+names or a matrix as returned by \code{oldPackages()}.}
 }
 \value{
-\code{oldPackages()} returns a matrix with one row per package and columns for "Package", "LocalVer", "ReposVer" and "Repository".  The matrix row names the package names.
+\code{oldPackages()} returns a matrix with one row per package and columns
+for "Package", "LocalVer", "ReposVer" and "Repository".  The matrix row
+names the package names.
 
 \code{updatePackages} returns \code{NULL} invisibly.
 }
 \description{
-\code{oldPackages()} indicates packages which have a (suitable) later version on the repositories whereas \code{updatePackages()} offers to download and install such packages.
+\code{oldPackages()} indicates packages which have a (suitable) later version on
+the repositories whereas \code{updatePackages()} offers to download and install
+such packages.
 }
 \details{
-These functions are based on \code{\link[=update.packages]{update.packages()}}.  However, rather than looking for locally installed packages they look for the package source and binaries in the miniCRAN repository.
+These functions are based on \code{\link[=update.packages]{update.packages()}}.  However, rather than
+looking for locally installed packages they look for the package source and
+binaries in the miniCRAN repository.
 }
 \examples{
 ### `oldPackages` and `updatePackages` require an existing miniCRAN repo

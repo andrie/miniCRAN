@@ -7,9 +7,12 @@
 repoBinPath(path, type, Rversion)
 }
 \arguments{
-\item{path}{Destination download path. This path is the root folder of your new repository.}
+\item{path}{Destination download path. This path is the root folder of your
+new repository.}
 
-\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
+\item{type}{Possible values are (currently) "source", "mac.binary" and
+"win.binary": the binary types can be listed and downloaded but not
+installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
 
 \item{Rversion}{Version of R (only used if \code{type} is not \code{source}.) Defaults to \link{R.version}, but this can be specified as any of the following formats:
 \itemize{

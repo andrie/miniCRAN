@@ -8,9 +8,12 @@ pkgAvail(repos = getOption("repos"), type = "source",
   Rversion = R.version, quiet = FALSE)
 }
 \arguments{
-\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link[=available.packages]{available.packages()}}}
+\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g.
+\code{"http://cran.us.r-project.org"}. Passed to \code{\link[=available.packages]{available.packages()}}}
 
-\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
+\item{type}{Possible values are (currently) "source", "mac.binary" and
+"win.binary": the binary types can be listed and downloaded but not
+installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
 
 \item{Rversion}{Version of R (only used if \code{type} is not \code{source}.) Defaults to \link{R.version}, but this can be specified as any of the following formats:
 \itemize{
@@ -23,7 +26,9 @@ pkgAvail(repos = getOption("repos"), type = "source",
 \item{quiet}{If TRUE, suppresses warnings}
 }
 \description{
-This is a thin wrapper around \code{\link[utils:available.packages]{utils::available.packages()}}.  If the argument \code{path} is supplied, then the function attempts to read from a local repository, otherwise attempts to read from a CRAN mirror at the \code{repos} url.
+This is a thin wrapper around \code{\link[utils:available.packages]{utils::available.packages()}}.  If the argument
+\code{path} is supplied, then the function attempts to read from a local
+repository, otherwise attempts to read from a CRAN mirror at the \code{repos} url.
 }
 \seealso{
 \code{\link[=pkgDep]{pkgDep()}}

@@ -11,13 +11,19 @@ pkgDep(pkg, availPkgs, repos = getOption("repos"), type = "source",
 \arguments{
 \item{pkg}{Character vector of packages.}
 
-\item{availPkgs}{Data frame with an element called \code{package}. The \code{package} element is a vector of available packages.  Defaults to reading this list from CRAN, using \code{\link[=available.packages]{available.packages()}}}
+\item{availPkgs}{Data frame with an element called \code{package}. The \code{package}
+element is a vector of available packages.  Defaults to reading this list
+from CRAN, using \code{\link[=available.packages]{available.packages()}}}
 
-\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link[=available.packages]{available.packages()}}}
+\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g.
+\code{"http://cran.us.r-project.org"}. Passed to \code{\link[=available.packages]{available.packages()}}}
 
-\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
+\item{type}{Possible values are (currently) "source", "mac.binary" and
+"win.binary": the binary types can be listed and downloaded but not
+installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
 
-\item{depends}{If TRUE, retrieves Depends, Imports and LinkingTo dependencies (non-recursively)}
+\item{depends}{If TRUE, retrieves Depends, Imports and LinkingTo dependencies
+(non-recursively)}
 
 \item{suggests}{If TRUE, retrieves Suggests dependencies (non-recursively)}
 
@@ -38,7 +44,8 @@ pkgDep(pkg, availPkgs, repos = getOption("repos"), type = "source",
 \item{...}{Other arguments passed to \code{\link[=available.packages]{available.packages()}}}
 }
 \description{
-Performs recursive retrieve for \code{Depends}, \code{Imports} and \code{LinkLibrary}. Performs non-recursive retrieve for \code{Suggests}.
+Performs recursive retrieve for \code{Depends}, \code{Imports} and \code{LinkLibrary}.
+Performs non-recursive retrieve for \code{Suggests}.
 }
 \examples{
 

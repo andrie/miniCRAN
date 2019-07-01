@@ -8,11 +8,13 @@ checkVersions(pkgs = NULL, path = NULL, type = "source",
   Rversion = R.version)
 }
 \arguments{
-\item{pkgs}{Character vector of packages to be installed. If not provided, checks all files for multiple package versions.}
+\item{pkgs}{Character vector of packages to be installed. If not provided,
+checks all files for multiple package versions.}
 
 \item{path}{The local path to the directory where the miniCRAN repo resides.}
 
-\item{type}{character, indicating the type of package to download and install. See \code{\link[=install.packages]{install.packages()}}.}
+\item{type}{character, indicating the type of package to download and
+install. See \code{\link[=install.packages]{install.packages()}}.}
 
 \item{Rversion}{Version of R (only used if \code{type} is not \code{source}.) Defaults to \link{R.version}, but this can be specified as any of the following formats:
 \itemize{
@@ -23,10 +25,12 @@ checkVersions(pkgs = NULL, path = NULL, type = "source",
 }}
 }
 \value{
-Returns invisibly the filepaths to packages with multiple versions for removal.
+Returns invisibly the filepaths to packages with multiple versions
+for removal.
 }
 \description{
-Checks for previous versions, and returns the file paths for packages with multiple versions. You can subsequently decide which version to keep.
+Checks for previous versions, and returns the file paths for packages with
+multiple versions. You can subsequently decide which version to keep.
 }
 \examples{
 ### `checkVersions` and `add.packages.miniCRAN` require an existing miniCRAN repo
