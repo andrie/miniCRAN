@@ -194,6 +194,9 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 #' @docType methods
 #'
 #' @examples
+#' 
+#' @keywords Internal
+#' 
 #' \dontrun{
 #'  .listFiles('path/to/my/packages', type = "source")
 #' }
@@ -204,6 +207,9 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 
   # get a list of all files in pkgPaths directory matching pattern
   f <- list.files(path, pattern = pattern)
+  
+  assert_that(is.character(f) && length(f) > 0, 
+              msg = sprintf("No files found in path with extension '%s'", pattern))
 
   # we only care about the subset matching pkgs
   f <- sapply(pkgs, function(x) { grep(x, f, value = TRUE) })
@@ -306,15 +312,15 @@ addLocalPackage <- function(pkgs = NULL, pkgPath = NULL, path = NULL,
   }
 
   # get list of pre-built packages for each type, filter by pkgs to be added
-  sapply(type, function(t) {
+  do_one <- function(t) {
     repoPath <- file.path(path, repoPrefix(t, Rversion))
     if (!dir.exists(repoPath)) dir.create(repoPath, recursive = TRUE)
     files <- .listFiles(pkgs = pkgs, path = pkgPath, type = t)
-
+    
     # check for previous package version and omit if identical
     prev <- checkVersions(pkgs, path)
     same <- which(basename(as.character(prev)) %in% files)
-
+    
     if (length(same)) {
       files <- files[-same]
       if (length(files) == 0) {
@@ -322,28 +328,30 @@ addLocalPackage <- function(pkgs = NULL, pkgPath = NULL, path = NULL,
         return(invisible(NULL))
       }
     }
-
+    
     # copy other packages to their respective folders
     lapply(files, function(x) {
       f.src <- file.path(pkgPath, x)
       f.dst <- file.path(repoPath, x)
-
+      
       file.exists(f.src)
-
+      
       if (!isTRUE(quiet)) message("copying ", x, "\n")
       file.copy(from = f.src, to = f.dst)
     })
-
+    
     # check to ensure they all copied successfully
     copied <- file.exists(file.path(repoPath, files))
     if (!all(copied)) {
       warning("the following ", t, " packages were not copied:\n",
               paste(files[!copied], sep = ", "))
     }
-
+    
     # remove previous package versions
     if (length(prev[-same]) > 0) unlink(prev[-same])
-  })
+  }
+  
+  sapply(type, do_one)
 
   # write package index for each folder:
   index <- updateRepoIndex(path = path, type = type, Rversion = Rversion)
