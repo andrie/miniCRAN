@@ -51,6 +51,8 @@ getCranDescription <- function(pkg, repos = getOption("repos"),
     pdb <- tools::CRAN_package_db()
     pdb[match(pkgs, pdb$Package), ]
   } else {
+    msg <- "In the next release of miniCRAN this function will not be supported in R-3.4.0 or earlier."
+    warning(msg)
     oldGetCranDescription(pkg = pkg, repos = repos, type = type, pkgs = pkgs)
   }
 }
