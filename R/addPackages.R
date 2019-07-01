@@ -43,7 +43,9 @@ checkVersions <- function(pkgs = NULL, path = NULL, type = "source",
     # identify duplicate packages and warn the user
     pkgs <- sapply(strsplit(files, "_"), "[[", 1)
     dupes <- pkgs[duplicated(pkgs)]
-    if (length(dupes)) warning("Duplicate package(s): ", paste(dupes, collapse = ", "))
+    if (length(dupes)) {
+      warning("Duplicate package(s): ", paste(dupes, collapse = ", "), call. = FALSE)
+    }
     file.path(pkgPath, pkgFiles)
   }
   
