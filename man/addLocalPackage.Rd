@@ -34,8 +34,7 @@ installed on other platforms.  Passed to \code{\link[=download.packages]{downloa
 \item{writePACKAGES}{If TRUE, calls \code{\link[=write_PACKAGES]{write_PACKAGES()}} to update the
 repository PACKAGES file.}
 
-\item{deps}{logical indicating whether the package dependencies should be
-added (default \code{TRUE}).}
+\item{deps}{Not used. See note.}
 
 \item{quiet}{If TRUE, suppress status messages (if any), and the progress bar
 during download.}

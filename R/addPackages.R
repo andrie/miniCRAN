@@ -254,10 +254,14 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 #'   dependencies.
 #'
 #' @inheritParams addPackage
+#' 
+#' @param deps Not used. See note.
+#' 
 #' @param pkgPath  Character vector of directory location containing packages to
 #'   be added. Note that `pkgPath` should be the parent directory of the package
 #'   (i.e., the package directory path is constructed from `file.path(pkgPath,
 #'   pkgs)`).
+#'   
 #' @param build    Logical indicating whether packages should be build prior to
 #'   adding.
 #'
