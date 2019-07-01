@@ -195,10 +195,9 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 #' @rdname listFiles
 #' @docType methods
 #'
-#' @examples
-#' 
 #' @keywords Internal
 #' 
+#' @examples
 #' \dontrun{
 #'  .listFiles('path/to/my/packages', type = "source")
 #' }

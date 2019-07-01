@@ -9,3 +9,6 @@ cran-comments.md
 ^README\.Rmd$
 ^pkgdown$
 ^codecov\.yml$
+^tests/testthat/disabled/
+^man-roxygen/
+^logo.svg$
