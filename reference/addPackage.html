@@ -34,7 +34,7 @@
 
 <meta property="og:description" content="Add packages to a miniCRAN repository." />
 
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="http://andrie.github.io/miniCRAN/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -143,37 +143,50 @@
     </tr>
     <tr>
       <th>path</th>
-      <td><p>Destination download path. This path is the root folder of your new repository.</p></td>
+      <td><p>Destination download path. This path is the root folder of your
+new repository.</p></td>
     </tr>
     <tr>
       <th>repos</th>
-      <td><p>URL(s) of the 'contrib' sections of the repositories, e.g. <code>"http://cran.us.r-project.org"</code>. Passed to <code><a href='https://www.rdocumentation.org/packages/utils/topics/available.packages'>available.packages()</a></code></p></td>
+      <td><p>URL(s) of the 'contrib' sections of the repositories, e.g.
+<code>"http://cran.us.r-project.org"</code>. Passed to <code><a href='https://www.rdocumentation.org/packages/utils/topics/available.packages'>available.packages()</a></code></p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p>Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to <code><a href='https://www.rdocumentation.org/packages/utils/topics/download.packages'>download.packages()</a></code>.</p></td>
+      <td><p>Possible values are (currently) "source", "mac.binary" and
+"win.binary": the binary types can be listed and downloaded but not
+installed on other platforms.  Passed to <code><a href='https://www.rdocumentation.org/packages/utils/topics/download.packages'>download.packages()</a></code>.</p></td>
     </tr>
     <tr>
       <th>Rversion</th>
-      <td><p>Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to <a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version</a></p></td>
+      <td><p>Version of R (only used if <code>type</code> is not <code>source</code>.) Defaults to <a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version</a>, but this can be specified as any of the following formats:</p><ul>
+<li><p>a character string with the two digit R version, e.g. "3.1"</p></li>
+<li><p>a list with components <code>major</code> and <code>minor</code></p></li>
+<li><p>the result of <code><a href='https://www.rdocumentation.org/packages/base/topics/numeric_version'>getRversion()</a></code></p></li>
+<li><p>the result of <code><a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version()</a></code></p></li>
+</ul></td>
     </tr>
     <tr>
       <th>writePACKAGES</th>
-      <td><p>If TRUE, calls <code>write_PACKAGES()</code> to update the repository PACKAGES file.</p></td>
+      <td><p>If TRUE, calls <code>write_PACKAGES()</code> to update the
+repository PACKAGES file.</p></td>
     </tr>
     <tr>
       <th>deps</th>
-      <td><p>logical indicating whether the package dependencies should be added (default <code>TRUE</code>).</p></td>
+      <td><p>logical indicating whether the package dependencies should be
+added (default <code>TRUE</code>).</p></td>
     </tr>
     <tr>
       <th>quiet</th>
-      <td><p>If TRUE, suppress status messages (if any), and the progress bar during download.</p></td>
+      <td><p>If TRUE, suppress status messages (if any), and the progress bar
+during download.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Installs the packages, rebuilds the package index, and invisibly returns the number of packages written to the index files.</p>
+    <p>Installs the packages, rebuilds the package index, and invisibly
+returns the number of packages written to the index files.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

@@ -32,9 +32,11 @@
 
 <meta property="og:title" content="Add local packages to a miniCRAN repository. — addLocalPackage" />
 
-<meta property="og:description" content="Examine the contents of a directory specified by pkgPath for pre-built packages matching the names specified by pkgs, and add these to the miniCRAN repository." />
+<meta property="og:description" content="Examine the contents of a directory specified by pkgPath for pre-built
+packages matching the names specified by pkgs, and add these to the
+miniCRAN repository." />
 
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="http://andrie.github.io/miniCRAN/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -126,7 +128,9 @@
 
     <div class="ref-description">
     
-    <p>Examine the contents of a directory specified by <code>pkgPath</code> for pre-built packages matching the names specified by <code>pkgs</code>, and add these to the miniCRAN repository.</p>
+    <p>Examine the contents of a directory specified by <code>pkgPath</code> for pre-built
+packages matching the names specified by <code>pkgs</code>, and add these to the
+miniCRAN repository.</p>
     
     </div>
 
@@ -143,35 +147,48 @@
     </tr>
     <tr>
       <th>pkgPath</th>
-      <td><p>Character vector of directory location containing packages to be added. Note that <code>pkgPath</code> should be the parent directory of the package (i.e., the package directory path is constructed from <code><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path(pkgPath, pkgs)</a></code>).</p></td>
+      <td><p>Character vector of directory location containing packages to
+be added. Note that <code>pkgPath</code> should be the parent directory of the package
+(i.e., the package directory path is constructed from <code><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path(pkgPath, pkgs)</a></code>).</p></td>
     </tr>
     <tr>
       <th>path</th>
-      <td><p>Destination download path. This path is the root folder of your new repository.</p></td>
+      <td><p>Destination download path. This path is the root folder of your
+new repository.</p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p>Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to <code><a href='https://www.rdocumentation.org/packages/utils/topics/download.packages'>download.packages()</a></code>.</p></td>
+      <td><p>Possible values are (currently) "source", "mac.binary" and
+"win.binary": the binary types can be listed and downloaded but not
+installed on other platforms.  Passed to <code><a href='https://www.rdocumentation.org/packages/utils/topics/download.packages'>download.packages()</a></code>.</p></td>
     </tr>
     <tr>
       <th>Rversion</th>
-      <td><p>Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to <a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version</a></p></td>
+      <td><p>Version of R (only used if <code>type</code> is not <code>source</code>.) Defaults to <a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version</a>, but this can be specified as any of the following formats:</p><ul>
+<li><p>a character string with the two digit R version, e.g. "3.1"</p></li>
+<li><p>a list with components <code>major</code> and <code>minor</code></p></li>
+<li><p>the result of <code><a href='https://www.rdocumentation.org/packages/base/topics/numeric_version'>getRversion()</a></code></p></li>
+<li><p>the result of <code><a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version()</a></code></p></li>
+</ul></td>
     </tr>
     <tr>
       <th>writePACKAGES</th>
-      <td><p>If TRUE, calls <code>write_PACKAGES()</code> to update the repository PACKAGES file.</p></td>
+      <td><p>If TRUE, calls <code>write_PACKAGES()</code> to update the
+repository PACKAGES file.</p></td>
     </tr>
     <tr>
       <th>deps</th>
-      <td><p>logical indicating whether the package dependencies should be added (default <code>TRUE</code>).</p></td>
+      <td><p>Not used. See note.</p></td>
     </tr>
     <tr>
       <th>quiet</th>
-      <td><p>If TRUE, suppress status messages (if any), and the progress bar during download.</p></td>
+      <td><p>If TRUE, suppress status messages (if any), and the progress bar
+during download.</p></td>
     </tr>
     <tr>
       <th>build</th>
-      <td><p>Logical indicating whether packages should be build prior to adding.</p></td>
+      <td><p>Logical indicating whether packages should be build prior to
+adding.</p></td>
     </tr>
     </table>
     
@@ -181,11 +198,14 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>To build a package from source and then add it, use <code>build = TRUE</code>. Note that package development libraries and the <code>devtools</code> package must be installed on your system in order to build packages.</p>
+    <p>To build a package from source and then add it, use <code>build = TRUE</code>. Note that
+package development libraries and the <code>devtools</code> package must be installed on
+your system in order to build packages.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Currently, adding local packages does not check nor download their dependencies.</p>
+    <p>Currently, adding local packages does not check nor download their
+dependencies.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

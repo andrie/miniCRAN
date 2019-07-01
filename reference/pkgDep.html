@@ -32,9 +32,10 @@
 
 <meta property="og:title" content="Retrieves package dependencies. — pkgDep" />
 
-<meta property="og:description" content="Performs recursive retrieve for Depends, Imports and LinkLibrary. Performs non-recursive retrieve for Suggests." />
+<meta property="og:description" content="Performs recursive retrieve for Depends, Imports and LinkLibrary.
+Performs non-recursive retrieve for Suggests." />
 
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="http://andrie.github.io/miniCRAN/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -126,7 +127,8 @@
 
     <div class="ref-description">
     
-    <p>Performs recursive retrieve for <code>Depends</code>, <code>Imports</code> and <code>LinkLibrary</code>. Performs non-recursive retrieve for <code>Suggests</code>.</p>
+    <p>Performs recursive retrieve for <code>Depends</code>, <code>Imports</code> and <code>LinkLibrary</code>.
+Performs non-recursive retrieve for <code>Suggests</code>.</p>
     
     </div>
 
@@ -143,19 +145,25 @@
     </tr>
     <tr>
       <th>availPkgs</th>
-      <td><p>Data frame with an element called <code>package</code>. The <code>package</code> element is a vector of available packages.  Defaults to reading this list from CRAN, using <code><a href='https://www.rdocumentation.org/packages/utils/topics/available.packages'>available.packages()</a></code></p></td>
+      <td><p>Data frame with an element called <code>package</code>. The <code>package</code>
+element is a vector of available packages.  Defaults to reading this list
+from CRAN, using <code><a href='https://www.rdocumentation.org/packages/utils/topics/available.packages'>available.packages()</a></code></p></td>
     </tr>
     <tr>
       <th>repos</th>
-      <td><p>URL(s) of the 'contrib' sections of the repositories, e.g. <code>"http://cran.us.r-project.org"</code>. Passed to <code><a href='https://www.rdocumentation.org/packages/utils/topics/available.packages'>available.packages()</a></code></p></td>
+      <td><p>URL(s) of the 'contrib' sections of the repositories, e.g.
+<code>"http://cran.us.r-project.org"</code>. Passed to <code><a href='https://www.rdocumentation.org/packages/utils/topics/available.packages'>available.packages()</a></code></p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p>Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to <code><a href='https://www.rdocumentation.org/packages/utils/topics/download.packages'>download.packages()</a></code>.</p></td>
+      <td><p>Possible values are (currently) "source", "mac.binary" and
+"win.binary": the binary types can be listed and downloaded but not
+installed on other platforms.  Passed to <code><a href='https://www.rdocumentation.org/packages/utils/topics/download.packages'>download.packages()</a></code>.</p></td>
     </tr>
     <tr>
       <th>depends</th>
-      <td><p>If TRUE, retrieves Depends, Imports and LinkingTo dependencies (non-recursively)</p></td>
+      <td><p>If TRUE, retrieves Depends, Imports and LinkingTo dependencies
+(non-recursively)</p></td>
     </tr>
     <tr>
       <th>suggests</th>
@@ -171,7 +179,12 @@
     </tr>
     <tr>
       <th>Rversion</th>
-      <td><p>Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to <a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version</a></p></td>
+      <td><p>Version of R (only used if <code>type</code> is not <code>source</code>.) Defaults to <a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version</a>, but this can be specified as any of the following formats:</p><ul>
+<li><p>a character string with the two digit R version, e.g. "3.1"</p></li>
+<li><p>a list with components <code>major</code> and <code>minor</code></p></li>
+<li><p>the result of <code><a href='https://www.rdocumentation.org/packages/base/topics/numeric_version'>getRversion()</a></code></p></li>
+<li><p>the result of <code><a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version()</a></code></p></li>
+</ul></td>
     </tr>
     <tr>
       <th>quiet</th>

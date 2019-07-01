@@ -32,9 +32,10 @@
 
 <meta property="og:title" content="Check for previous versions of packages in a miniCRAN repository. — checkVersions" />
 
-<meta property="og:description" content="Checks for previous versions, and returns the file paths for packages with multiple versions. You can subsequently decide which version to keep." />
+<meta property="og:description" content="Checks for previous versions, and returns the file paths for packages with
+multiple versions. You can subsequently decide which version to keep." />
 
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="http://andrie.github.io/miniCRAN/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -126,7 +127,8 @@
 
     <div class="ref-description">
     
-    <p>Checks for previous versions, and returns the file paths for packages with multiple versions. You can subsequently decide which version to keep.</p>
+    <p>Checks for previous versions, and returns the file paths for packages with
+multiple versions. You can subsequently decide which version to keep.</p>
     
     </div>
 
@@ -138,7 +140,8 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>pkgs</th>
-      <td><p>Character vector of packages to be installed. If not provided, checks all files for multiple package versions.</p></td>
+      <td><p>Character vector of packages to be installed. If not provided,
+checks all files for multiple package versions.</p></td>
     </tr>
     <tr>
       <th>path</th>
@@ -146,17 +149,24 @@
     </tr>
     <tr>
       <th>type</th>
-      <td><p>character, indicating the type of package to download and install. See <code><a href='https://www.rdocumentation.org/packages/utils/topics/install.packages'>install.packages()</a></code>.</p></td>
+      <td><p>character, indicating the type of package to download and
+install. See <code><a href='https://www.rdocumentation.org/packages/utils/topics/install.packages'>install.packages()</a></code>.</p></td>
     </tr>
     <tr>
       <th>Rversion</th>
-      <td><p>Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to <a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version</a></p></td>
+      <td><p>Version of R (only used if <code>type</code> is not <code>source</code>.) Defaults to <a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version</a>, but this can be specified as any of the following formats:</p><ul>
+<li><p>a character string with the two digit R version, e.g. "3.1"</p></li>
+<li><p>a list with components <code>major</code> and <code>minor</code></p></li>
+<li><p>the result of <code><a href='https://www.rdocumentation.org/packages/base/topics/numeric_version'>getRversion()</a></code></p></li>
+<li><p>the result of <code><a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version()</a></code></p></li>
+</ul></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns invisibly the filepaths to packages with multiple versions for removal.</p>
+    <p>Returns invisibly the filepaths to packages with multiple versions
+for removal.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

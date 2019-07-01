@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>miniCRAN: Create a Mini Version of CRAN Containing Only Selected Packages — miniCRAN-package • miniCRAN</title>
+<title>description — miniCRAN-package • miniCRAN</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,20 +30,13 @@
 
 
 
-<meta property="og:title" content="miniCRAN: Create a Mini Version of CRAN Containing Only Selected Packages — miniCRAN-package" />
+<meta property="og:title" content="description — miniCRAN-package" />
 
-<meta property="og:description" content="At the end of 2014, CRAN consisted of more than 6,000 packages.  Many organisations need to maintain a private mirror of CRAN, but with only a subset of packages that are relevant to them.
-miniCRAN makes it possible to create an internally consistent repository consisting of selected packages from CRAN-like repositories.  The user specifies a set of desired packages, and miniCRAN recursively reads the dependency tree for these packages, then downloads only this subset.
-There are many reasons for not creating a complete mirror CRAN using rsync:
-You may wish to mirror only a subset of CRAN, for security, legal compliance or any other in-house reason
-You may wish to restrict internal package use to a subset of public packages, to minimize package duplication, or other reasons of coding standards
-You may wish to make packages available from public repositories other than CRAN, e.g. BioConductor, r-forge, OmegaHat, etc.
-You may wish to add custom in-house packages to your repository
-" />
+<meta property="og:description" content="At the end of 2014, CRAN consisted of more than 6,000 packages.  Many
+organisations need to maintain a private mirror of CRAN, but with only a
+subset of packages that are relevant to them." />
 
-<meta property="og:description" content="The ambition of miniCRAN is to eventually satisfy all of these considerations." />
-
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="http://andrie.github.io/miniCRAN/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -128,53 +121,75 @@ You may wish to add custom in-house packages to your repository
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>miniCRAN: Create a Mini Version of CRAN Containing Only Selected Packages</h1>
+    <h1>description</h1>
     <small class="dont-index">Source: <a href='https://github.com/andrie/miniCRAN/blob/master/R/minicran-package.R'><code>R/minicran-package.R</code></a></small>
     <div class="hidden name"><code>miniCRAN-package.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>At the end of 2014, CRAN consisted of more than 6,000 packages.  Many organisations need to maintain a private mirror of CRAN, but with only a subset of packages that are relevant to them.</p>
-<p><code>miniCRAN</code> makes it possible to create an internally consistent repository consisting of selected packages from CRAN-like repositories.  The user specifies a set of desired packages, and miniCRAN recursively reads the dependency tree for these packages, then downloads only this subset.</p>
-<p>There are many reasons for not creating a complete mirror CRAN using <code>rsync</code>:</p><ul>
-<li><p>You may wish to mirror only a subset of CRAN, for security, legal compliance or any other in-house reason</p></li>
-<li><p>You may wish to restrict internal package use to a subset of public packages, to minimize package duplication, or other reasons of coding standards</p></li>
-<li><p>You may wish to make packages available from public repositories other than CRAN, e.g. BioConductor, r-forge, OmegaHat, etc.</p></li>
-<li><p>You may wish to add custom in-house packages to your repository</p></li>
-</ul>
-
-    <p>The ambition of <code>miniCRAN</code> is to eventually satisfy all of these considerations.</p>
+    <p>At the end of 2014, CRAN consisted of more than 6,000 packages.  Many
+organisations need to maintain a private mirror of CRAN, but with only a
+subset of packages that are relevant to them.</p>
     
     </div>
 
         
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>miniCRAN</code> makes it possible to create an internally consistent repository
+consisting of selected packages from CRAN-like repositories.  The user
+specifies a set of desired packages, and miniCRAN recursively reads the
+dependency tree for these packages, then downloads only this subset.</p>
+<p>There are many reasons for not creating a complete mirror CRAN using <code>rsync</code>:</p><ul>
+<li><p>You may wish to mirror only a subset of CRAN, for security, legal
+compliance or any other in-house reason</p></li>
+<li><p>You may wish to restrict internal package use to a subset of public
+packages, to minimize package duplication, or other reasons of coding
+standards</p></li>
+<li><p>You may wish to make packages available from public repositories other than
+CRAN, e.g. BioConductor, r-forge, OmegaHat, etc.</p></li>
+<li><p>You may wish to add custom in-house packages to your repository</p></li>
+</ul>
+    <p>The ambition of <code>miniCRAN</code> is to eventually satisfy all of these
+considerations.</p>
+    
     <h2 class="hasAnchor" id="making-a-private-repo"><a class="anchor" href="#making-a-private-repo"></a>Making a private repo</h2>
 
     
     <ul>
-<li><p><code><a href='pkgAvail.html'>pkgAvail()</a></code>: Read from a local (or remote) CRAN-like repository and determine available packages.</p></li>
+<li><p><code><a href='pkgAvail.html'>pkgAvail()</a></code>: Read from a local (or remote) CRAN-like repository and
+determine available packages.</p></li>
 <li><p><code><a href='pkgDep.html'>pkgDep()</a></code>: Find (recursive) package dependencies.</p></li>
-<li><p><code><a href='makeRepo.html'>makeRepo()</a></code> : Make a mini CRAN repository, by downloading packages (and their dependencies) and creating the appropriate file structure for a repository.  This allows you to use functions like <code><a href='https://www.rdocumentation.org/packages/utils/topics/available.packages'>utils::available.packages()</a></code> and <code><a href='https://www.rdocumentation.org/packages/utils/topics/install.packages'>utils::install.packages()</a></code> on your local repository.</p></li>
+<li><p><code><a href='makeRepo.html'>makeRepo()</a></code> : Make a mini CRAN repository, by downloading packages (and
+their dependencies) and creating the appropriate file structure for a
+repository.  This allows you to use functions like
+<code><a href='https://www.rdocumentation.org/packages/utils/topics/available.packages'>utils::available.packages()</a></code> and <code><a href='https://www.rdocumentation.org/packages/utils/topics/install.packages'>utils::install.packages()</a></code> on your local
+repository.</p></li>
 </ul>
-    <p>This subset will be internally consistent, i.e. the following functions will work as expected:</p><ul>
+    <p>This subset will be internally consistent, i.e. the following functions
+will work as expected:</p><ul>
 <li><p><code><a href='https://www.rdocumentation.org/packages/utils/topics/available.packages'>utils::available.packages()</a></code></p></li>
 <li><p><code><a href='https://www.rdocumentation.org/packages/utils/topics/install.packages'>utils::install.packages()</a></code></p></li>
 </ul>
-    <p>The main function is <code><a href='makeRepo.html'>makeRepo()</a></code> - this will download all the required packages, with their dependencies, into the appropriate repository file structure, and then create the repository index (PACKAGES) file.</p>
+    <p>The main function is <code><a href='makeRepo.html'>makeRepo()</a></code> - this will download all the required
+packages, with their dependencies, into the appropriate repository file
+structure, and then create the repository index (PACKAGES) file.</p>
     
     <h2 class="hasAnchor" id="updating-packages-in-a-repo"><a class="anchor" href="#updating-packages-in-a-repo"></a>Updating packages in a repo</h2>
 
     
     <ul>
-<li><p><code><a href='updatePackages.html'>oldPackages()</a></code>: Indicates packages which have a (suitable) later version on the repositories</p></li>
-<li><p><code><a href='updatePackages.html'>updatePackages()</a></code>: Offers to download and install such packages</p></li>
+<li><p><code><a href='updatePackages.html'>oldPackages()</a></code>: Indicates packages which have a (suitable) later version
+on the repositories * <code><a href='updatePackages.html'>updatePackages()</a></code>: Offers to download and install
+such packages</p></li>
 </ul>
     
     <h2 class="hasAnchor" id="creating-dependencies"><a class="anchor" href="#creating-dependencies"></a>Creating dependencies</h2>
 
     
-    <p>To get a recursive list of dependencies as well as a plot, use <code><a href='pkgDep.html'>pkgDep()</a></code> followed by  <code><a href='makeDepGraph.html'>makeDepGraph()</a></code>.</p><ul>
+    <p>To get a recursive list of dependencies as well as a plot, use <code><a href='pkgDep.html'>pkgDep()</a></code>
+followed by  <code><a href='makeDepGraph.html'>makeDepGraph()</a></code>.</p><ul>
 <li><p><code><a href='pkgDep.html'>pkgDep()</a></code>: Find (recursive) package dependencies.</p></li>
 <li><p><code><a href='makeDepGraph.html'>makeDepGraph()</a></code>: Create graph of selected package dependencies.</p></li>
 <li><p><code><a href='plot.pkgDepGraph.html'>plot.pkgDepGraph()</a></code>: Create a visualization of the dependency graph</p></li>
@@ -184,9 +199,9 @@ You may wish to add custom in-house packages to your repository
 
     
     <dl class='dl-horizontal'>
-<dt><code>minicran.mran</code></dt><dd><p>preferred MRAN URL. Defaults to <a href='https://mran.microsoft.com'>https://mran.microsoft.com</a>
-for R versions 3.2.2 and greater. Versions earlier than 3.2.2 use HTTP instead of HTTPS.</p></dd>
-</dl>
+<dt><code>minicran.mran</code></dt><dd><p>preferred MRAN URL. Defaults to
+<a href='https://mran.microsoft.com'>https://mran.microsoft.com</a> for R versions 3.2.2 and greater. Versions
+earlier than 3.2.2 use HTTP instead of HTTPS.</p></dd> </dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -201,6 +216,8 @@ for R versions 3.2.2 and greater. Versions earlier than 3.2.2 use HTTP instead o
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       
+      <li><a href="#details">Details</a></li>
+
       <li><a href="#making-a-private-repo">Making a private repo</a></li>
 
       <li><a href="#updating-packages-in-a-repo">Updating packages in a repo</a></li>

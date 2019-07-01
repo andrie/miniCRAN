@@ -34,7 +34,7 @@
 
 <meta property="og:description" content="Plots a package dependency graph." />
 
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="http://andrie.github.io/miniCRAN/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -144,7 +144,9 @@
     </tr>
     <tr>
       <th>pkgsToHighlight</th>
-      <td><p>Optional character vector with names of package to highlight. If missing, defaults to packages used in original call to <code><a href='makeDepGraph.html'>makeDepGraph()</a></code></p></td>
+      <td><p>Optional character vector with names of package to
+highlight. If missing, defaults to packages used in original call to
+<code><a href='makeDepGraph.html'>makeDepGraph()</a></code></p></td>
     </tr>
     <tr>
       <th>main</th>
@@ -152,11 +154,14 @@
     </tr>
     <tr>
       <th>legendPosition</th>
-      <td><p>Numeric vector of length 2, indicating (x, y) position of edge legend. Both values should be in the range <code>[-1; 1]</code>.  If <code>NULL</code>, the edge legend is not displayed.</p></td>
+      <td><p>Numeric vector of length 2, indicating (x, y) position
+of edge legend. Both values should be in the range <code>[-1; 1]</code>.  If <code>NULL</code>,
+the edge legend is not displayed.</p></td>
     </tr>
     <tr>
       <th>shape</th>
-      <td><p>Shape of edge.  See <code><a href='https://www.rdocumentation.org/packages/igraph/topics/plot.common'>igraph::igraph.plotting()</a></code>. Could be "none", "circle", "square", ...</p></td>
+      <td><p>Shape of edge.  See <code><a href='https://www.rdocumentation.org/packages/igraph/topics/plot.common'>igraph::igraph.plotting()</a></code>. Could be
+"none", "circle", "square", ...</p></td>
     </tr>
     <tr>
       <th>vertex.size</th>

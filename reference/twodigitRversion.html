@@ -34,7 +34,7 @@
 
 <meta property="og:description" content="Get a two-digit version of the R version" />
 
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="http://andrie.github.io/miniCRAN/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -130,14 +130,19 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>twodigitRversion</span>(<span class='kw'>R</span> <span class='kw'>=</span> <span class='no'>R.version</span>)</pre>
+    <pre class="usage"><span class='fu'>twodigitRversion</span>(<span class='kw'>Rversion</span> <span class='kw'>=</span> <span class='no'>R.version</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>R</th>
-      <td><p>Either a list of the format <a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version</a>, a character string (e.g., <code>"3.1.2"</code>), or a numeric version of the type <code><a href='https://www.rdocumentation.org/packages/base/topics/numeric_version'>R_system_version()</a></code>.</p></td>
+      <th>Rversion</th>
+      <td><p>Version of R (only used if <code>type</code> is not <code>source</code>.) Defaults to <a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version</a>, but this can be specified as any of the following formats:</p><ul>
+<li><p>a character string with the two digit R version, e.g. "3.1"</p></li>
+<li><p>a list with components <code>major</code> and <code>minor</code></p></li>
+<li><p>the result of <code><a href='https://www.rdocumentation.org/packages/base/topics/numeric_version'>getRversion()</a></code></p></li>
+<li><p>the result of <code><a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version()</a></code></p></li>
+</ul></td>
     </tr>
     </table>
     

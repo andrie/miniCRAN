@@ -34,7 +34,7 @@
 
 <meta property="og:description" content="Get the path to the repo directory containing the package files." />
 
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="http://andrie.github.io/miniCRAN/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -137,11 +137,17 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>type</th>
-      <td><p>character, indicating the type of package to download and install. See <code><a href='https://www.rdocumentation.org/packages/utils/topics/install.packages'>install.packages()</a></code>.</p></td>
+      <td><p>character, indicating the type of package to download and
+install. See <code><a href='https://www.rdocumentation.org/packages/utils/topics/install.packages'>install.packages()</a></code>.</p></td>
     </tr>
     <tr>
       <th>Rversion</th>
-      <td><p>Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to <a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version</a></p></td>
+      <td><p>Version of R (only used if <code>type</code> is not <code>source</code>.) Defaults to <a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version</a>, but this can be specified as any of the following formats:</p><ul>
+<li><p>a character string with the two digit R version, e.g. "3.1"</p></li>
+<li><p>a list with components <code>major</code> and <code>minor</code></p></li>
+<li><p>the result of <code><a href='https://www.rdocumentation.org/packages/base/topics/numeric_version'>getRversion()</a></code></p></li>
+<li><p>the result of <code><a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version()</a></code></p></li>
+</ul></td>
     </tr>
     </table>
     
@@ -151,35 +157,27 @@
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Not all versions of R are compatible with with all package types (e.g., <code>mac.binary.el-capitan</code> is only valid for R &gt; 3.4.0).</p>
+    <p>Not all versions of R are compatible with with all package types (e.g.,
+<code>mac.binary.el-capitan</code> is only valid for R &gt; 3.4.0).</p>
     
     <h2 class="hasAnchor" id="repo-folder-structure"><a class="anchor" href="#repo-folder-structure"></a>Repo folder structure</h2>
 
     
-    <p>The folder structure of a repository</p><ul>
-<li><p>Root</p><ul>
-<li><p>src/contrib</p><ul>
-<li><p>PACKAGES</p></li>
-</ul></li>
-<li><p>bin</p><ul>
-<li><p>windows/contrib/version</p><ul>
-<li><p>PACKAGES</p></li>
-</ul></li>
-<li><p>macosx/contrib/version</p><ul>
-<li><p>PACKAGES</p></li>
-</ul></li>
-<li><p>macosx/el-capitan/contrib/version</p><ul>
-<li><p>PACKAGES</p></li>
-</ul></li>
-<li><p>macosx/leopard/contrib/version</p><ul>
-<li><p>PACKAGES</p></li>
-</ul></li>
-<li><p>macosx/mavericks/contrib/version</p><ul>
-<li><p>PACKAGES</p></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
+    <p>A repository has two main folders, one for source packages, and the other
+for binary packages.  Inside the binay package folder, <code>bin</code>, you will find
+subfolders for Windows as well as the various OSX binaries.</p>
+<p><code>+- Root</code></p>
+<p><code>...+- src/contrib</code></p>
+<p><code>......+- PACKAGES</code></p>
+<p><code>..+- bin</code></p>
+<p><code>.......+- windows/contrib/version</code></p>
+<p><code>..........+- PACKAGES</code></p>
+<p><code>.......+-  macosx/contrib/version</code></p>
+<p><code>..........+-  PACKAGES</code></p>
+<p><code>.......+-  macosx/mavericks/contrib/version</code></p>
+<p><code>..........+-  PACKAGES</code></p>
+<p><code>.......+-  macosx/leopard/contrib/version</code></p>
+<p><code>..........+- PACKAGES</code></p>
     
 
   </div>

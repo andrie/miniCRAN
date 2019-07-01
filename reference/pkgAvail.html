@@ -32,9 +32,11 @@
 
 <meta property="og:title" content="Reads available packages from CRAN repository. — pkgAvail" />
 
-<meta property="og:description" content="This is a thin wrapper around utils::available.packages().  If the argument path is supplied, then the function attempts to read from a local repository, otherwise attempts to read from a CRAN mirror at the repos url." />
+<meta property="og:description" content="This is a thin wrapper around utils::available.packages().  If the argument
+path is supplied, then the function attempts to read from a local
+repository, otherwise attempts to read from a CRAN mirror at the repos url." />
 
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="http://andrie.github.io/miniCRAN/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -126,7 +128,9 @@
 
     <div class="ref-description">
     
-    <p>This is a thin wrapper around <code><a href='https://www.rdocumentation.org/packages/utils/topics/available.packages'>utils::available.packages()</a></code>.  If the argument <code>path</code> is supplied, then the function attempts to read from a local repository, otherwise attempts to read from a CRAN mirror at the <code>repos</code> url.</p>
+    <p>This is a thin wrapper around <code><a href='https://www.rdocumentation.org/packages/utils/topics/available.packages'>utils::available.packages()</a></code>.  If the argument
+<code>path</code> is supplied, then the function attempts to read from a local
+repository, otherwise attempts to read from a CRAN mirror at the <code>repos</code> url.</p>
     
     </div>
 
@@ -138,15 +142,23 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>repos</th>
-      <td><p>URL(s) of the 'contrib' sections of the repositories, e.g. <code>"http://cran.us.r-project.org"</code>. Passed to <code><a href='https://www.rdocumentation.org/packages/utils/topics/available.packages'>available.packages()</a></code></p></td>
+      <td><p>URL(s) of the 'contrib' sections of the repositories, e.g.
+<code>"http://cran.us.r-project.org"</code>. Passed to <code><a href='https://www.rdocumentation.org/packages/utils/topics/available.packages'>available.packages()</a></code></p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p>Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to <code><a href='https://www.rdocumentation.org/packages/utils/topics/download.packages'>download.packages()</a></code>.</p></td>
+      <td><p>Possible values are (currently) "source", "mac.binary" and
+"win.binary": the binary types can be listed and downloaded but not
+installed on other platforms.  Passed to <code><a href='https://www.rdocumentation.org/packages/utils/topics/download.packages'>download.packages()</a></code>.</p></td>
     </tr>
     <tr>
       <th>Rversion</th>
-      <td><p>Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to <a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version</a></p></td>
+      <td><p>Version of R (only used if <code>type</code> is not <code>source</code>.) Defaults to <a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version</a>, but this can be specified as any of the following formats:</p><ul>
+<li><p>a character string with the two digit R version, e.g. "3.1"</p></li>
+<li><p>a list with components <code>major</code> and <code>minor</code></p></li>
+<li><p>the result of <code><a href='https://www.rdocumentation.org/packages/base/topics/numeric_version'>getRversion()</a></code></p></li>
+<li><p>the result of <code><a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version()</a></code></p></li>
+</ul></td>
     </tr>
     <tr>
       <th>quiet</th>

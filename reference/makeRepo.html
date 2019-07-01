@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Downloads packages from CRAN to specified path and creates a local repository. — makeRepo • miniCRAN</title>
+<title>Downloads packages from CRAN to specified path and creates a local
+repository. — makeRepo • miniCRAN</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,11 +31,16 @@
 
 
 
-<meta property="og:title" content="Downloads packages from CRAN to specified path and creates a local repository. — makeRepo" />
+<meta property="og:title" content="Downloads packages from CRAN to specified path and creates a local
+repository. — makeRepo" />
 
-<meta property="og:description" content="Given a list of packages, downloads these packages to a specified destination folder using the required CRAN folder structure, and finally creates the PACKAGES index file.  Since the folder structure mimics the required structure and files of a CRAN repository, it supports functions like utils::install.packages()." />
+<meta property="og:description" content="Given a list of packages, downloads these packages to a specified destination
+folder using the required CRAN folder structure, and finally creates the
+PACKAGES index file.  Since the folder structure mimics the required
+structure and files of a CRAN repository, it supports functions like
+utils::install.packages()." />
 
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="http://andrie.github.io/miniCRAN/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -119,14 +125,19 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Downloads packages from CRAN to specified path and creates a local repository.</h1>
+    <h1>Downloads packages from CRAN to specified path and creates a local
+repository.</h1>
     <small class="dont-index">Source: <a href='https://github.com/andrie/miniCRAN/blob/master/R/makeRepo.R'><code>R/makeRepo.R</code></a></small>
     <div class="hidden name"><code>makeRepo.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Given a list of packages, downloads these packages to a specified destination folder using the required CRAN folder structure, and finally creates the PACKAGES index file.  Since the folder structure mimics the required structure and files of a CRAN repository, it supports functions like <code><a href='https://www.rdocumentation.org/packages/utils/topics/install.packages'>utils::install.packages()</a></code>.</p>
+    <p>Given a list of packages, downloads these packages to a specified destination
+folder using the required CRAN folder structure, and finally creates the
+PACKAGES index file.  Since the folder structure mimics the required
+structure and files of a CRAN repository, it supports functions like
+<code><a href='https://www.rdocumentation.org/packages/utils/topics/install.packages'>utils::install.packages()</a></code>.</p>
     
     </div>
 
@@ -145,19 +156,28 @@
     </tr>
     <tr>
       <th>path</th>
-      <td><p>Destination download path. This path is the root folder of your new repository.</p></td>
+      <td><p>Destination download path. This path is the root folder of your
+new repository.</p></td>
     </tr>
     <tr>
       <th>repos</th>
-      <td><p>URL(s) of the 'contrib' sections of the repositories, e.g. <code>"http://cran.us.r-project.org"</code>. Passed to <code><a href='https://www.rdocumentation.org/packages/utils/topics/available.packages'>available.packages()</a></code></p></td>
+      <td><p>URL(s) of the 'contrib' sections of the repositories, e.g.
+<code>"http://cran.us.r-project.org"</code>. Passed to <code><a href='https://www.rdocumentation.org/packages/utils/topics/available.packages'>available.packages()</a></code></p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p>Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to <code><a href='https://www.rdocumentation.org/packages/utils/topics/download.packages'>download.packages()</a></code>.</p></td>
+      <td><p>Possible values are (currently) "source", "mac.binary" and
+"win.binary": the binary types can be listed and downloaded but not
+installed on other platforms.  Passed to <code><a href='https://www.rdocumentation.org/packages/utils/topics/download.packages'>download.packages()</a></code>.</p></td>
     </tr>
     <tr>
       <th>Rversion</th>
-      <td><p>List with two named elements: <code>major</code> and <code>minor</code>. If not supplied, defaults to system version of R, using <a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version</a>.  Only used if <code>type</code> is not "source"</p></td>
+      <td><p>Version of R (only used if <code>type</code> is not <code>source</code>.) Defaults to <a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version</a>, but this can be specified as any of the following formats:</p><ul>
+<li><p>a character string with the two digit R version, e.g. "3.1"</p></li>
+<li><p>a list with components <code>major</code> and <code>minor</code></p></li>
+<li><p>the result of <code><a href='https://www.rdocumentation.org/packages/base/topics/numeric_version'>getRversion()</a></code></p></li>
+<li><p>the result of <code><a href='https://www.rdocumentation.org/packages/base/topics/Version'>R.version()</a></code></p></li>
+</ul></td>
     </tr>
     <tr>
       <th>download</th>
@@ -165,42 +185,39 @@
     </tr>
     <tr>
       <th>writePACKAGES</th>
-      <td><p>If TRUE, calls <code>write_PACKAGES()</code> to update the repository PACKAGES file.</p></td>
+      <td><p>If TRUE, calls <code>write_PACKAGES()</code> to update the
+repository PACKAGES file.</p></td>
     </tr>
     <tr>
       <th>quiet</th>
-      <td><p>If TRUE, suppress status messages (if any), and the progress bar during download.</p></td>
+      <td><p>If TRUE, suppress status messages (if any), and the progress bar
+during download.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Internally makes use of <code><a href='https://www.rdocumentation.org/packages/utils/topics/download.packages'>utils::download.packages()</a></code> and <code>write_PACKAGES()</code></p>
+    <p>Internally makes use of <code><a href='https://www.rdocumentation.org/packages/utils/topics/download.packages'>utils::download.packages()</a></code> and
+<code>write_PACKAGES()</code></p>
     
     <h2 class="hasAnchor" id="repo-folder-structure"><a class="anchor" href="#repo-folder-structure"></a>Repo folder structure</h2>
 
     
-    <p>The folder structure of a repository</p><ul>
-<li><p>Root</p><ul>
-<li><p>src/contrib</p><ul>
-<li><p>PACKAGES</p></li>
-</ul></li>
-<li><p>bin</p><ul>
-<li><p>windows/contrib/version</p><ul>
-<li><p>PACKAGES</p></li>
-</ul></li>
-<li><p>macosx/contrib/version</p><ul>
-<li><p>PACKAGES</p></li>
-</ul></li>
-<li><p>macosx/mavericks/contrib/version</p><ul>
-<li><p>PACKAGES</p></li>
-</ul></li>
-<li><p>macosx/leopard/contrib/version</p><ul>
-<li><p>PACKAGES</p></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
+    <p>A repository has two main folders, one for source packages, and the other
+for binary packages.  Inside the binay package folder, <code>bin</code>, you will find
+subfolders for Windows as well as the various OSX binaries.</p>
+<p><code>+- Root</code></p>
+<p><code>...+- src/contrib</code></p>
+<p><code>......+- PACKAGES</code></p>
+<p><code>..+- bin</code></p>
+<p><code>.......+- windows/contrib/version</code></p>
+<p><code>..........+- PACKAGES</code></p>
+<p><code>.......+-  macosx/contrib/version</code></p>
+<p><code>..........+-  PACKAGES</code></p>
+<p><code>.......+-  macosx/mavericks/contrib/version</code></p>
+<p><code>..........+-  PACKAGES</code></p>
+<p><code>.......+-  macosx/leopard/contrib/version</code></p>
+<p><code>..........+- PACKAGES</code></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

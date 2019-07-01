@@ -5,4 +5,7 @@ articles:
   miniCRAN-dependency-graph: miniCRAN-dependency-graph.html
   miniCRAN-introduction: miniCRAN-introduction.html
   miniCRAN-non-CRAN-repos: miniCRAN-non-CRAN-repos.html
+urls:
+  reference: http://andrie.github.io/miniCRAN//reference
+  article: http://andrie.github.io/miniCRAN//articles
 
