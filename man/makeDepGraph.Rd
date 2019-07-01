@@ -4,17 +4,23 @@
 \alias{makeDepGraph}
 \title{Create dependency graph from available packages.}
 \usage{
-makeDepGraph(pkg, availPkgs, repos = getOption("repos"), type = "source",
-  suggests = TRUE, enhances = FALSE, includeBasePkgs = FALSE, ...)
+makeDepGraph(pkg, availPkgs, repos = getOption("repos"),
+  type = "source", suggests = TRUE, enhances = FALSE,
+  includeBasePkgs = FALSE, ...)
 }
 \arguments{
 \item{pkg}{Character vector of packages.}
 
-\item{availPkgs}{Data frame with an element called \code{package}. The \code{package} element is a vector of available packages.  Defaults to reading this list from CRAN, using \code{\link[=available.packages]{available.packages()}}}
+\item{availPkgs}{Data frame with an element called \code{package}. The \code{package}
+element is a vector of available packages.  Defaults to reading this list
+from CRAN, using \code{\link[=available.packages]{available.packages()}}}
 
-\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link[=available.packages]{available.packages()}}}
+\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g.
+\code{"http://cran.us.r-project.org"}. Passed to \code{\link[=available.packages]{available.packages()}}}
 
-\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
+\item{type}{Possible values are (currently) "source", "mac.binary" and
+"win.binary": the binary types can be listed and downloaded but not
+installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
 
 \item{suggests}{If TRUE, retrieves Suggests dependencies (non-recursively)}
 
@@ -68,3 +74,4 @@ if(require(igraph)) plot(p)
 Other dependency functions: \code{\link{basePkgs}},
   \code{\link{pkgDep}}, \code{\link{plot.pkgDepGraph}}
 }
+\concept{dependency functions}

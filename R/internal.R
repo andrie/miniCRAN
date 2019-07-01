@@ -1,57 +1,28 @@
 #' Get the path to the repo directory containing the package files.
 #'
-#' @note Not all versions of R are compatible with with all package types (e.g., `mac.binary.el-capitan` is only valid for R > 3.4.0).
+#' @note Not all versions of R are compatible with with all package types (e.g.,
+#'   `mac.binary.el-capitan` is only valid for R > 3.4.0).
 #'
-#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to [R.version]
+#' @template Rversion
 #'
-#' @param type  character, indicating the type of package to download and install. See [install.packages()].
+#' @param type  character, indicating the type of package to download and
+#'   install. See [install.packages()].
 #'
-#' @section Repo folder structure:
-#' The folder structure of a repository
-#' \itemize{
-#'  \item{Root}
-#'  \itemize{
-#'    \item{src/contrib}
-#'    \itemize{
-#'      \item{PACKAGES}
-#'    }
-#'    \item{bin}
-#'    \itemize{
-#'      \item{windows/contrib/version}
-#'      \itemize{
-#'        \item{PACKAGES}
-#'      }
-#'      \item{macosx/contrib/version}
-#'      \itemize{
-#'        \item{PACKAGES}
-#'      }
-#'      \item{macosx/el-capitan/contrib/version}
-#'      \itemize{
-#'        \item{PACKAGES}
-#'      }
-#'      \item{macosx/leopard/contrib/version}
-#'      \itemize{
-#'        \item{PACKAGES}
-#'      }
-#'      \item{macosx/mavericks/contrib/version}
-#'      \itemize{
-#'        \item{PACKAGES}
-#'      }
-#'    }
-#'  }
-#' }
+#' @template repo_folder_structure
 #'
 #' @return The filepath to the package files directory.
 #'
+#' @keywords Internal
+#'   
 repoPrefix <- function(type, Rversion) {
   Rversion <- twodigitRversion(Rversion)
-
+  
   if ((type == "mac.binary.el-capitan") && (numeric_version(Rversion) < "3.4")) {
     warning("Type mac.binary.el-capitan only valid for R >= 3.4")
   } else if ((type == "mac.binary.mavericks") && (numeric_version(Rversion) >= "3.4")) {
     warning("Type mac.binary.mavericks only valid for R < 3.4")
   }
-
+  
   switch(
     type,
     "source" = "src/contrib",
@@ -67,24 +38,33 @@ repoPrefix <- function(type, Rversion) {
 #' Construct path to full binary location
 #' @inheritParams makeRepo
 #' @inheritParams repoPrefix
+#' 
+#' @keywords Internal
 repoBinPath <- function(path, type, Rversion) {
   normalizePath(file.path(path, repoPrefix(type, Rversion)), mustWork = FALSE, winslash = "/")
 }
 
 #' Get a two-digit version of the R version
 #'
-#' @param R Either a list of the format [R.version], a character string (e.g., `"3.1.2"`), or a numeric version of the type [R_system_version()].
+#' @template Rversion
 #'
 #' @return A character string representing the two-digit R version.
 #'
 #' @importFrom methods is
+#' 
+#' @keywords Internal
 #'
-twodigitRversion <- function(R = R.version) {
-  if ("simple.list" %in% is(R)) {
-    paste(R$major, strsplit(R$minor, ".", fixed = TRUE)[[1L]][1L], sep = ".")
-  } else if ("R_system_version" %in% is(R)) {
-    paste(strsplit(as.character(R), ".", fixed = TRUE)[[1L]][1L:2L], collapse = ".")
-  } else if (is.character(R)) {
-    paste(strsplit(R, ".", fixed = TRUE)[[1L]][1L:2L], collapse = ".")
+twodigitRversion <- function(Rversion = R.version) {
+  if ("simple.list" %in% is(Rversion)) {
+    paste(Rversion$major, strsplit(Rversion$minor, ".", fixed = TRUE)[[1L]][1L], sep = ".")
+  } else if ("R_system_version" %in% is(Rversion)) {
+    paste(strsplit(as.character(Rversion), ".", fixed = TRUE)[[1L]][1L:2L], collapse = ".")
+  } else if (is.character(Rversion)) {
+    paste(strsplit(Rversion, ".", fixed = TRUE)[[1L]][1L:2L], collapse = ".")
+  } else if (is.list(Rversion)) {
+    paste(Rversion$major, Rversion$minor, sep = ".")
+  } else {
+    Rversion
   }
 }
+  

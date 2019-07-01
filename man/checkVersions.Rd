@@ -8,19 +8,29 @@ checkVersions(pkgs = NULL, path = NULL, type = "source",
   Rversion = R.version)
 }
 \arguments{
-\item{pkgs}{Character vector of packages to be installed. If not provided, checks all files for multiple package versions.}
+\item{pkgs}{Character vector of packages to be installed. If not provided,
+checks all files for multiple package versions.}
 
 \item{path}{The local path to the directory where the miniCRAN repo resides.}
 
-\item{type}{character, indicating the type of package to download and install. See \code{\link[=install.packages]{install.packages()}}.}
+\item{type}{character, indicating the type of package to download and
+install. See \code{\link[=install.packages]{install.packages()}}.}
 
-\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \link{R.version}}
+\item{Rversion}{Version of R (only used if \code{type} is not \code{source}.) Defaults to \link{R.version}, but this can be specified as any of the following formats:
+\itemize{
+\item a character string with the two digit R version, e.g. "3.1"
+\item a list with components \code{major} and \code{minor}
+\item the result of \code{\link[=getRversion]{getRversion()}}
+\item the result of \code{\link[=R.version]{R.version()}}
+}}
 }
 \value{
-Returns invisibly the filepaths to packages with multiple versions for removal.
+Returns invisibly the filepaths to packages with multiple versions
+for removal.
 }
 \description{
-Checks for previous versions, and returns the file paths for packages with multiple versions. You can subsequently decide which version to keep.
+Checks for previous versions, and returns the file paths for packages with
+multiple versions. You can subsequently decide which version to keep.
 }
 \examples{
 ### `checkVersions` and `add.packages.miniCRAN` require an existing miniCRAN repo
@@ -80,3 +90,4 @@ Other update repo functions: \code{\link{addOldPackage}},
   \code{\link{addPackage}}, \code{\link{makeRepo}},
   \code{\link{updatePackages}}
 }
+\concept{update repo functions}

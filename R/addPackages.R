@@ -4,23 +4,27 @@ if (getRversion() >= "3.1.0") {
 
 #' Check for previous versions of packages in a miniCRAN repository.
 #'
-#' Checks for previous versions, and returns the file paths for packages with multiple versions. You can subsequently decide which version to keep.
+#' Checks for previous versions, and returns the file paths for packages with
+#' multiple versions. You can subsequently decide which version to keep.
 #'
-#' @param pkgs Character vector of packages to be installed. If not provided, checks all files for multiple package versions.
+#' @param pkgs Character vector of packages to be installed. If not provided,
+#'   checks all files for multiple package versions.
 #'
 #' @param path The local path to the directory where the miniCRAN repo resides.
 #'
-#' @param type  character, indicating the type of package to download and install. See [install.packages()].
+#' @param type  character, indicating the type of package to download and
+#'   install. See [install.packages()].
 #'
-#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to [R.version]
+#' @template Rversion
 #'
-#' @return Returns invisibly the filepaths to packages with multiple versions for removal.
+#' @return Returns invisibly the filepaths to packages with multiple versions
+#'   for removal.
 #'
 #' @export
 #' @family update repo functions
 #'
 #' @example /inst/examples/example_checkVersions.R
-#'
+#'   
 checkVersions <- function(pkgs = NULL, path = NULL, type = "source",
                           Rversion = R.version) {
   if (is.null(path)) stop("path must be specified.")
@@ -57,18 +61,20 @@ checkVersions <- function(pkgs = NULL, path = NULL, type = "source",
 #' @inheritParams makeRepo
 #' @inheritParams pkgDep
 #'
-#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to [R.version]
+#' @template Rversion
 #'
-#' @param deps logical indicating whether the package dependencies should be added (default `TRUE`).
+#' @param deps logical indicating whether the package dependencies should be
+#'   added (default `TRUE`).
 #'
-#' @return Installs the packages, rebuilds the package index, and invisibly returns the number of packages written to the index files.
+#' @return Installs the packages, rebuilds the package index, and invisibly
+#'   returns the number of packages written to the index files.
 #'
 #' @importFrom tools write_PACKAGES
 #' @export
 #' @family update repo functions
 #'
 #' @example /inst/examples/example_checkVersions.R
-#'
+#'   
 addPackage <- function(pkgs = NULL, path = NULL, repos = getOption("repos"),
                        type = "source", Rversion = R.version,
                        writePACKAGES = TRUE, deps = TRUE, quiet = FALSE) {
@@ -118,23 +124,29 @@ addPackage <- function(pkgs = NULL, path = NULL, repos = getOption("repos"),
 
 #' Add old package versions to a miniCRAN repository.
 #'
-#' Will download and add older source package versions. Older binary versions are not normally available on CRAN and should be build from source on the platform for which they are required. As such, specifying `type!="source"` will likely fail as the download will not be successful.
+#' Will download and add older source package versions. Older binary versions
+#' are not normally available on CRAN and should be build from source on the
+#' platform for which they are required. As such, specifying `type!="source"`
+#' will likely fail as the download will not be successful.
 #'
 #' @inheritParams addPackage
 #' @inheritParams makeRepo
 #'
 #' @param vers The package version to install.
 #'
-#' @return Adds the packages, rebuilds the package index, and invisibly returns the number of packages written to the index files.
+#' @return Adds the packages, rebuilds the package index, and invisibly returns
+#'   the number of packages written to the index files.
 #'
-#' @note Dependencies for old package versions cannot be determined automatically and must be specified by the user in `pkgs` and `vers`. Thus, `deps=FALSE` is the default for this function.
+#' @note Dependencies for old package versions cannot be determined
+#'   automatically and must be specified by the user in `pkgs` and `vers`. Thus,
+#'   `deps=FALSE` is the default for this function.
 #'
 #' @importFrom tools write_PACKAGES
 #' @export
 #' @family update repo functions
 #'
 #' @example /inst/examples/example_checkVersions.R
-#'
+#'   
 addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
                           repos = getOption("repos"),
                           type = "source", Rversion = R.version,
@@ -171,8 +183,10 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 #' List pre-built packages in a directory based on file extension
 #'
 #' @param pkgs  Character vector of package names
-#' @param path  Character string specifying the directory containing packages to be added.
-#' @param type  Character indicating the package type (e.g., "source", "win.binary", etc.).
+#' @param path  Character string specifying the directory containing packages to
+#'   be added.
+#' @param type  Character indicating the package type (e.g., "source",
+#'   "win.binary", etc.).
 #'
 #' @return Installs the packages and returns the new package index.
 #'
@@ -183,7 +197,7 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 #' \dontrun{
 #'  .listFiles('path/to/my/packages', type = "source")
 #' }
-#'
+#' 
 .listFiles <- function(pkgs, path, type) {
   stopifnot(dir.exists(path))
   pattern <- pkgFileExt(type)
@@ -228,15 +242,28 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 
 #' Add local packages to a miniCRAN repository.
 #'
-#' Examine the contents of a directory specified by `pkgPath` for pre-built packages matching the names specified by `pkgs`, and add these to the miniCRAN repository.
+#' Examine the contents of a directory specified by `pkgPath` for pre-built
+#' packages matching the names specified by `pkgs`, and add these to the
+#' miniCRAN repository.
 #'
-#' To build a package from source and then add it, use `build = TRUE`. Note that package development libraries and the `devtools` package must be installed on your system in order to build packages.
+#' To build a package from source and then add it, use `build = TRUE`. Note that
+#' package development libraries and the `devtools` package must be installed on
+#' your system in order to build packages.
 #'
-#' @note Currently, adding local packages does not check nor download their dependencies.
+#' @note Currently, adding local packages does not check nor download their
+#'   dependencies.
 #'
 #' @inheritParams addPackage
-#' @param pkgPath  Character vector of directory location containing packages to be added. Note that `pkgPath` should be the parent directory of the package (i.e., the package directory path is constructed from `file.path(pkgPath, pkgs)`).
-#' @param build    Logical indicating whether packages should be build prior to adding.
+#' 
+#' @param deps Not used. See note.
+#' 
+#' @param pkgPath  Character vector of directory location containing packages to
+#'   be added. Note that `pkgPath` should be the parent directory of the package
+#'   (i.e., the package directory path is constructed from `file.path(pkgPath,
+#'   pkgs)`).
+#'   
+#' @param build    Logical indicating whether packages should be build prior to
+#'   adding.
 #'
 #' @return Installs the packages and returns the new package index.
 #'
@@ -253,7 +280,7 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 #'  addLocalPackage("myPackage", "path/to/my/package/sourcecode",
 #'                  "path/to/my/miniCRAN/repo", build = TRUE)
 #' }
-#'
+#' 
 addLocalPackage <- function(pkgs = NULL, pkgPath = NULL, path = NULL,
                             type = "source", Rversion = R.version,
                             writePACKAGES = TRUE, deps = FALSE,

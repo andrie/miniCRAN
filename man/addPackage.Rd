@@ -11,22 +11,36 @@ addPackage(pkgs = NULL, path = NULL, repos = getOption("repos"),
 \arguments{
 \item{pkgs}{Character vector of packages to download}
 
-\item{path}{Destination download path. This path is the root folder of your new repository.}
+\item{path}{Destination download path. This path is the root folder of your
+new repository.}
 
-\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link[=available.packages]{available.packages()}}}
+\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g.
+\code{"http://cran.us.r-project.org"}. Passed to \code{\link[=available.packages]{available.packages()}}}
 
-\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
+\item{type}{Possible values are (currently) "source", "mac.binary" and
+"win.binary": the binary types can be listed and downloaded but not
+installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
 
-\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \link{R.version}}
+\item{Rversion}{Version of R (only used if \code{type} is not \code{source}.) Defaults to \link{R.version}, but this can be specified as any of the following formats:
+\itemize{
+\item a character string with the two digit R version, e.g. "3.1"
+\item a list with components \code{major} and \code{minor}
+\item the result of \code{\link[=getRversion]{getRversion()}}
+\item the result of \code{\link[=R.version]{R.version()}}
+}}
 
-\item{writePACKAGES}{If TRUE, calls \code{\link[=write_PACKAGES]{write_PACKAGES()}} to update the repository PACKAGES file.}
+\item{writePACKAGES}{If TRUE, calls \code{\link[=write_PACKAGES]{write_PACKAGES()}} to update the
+repository PACKAGES file.}
 
-\item{deps}{logical indicating whether the package dependencies should be added (default \code{TRUE}).}
+\item{deps}{logical indicating whether the package dependencies should be
+added (default \code{TRUE}).}
 
-\item{quiet}{If TRUE, suppress status messages (if any), and the progress bar during download.}
+\item{quiet}{If TRUE, suppress status messages (if any), and the progress bar
+during download.}
 }
 \value{
-Installs the packages, rebuilds the package index, and invisibly returns the number of packages written to the index files.
+Installs the packages, rebuilds the package index, and invisibly
+returns the number of packages written to the index files.
 }
 \description{
 Add packages to a miniCRAN repository.
@@ -89,3 +103,4 @@ Other update repo functions: \code{\link{addOldPackage}},
   \code{\link{checkVersions}}, \code{\link{makeRepo}},
   \code{\link{updatePackages}}
 }
+\concept{update repo functions}

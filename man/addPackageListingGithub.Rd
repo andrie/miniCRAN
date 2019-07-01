@@ -8,16 +8,20 @@ addPackageListingGithub(pdb = pkgAvail(), repo, username = NULL,
   branch = "master")
 }
 \arguments{
-\item{pdb}{Package database, usually the result of \code{\link[=pkgAvail]{pkgAvail()}} or \code{\link[=available.packages]{available.packages()}}}
+\item{pdb}{Package database, usually the result of \code{\link[=pkgAvail]{pkgAvail()}} or
+\code{\link[=available.packages]{available.packages()}}}
 
-\item{repo}{Character vector. Name of repository on github, e.g. \code{"RevolutionAnalytics/checkpoint"}}
+\item{repo}{Character vector. Name of repository on github, e.g.
+\code{"RevolutionAnalytics/checkpoint"}}
 
-\item{username}{Optional character vector. Name of repository on github, e.g. `"RevolutionAnalytics/checkpoint"``}
+\item{username}{Optional character vector. Name of repository on github, e.g.
+`"RevolutionAnalytics/checkpoint"``}
 
 \item{branch}{name of branch, defaults to \code{"master"}}
 }
 \description{
-Downloads the DESCRIPTION file from a package on github, parses the fields and adds (or replaces) a row in the available package database.
+Downloads the DESCRIPTION file from a package on github, parses the fields
+and adds (or replaces) a row in the available package database.
 }
 \examples{
 # Create package database
@@ -38,3 +42,4 @@ pdb <- cranJuly2014
   plot(makeDepGraph("checkpoint", availPkgs = newpdb, suggests = TRUE))
 }
 }
+\concept{github functions}

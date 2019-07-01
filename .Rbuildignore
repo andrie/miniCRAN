@@ -6,3 +6,6 @@ LICENSE.md
 ^docs$
 ^_pkgdown\.yml$
 cran-comments.md
+^README\.Rmd$
+^pkgdown$
+^codecov\.yml$

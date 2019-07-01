@@ -1,14 +1,13 @@
-#############
 ## R & RStudio files
-#############
 .Rhistory
 *.Rproj
 .Rproj.user/
 .Rproj.user
 
-#############
+## Pkgdown docs
+docs/
+
 ## Windows detritus
-#############
 
 # Windows image file caches
 Thumbs.db
@@ -20,5 +19,5 @@ Desktop.ini
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
-# Mac crap
+## Mac crap
 .DS_Store

@@ -4,10 +4,16 @@
 \alias{twodigitRversion}
 \title{Get a two-digit version of the R version}
 \usage{
-twodigitRversion(R = R.version)
+twodigitRversion(Rversion = R.version)
 }
 \arguments{
-\item{R}{Either a list of the format \link{R.version}, a character string (e.g., \code{"3.1.2"}), or a numeric version of the type \code{\link[=R_system_version]{R_system_version()}}.}
+\item{Rversion}{Version of R (only used if \code{type} is not \code{source}.) Defaults to \link{R.version}, but this can be specified as any of the following formats:
+\itemize{
+\item a character string with the two digit R version, e.g. "3.1"
+\item a list with components \code{major} and \code{minor}
+\item the result of \code{\link[=getRversion]{getRversion()}}
+\item the result of \code{\link[=R.version]{R.version()}}
+}}
 }
 \value{
 A character string representing the two-digit R version.
@@ -15,3 +21,4 @@ A character string representing the two-digit R version.
 \description{
 Get a two-digit version of the R version
 }
+\keyword{Internal}

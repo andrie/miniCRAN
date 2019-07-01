@@ -7,7 +7,9 @@
 basePkgs()
 }
 \description{
-Retrieves names of installed packages by calling \code{\link[utils:installed.packages]{utils::installed.packages()}} and returning only those packages where \code{Priority == "base"}.
+Retrieves names of installed packages by calling
+\code{\link[utils:installed.packages]{utils::installed.packages()}} and returning only those packages where
+\code{Priority == "base"}.
 }
 \seealso{
 \code{\link[=pkgDep]{pkgDep()}}
@@ -15,3 +17,4 @@ Retrieves names of installed packages by calling \code{\link[utils:installed.pac
 Other dependency functions: \code{\link{makeDepGraph}},
   \code{\link{pkgDep}}, \code{\link{plot.pkgDepGraph}}
 }
+\concept{dependency functions}
