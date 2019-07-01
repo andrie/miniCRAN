@@ -1,15 +1,21 @@
-miniCRAN v0.2.11.9000 (Dev)
+miniCRAN v0.2.12.9000 (Dev)
 ================
 
 New features: 
 * None
 
 Bug fixes:
-* Experimental support for mac.binary.el-capitan (#111)
+
+* Experimental support for mac.binary.el-capitan (#111 and #121)
 * Fixed description of `availPkgs` in documentation (#108)
 * Added backward compatibility for R<3.3.0 when `repos` argument to `available.packages()` was added (#109)
 
+API change
+
+* On R version 3.4.0 and earlier, `getCranDescription()` will throw a warning that this function is no longer supported.  This is in preparation to remove the dependency on `XML` in a future release.
+
 Internal changes
+
 * Rewrote mocking mechanism in tests
 
 

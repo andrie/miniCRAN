@@ -12,33 +12,52 @@ addLocalPackage(pkgs = NULL, pkgPath = NULL, path = NULL,
 \arguments{
 \item{pkgs}{Character vector of packages to download}
 
-\item{pkgPath}{Character vector of directory location containing packages to be added. Note that \code{pkgPath} should be the parent directory of the package (i.e., the package directory path is constructed from \code{file.path(pkgPath, pkgs)}).}
+\item{pkgPath}{Character vector of directory location containing packages to
+be added. Note that \code{pkgPath} should be the parent directory of the package
+(i.e., the package directory path is constructed from \code{file.path(pkgPath, pkgs)}).}
 
-\item{path}{Destination download path. This path is the root folder of your new repository.}
+\item{path}{Destination download path. This path is the root folder of your
+new repository.}
 
-\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
+\item{type}{Possible values are (currently) "source", "mac.binary" and
+"win.binary": the binary types can be listed and downloaded but not
+installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
 
-\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \link{R.version}}
+\item{Rversion}{Version of R (only used if \code{type} is not \code{source}.) Defaults to \link{R.version}, but this can be specified as any of the following formats:
+\itemize{
+\item a character string with the two digit R version, e.g. "3.1"
+\item a list with components \code{major} and \code{minor}
+\item the result of \code{\link[=getRversion]{getRversion()}}
+\item the result of \code{\link[=R.version]{R.version()}}
+}}
 
-\item{writePACKAGES}{If TRUE, calls \code{\link[=write_PACKAGES]{write_PACKAGES()}} to update the repository PACKAGES file.}
+\item{writePACKAGES}{If TRUE, calls \code{\link[=write_PACKAGES]{write_PACKAGES()}} to update the
+repository PACKAGES file.}
 
-\item{deps}{logical indicating whether the package dependencies should be added (default \code{TRUE}).}
+\item{deps}{Not used. See note.}
 
-\item{quiet}{If TRUE, suppress status messages (if any), and the progress bar during download.}
+\item{quiet}{If TRUE, suppress status messages (if any), and the progress bar
+during download.}
 
-\item{build}{Logical indicating whether packages should be build prior to adding.}
+\item{build}{Logical indicating whether packages should be build prior to
+adding.}
 }
 \value{
 Installs the packages and returns the new package index.
 }
 \description{
-Examine the contents of a directory specified by \code{pkgPath} for pre-built packages matching the names specified by \code{pkgs}, and add these to the miniCRAN repository.
+Examine the contents of a directory specified by \code{pkgPath} for pre-built
+packages matching the names specified by \code{pkgs}, and add these to the
+miniCRAN repository.
 }
 \details{
-To build a package from source and then add it, use \code{build = TRUE}. Note that package development libraries and the \code{devtools} package must be installed on your system in order to build packages.
+To build a package from source and then add it, use \code{build = TRUE}. Note that
+package development libraries and the \code{devtools} package must be installed on
+your system in order to build packages.
 }
 \note{
-Currently, adding local packages does not check nor download their dependencies.
+Currently, adding local packages does not check nor download their
+dependencies.
 }
 \examples{
 \dontrun{

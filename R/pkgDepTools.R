@@ -47,8 +47,11 @@ split_dependencies <- function(x) {
 
 
 # Clean package fields.
-# 
-# Given the value from a field like 'Depends' in a package's DESCRIPTION file, return a character vector of package names with the version restrictions stripped and \R~removed.
+#
+# Given the value from a field like 'Depends' in a package's DESCRIPTION file,
+# return a character vector of package names with the version restrictions
+# stripped and \R~removed.
+
 # @param val Value from a field like 'Depends' in a package's DESCRIPTION file
 # @rdname pkgDepTools
 # @keywords internal

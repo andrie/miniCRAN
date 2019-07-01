@@ -36,13 +36,15 @@ Suggests:
     devtools,
     knitr,
     rmarkdown,
-    testthat(>= 0.9),
+    testthat (>= 2.1.0),
     covr,
     withr,
     mockery,
-    testthis
+    testthis,
+    roxygen2
 LazyData: true
 LazyLoad: true
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
+Encoding: UTF-8

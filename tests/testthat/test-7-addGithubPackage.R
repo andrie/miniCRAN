@@ -1,4 +1,3 @@
-if (interactive()) library(testthat)
 context("pkgDep")
 
 test_that("can add package from github",{

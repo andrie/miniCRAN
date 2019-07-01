@@ -7,9 +7,16 @@
 repoPrefix(type, Rversion)
 }
 \arguments{
-\item{type}{character, indicating the type of package to download and install. See \code{\link[=install.packages]{install.packages()}}.}
+\item{type}{character, indicating the type of package to download and
+install. See \code{\link[=install.packages]{install.packages()}}.}
 
-\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \link{R.version}}
+\item{Rversion}{Version of R (only used if \code{type} is not \code{source}.) Defaults to \link{R.version}, but this can be specified as any of the following formats:
+\itemize{
+\item a character string with the two digit R version, e.g. "3.1"
+\item a list with components \code{major} and \code{minor}
+\item the result of \code{\link[=getRversion]{getRversion()}}
+\item the result of \code{\link[=R.version]{R.version()}}
+}}
 }
 \value{
 The filepath to the package files directory.
@@ -18,43 +25,39 @@ The filepath to the package files directory.
 Get the path to the repo directory containing the package files.
 }
 \note{
-Not all versions of R are compatible with with all package types (e.g., \code{mac.binary.el-capitan} is only valid for R > 3.4.0).
+Not all versions of R are compatible with with all package types (e.g.,
+\code{mac.binary.el-capitan} is only valid for R > 3.4.0).
 }
 \section{Repo folder structure}{
 
-The folder structure of a repository
-\itemize{
-\item{Root}
-\itemize{
-\item{src/contrib}
-\itemize{
-\item{PACKAGES}
-}
-\item{bin}
-\itemize{
-\item{windows/contrib/version}
-\itemize{
-\item{PACKAGES}
-}
-\item{macosx/contrib/version}
-\itemize{
-\item{PACKAGES}
-}
-\item{macosx/el-capitan/contrib/version}
-\itemize{
-\item{PACKAGES}
-}
-\item{macosx/leopard/contrib/version}
-\itemize{
-\item{PACKAGES}
-}
-\item{macosx/mavericks/contrib/version}
-\itemize{
-\item{PACKAGES}
-}
-}
-}
-}
+
+A repository has two main folders, one for source packages, and the other
+for binary packages.  Inside the binay package folder, \code{bin}, you will find
+subfolders for Windows as well as the various OSX binaries.
+
+\code{+- Root}
+
+\code{...+- src/contrib}
+
+\code{......+- PACKAGES}
+
+\code{..+- bin}
+
+\code{.......+- windows/contrib/version}
+
+\code{..........+- PACKAGES}
+
+\code{.......+-  macosx/contrib/version}
+
+\code{..........+-  PACKAGES}
+
+\code{.......+-  macosx/mavericks/contrib/version}
+
+\code{..........+-  PACKAGES}
+
+\code{.......+-  macosx/leopard/contrib/version}
+
+\code{..........+- PACKAGES}
 }
 
 \keyword{Internal}

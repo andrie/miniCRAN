@@ -1,10 +1,12 @@
 #' Returns names of base packages.
 #'
-#' Retrieves names of installed packages by calling [utils::installed.packages()] and returning only those packages where `Priority == "base"`.
+#' Retrieves names of installed packages by calling
+#' [utils::installed.packages()] and returning only those packages where
+#' `Priority == "base"`.
 #'
 #' @export
 #' @family dependency functions
-#' 
+#'
 #' @seealso [pkgDep()]
 basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 
@@ -12,31 +14,38 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 
 #' Retrieves package dependencies.
 #'
-#' Performs recursive retrieve for `Depends`, `Imports` and `LinkLibrary`. Performs non-recursive retrieve for `Suggests`.
+#' Performs recursive retrieve for `Depends`, `Imports` and `LinkLibrary`.
+#' Performs non-recursive retrieve for `Suggests`.
 #'
 #'
 #' @param pkg Character vector of packages.
-#' 
-#' @param availPkgs Data frame with an element called `package`. The `package` element is a vector of available packages.  Defaults to reading this list from CRAN, using [available.packages()]
-#' 
-#' @param repos URL(s) of the 'contrib' sections of the repositories, e.g. `"http://cran.us.r-project.org"`. Passed to [available.packages()]
-#' 
-#' @param type Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to [download.packages()].
-#' 
-#' @param depends If TRUE, retrieves Depends, Imports and LinkingTo dependencies (non-recursively)
+#'
+#' @param availPkgs Data frame with an element called `package`. The `package`
+#'   element is a vector of available packages.  Defaults to reading this list
+#'   from CRAN, using [available.packages()]
+#'
+#' @param repos URL(s) of the 'contrib' sections of the repositories, e.g.
+#'   `"http://cran.us.r-project.org"`. Passed to [available.packages()]
+#'
+#' @param type Possible values are (currently) "source", "mac.binary" and
+#'   "win.binary": the binary types can be listed and downloaded but not
+#'   installed on other platforms.  Passed to [download.packages()].
+#'
+#' @param depends If TRUE, retrieves Depends, Imports and LinkingTo dependencies
+#'   (non-recursively)
 #' @param suggests If TRUE, retrieves Suggests dependencies (non-recursively)
 #' @param enhances If TRUE, retrieves Enhances dependencies (non-recursively)
 #' @param quiet If TRUE, suppresses warnings
-#' 
+#'
 #' @param includeBasePkgs If TRUE, include base R packages in results
-#' @param Rversion Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to [R.version]
+#' @template Rversion
 #' @param ... Other arguments passed to [available.packages()]
 #'
 #' @export
 #' @family dependency functions
 #'
 #' @example /inst/examples/example_pkgDep.R
-#' 
+#'   
 pkgDep <- function(pkg, availPkgs, repos = getOption("repos"), type = "source",
                    depends = TRUE, suggests = TRUE, enhances = FALSE,
                    includeBasePkgs = FALSE, Rversion = R.version, quiet = FALSE, ...) 
@@ -123,9 +132,12 @@ print.pkgDep <- function(x, ...) {
   print(as.vector(x), ...)
 }
 
+
 #' Reads available packages from CRAN repository.
 #'
-#' This is a thin wrapper around [utils::available.packages()].  If the argument `path` is supplied, then the function attempts to read from a local repository, otherwise attempts to read from a CRAN mirror at the `repos` url.
+#' This is a thin wrapper around [utils::available.packages()].  If the argument
+#' `path` is supplied, then the function attempts to read from a local
+#' repository, otherwise attempts to read from a CRAN mirror at the `repos` url.
 #'
 #' @inheritParams pkgDep
 #' @export

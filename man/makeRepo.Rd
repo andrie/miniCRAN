@@ -3,7 +3,8 @@
 \name{makeRepo}
 \alias{makeRepo}
 \alias{updateRepoIndex}
-\title{Downloads packages from CRAN to specified path and creates a local repository.}
+\title{Downloads packages from CRAN to specified path and creates a local
+repository.}
 \usage{
 makeRepo(pkgs, path, repos = getOption("repos"), type = "source",
   Rversion = R.version, download = TRUE, writePACKAGES = TRUE,
@@ -14,57 +15,73 @@ updateRepoIndex(path, type = "source", Rversion = R.version)
 \arguments{
 \item{pkgs}{Character vector of packages to download}
 
-\item{path}{Destination download path. This path is the root folder of your new repository.}
+\item{path}{Destination download path. This path is the root folder of your
+new repository.}
 
-\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link[=available.packages]{available.packages()}}}
+\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g.
+\code{"http://cran.us.r-project.org"}. Passed to \code{\link[=available.packages]{available.packages()}}}
 
-\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
+\item{type}{Possible values are (currently) "source", "mac.binary" and
+"win.binary": the binary types can be listed and downloaded but not
+installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
 
-\item{Rversion}{List with two named elements: \code{major} and \code{minor}. If not supplied, defaults to system version of R, using \link{R.version}.  Only used if \code{type} is not "source"}
+\item{Rversion}{Version of R (only used if \code{type} is not \code{source}.) Defaults to \link{R.version}, but this can be specified as any of the following formats:
+\itemize{
+\item a character string with the two digit R version, e.g. "3.1"
+\item a list with components \code{major} and \code{minor}
+\item the result of \code{\link[=getRversion]{getRversion()}}
+\item the result of \code{\link[=R.version]{R.version()}}
+}}
 
 \item{download}{If TRUE downloads packages.}
 
-\item{writePACKAGES}{If TRUE, calls \code{\link[=write_PACKAGES]{write_PACKAGES()}} to update the repository PACKAGES file.}
+\item{writePACKAGES}{If TRUE, calls \code{\link[=write_PACKAGES]{write_PACKAGES()}} to update the
+repository PACKAGES file.}
 
-\item{quiet}{If TRUE, suppress status messages (if any), and the progress bar during download.}
+\item{quiet}{If TRUE, suppress status messages (if any), and the progress bar
+during download.}
 }
 \description{
-Given a list of packages, downloads these packages to a specified destination folder using the required CRAN folder structure, and finally creates the PACKAGES index file.  Since the folder structure mimics the required structure and files of a CRAN repository, it supports functions like \code{\link[utils:install.packages]{utils::install.packages()}}.
+Given a list of packages, downloads these packages to a specified destination
+folder using the required CRAN folder structure, and finally creates the
+PACKAGES index file.  Since the folder structure mimics the required
+structure and files of a CRAN repository, it supports functions like
+\code{\link[utils:install.packages]{utils::install.packages()}}.
 }
 \note{
-Internally makes use of \code{\link[utils:download.packages]{utils::download.packages()}} and \code{\link[=write_PACKAGES]{write_PACKAGES()}}
+Internally makes use of \code{\link[utils:download.packages]{utils::download.packages()}} and
+\code{\link[=write_PACKAGES]{write_PACKAGES()}}
 }
 \section{Repo folder structure}{
 
-The folder structure of a repository
-\itemize{
-\item{Root}
-\itemize{
-\item{src/contrib}
-\itemize{
-\item{PACKAGES}
-}
-\item{bin}
-\itemize{
-\item{windows/contrib/version}
-\itemize{
-\item{PACKAGES}
-}
-\item{macosx/contrib/version}
-\itemize{
-\item{PACKAGES}
-}
-\item{macosx/mavericks/contrib/version}
-\itemize{
-\item{PACKAGES}
-}
-\item{macosx/leopard/contrib/version}
-\itemize{
-\item{PACKAGES}
-}
-}
-}
-}
+
+A repository has two main folders, one for source packages, and the other
+for binary packages.  Inside the binay package folder, \code{bin}, you will find
+subfolders for Windows as well as the various OSX binaries.
+
+\code{+- Root}
+
+\code{...+- src/contrib}
+
+\code{......+- PACKAGES}
+
+\code{..+- bin}
+
+\code{.......+- windows/contrib/version}
+
+\code{..........+- PACKAGES}
+
+\code{.......+-  macosx/contrib/version}
+
+\code{..........+-  PACKAGES}
+
+\code{.......+-  macosx/mavericks/contrib/version}
+
+\code{..........+-  PACKAGES}
+
+\code{.......+-  macosx/leopard/contrib/version}
+
+\code{..........+- PACKAGES}
 }
 
 \examples{
