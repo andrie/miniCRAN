@@ -38,7 +38,7 @@ then downloads only this subset.
 | ------------------ | ---------------------------------------------------------------------- |
 | `pkgDep()`         | Find package dependencies                                              |
 | `makeRepo()`       | Make repository (with or without downloading packages)                 |
-| `addPackage()`     | Add additonal packages (and their dependencies) to existing repository |
+| `addPackage()`     | Add additional packages (and their dependencies) to existing repository |
 | `updatePackages()` | Update the versions of packages currently in the repository            |
 
 ## Installation:
