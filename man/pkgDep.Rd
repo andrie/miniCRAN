@@ -22,7 +22,7 @@ from CRAN, using \code{\link[=available.packages]{available.packages()}}}
 "win.binary": the binary types can be listed and downloaded but not
 installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
 
-\item{depends}{If TRUE, retrieves Depends, Imports and LinkingTo dependencies
+\item{depends}{If TRUE, retrieves \code{Depends}, \code{Imports} and \code{LinkingTo} dependencies
 (non-recursively)}
 
 \item{suggests}{If TRUE, retrieves Suggests dependencies (non-recursively)}

@@ -56,7 +56,7 @@ Internally makes use of \code{\link[utils:download.packages]{utils::download.pac
 
 
 A repository has two main folders, one for source packages, and the other
-for binary packages.  Inside the binay package folder, \code{bin}, you will find
+for binary packages.  Inside the binary package folder, \code{bin}, you will find
 subfolders for Windows as well as the various OSX binaries.
 
 \code{+- Root}

@@ -19,7 +19,7 @@ install. See \code{\link[=install.packages]{install.packages()}}.}
 }}
 }
 \value{
-The filepath to the package files directory.
+The file path to the package files directory.
 }
 \description{
 Get the path to the repo directory containing the package files.
@@ -32,7 +32,7 @@ Not all versions of R are compatible with with all package types (e.g.,
 
 
 A repository has two main folders, one for source packages, and the other
-for binary packages.  Inside the binay package folder, \code{bin}, you will find
+for binary packages.  Inside the binary package folder, \code{bin}, you will find
 subfolders for Windows as well as the various OSX binaries.
 
 \code{+- Root}

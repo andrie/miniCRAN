@@ -12,10 +12,10 @@ addPackageListingGithub(pdb = pkgAvail(), repo, username = NULL,
 \code{\link[=available.packages]{available.packages()}}}
 
 \item{repo}{Character vector. Name of repository on github, e.g.
-\code{"RevolutionAnalytics/checkpoint"}}
+\code{"andrie/rrd"}}
 
 \item{username}{Optional character vector. Name of repository on github, e.g.
-`"RevolutionAnalytics/checkpoint"``}
+\code{"andrie/rrd"}}
 
 \item{branch}{name of branch, defaults to \code{"master"}}
 }

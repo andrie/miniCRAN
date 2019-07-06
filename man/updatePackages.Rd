@@ -49,7 +49,11 @@ installed on other platforms.  Passed to \code{\link[=download.packages]{downloa
 during download.}
 
 \item{ask}{logical indicating whether to ask user before packages are
-actually downloaded and installed, or the character string \code{"graphics"``, which brings up a widget to allow the user to (de-)select from the list of packages which could be updated or added. The latter value only works on systems with a GUI version of [select.list()], and is otherwise equivalent to }ask = TRUE`.}
+actually downloaded and installed.  Alternatively, the value \code{"graphics"}
+starts an interactive widget to allow the user to (de-)select from the list of
+packages which could be updated or added. The latter value only works on
+systems with a GUI version of \code{\link[=select.list]{select.list()}}, and is otherwise equivalent
+to \code{ask = TRUE}.}
 
 \item{oldPkgs}{if specified as non-NULL, \code{updatePackages()} only considers
 these packages for updating. This may be a character vector of package

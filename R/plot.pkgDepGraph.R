@@ -1,6 +1,6 @@
 #' Plots a package dependency graph.
 #'
-#' @param x pkgDepGraph object
+#' @param x Object to plot
 #' @param pkgsToHighlight Optional character vector with names of package to
 #'   highlight. If missing, defaults to packages used in original call to
 #'   [makeDepGraph()]

@@ -31,7 +31,7 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #'   "win.binary": the binary types can be listed and downloaded but not
 #'   installed on other platforms.  Passed to [download.packages()].
 #'
-#' @param depends If TRUE, retrieves Depends, Imports and LinkingTo dependencies
+#' @param depends If TRUE, retrieves `Depends`, `Imports` and `LinkingTo` dependencies
 #'   (non-recursively)
 #' @param suggests If TRUE, retrieves Suggests dependencies (non-recursively)
 #' @param enhances If TRUE, retrieves Enhances dependencies (non-recursively)
@@ -50,10 +50,8 @@ pkgDep <- function(pkg, availPkgs, repos = getOption("repos"), type = "source",
                    depends = TRUE, suggests = TRUE, enhances = FALSE,
                    includeBasePkgs = FALSE, Rversion = R.version, quiet = FALSE, ...) 
 {
-  assert_that(is.character(pkg), 
-              msg = "pkg should be a character vector with package names"
-  )
-  
+  assert_that(is_package(pkg))
+
   if (!depends & !suggests & !enhances) {
     warning("Returning nothing, since depends, suggests and enhances are all FALSE")
     return(character(0))

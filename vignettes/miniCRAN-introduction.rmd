@@ -60,7 +60,7 @@ pkgAvail(repos = pth, type = "win.binary")[, c(1:3, 5)]
 
 # Install packages from your local repository
 
-To install packages from a local repository, you need to use the URI convention `file:///` to point to your file lcoation.
+To install packages from a local repository, you need to use the [Uniform Resource Identifier](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier) (URI) convention `file:///` to point to your file location.
 
 ```{r make-repo-5, eval=FALSE}
 install.packages(pkgs, 

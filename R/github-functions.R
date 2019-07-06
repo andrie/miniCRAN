@@ -103,9 +103,9 @@ readDescriptionGithub <- function(repo, username, branch = "master", quiet = TRU
 #' @param pdb Package database, usually the result of [pkgAvail()] or
 #'   [available.packages()]
 #' @param repo Character vector. Name of repository on github, e.g.
-#'   `"RevolutionAnalytics/checkpoint"`
+#'   `"andrie/rrd"`
 #' @param username Optional character vector. Name of repository on github, e.g.
-#'   `"RevolutionAnalytics/checkpoint"``
+#'   `"andrie/rrd"`
 #' @param branch name of branch, defaults to `"master"`
 
 #' @export

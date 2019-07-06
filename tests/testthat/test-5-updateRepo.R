@@ -244,7 +244,7 @@ for (pkg_type in names(types)) {
 
 # Check for duplicate packages --------------------------------------------
 
-context("Check for duplicate files")
+context(" - Check for duplicate files")
 
 for (pkg_type in names(types)) {
   

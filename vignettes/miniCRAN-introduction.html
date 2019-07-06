@@ -12,7 +12,7 @@
 
 <meta name="author" content="Andrie de Vries and Alex Chubaty" />
 
-<meta name="date" content="2019-06-30" />
+<meta name="date" content="2019-07-06" />
 
 <title>Using miniCRAN to create a local CRAN repository</title>
 
@@ -303,7 +303,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">Using miniCRAN to create a local CRAN repository</h1>
 <h4 class="author">Andrie de Vries and Alex Chubaty</h4>
-<h4 class="date">June 30, 2019</h4>
+<h4 class="date">July 06, 2019</h4>
 
 
 
@@ -335,7 +335,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb5-2" title="2"><span class="kw">pkgAvail</span>(<span class="dt">repos =</span> pth, <span class="dt">type =</span> <span class="st">&quot;win.binary&quot;</span>)[, <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">5</span>)]</a></code></pre></div>
 <div id="install-packages-from-your-local-repository" class="section level1">
 <h1>Install packages from your local repository</h1>
-<p>To install packages from a local repository, you need to use the URI convention <code>file:///</code> to point to your file lcoation.</p>
+<p>To install packages from a local repository, you need to use the <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">Uniform Resource Identifier</a> (URI) convention <code>file:///</code> to point to your file location.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">install.packages</span>(pkgs, </a>
 <a class="sourceLine" id="cb6-2" title="2">                 <span class="dt">repos =</span> <span class="kw">paste0</span>(<span class="st">&quot;file:///&quot;</span>, pth),</a>
 <a class="sourceLine" id="cb6-3" title="3">                 <span class="dt">type =</span> <span class="st">&quot;source&quot;</span>)</a></code></pre></div>

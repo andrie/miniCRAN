@@ -10,7 +10,7 @@
 #'
 #' @template repo_folder_structure
 #'
-#' @return The filepath to the package files directory.
+#' @return The file path to the package files directory.
 #'
 #' @keywords Internal
 #'   

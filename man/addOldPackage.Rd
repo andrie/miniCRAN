@@ -46,7 +46,7 @@ the number of packages written to the index files.
 }
 \description{
 Will download and add older source package versions. Older binary versions
-are not normally available on CRAN and should be build from source on the
+are not normally available on CRAN and should be built from source on the
 platform for which they are required. As such, specifying \code{type!="source"}
 will likely fail as the download will not be successful.
 }

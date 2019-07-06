@@ -17,7 +17,7 @@ if (getRversion() >= "3.1.0") {
 #'
 #' @template Rversion
 #'
-#' @return Returns invisibly the filepaths to packages with multiple versions
+#' @return Returns invisibly the file paths to packages with multiple versions
 #'   for removal.
 #'
 #' @export
@@ -55,7 +55,7 @@ checkVersions <- function(pkgs = NULL, path = NULL, type = "source",
 }
 
 
-#  ------------------------------------------------------------------------
+# addPackage---------------------------------------------------------------
 
 
 #' Add packages to a miniCRAN repository.
@@ -121,13 +121,13 @@ addPackage <- function(pkgs = NULL, path = NULL, repos = getOption("repos"),
 
 
 
-#  ------------------------------------------------------------------------
+# addOldPackage -----------------------------------------------------------
 
 
 #' Add old package versions to a miniCRAN repository.
 #'
 #' Will download and add older source package versions. Older binary versions
-#' are not normally available on CRAN and should be build from source on the
+#' are not normally available on CRAN and should be built from source on the
 #' platform for which they are required. As such, specifying `type!="source"`
 #' will likely fail as the download will not be successful.
 #'
@@ -179,7 +179,7 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 }
 
 
-# ------------------------------------------------------------------------------
+# .listFiles -------------------------------------------------------------------
 
 
 #' List pre-built packages in a directory based on file extension

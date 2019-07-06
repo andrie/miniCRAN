@@ -35,7 +35,10 @@ oldGetCranDescription <- function(
   ret
 }
 
-#' Scrape DESCRIPTION from CRAN for each pkg.
+#' Obtains DESCRIPTION metadata from CRAN for each package.
+#'
+#' This is a wrapper around [tools::CRAN_package_db] and may be
+#' deprecated in future versions of the package.
 #'
 #' @inheritParams pkgDep
 #' @inheritParams makeRepo

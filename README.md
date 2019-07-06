@@ -7,7 +7,7 @@
 
 [![Build
 Status](https://travis-ci.org/andrie/miniCRAN.svg?branch=master)](https://travis-ci.org/andrie/miniCRAN)
-[![Codecov test
+[![Code
 coverage](https://codecov.io/gh/andrie/miniCRAN/branch/master/graph/badge.svg)](https://codecov.io/gh/andrie/miniCRAN?branch=master)
 [![CRAN
 version](http://www.r-pkg.org/badges/version/miniCRAN)](http://www.r-pkg.org/pkg/miniCRAN)
@@ -34,12 +34,12 @@ then downloads only this subset.
 
 ## Important functions:
 
-| Function           | Use it for                                                             |
-| ------------------ | ---------------------------------------------------------------------- |
-| `pkgDep()`         | Find package dependencies                                              |
-| `makeRepo()`       | Make repository (with or without downloading packages)                 |
+| Function           | Use it for                                                              |
+| ------------------ | ----------------------------------------------------------------------- |
+| `pkgDep()`         | Find package dependencies                                               |
+| `makeRepo()`       | Make repository (with or without downloading packages)                  |
 | `addPackage()`     | Add additional packages (and their dependencies) to existing repository |
-| `updatePackages()` | Update the versions of packages currently in the repository            |
+| `updatePackages()` | Update the versions of packages currently in the repository             |
 
 ## Installation:
 

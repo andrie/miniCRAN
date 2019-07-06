@@ -9,7 +9,7 @@
   shape = "circle", vertex.size = 8, cex = 1, ...)
 }
 \arguments{
-\item{x}{pkgDepGraph object}
+\item{x}{Object to plot}
 
 \item{pkgsToHighlight}{Optional character vector with names of package to
 highlight. If missing, defaults to packages used in original call to

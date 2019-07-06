@@ -25,7 +25,7 @@ install. See \code{\link[=install.packages]{install.packages()}}.}
 }}
 }
 \value{
-Returns invisibly the filepaths to packages with multiple versions
+Returns invisibly the file paths to packages with multiple versions
 for removal.
 }
 \description{

@@ -88,7 +88,6 @@
 #' @importFrom stats reshape setNames
 #' @importFrom utils chooseCRANmirror compareVersion download.file flush.console
 #'   installed.packages select.list
-#' @importFrom assertthat assert_that
 "_PACKAGE"
 
 

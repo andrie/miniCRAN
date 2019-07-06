@@ -1,7 +1,7 @@
 #' @section Repo folder structure:
 #'
 #'   A repository has two main folders, one for source packages, and the other
-#'   for binary packages.  Inside the binay package folder, `bin`, you will find
+#'   for binary packages.  Inside the binary package folder, `bin`, you will find
 #'   subfolders for Windows as well as the various OSX binaries.
 #'
 #'
