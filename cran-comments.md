@@ -1,6 +1,8 @@
+This is a bug fix release of miniCRAN.
+
 ## Test environments
 
-* local Windows install, R-3.4.3
+* local Windows install, R-3.6.1
 * ubuntu trusty 14.04 (on travis-ci), testing on:
   - R-release
   - R-oldrel
@@ -9,10 +11,8 @@
 
 ## R CMD check results
 
-There were no ERRORs or WARNINGs.
+There were no ERRORs, WARNINGs or NOTEs.
 
-There is a NOTE on old releases, that `tools::CRAN_package_db()` is not exported.
-In my code I use `if (getRversion() >= "3.4.1") {...}` to test for this condition, and only refer to `CRAN_package_db()` in more recent releases.
 
 ## Downstream dependencies
 
