@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">miniCRAN</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.12.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.12</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
       <h1>Using miniCRAN to create a local CRAN repository</h1>
                         <h4 class="author">Andrie de Vries and Alex Chubaty</h4>
             
-            <h4 class="date">July 02, 2019</h4>
+            <h4 class="date">July 06, 2019</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/andrie/miniCRAN/blob/master/vignettes/miniCRAN-introduction.rmd"><code>vignettes/miniCRAN-introduction.rmd</code></a></small>
       <div class="hidden name"><code>miniCRAN-introduction.rmd</code></div>
@@ -125,7 +125,7 @@
 <div id="install-packages-from-your-local-repository" class="section level1">
 <h1 class="hasAnchor">
 <a href="#install-packages-from-your-local-repository" class="anchor"></a>Install packages from your local repository</h1>
-<p>To install packages from a local repository, you need to use the URI convention <code>file:///</code> to point to your file lcoation.</p>
+<p>To install packages from a local repository, you need to use the <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">Uniform Resource Identifier</a> (URI) convention <code>file:///</code> to point to your file location.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(pkgs, </a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">                 <span class="dt">repos =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="st">"file:///"</span>, pth),</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">                 <span class="dt">type =</span> <span class="st">"source"</span>)</a></code></pre></div>

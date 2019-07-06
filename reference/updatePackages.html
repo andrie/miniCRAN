@@ -67,7 +67,7 @@ such packages." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">miniCRAN</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.12.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.12</span>
       </span>
     </div>
 
@@ -197,7 +197,11 @@ during download.</p></td>
     <tr>
       <th>ask</th>
       <td><p>logical indicating whether to ask user before packages are
-actually downloaded and installed, or the character string <code>"graphics"``, which brings up a widget to allow the user to (de-)select from the list of packages which could be updated or added. The latter value only works on systems with a GUI version of [select.list()], and is otherwise equivalent to </code>ask = TRUE`.</p></td>
+actually downloaded and installed.  Alternatively, the value <code>"graphics"</code>
+starts an interactive widget to allow the user to (de-)select from the list of
+packages which could be updated or added. The latter value only works on
+systems with a GUI version of <code><a href='https://www.rdocumentation.org/packages/utils/topics/select.list'>select.list()</a></code>, and is otherwise equivalent
+to <code>ask = TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>oldPkgs</th>

@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">miniCRAN</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.12.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.12</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
       <h1>Using miniCRAN to identify package dependencies</h1>
                         <h4 class="author">Andrie de Vries</h4>
             
-            <h4 class="date">July 02, 2019</h4>
+            <h4 class="date">July 06, 2019</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/andrie/miniCRAN/blob/master/vignettes/miniCRAN-dependency-graph.rmd"><code>vignettes/miniCRAN-dependency-graph.rmd</code></a></small>
       <div class="hidden name"><code>miniCRAN-dependency-graph.rmd</code></div>
@@ -113,8 +113,9 @@
 <p>The function <code><a href="../reference/pkgDep.html">pkgDep()</a></code> exposes not only these dependencies, but also all recursive dependencies. In other words, it answers the question which packages need to be installed to satisfy all dependencies of dependencies.</p>
 <p>This means that the algorithm is as follows:</p>
 <ul>
-<li>First retrieve a list of Suggests and Enhances, using a non-recursive dependency search</li>
-<li>Next, perform a recursive search for all Imports, Depends and LinkingTo</li>
+<li>First retrieve a list of <code>Suggests</code> and <code>Enhances</code>, using a non-recursive dependency search</li>
+<li>Next, perform a recursive search for all <code>Imports</code>, <code>Depends</code> and <code>LinkingTo</code>
+</li>
 </ul>
 <p>The resulting list of packages should then contain the complete list necessary to satisfy all dependencies. In code:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"miniCRAN"</span>)</a></code></pre></div>
