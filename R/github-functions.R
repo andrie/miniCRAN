@@ -25,7 +25,7 @@ getPkgVersFromFile <- function(file) {
     row.names(df) <- seq_len(nrow(df))
     df
   } else {
-    data.frame(package = character(0), version = character(0))
+    data.frame(package = character(0), version = character(0), stringsAsFactors = FALSE)
   }
 }
 
@@ -59,7 +59,7 @@ addPackageListing <- function(pdb = pkgAvail(), dcf, warnings = TRUE) {
   #   pkgRow <- match(pkgName, rownames(pdb))
   pkgRow <- match(pkgName, pdb[, "Package"])
   newRow <- with(dcf,
-                 c(Package, Version, NA, 
+                 c(Package, Version, NA,
                    Depends, Imports, LinkingTo, Suggests, Enhances, License,
                    rep(NA, 8)))
   if (!is.na(pkgRow)) {
