@@ -91,34 +91,33 @@ updatePackages <- function(path = NULL, repos = getOption("repos"), method = NUL
 ) {
   
   assert_that(is_path(path))
-  
-  do_one <- function(t) {
-    
-    text.select <- function(old) {
-      update <- NULL
-      for (k in seq_len(nrow(old))) {
-        cat(old[k, "Package"], ":\n",
+
+  text.select <- function(old) {
+    update <- NULL
+    for (k in seq_len(nrow(old))) {
+      cat(old[k, "Package"], ":\n",
           "Local Version", old[k, "LocalVer"], "\n",
           "Repos Version", old[k, "ReposVer"],
           "available at", simplifyRepos(old[k, "Repository"], t))
-        cat("\n")
-        answer <- substr(readline("Update (y/N/c)?  "), 1L, 1L)
-        if (answer == "c" | answer == "C") {
-          cat("cancelled by user\n")
-          return(invisible())
-        }
-        if (answer == "y" | answer == "Y") update <- rbind(update, old[k, ])
+      cat("\n")
+      answer <- substr(readline("Update (y/N/c)?  "), 1L, 1L)
+      if (answer == "c" | answer == "C") {
+        cat("cancelled by user\n")
+        return(invisible())
       }
-      update
+      if (answer == "y" | answer == "Y") update <- rbind(update, old[k, ])
     }
-    
-    simplifyRepos <- function(repos, t) {
-      tail <- substring(contribUrl("---", type = t, Rversion = Rversion), 4)
-      ind <- regexpr(tail, repos, fixed = TRUE)
-      ind <- ifelse(ind > 0, ind - 1, nchar(repos, type = "c"))
-      substr(repos, 1, ind)
-    }
-    
+    update
+  }
+  
+  simplifyRepos <- function(repos, t) {
+    tail <- substring(contribUrl("---", type = t, Rversion = Rversion), 4)
+    ind <- regexpr(tail, repos, fixed = TRUE)
+    ind <- ifelse(ind > 0, ind - 1, nchar(repos, type = "c"))
+    substr(repos, 1, ind)
+  }
+  
+  do_one <- function(t) {
     force(ask)
     if (!is.matrix(oldPkgs) && is.character(oldPkgs)) {
       subset <- oldPkgs
@@ -128,7 +127,7 @@ updatePackages <- function(path = NULL, repos = getOption("repos"), method = NUL
     }
     if (is.null(oldPkgs)) {
       oldPkgs <- oldPackages(path = path, repos = repos, method = method,
-        availPkgs = availPkgs, type = t, Rversion = Rversion)
+                             availPkgs = availPkgs, type = t, Rversion = Rversion)
       if (is.null(oldPkgs)) {
         message("All packages are up to date from repos: ", names(repos))
         return(invisible())
@@ -144,7 +143,7 @@ updatePackages <- function(path = NULL, repos = getOption("repos"), method = NUL
       if (.Platform$OS.type == " windows" || .Platform$GUI == "AQUA" ||
           (capabilities("tcltk") && capabilities("X11"))) {
         k <- select.list(oldPkgs[, 1L], oldPkgs[, 1L], multiple = TRUE,
-          title = "Packages to be updated", graphics = TRUE)
+                         title = "Packages to be updated", graphics = TRUE)
         oldPkgs[match(k, oldPkgs[, 1L]), , drop = FALSE]
       } else {
         text.select(oldPkgs)
@@ -156,7 +155,7 @@ updatePackages <- function(path = NULL, repos = getOption("repos"), method = NUL
     }
     if (length(update[, "Package"])) {
       addPackage(update[, "Package"], path = path, repos = repos, type = t,
-        quiet = quiet, deps = FALSE, Rversion = Rversion)
+                 quiet = quiet, deps = FALSE, Rversion = Rversion)
     }
   }
 
