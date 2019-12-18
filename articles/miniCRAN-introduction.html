@@ -6,9 +6,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Using miniCRAN to create a local CRAN repository • miniCRAN</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Using miniCRAN to create a local CRAN repository">
 <meta property="og:description" content="">
 <meta property="og:image" content="http://andrie.github.io/miniCRAN/logo.png">
@@ -39,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -68,7 +75,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/andrie/miniCRAN">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -81,13 +88,14 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Using miniCRAN to create a local CRAN repository</h1>
                         <h4 class="author">Andrie de Vries and Alex Chubaty</h4>
             
-            <h4 class="date">July 07, 2019</h4>
+            <h4 class="date">December 18, 2019</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/andrie/miniCRAN/blob/master/vignettes/miniCRAN-introduction.rmd"><code>vignettes/miniCRAN-introduction.rmd</code></a></small>
       <div class="hidden name"><code>miniCRAN-introduction.rmd</code></div>
@@ -99,35 +107,35 @@
 <p>Start by creating the recursive dependency tree for your target packages.</p>
 <p>For example, imagine a scenario where you want to create a repository that consists of the package <code>foreach</code> and its dependencies.</p>
 <p>Start by creating the dependency list:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"miniCRAN"</span>)</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"miniCRAN"</span>)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># use Revolution Analytics CRAN mirror</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">revolution &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dt">CRAN =</span> <span class="st">"http://cran.microsoft.com"</span>)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">revolution &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">CRAN =</span> <span class="st">"http://cran.microsoft.com"</span>)</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co"># Specify list of packages to download</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">pkgs &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"foreach"</span>)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">pkgs &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"foreach"</span>)</a>
 <a class="sourceLine" id="cb1-8" data-line-number="8">pkgList &lt;-<span class="st"> </span><span class="kw"><a href="../reference/pkgDep.html">pkgDep</a></span>(pkgs, <span class="dt">repos =</span> revolution, <span class="dt">type =</span> <span class="st">"source"</span>, <span class="dt">suggests =</span> <span class="ot">FALSE</span>, </a>
 <a class="sourceLine" id="cb1-9" data-line-number="9">                  <span class="dt">availPkgs =</span> cranJuly2014)</a>
 <a class="sourceLine" id="cb1-10" data-line-number="10">pkgList</a></code></pre></div>
 <pre><code>## [1] "foreach"   "codetools" "iterators"</code></pre>
 <p>Next, create a repository with the function <code><a href="../reference/makeRepo.html">makeRepo()</a></code>. In this example, get the required files for <code>source</code> packages as well as windows binaries:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Create temporary folder for miniCRAN</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/files2">dir.create</a></span>(pth &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/file.path">file.path</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempdir</a></span>(), <span class="st">"miniCRAN"</span>))</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span>(pth &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span>(), <span class="st">"miniCRAN"</span>))</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co"># Make repo for source and win.binary</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="kw"><a href="../reference/makeRepo.html">makeRepo</a></span>(pkgList, <span class="dt">path =</span> pth, <span class="dt">repos =</span> revolution, <span class="dt">type =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"source"</span>, <span class="st">"win.binary"</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="kw"><a href="../reference/makeRepo.html">makeRepo</a></span>(pkgList, <span class="dt">path =</span> pth, <span class="dt">repos =</span> revolution, <span class="dt">type =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"source"</span>, <span class="st">"win.binary"</span>))</a></code></pre></div>
 <p>Investigate the repository file structure:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># List all files in miniCRAN</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list.files">list.files</a></span>(pth, <span class="dt">recursive =</span> <span class="ot">TRUE</span>, <span class="dt">full.names =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span>(pth, <span class="dt">recursive =</span> <span class="ot">TRUE</span>, <span class="dt">full.names =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <p>Use <code>pkgAvail</code> to list available packages in your repository:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># Check for available packages</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="../reference/pkgAvail.html">pkgAvail</a></span>(<span class="dt">repos =</span> pth, <span class="dt">type =</span> <span class="st">"win.binary"</span>)[, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">5</span>)]</a></code></pre></div>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="../reference/pkgAvail.html">pkgAvail</a></span>(<span class="dt">repos =</span> pth, <span class="dt">type =</span> <span class="st">"win.binary"</span>)[, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">5</span>)]</a></code></pre></div>
 <div id="install-packages-from-your-local-repository" class="section level1">
 <h1 class="hasAnchor">
 <a href="#install-packages-from-your-local-repository" class="anchor"></a>Install packages from your local repository</h1>
 <p>To install packages from a local repository, you need to use the <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">Uniform Resource Identifier</a> (URI) convention <code>file:///</code> to point to your file location.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(pkgs, </a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">                 <span class="dt">repos =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="st">"file:///"</span>, pth),</a>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(pkgs, </a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">                 <span class="dt">repos =</span> <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"file:///"</span>, pth),</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">                 <span class="dt">type =</span> <span class="st">"source"</span>)</a></code></pre></div>
 </div>
 <div id="adding-packages-to-an-existing-minicran-repository" class="section level1">
@@ -138,8 +146,8 @@
 <a href="#adding-new-packages-from-cran" class="anchor"></a>Adding new packages from CRAN</h2>
 <p>After creating a local miniCRAN repository, additional packages and their dependencies can easily be added. This mechanism can also be used to re-add an existing package to the miniCRAN repo.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># Add new packages (from CRAN) to the miniCRAN repo</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw"><a href="../reference/addPackage.html">addPackage</a></span>(<span class="st">"Matrix"</span>, <span class="dt">path =</span> pth, <span class="dt">repos =</span> revolution, <span class="dt">type =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"source"</span>, <span class="st">"win.binary"</span>))</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw"><a href="../reference/pkgAvail.html">pkgAvail</a></span>(<span class="dt">repos =</span> pth, <span class="dt">type =</span> <span class="st">"win.binary"</span>)[, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">5</span>)]</a></code></pre></div>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw"><a href="../reference/addPackage.html">addPackage</a></span>(<span class="st">"Matrix"</span>, <span class="dt">path =</span> pth, <span class="dt">repos =</span> revolution, <span class="dt">type =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"source"</span>, <span class="st">"win.binary"</span>))</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw"><a href="../reference/pkgAvail.html">pkgAvail</a></span>(<span class="dt">repos =</span> pth, <span class="dt">type =</span> <span class="st">"win.binary"</span>)[, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">5</span>)]</a></code></pre></div>
 <p>The value that is returned (invisibly) via <code>addPackage</code> is the number of packages written to the index file, <em>i.e.</em>, the total number of packages in the repo of that type.</p>
 </div>
 <div id="adding-an-older-version-of-a-package-from-cran" class="section level2">
@@ -148,9 +156,9 @@
 <p>To add a specific version of a package from CRAN (or another CRAN-like repository), we can easily download the source packages from the CRAN archives. Dependencies for old package versions cannot be determined automatically and must be specified by the user.</p>
 <p><em>Note:</em> in order to to add binaries of older packages, you will need to download the source and build the binaries on the intended platform yourself. You will need the appropriate R development tools installed in order to build package binaries from source.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># create a data frame with the package and version info</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">oldVers &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">  <span class="dt">package =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"foreach"</span>, <span class="st">"codetools"</span>, <span class="st">"iterators"</span>),</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">  <span class="dt">version =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"1.4.0"</span>, <span class="st">"0.2-7"</span>, <span class="st">"1.0.5"</span>),</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">oldVers &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">  <span class="dt">package =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"foreach"</span>, <span class="st">"codetools"</span>, <span class="st">"iterators"</span>),</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">  <span class="dt">version =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"1.4.0"</span>, <span class="st">"0.2-7"</span>, <span class="st">"1.0.5"</span>),</a>
 <a class="sourceLine" id="cb8-5" data-line-number="5">  <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span></a>
 <a class="sourceLine" id="cb8-6" data-line-number="6">)</a>
 <a class="sourceLine" id="cb8-7" data-line-number="7"></a>
@@ -163,16 +171,16 @@
 <a class="sourceLine" id="cb9-3" data-line-number="3">pkgVersionsBin &lt;-<span class="st"> </span><span class="kw"><a href="../reference/checkVersions.html">checkVersions</a></span>(pkgList, <span class="dt">path =</span> pth, <span class="dt">type =</span> <span class="st">"win.binary"</span>)</a>
 <a class="sourceLine" id="cb9-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co"># After inspecting package versions, remove old versions</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/basename">basename</a></span>(pkgVersionsSrc) <span class="co"># duplicate versions</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/basename">basename</a></span>(pkgVersionsBin)</a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/r/base/basename.html">basename</a></span>(pkgVersionsSrc) <span class="co"># duplicate versions</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/r/base/basename.html">basename</a></span>(pkgVersionsBin)</a>
 <a class="sourceLine" id="cb9-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/files">file.remove</a></span>(pkgVersionsSrc[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>)])</a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/r/base/files.html">file.remove</a></span>(pkgVersionsSrc[<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>)])</a>
 <a class="sourceLine" id="cb9-10" data-line-number="10"></a>
 <a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co"># rebuild the package index after removing duplicate package versions</span></a>
-<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="kw"><a href="../reference/makeRepo.html">updateRepoIndex</a></span>(pth, <span class="dt">type =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"source"</span>, <span class="st">"win.binary"</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="kw"><a href="../reference/makeRepo.html">updateRepoIndex</a></span>(pth, <span class="dt">type =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"source"</span>, <span class="st">"win.binary"</span>))</a></code></pre></div>
 <p>To see the updated list of packages available in the miniCRAN repo:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="../reference/pkgAvail.html">pkgAvail</a></span>(pth, <span class="dt">type =</span> <span class="st">"source"</span>)[, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">5</span>)] <span class="co"># contains the old versions</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="../reference/pkgAvail.html">pkgAvail</a></span>(pth, <span class="dt">type =</span> <span class="st">"win.binary"</span>)[, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">5</span>)] <span class="co"># contains the current versions</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="../reference/pkgAvail.html">pkgAvail</a></span>(pth, <span class="dt">type =</span> <span class="st">"source"</span>)[, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">5</span>)] <span class="co"># contains the old versions</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="../reference/pkgAvail.html">pkgAvail</a></span>(pth, <span class="dt">type =</span> <span class="st">"win.binary"</span>)[, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">5</span>)] <span class="co"># contains the current versions</span></a></code></pre></div>
 </div>
 <div id="adding-packages-from-other-sources" class="section level2">
 <h2 class="hasAnchor">
@@ -195,6 +203,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -215,17 +224,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Andrie de Vries.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
