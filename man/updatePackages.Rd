@@ -5,16 +5,29 @@
 \alias{oldPackages}
 \title{Check for available package updates in a miniCRAN repo.}
 \usage{
-oldPackages(path = NULL, repos = getOption("repos"),
+oldPackages(
+  path = NULL,
+  repos = getOption("repos"),
   availPkgs = pkgAvail(repos = repos, type = type, Rversion = Rversion),
-  method, availableLocal = pkgAvail(repos = path, type = type, Rversion =
-  Rversion, quiet = quiet), type = "source", Rversion = R.version,
-  quiet = FALSE)
+  method,
+  availableLocal = pkgAvail(repos = path, type = type, Rversion = Rversion, quiet =
+    quiet),
+  type = "source",
+  Rversion = R.version,
+  quiet = FALSE
+)
 
-updatePackages(path = NULL, repos = getOption("repos"),
-  method = NULL, ask = TRUE, availPkgs = pkgAvail(repos = repos, type
-  = type, Rversion = Rversion), oldPkgs = NULL, type = "source",
-  Rversion = R.version, quiet = FALSE)
+updatePackages(
+  path = NULL,
+  repos = getOption("repos"),
+  method = NULL,
+  ask = TRUE,
+  availPkgs = pkgAvail(repos = repos, type = type, Rversion = Rversion),
+  oldPkgs = NULL,
+  type = "source",
+  Rversion = R.version,
+  quiet = FALSE
+)
 }
 \arguments{
 \item{path}{Destination download path. This path is the root folder of your
@@ -42,7 +55,7 @@ installed on other platforms.  Passed to \code{\link[=download.packages]{downloa
 \item a character string with the two digit R version, e.g. "3.1"
 \item a list with components \code{major} and \code{minor}
 \item the result of \code{\link[=getRversion]{getRversion()}}
-\item the result of \code{\link[=R.version]{R.version()}}
+\item the result of \link{R.version}
 }}
 
 \item{quiet}{If TRUE, suppress status messages (if any), and the progress bar
@@ -122,8 +135,10 @@ pkgList
 \seealso{
 \code{\link[=updatePackages]{updatePackages()}}, \code{\link[=pkgAvail]{pkgAvail()}}.
 
-Other update repo functions: \code{\link{addOldPackage}},
-  \code{\link{addPackage}}, \code{\link{checkVersions}},
-  \code{\link{makeRepo}}
+Other update repo functions: 
+\code{\link{addOldPackage}()},
+\code{\link{addPackage}()},
+\code{\link{checkVersions}()},
+\code{\link{makeRepo}()}
 }
 \concept{update repo functions}

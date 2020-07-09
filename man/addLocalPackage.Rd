@@ -5,9 +5,17 @@
 \alias{addLocalPackage}
 \title{Add local packages to a miniCRAN repository.}
 \usage{
-addLocalPackage(pkgs = NULL, pkgPath = NULL, path = NULL,
-  type = "source", Rversion = R.version, writePACKAGES = TRUE,
-  deps = FALSE, quiet = FALSE, build = FALSE)
+addLocalPackage(
+  pkgs = NULL,
+  pkgPath = NULL,
+  path = NULL,
+  type = "source",
+  Rversion = R.version,
+  writePACKAGES = TRUE,
+  deps = FALSE,
+  quiet = FALSE,
+  build = FALSE
+)
 }
 \arguments{
 \item{pkgs}{Character vector of packages to download}
@@ -28,7 +36,7 @@ installed on other platforms.  Passed to \code{\link[=download.packages]{downloa
 \item a character string with the two digit R version, e.g. "3.1"
 \item a list with components \code{major} and \code{minor}
 \item the result of \code{\link[=getRversion]{getRversion()}}
-\item the result of \code{\link[=R.version]{R.version()}}
+\item the result of \link{R.version}
 }}
 
 \item{writePACKAGES}{If TRUE, calls \code{\link[=write_PACKAGES]{write_PACKAGES()}} to update the

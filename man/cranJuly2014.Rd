@@ -4,7 +4,9 @@
 \name{cranJuly2014}
 \alias{cranJuly2014}
 \title{Stored version of available.packages()}
-\format{matrix}
+\format{
+matrix
+}
 \usage{
 cranJuly2014
 }
