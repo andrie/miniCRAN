@@ -11,7 +11,7 @@ make_fake_package <- function(version = "0.1.0", base_path = tempdir()) {
   
   # Create the skeleton
   
-  if (getRversion() > "3.4") {
+  if (getRversion() >= "3.5") {
     package.skeleton(
       "fake.package", 
       path = base_path, 
