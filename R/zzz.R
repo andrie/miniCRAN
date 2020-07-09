@@ -1,5 +1,3 @@
-# globals <- new.env(parent=emptyenv(), hash=TRUE)
-# globals$have_RCurl <- require("RCurl")
 
 .onLoad <- function(libname, pkgname) {
   mran.url <- if (getRversion() >= "3.2.2") {

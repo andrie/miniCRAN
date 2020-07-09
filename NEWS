@@ -3,7 +3,8 @@ miniCRAN dev version
 
 Breaking changes
 
-* Removed the dependency on XML.  This will only affect a non-essential function (`getCranDesription`) on versions of R prior to R-3.4.0
+* Removed the dependency on `XML`.  This will only affect a non-essential function (`getCranDesription`) on versions of R prior to R-3.4.0
+* Removed reference to dependency on `curl`, since the actual dependency was removed in a previous version of the package.
 
 
 miniCRAN v0.2.12 (Release date: 2019-07-06)
