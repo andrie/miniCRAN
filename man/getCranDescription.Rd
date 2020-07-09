@@ -24,7 +24,7 @@ installed on other platforms.  Passed to \code{\link[=download.packages]{downloa
 \item{pkgs}{Character vector of packages to download}
 }
 \description{
-This is a wrapper around \link[tools:CRANtools]{tools::CRAN_package_db} and may be
+This is a wrapper around \code{tools::CRAN_package_db} and may be
 deprecated in future versions of the package.
 }
 \examples{
