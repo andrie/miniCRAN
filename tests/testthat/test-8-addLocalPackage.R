@@ -11,7 +11,7 @@ make_fake_package <- function(version = "0.1.0", base_path = tempdir()) {
   
   # Create the skeleton
   
-  if (getRversion() >= "3.4") {
+  if (getRversion() > "3.4") {
     package.skeleton(
       "fake.package", 
       path = base_path, 
@@ -30,7 +30,7 @@ make_fake_package <- function(version = "0.1.0", base_path = tempdir()) {
     )
   }
   
-  # Remove unneccessary detritus from skeleton
+  # Remove unnecessary detritus from skeleton
   file.remove(file.path(fake_package, "NAMESPACE"))
   unlink(file.path(fake_package, "data"), recursive = TRUE)
   unlink(file.path(fake_package, "man"), recursive = TRUE)
