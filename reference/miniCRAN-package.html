@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -46,8 +50,7 @@
 <meta property="og:description" content="At the end of 2014, CRAN consisted of more than 6,000 packages.  Many
 organisations need to maintain a private mirror of CRAN, but with only a
 subset of packages that are relevant to them." />
-<meta property="og:image" content="http://andrie.github.io/miniCRAN/logo.png" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="http://andrie.github.io/miniCRAN/logo.svg" />
 
 
 
@@ -65,7 +68,7 @@ subset of packages that are relevant to them." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -115,7 +118,7 @@ subset of packages that are relevant to them." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/andrie/miniCRAN">
+  <a href="https://github.com/andrie/miniCRAN/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -170,10 +173,10 @@ considerations.</p>
     
 
 <ul>
-<li><p><code><a href='pkgAvail.html'>pkgAvail()</a></code>: Read from a local (or remote) CRAN-like repository and
+<li><p><code><a href='https://rdrr.io/pkg/miniCRAN/man/pkgAvail.html'>pkgAvail()</a></code>: Read from a local (or remote) CRAN-like repository and
 determine available packages.</p></li>
-<li><p><code><a href='pkgDep.html'>pkgDep()</a></code>: Find (recursive) package dependencies.</p></li>
-<li><p><code><a href='makeRepo.html'>makeRepo()</a></code> : Make a mini CRAN repository, by downloading packages (and
+<li><p><code><a href='https://rdrr.io/pkg/miniCRAN/man/pkgDep.html'>pkgDep()</a></code>: Find (recursive) package dependencies.</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/miniCRAN/man/makeRepo.html'>makeRepo()</a></code> : Make a mini CRAN repository, by downloading packages (and
 their dependencies) and creating the appropriate file structure for a
 repository.  This allows you to use functions like
 <code><a href='https://rdrr.io/r/utils/available.packages.html'>utils::available.packages()</a></code> and <code><a href='https://rdrr.io/r/utils/install.packages.html'>utils::install.packages()</a></code> on your local
@@ -186,7 +189,7 @@ will work as expected:</p><ul>
 <li><p><code><a href='https://rdrr.io/r/utils/install.packages.html'>utils::install.packages()</a></code></p></li>
 </ul>
 
-<p>The main function is <code><a href='makeRepo.html'>makeRepo()</a></code> - this will download all the required
+<p>The main function is <code><a href='https://rdrr.io/pkg/miniCRAN/man/makeRepo.html'>makeRepo()</a></code> - this will download all the required
 packages, with their dependencies, into the appropriate repository file
 structure, and then create the repository index (PACKAGES) file.</p>
     <h2 class="hasAnchor" id="updating-packages-in-a-repo"><a class="anchor" href="#updating-packages-in-a-repo"></a>Updating packages in a repo</h2>
@@ -194,8 +197,8 @@ structure, and then create the repository index (PACKAGES) file.</p>
     
 
 <ul>
-<li><p><code><a href='updatePackages.html'>oldPackages()</a></code>: Indicates packages which have a (suitable) later version
-on the repositories * <code><a href='updatePackages.html'>updatePackages()</a></code>: Offers to download and install
+<li><p><code><a href='https://rdrr.io/pkg/miniCRAN/man/updatePackages.html'>oldPackages()</a></code>: Indicates packages which have a (suitable) later version
+on the repositories * <code><a href='https://rdrr.io/pkg/miniCRAN/man/updatePackages.html'>updatePackages()</a></code>: Offers to download and install
 such packages</p></li>
 </ul>
 
@@ -204,11 +207,11 @@ such packages</p></li>
     
 
 
-<p>To get a recursive list of dependencies as well as a plot, use <code><a href='pkgDep.html'>pkgDep()</a></code>
-followed by  <code><a href='makeDepGraph.html'>makeDepGraph()</a></code>.</p><ul>
-<li><p><code><a href='pkgDep.html'>pkgDep()</a></code>: Find (recursive) package dependencies.</p></li>
-<li><p><code><a href='makeDepGraph.html'>makeDepGraph()</a></code>: Create graph of selected package dependencies.</p></li>
-<li><p><code><a href='plot.pkgDepGraph.html'>plot.pkgDepGraph()</a></code>: Create a visualization of the dependency graph</p></li>
+<p>To get a recursive list of dependencies as well as a plot, use <code><a href='https://rdrr.io/pkg/miniCRAN/man/pkgDep.html'>pkgDep()</a></code>
+followed by  <code><a href='https://rdrr.io/pkg/miniCRAN/man/makeDepGraph.html'>makeDepGraph()</a></code>.</p><ul>
+<li><p><code><a href='https://rdrr.io/pkg/miniCRAN/man/pkgDep.html'>pkgDep()</a></code>: Find (recursive) package dependencies.</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/miniCRAN/man/makeDepGraph.html'>makeDepGraph()</a></code>: Create graph of selected package dependencies.</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/miniCRAN/man/plot.pkgDepGraph.html'>plot.pkgDepGraph()</a></code>: Create a visualization of the dependency graph</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="package-options"><a class="anchor" href="#package-options"></a>Package options</h2>
@@ -216,7 +219,7 @@ followed by  <code><a href='makeDepGraph.html'>makeDepGraph()</a></code>.</p><ul
     
 
 
-<dl class='dl-horizontal'>
+<dl>
 <dt><code>minicran.mran</code></dt><dd><p>preferred MRAN URL. Defaults to
 <a href='https://mran.microsoft.com'>https://mran.microsoft.com</a> for R versions 3.2.2 and greater. Versions
 earlier than 3.2.2 use HTTP instead of HTTPS.</p></dd> 
@@ -230,20 +233,8 @@ earlier than 3.2.2 use HTTP instead of HTTPS.</p></dd>
 </ul>
 
 </div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#details">Details</a></li>
-      <li><a href="#making-a-private-repo">Making a private repo</a></li>
-      <li><a href="#updating-packages-in-a-repo">Updating packages in a repo</a></li>
-      <li><a href="#creating-dependencies">Creating dependencies</a></li>
-      <li><a href="#package-options">Package options</a></li>
-      <li><a href="#see-also">See also</a></li>
-    </ul>
-
-    <h2>Author</h2>
     <p><strong>Maintainer</strong>: Andrie de Vries <a href='mailto:apdevries@gmail.com'>apdevries@gmail.com</a> [copyright holder]</p>
 <p>Other contributors:</p><ul>
 <li><p>Alex Chubaty <a href='mailto:alex.chubaty@gmail.com'>alex.chubaty@gmail.com</a> [contributor]</p></li>
@@ -251,6 +242,12 @@ earlier than 3.2.2 use HTTP instead of HTTPS.</p></dd>
 </ul>
 
 
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -261,7 +258,7 @@ earlier than 3.2.2 use HTTP instead of HTTPS.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>
