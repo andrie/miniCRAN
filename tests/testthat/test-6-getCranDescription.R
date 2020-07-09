@@ -4,6 +4,7 @@ context("get CRAN description")
 test_that("can read CRAN description", {
 
   skip_on_cran()
+  skip_if_not_installed("mockery")
   mockery::stub(getCranDescription, 
                 what = "tools::CRAN_package_db",
                 function(...) testthis::read_testdata("/pdb.rds")
