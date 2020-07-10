@@ -14,3 +14,4 @@ cran-comments.md
 ^logo.svg$
 ^CRAN-RELEASE$
 ^revdep$
+^\.github$

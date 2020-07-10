@@ -4,9 +4,16 @@
 \alias{addPackage}
 \title{Add packages to a miniCRAN repository.}
 \usage{
-addPackage(pkgs = NULL, path = NULL, repos = getOption("repos"),
-  type = "source", Rversion = R.version, writePACKAGES = TRUE,
-  deps = TRUE, quiet = FALSE)
+addPackage(
+  pkgs = NULL,
+  path = NULL,
+  repos = getOption("repos"),
+  type = "source",
+  Rversion = R.version,
+  writePACKAGES = TRUE,
+  deps = TRUE,
+  quiet = FALSE
+)
 }
 \arguments{
 \item{pkgs}{Character vector of packages to download}
@@ -26,7 +33,7 @@ installed on other platforms.  Passed to \code{\link[=download.packages]{downloa
 \item a character string with the two digit R version, e.g. "3.1"
 \item a list with components \code{major} and \code{minor}
 \item the result of \code{\link[=getRversion]{getRversion()}}
-\item the result of \code{\link[=R.version]{R.version()}}
+\item the result of \link{R.version}
 }}
 
 \item{writePACKAGES}{If TRUE, calls \code{\link[=write_PACKAGES]{write_PACKAGES()}} to update the
@@ -99,8 +106,10 @@ pkgList
 }
 }
 \seealso{
-Other update repo functions: \code{\link{addOldPackage}},
-  \code{\link{checkVersions}}, \code{\link{makeRepo}},
-  \code{\link{updatePackages}}
+Other update repo functions: 
+\code{\link{addOldPackage}()},
+\code{\link{checkVersions}()},
+\code{\link{makeRepo}()},
+\code{\link{updatePackages}()}
 }
 \concept{update repo functions}

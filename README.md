@@ -5,8 +5,6 @@
 
 <!-- badges: start -->
 
-[![Build
-Status](https://travis-ci.org/andrie/miniCRAN.svg?branch=master)](https://travis-ci.org/andrie/miniCRAN)
 [![Code
 coverage](https://codecov.io/gh/andrie/miniCRAN/branch/master/graph/badge.svg)](https://codecov.io/gh/andrie/miniCRAN?branch=master)
 [![CRAN
@@ -15,6 +13,10 @@ version](http://www.r-pkg.org/badges/version/miniCRAN)](http://www.r-pkg.org/pkg
 downloads](http://cranlogs.r-pkg.org/badges/miniCRAN)](http://www.r-pkg.org/pkg/miniCRAN)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/miniCRAN)](https://cran.r-project.org/package=miniCRAN)
+[![R build
+status](https://github.com/andrie/miniCRAN/workflows/R-CMD-check/badge.svg)](https://github.com/andrie/miniCRAN/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/andrie/miniCRAN/branch/master/graph/badge.svg)](https://codecov.io/gh/andrie/miniCRAN?branch=master)
 <!-- badges: end -->
 
 Create a mini version of CRAN containing only selected packages
@@ -58,31 +60,6 @@ Get the latest development version from github:
 # Use `devtools` to install directly from github
 library(devtools)
 install_github("andrie/miniCRAN")
-```
-
-### System requirements
-
-The `miniCRAN` package itself doesn’t introduce any system dependencies.
-However, the package imports the
-[`curl`](https://cran.r-project.org/package=curl) and
-[`XML`](https://cran.r-project.org/package=XML) packages. These have
-system requirements on `libxml2-devel`, `libcurl-devel` and
-`openssl-devel`.
-
-  - On systems with the `rpm` package manager (Red Hat, CentOS) try:
-
-<!-- end list -->
-
-``` bash
-yum install libcurl-devel libxml2-devel openssl-devel
-```
-
-  - On systems with the `aptitude` package manager (Debian, Ubuntu) try:
-
-<!-- end list -->
-
-``` bash
-apt-get install libcurl4-openssl-dev libxml2-devel openssl-devel
 ```
 
 ## Example:

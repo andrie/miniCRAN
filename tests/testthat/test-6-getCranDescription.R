@@ -4,6 +4,9 @@ context("get CRAN description")
 test_that("can read CRAN description", {
 
   skip_on_cran()
+  skip_if(getRversion() <= "3.4")
+  
+  skip_if_not_installed("mockery")
   mockery::stub(getCranDescription, 
                 what = "tools::CRAN_package_db",
                 function(...) testthis::read_testdata("/pdb.rds")
@@ -11,4 +14,17 @@ test_that("can read CRAN description", {
   p <- getCranDescription("miniCRAN", repos = c(CRAN = getOption("minicran.mran")))
   expect_is(p, "data.frame")
   expect_equal(p$Package[1], "miniCRAN")
+})
+
+
+
+test_that("throws error on old versions of R", {
+  
+  skip_on_cran()
+  skip_if(getRversion() > "3.4")
+  
+  expect_error(
+    getCranDescription("miniCRAN")
+  )
+  
 })

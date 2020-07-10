@@ -6,9 +6,16 @@
 \title{Downloads packages from CRAN to specified path and creates a local
 repository.}
 \usage{
-makeRepo(pkgs, path, repos = getOption("repos"), type = "source",
-  Rversion = R.version, download = TRUE, writePACKAGES = TRUE,
-  quiet = FALSE)
+makeRepo(
+  pkgs,
+  path,
+  repos = getOption("repos"),
+  type = "source",
+  Rversion = R.version,
+  download = TRUE,
+  writePACKAGES = TRUE,
+  quiet = FALSE
+)
 
 updateRepoIndex(path, type = "source", Rversion = R.version)
 }
@@ -30,7 +37,7 @@ installed on other platforms.  Passed to \code{\link[=download.packages]{downloa
 \item a character string with the two digit R version, e.g. "3.1"
 \item a list with components \code{major} and \code{minor}
 \item the result of \code{\link[=getRversion]{getRversion()}}
-\item the result of \code{\link[=R.version]{R.version()}}
+\item the result of \link{R.version}
 }}
 
 \item{download}{If TRUE downloads packages.}
@@ -125,8 +132,10 @@ unlink(pth, recursive = TRUE)
 }
 }
 \seealso{
-Other update repo functions: \code{\link{addOldPackage}},
-  \code{\link{addPackage}}, \code{\link{checkVersions}},
-  \code{\link{updatePackages}}
+Other update repo functions: 
+\code{\link{addOldPackage}()},
+\code{\link{addPackage}()},
+\code{\link{checkVersions}()},
+\code{\link{updatePackages}()}
 }
 \concept{update repo functions}

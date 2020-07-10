@@ -4,8 +4,12 @@
 \alias{pkgAvail}
 \title{Reads available packages from CRAN repository.}
 \usage{
-pkgAvail(repos = getOption("repos"), type = "source",
-  Rversion = R.version, quiet = FALSE)
+pkgAvail(
+  repos = getOption("repos"),
+  type = "source",
+  Rversion = R.version,
+  quiet = FALSE
+)
 }
 \arguments{
 \item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g.
@@ -20,7 +24,7 @@ installed on other platforms.  Passed to \code{\link[=download.packages]{downloa
 \item a character string with the two digit R version, e.g. "3.1"
 \item a list with components \code{major} and \code{minor}
 \item the result of \code{\link[=getRversion]{getRversion()}}
-\item the result of \code{\link[=R.version]{R.version()}}
+\item the result of \link{R.version}
 }}
 
 \item{quiet}{If TRUE, suppresses warnings}
