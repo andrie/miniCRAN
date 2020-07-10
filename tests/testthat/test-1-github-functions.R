@@ -24,8 +24,12 @@ test_that("package verson is extracted correctly", {
     version = c("1.3-20", "2.23-15", "7.3-47", "1.2-12"),
     stringsAsFactors = FALSE
   )
+  
+  # <don't understand> why we need to reorder to get tests to pass
   df <- df[order(df$package), ]
   row.names(df) <- seq_len(nrow(df))
+  # </don't understand>
+  
   expect_equal(
     getPkgVersFromFile(ff),
     df
