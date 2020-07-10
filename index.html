@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">miniCRAN</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.12.9000</span>
       </span>
     </div>
 
@@ -160,24 +160,11 @@
 <span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"andrie/miniCRAN"</span>)
 </pre></div>
 </div>
-<div id="system-requirements" class="section level3">
-<h3 class="hasAnchor">
-<a href="#system-requirements" class="anchor"></a>System requirements</h3>
-<p>The <code>miniCRAN</code> package itself doesn’t introduce any system dependencies. However, the package imports the <a href="https://cran.r-project.org/package=curl"><code>curl</code></a> and <a href="https://cran.r-project.org/package=XML"><code>XML</code></a> packages. These have system requirements on <code>libxml2-devel</code>, <code>libcurl-devel</code> and <code>openssl-devel</code>.</p>
-<ul>
-<li>On systems with the <code>rpm</code> package manager (Red Hat, CentOS) try:</li>
-</ul>
-<!-- end list --><div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="ex">yum</span> install libcurl-devel libxml2-devel openssl-devel</span></code></pre></div>
-<ul>
-<li>On systems with the <code>aptitude</code> package manager (Debian, Ubuntu) try:</li>
-</ul>
-<!-- end list --><div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="ex">apt-get</span> install libcurl4-openssl-dev libxml2-devel openssl-devel</span></code></pre></div>
-</div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example:</h2>
-<div class="sourceCode" id="cb5"><pre class="downlit">
+<div class="sourceCode" id="cb3"><pre class="downlit">
 <span class="co"># Determine and download the packages `ggplot2`, `plyr` and `reshape2`, </span>
 <span class="co"># including their dependencies:</span>
 

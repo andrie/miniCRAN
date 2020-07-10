@@ -86,7 +86,7 @@ utils::install.packages()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">miniCRAN</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.12.9000</span>
       </span>
     </div>
 
@@ -154,9 +154,16 @@ structure and files of a CRAN repository, it supports functions like
 <code><a href='https://rdrr.io/r/utils/install.packages.html'>utils::install.packages()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/miniCRAN/man/makeRepo.html'>makeRepo</a></span>(<span class='kw'>pkgs</span>, <span class='kw'>path</span>, repos = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"repos"</span>), type = <span class='st'>"source"</span>,
-  Rversion = <span class='kw'>R.version</span>, download = <span class='fl'>TRUE</span>, writePACKAGES = <span class='fl'>TRUE</span>,
-  quiet = <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/miniCRAN/man/makeRepo.html'>makeRepo</a></span>(
+  <span class='kw'>pkgs</span>,
+  <span class='kw'>path</span>,
+  repos = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"repos"</span>),
+  type = <span class='st'>"source"</span>,
+  Rversion = <span class='kw'>R.version</span>,
+  download = <span class='fl'>TRUE</span>,
+  writePACKAGES = <span class='fl'>TRUE</span>,
+  quiet = <span class='fl'>FALSE</span>
+)
 
 <span class='fu'><a href='https://rdrr.io/pkg/miniCRAN/man/makeRepo.html'>updateRepoIndex</a></span>(<span class='kw'>path</span>, type = <span class='st'>"source"</span>, Rversion = <span class='kw'>R.version</span>)</pre>
 
@@ -189,7 +196,7 @@ installed on other platforms.  Passed to <code><a href='https://rdrr.io/r/utils/
 <li><p>a character string with the two digit R version, e.g. "3.1"</p></li>
 <li><p>a list with components <code>major</code> and <code>minor</code></p></li>
 <li><p>the result of <code><a href='https://rdrr.io/r/base/numeric_version.html'>getRversion()</a></code></p></li>
-<li><p>the result of <code><a href='https://rdrr.io/r/base/Version.html'>R.version()</a></code></p></li>
+<li><p>the result of <a href='https://rdrr.io/r/base/Version.html'>R.version</a></p></li>
 </ul></td>
     </tr>
     <tr>
@@ -234,9 +241,11 @@ subfolders for Windows as well as the various OSX binaries.</p>
 <p><code>..........+- PACKAGES</code></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other update repo functions: <code><a href='https://rdrr.io/pkg/miniCRAN/man/addOldPackage.html'>addOldPackage</a></code>,
-  <code><a href='https://rdrr.io/pkg/miniCRAN/man/addPackage.html'>addPackage</a></code>, <code><a href='https://rdrr.io/pkg/miniCRAN/man/checkVersions.html'>checkVersions</a></code>,
-  <code><a href='https://rdrr.io/pkg/miniCRAN/man/updatePackages.html'>updatePackages</a></code></p></div>
+    <div class='dont-index'><p>Other update repo functions: 
+<code><a href='https://rdrr.io/pkg/miniCRAN/man/addOldPackage.html'>addOldPackage</a>()</code>,
+<code><a href='https://rdrr.io/pkg/miniCRAN/man/addPackage.html'>addPackage</a>()</code>,
+<code><a href='https://rdrr.io/pkg/miniCRAN/man/checkVersions.html'>checkVersions</a>()</code>,
+<code><a href='https://rdrr.io/pkg/miniCRAN/man/updatePackages.html'>updatePackages</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
