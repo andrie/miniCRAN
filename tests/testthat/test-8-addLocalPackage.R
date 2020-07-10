@@ -10,16 +10,27 @@ make_fake_package <- function(version = "0.1.0", base_path = tempdir()) {
   foo <- function(x)NA
   
   # Create the skeleton
-  package.skeleton(
-    "fake.package", 
-    path = base_path, 
-    list = "foo",
-    force = TRUE, 
-    environment = environment(foo),
-    encoding = "UTF-8"
-    )
   
-  # Remove unneccessary detritus from skeleton
+  if (getRversion() >= "3.5") {
+    package.skeleton(
+      "fake.package", 
+      path = base_path, 
+      list = "foo",
+      force = TRUE, 
+      environment = environment(foo),
+      encoding = "UTF-8"
+    )
+  } else {
+    package.skeleton(
+      "fake.package", 
+      path = base_path, 
+      list = "foo",
+      force = TRUE, 
+      environment = environment(foo)
+    )
+  }
+  
+  # Remove unnecessary detritus from skeleton
   file.remove(file.path(fake_package, "NAMESPACE"))
   unlink(file.path(fake_package, "data"), recursive = TRUE)
   unlink(file.path(fake_package, "man"), recursive = TRUE)

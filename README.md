@@ -62,31 +62,6 @@ library(devtools)
 install_github("andrie/miniCRAN")
 ```
 
-### System requirements
-
-The `miniCRAN` package itself doesn’t introduce any system dependencies.
-However, the package imports the
-[`curl`](https://cran.r-project.org/package=curl) and
-[`XML`](https://cran.r-project.org/package=XML) packages. These have
-system requirements on `libxml2-devel`, `libcurl-devel` and
-`openssl-devel`.
-
-  - On systems with the `rpm` package manager (Red Hat, CentOS) try:
-
-<!-- end list -->
-
-``` bash
-yum install libcurl-devel libxml2-devel openssl-devel
-```
-
-  - On systems with the `aptitude` package manager (Debian, Ubuntu) try:
-
-<!-- end list -->
-
-``` bash
-apt-get install libcurl4-openssl-dev libxml2-devel openssl-devel
-```
-
 ## Example:
 
 ``` r

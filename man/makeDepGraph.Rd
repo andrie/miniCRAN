@@ -4,9 +4,16 @@
 \alias{makeDepGraph}
 \title{Create dependency graph from available packages.}
 \usage{
-makeDepGraph(pkg, availPkgs, repos = getOption("repos"),
-  type = "source", suggests = TRUE, enhances = FALSE,
-  includeBasePkgs = FALSE, ...)
+makeDepGraph(
+  pkg,
+  availPkgs,
+  repos = getOption("repos"),
+  type = "source",
+  suggests = TRUE,
+  enhances = FALSE,
+  includeBasePkgs = FALSE,
+  ...
+)
 }
 \arguments{
 \item{pkg}{Character vector of packages.}
@@ -71,7 +78,9 @@ if(require(igraph)) plot(p)
 \seealso{
 \code{\link[=pkgDep]{pkgDep()}} to extract package dependencies
 
-Other dependency functions: \code{\link{basePkgs}},
-  \code{\link{pkgDep}}, \code{\link{plot.pkgDepGraph}}
+Other dependency functions: 
+\code{\link{basePkgs}()},
+\code{\link{pkgDep}()},
+\code{\link{plot.pkgDepGraph}()}
 }
 \concept{dependency functions}

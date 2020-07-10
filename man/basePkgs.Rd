@@ -14,7 +14,9 @@ Retrieves names of installed packages by calling
 \seealso{
 \code{\link[=pkgDep]{pkgDep()}}
 
-Other dependency functions: \code{\link{makeDepGraph}},
-  \code{\link{pkgDep}}, \code{\link{plot.pkgDepGraph}}
+Other dependency functions: 
+\code{\link{makeDepGraph}()},
+\code{\link{pkgDep}()},
+\code{\link{plot.pkgDepGraph}()}
 }
 \concept{dependency functions}

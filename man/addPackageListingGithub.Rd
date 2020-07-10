@@ -4,8 +4,12 @@
 \alias{addPackageListingGithub}
 \title{Add DESCRIPTION information from package on github.}
 \usage{
-addPackageListingGithub(pdb = pkgAvail(), repo, username = NULL,
-  branch = "master")
+addPackageListingGithub(
+  pdb = pkgAvail(),
+  repo,
+  username = NULL,
+  branch = "master"
+)
 }
 \arguments{
 \item{pdb}{Package database, usually the result of \code{\link[=pkgAvail]{pkgAvail()}} or

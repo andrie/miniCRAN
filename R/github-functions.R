@@ -85,7 +85,6 @@ readDescriptionGithub <- function(repo, username, branch = "master", quiet = TRU
   pkg <- sprintf("https://github.com/%s/raw/%s/DESCRIPTION", repo, branch)
   ff <- tempfile()
   on.exit(unlink(ff))
-  #   download.file(url=pkg, destfile=ff, quiet=quiet, method="curl")
   request <- GET(pkg)
   stop_for_status(request)
   writeBin(content(request), ff)

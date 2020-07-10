@@ -19,20 +19,22 @@ test_that("package verson is extracted correctly", {
     "Matrix_1.2-12.tar.gz",
     "boot_1.3-20.tar.gz"
   )
-  expect_equal(
-    getPkgVersFromFile(ff),
-    data.frame(
-      package = c("boot", "KernSmooth", "MASS", "Matrix"),
-      version = c("1.3-20", "2.23-15", "7.3-47", "1.2-12"),
-      stringsAsFactors = FALSE,
-      row.names = NULL
-    )
+  
+  act <- getPkgVersFromFile(ff)
+  exp <- data.frame(
+    package = c("boot", "KernSmooth", "MASS", "Matrix"),
+    version = c("1.3-20", "2.23-15", "7.3-47", "1.2-12"),
+    stringsAsFactors = FALSE
   )
+  
+  expect_equal(sort(act$package), sort(exp$package))
+  expect_equal(sort(act$version), sort(exp$version))
+  
   
   expect_equal(
     getPkgVersFromFile("nonsense"),
     data.frame(package = character(0), version = character(0))
-    )
+  )
   
 })
 

@@ -4,8 +4,12 @@
 \alias{getCranDescription}
 \title{Obtains DESCRIPTION metadata from CRAN for each package.}
 \usage{
-getCranDescription(pkg, repos = getOption("repos"), type = "source",
-  pkgs = pkgDep(pkg, repos = repos, type = type))
+getCranDescription(
+  pkg,
+  repos = getOption("repos"),
+  type = "source",
+  pkgs = pkgDep(pkg, repos = repos, type = type)
+)
 }
 \arguments{
 \item{pkg}{Character vector of packages.}
@@ -20,7 +24,7 @@ installed on other platforms.  Passed to \code{\link[=download.packages]{downloa
 \item{pkgs}{Character vector of packages to download}
 }
 \description{
-This is a wrapper around \link[tools:CRAN_package_db]{tools::CRAN_package_db} and may be
+This is a wrapper around \code{tools::CRAN_package_db} and may be
 deprecated in future versions of the package.
 }
 \examples{
