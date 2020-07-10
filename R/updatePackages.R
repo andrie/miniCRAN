@@ -29,7 +29,7 @@
 #' @family update repo functions
 #'
 #' @example /inst/examples/example_updatePackages.R
-#'   
+#'
 oldPackages <- function(path = NULL, repos = getOption("repos"),
                         availPkgs = pkgAvail(repos = repos,
                                              type = type,
@@ -84,15 +84,15 @@ oldPackages <- function(path = NULL, repos = getOption("repos"),
 #' @return `updatePackages` returns `NULL` invisibly.
 #'
 #' @export
-#' 
+#'
 updatePackages <- function(path = NULL, repos = getOption("repos"), method = NULL, ask = TRUE,
                            availPkgs = pkgAvail(repos = repos, type = type, Rversion = Rversion),
                            oldPkgs = NULL, type = "source", Rversion = R.version, quiet = FALSE
 ) {
-  
+
   assert_that(is_path(path))
 
-  text.select <- function(old) {
+  text.select <- function(old, t) {
     update <- NULL
     for (k in seq_len(nrow(old))) {
       cat(old[k, "Package"], ":\n",
@@ -109,14 +109,14 @@ updatePackages <- function(path = NULL, repos = getOption("repos"), method = NUL
     }
     update
   }
-  
+
   simplifyRepos <- function(repos, t) {
     tail <- substring(contribUrl("---", type = t, Rversion = Rversion), 4)
     ind <- regexpr(tail, repos, fixed = TRUE)
     ind <- ifelse(ind > 0, ind - 1, nchar(repos, type = "c"))
     substr(repos, 1, ind)
   }
-  
+
   do_one <- function(t) {
     force(ask)
     if (!is.matrix(oldPkgs) && is.character(oldPkgs)) {
@@ -146,10 +146,10 @@ updatePackages <- function(path = NULL, repos = getOption("repos"), method = NUL
                          title = "Packages to be updated", graphics = TRUE)
         oldPkgs[match(k, oldPkgs[, 1L]), , drop = FALSE]
       } else {
-        text.select(oldPkgs)
+        text.select(oldPkgs, t)
       }
     } else if (isTRUE(ask)) {
-      text.select(oldPkgs)
+      text.select(oldPkgs, t)
     } else {
       oldPkgs
     }
