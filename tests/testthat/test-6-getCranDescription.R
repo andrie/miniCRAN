@@ -21,7 +21,7 @@ test_that("can read CRAN description", {
 test_that("throws error on old versions of R", {
   
   skip_on_cran()
-  skip_if(getRversion() > "3.4")
+  skip_if(getRversion() > "3.4", "Skipping on R>3.4")
   
   expect_error(
     getCranDescription("miniCRAN")
