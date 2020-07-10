@@ -19,29 +19,32 @@ test_that("package verson is extracted correctly", {
     "Matrix_1.2-12.tar.gz",
     "boot_1.3-20.tar.gz"
   )
-  
-  act <- getPkgVersFromFile(ff)
-  exp <- data.frame(
+  df <- data.frame(
     package = c("boot", "KernSmooth", "MASS", "Matrix"),
     version = c("1.3-20", "2.23-15", "7.3-47", "1.2-12"),
     stringsAsFactors = FALSE
   )
   
-  expect_equal(sort(act$package), sort(exp$package))
-  expect_equal(sort(act$version), sort(exp$version))
-  
+  # <don't understand> why we need to reorder to get tests to pass
+  df <- df[order(df$package), ]
+  row.names(df) <- seq_len(nrow(df))
+  # </don't understand>
   
   expect_equal(
-    getPkgVersFromFile("nonsense"),
-    data.frame(package = character(0), version = character(0))
+    getPkgVersFromFile(ff),
+    df
   )
-  
+
+  expect_equal(
+    getPkgVersFromFile("nonsense"),
+    data.frame(package = character(0), version = character(0), stringsAsFactors = FALSE)
+  )
 })
 
 test_that("readDescription reads file", {
   sf <- system.file("DESCRIPTION", package = "miniCRAN")
   desc <- readDescription(sf)
-  
+
   expect_is(desc, "list")
   expect_true(
     all(c("Imports", "Suggests", "Package") %in% names(desc))
