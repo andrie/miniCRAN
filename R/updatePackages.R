@@ -74,13 +74,20 @@ simplifyRepos <- function(repos, t, Rversion) {
   substr(repos, 1, ind)
 }
 
+graphics_capable <- function() {
+  .Platform$OS.type == "windows" || 
+    .Platform$GUI == "AQUA"      ||
+    (capabilities("tcltk") && capabilities("X11"))
+}
+
+select_from_list <- function(choices, preselect, multiple, title, graphics) {
+  utils::select.list(choices, preselect, multiple, title, graphics)
+}
+
 ask_to_update <- function(oldPkgs, t, Rversion, ask = FALSE) { 
   if (is.character(ask) && ask == "graphics") {
-    if (.Platform$OS.type == "windows" || 
-        .Platform$GUI == "AQUA"        ||
-        (capabilities("tcltk") && capabilities("X11"))
-    ) {
-      k <- select.list(
+    if (graphics_capable()) {
+      k <- select_from_list(
         choices = oldPkgs[, 1L], 
         preselect = oldPkgs[, 1L], 
         multiple = TRUE,
@@ -100,7 +107,9 @@ ask_to_update <- function(oldPkgs, t, Rversion, ask = FALSE) {
   }
 }
 
-
+read_line_wrapper <- function(prompt = "") {
+  base::readline(prompt)
+}
 
 ask_to_update_package <- function(old, t, Rversion) {
   update <- NULL
@@ -110,12 +119,14 @@ ask_to_update_package <- function(old, t, Rversion) {
         "Repos Version", old[k, "ReposVer"],
         "available at", simplifyRepos(old[k, "Repository"], t, Rversion))
     cat("\n")
-    answer <- tolower(substr(readline("Update (y/N/c)?  "), 1L, 1L))
+    answer <- tolower(substr(read_line_wrapper("Update (y/N/c)?  "), 1L, 1L))
     if (answer == "c") {
       cat("cancelled by user\n")
       return(invisible())
     }
-    if (answer == "y") update <- rbind(update, old[k, ])
+    if (answer == "y") {
+      update <- rbind(update, old[k, ])
+    }
   }
   update
 }
