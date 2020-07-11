@@ -112,6 +112,7 @@ for (pkg_type in names(types)) {
       
       tmpdir <- file.path(tempdir(), "miniCRAN", "local", pkg_type)
       expect_true(dir.create(tmpdir, recursive = TRUE, showWarnings = FALSE))
+      
       tmpdir <- normalizePath(tmpdir)
       expect_true(dir.exists(tmpdir))
       on.exit(unlink(tmpdir, recursive = TRUE), add = TRUE)
@@ -174,6 +175,7 @@ if (!is.online(MRAN_mirror, tryHttp = FALSE)) {
 }
 
 pkg_type <- names(types)[1]
+
 for (pkg_type in names(types)) {
   context(sprintf(" - Check for updates (%s)", pkg_type))
   
