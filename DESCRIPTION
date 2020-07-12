@@ -25,7 +25,7 @@ Imports:
     tools,
     utils,
     igraph,
-    assertthat
+    assertthat (>= 0.2.0)
 Suggests:
     devtools,
     knitr,
