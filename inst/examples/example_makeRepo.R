@@ -12,7 +12,8 @@ pdb <- cranJuly2014
   )
 }
 
-pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = revolution, type = "source", suggests = FALSE)
+pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = revolution,
+                  type = "source", suggests = FALSE)
 pkgList
 
 

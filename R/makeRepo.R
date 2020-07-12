@@ -30,6 +30,9 @@
 #'   repository PACKAGES file.
 #'
 #' @export
+#' 
+#' @return character vector of downloaded package files
+#' 
 #' @family update repo functions
 #'
 #' @importFrom utils download.packages

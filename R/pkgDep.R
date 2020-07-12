@@ -33,16 +33,23 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #'
 #' @param depends If TRUE, retrieves `Depends`, `Imports` and `LinkingTo` dependencies
 #'   (non-recursively)
+#'   
 #' @param suggests If TRUE, retrieves Suggests dependencies (non-recursively)
+#' 
 #' @param enhances If TRUE, retrieves Enhances dependencies (non-recursively)
+#' 
 #' @param quiet If TRUE, suppresses warnings
 #'
 #' @param includeBasePkgs If TRUE, include base R packages in results
+#' 
 #' @template Rversion
+#' 
 #' @param ... Other arguments passed to [available.packages()]
 #'
 #' @export
 #' @family dependency functions
+#' 
+#' @return character vector of package names
 #'
 #' @example /inst/examples/example_pkgDep.R
 #'   
