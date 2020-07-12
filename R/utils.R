@@ -13,7 +13,7 @@ download_packages <- function(pkgs, destdir, available, repos, contriburl, type,
 
 # Thin wrapper around write_PACKAGES
 write_packages <- function(dir, type, r_version) {
-  r_version <- miniCRAN::twodigitRversion(r_version)
+  r_version <- twodigitRversion(r_version)
   if (r_version >= "3.5.0") {
     tools::write_PACKAGES(dir = dir, type = type) 
   } else {

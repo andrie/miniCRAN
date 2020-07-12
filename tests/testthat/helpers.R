@@ -82,7 +82,7 @@ mock_write_packages <- function(dir, type = "source", r_version) {
     write.dcf(db, con)
     close(con)
     rownames(db) <- db[, "Package"]
-    r_version <- miniCRAN::twodigitRversion(r_version)
+    r_version <- twodigitRversion(r_version)
     if (r_version >= "3.5.0") {
       saveRDS(db, file.path(dir, "PACKAGES.rds"), compress = "xz")
     } else {
