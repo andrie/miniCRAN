@@ -355,7 +355,7 @@ addLocalPackage <- function(pkgs = NULL, pkgPath = NULL, path = NULL,
   sapply(type, do_one)
 
   # write package index for each folder:
-  index <- updateRepoIndex(path = path, type = type, Rversion = Rversion)
+  index <- if (writePACKAGES) updateRepoIndex(path = path, type = type, Rversion = Rversion)
 
   invisible(index)
 }
