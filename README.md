@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![R build
+status](https://github.com/andrie/miniCRAN/workflows/R-CMD-check/badge.svg)](https://github.com/andrie/miniCRAN/actions)
 [![Code
 coverage](https://codecov.io/gh/andrie/miniCRAN/branch/master/graph/badge.svg)](https://codecov.io/gh/andrie/miniCRAN?branch=master)
 [![CRAN
@@ -13,10 +15,6 @@ version](http://www.r-pkg.org/badges/version/miniCRAN)](http://www.r-pkg.org/pkg
 downloads](http://cranlogs.r-pkg.org/badges/miniCRAN)](http://www.r-pkg.org/pkg/miniCRAN)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/miniCRAN)](https://cran.r-project.org/package=miniCRAN)
-[![R build
-status](https://github.com/andrie/miniCRAN/workflows/R-CMD-check/badge.svg)](https://github.com/andrie/miniCRAN/actions)
-[![Codecov test
-coverage](https://codecov.io/gh/andrie/miniCRAN/branch/master/graph/badge.svg)](https://codecov.io/gh/andrie/miniCRAN?branch=master)
 <!-- badges: end -->
 
 Create a mini version of CRAN containing only selected packages
