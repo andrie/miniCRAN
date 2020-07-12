@@ -95,7 +95,7 @@ updateRepoIndex <- function(path, type = "source", Rversion = R.version) {
   n <- lapply(type, function(t) {
     pkgPath <- repoBinPath(path = path, type = t, Rversion = Rversion)
     if (grepl("mac.binary", t)) t <- "mac.binary"
-    write_packages(dir = pkgPath, type = t)
+    write_packages(dir = pkgPath, type = t, r_version = Rversion)
   })
   names(n) <- type
   n

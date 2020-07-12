@@ -4,6 +4,7 @@ miniCRAN dev version
 Bug fixes:
 
 * Fix "t undefined in scope error" #125, contributed by @Calligross (https://github.com/calligross)
+* Update code and tests to write PACKAGES.rds with compression version 2 for versions of R earlier than R-3.5.0 #129
 
 Minor changes:
 
