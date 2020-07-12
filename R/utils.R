@@ -17,7 +17,11 @@ write_packages <- function(dir, type, r_version) {
   if (r_version >= "3.5.0") {
     tools::write_PACKAGES(dir = dir, type = type) 
   } else {
-    tools::write_PACKAGES(dir = dir, type = type, rds_compress = 2) 
+    if (getRversion() >= "3.5.0") {
+      tools::write_PACKAGES(dir = dir, type = type, rds_compress = 2) 
+    } else {
+      tools::write_PACKAGES(dir = dir, type = type) 
+    }
   }
 }
 
