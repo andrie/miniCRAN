@@ -1,7 +1,6 @@
 if (interactive()) {library(testthat); Sys.setenv(NOT_CRAN = "true")}
 # set_mock_environment()
 
-context("updateRepo")
 
 # make baseline repo ------------------------------------------------------
 
@@ -50,7 +49,7 @@ pkgsAdd <- c("forecast")
 pkg_type <- names(types)[1]
 for (pkg_type in names(types)) {
   
-  context(sprintf(" - Add packages to repo (%s)", pkg_type))
+  # context(sprintf(" - Add packages to repo (%s)", pkg_type))
   
   test_that(sprintf(
     "addPackage downloads %s files and rebuilds PACKAGES file", 
@@ -100,7 +99,7 @@ pkgsAddLocal <- c("MASS")
 
 for (pkg_type in names(types)) {
   
-  context(sprintf(" - Add local packages to repo (%s)", pkg_type))
+  # context(sprintf(" - Add local packages to repo (%s)", pkg_type))
   
   test_that(
     sprintf("addLocalPackage copies %s files and rebuilds PACKAGES", 
@@ -177,7 +176,7 @@ if (!is.online(MRAN_mirror, tryHttp = FALSE)) {
 pkg_type <- names(types)[1]
 
 for (pkg_type in names(types)) {
-  context(sprintf(" - Check for updates (%s)", pkg_type))
+  # context(sprintf(" - Check for updates (%s)", pkg_type))
   
   test_that(
     sprintf("updatePackages downloads %s files and builds PACKAGES", pkg_type), 
@@ -246,7 +245,7 @@ for (pkg_type in names(types)) {
 
 # Check for duplicate packages --------------------------------------------
 
-context(" - Check for duplicate files")
+# context(" - Check for duplicate files")
 
 for (pkg_type in names(types)) {
   

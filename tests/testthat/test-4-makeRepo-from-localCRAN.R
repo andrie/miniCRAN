@@ -1,6 +1,5 @@
 if (interactive()) {library(testthat); Sys.setenv(NOT_CRAN = "true")}
 
-context("makeRepo from local miniCRAN")
 
 {
   revolution <- MRAN("2014-10-15")

@@ -1,6 +1,5 @@
 if (interactive()) {library(testthat); Sys.setenv(NOT_CRAN = "true")}
 
-context("makeRepo")
 
 {
   revolution <- MRAN("2014-10-15")
@@ -22,7 +21,6 @@ context("makeRepo")
 types <- c("source", "win.binary", "mac.binary", "mac.binary.mavericks")
 
 for (pkg_type in (types)) {
-  context(sprintf(" - %s", pkg_type))
   test_that(sprintf("makeRepo downloads %s files and builds PACKAGES",
                     pkg_type), {
 

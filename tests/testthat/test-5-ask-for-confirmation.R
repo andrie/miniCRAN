@@ -1,4 +1,3 @@
-context("ask for confirmation")
 
 old <- matrix(
   c("adaptivetau", "BH", "digest", 

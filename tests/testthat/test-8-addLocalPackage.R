@@ -1,4 +1,3 @@
-context("addLocalPackage")
 
 # Create a helper function to make a fake package in tempdir()
 

@@ -1,5 +1,4 @@
 if (interactive()) {library(testthat); library(testthis)}
-context("get CRAN description")
 
 test_that("can read CRAN description", {
 
