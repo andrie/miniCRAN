@@ -35,7 +35,10 @@ checkVersions <- function(pkgs = NULL, path = NULL, type = "source",
     if (is.null(pkgs)) {
       files <- dir(pkgPath)
     } else {
-      files <- sapply(pkgs, function(x) list.files(pkgPath, pattern = paste0(x, "_")) )
+      files <- sapply(
+        pkgs, 
+        function(x) list.files(pkgPath, pattern = paste0(x, "_")) 
+      )
     }
     files <- unlist(files)
     pkgFiles <- grep("\\.(tar\\.gz|zip|tgz)$", basename(files), value = TRUE)
@@ -44,7 +47,8 @@ checkVersions <- function(pkgs = NULL, path = NULL, type = "source",
     pkgs <- sapply(strsplit(files, "_"), "[[", 1)
     dupes <- pkgs[duplicated(pkgs)]
     if (length(dupes)) {
-      warning("Duplicate package(s): ", paste(dupes, collapse = ", "), call. = FALSE)
+      warning("Duplicate package(s): ", paste(dupes, collapse = ", "), 
+              call. = FALSE)
     }
     file.path(pkgPath, pkgFiles)
   }
