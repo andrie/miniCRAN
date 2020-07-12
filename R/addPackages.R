@@ -113,10 +113,10 @@ addPackage <- function(pkgs = NULL, path = NULL, repos = getOption("repos"),
     }
   }
 
-  lapply(type, do_one)
+  ret <- lapply(type, do_one)
 
-  n <- if (writePACKAGES) updateRepoIndex(path = path, type = type, Rversion = Rversion)
-  invisible(n)
+  if (writePACKAGES) updateRepoIndex(path = path, type = type, Rversion = Rversion)
+  invisible(ret)
 }
 
 
@@ -174,8 +174,11 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
                                    method = "auto", mode = "wb", quiet = quiet)
     if (result != 0) warning("error downloading file ", x)
   }
-  sapply(oldPkgs, do_one)
-  if (writePACKAGES) invisible(updateRepoIndex(path = path, type = type, Rversion))
+  ret <- sapply(oldPkgs, do_one)
+  if (writePACKAGES) {
+    updateRepoIndex(path = path, type = type, Rversion)
+  }
+  invisible(ret)
 }
 
 
@@ -269,7 +272,7 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 #'   (i.e., the package directory path is constructed from `file.path(pkgPath,
 #'   pkgs)`).
 #'   
-#' @param build    Logical indicating whether packages should be build prior to
+#' @param build Logical indicating whether packages should be build prior to
 #'   adding.
 #'
 #' @return Installs the packages and returns the new package index.
@@ -350,12 +353,14 @@ addLocalPackage <- function(pkgs = NULL, pkgPath = NULL, path = NULL,
     
     # remove previous package versions
     if (length(prev[-same]) > 0) unlink(prev[-same])
+    file.path(repoPath, files)[copied]
   }
   
-  sapply(type, do_one)
+  ret <- sapply(type, do_one)
 
   # write package index for each folder:
-  index <- if (writePACKAGES) updateRepoIndex(path = path, type = type, Rversion = Rversion)
-
-  invisible(index)
+  if (writePACKAGES) {
+    updateRepoIndex(path = path, type = type, Rversion = Rversion)
+  }
+  invisible(ret)
 }

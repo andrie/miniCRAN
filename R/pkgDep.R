@@ -127,6 +127,7 @@ pkgDep <- function(pkg, availPkgs, repos = getOption("repos"), type = "source",
     p_all = p_all
     )
   class(ret) <- c("pkgDep", "character")
+  assert_that(is_package_vector(ret))
   ret
 }
 

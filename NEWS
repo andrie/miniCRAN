@@ -9,6 +9,9 @@ Minor changes:
 
 * Removed the dependency on `XML`.  This will only affect a non-essential function (`getCranDesription`) on versions of R prior to R-3.4.0
 * Removed reference to dependency on `curl`, since the actual dependency was removed in a previous version of the package.
+* Treat the `writePACKAGES` argument consistently, as suggested by @vh-d in #130
+* Improve test coverage
+
 
 
 
