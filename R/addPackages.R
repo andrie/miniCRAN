@@ -21,6 +21,10 @@ if (getRversion() >= "3.1.0") {
 #'   for removal.
 #'
 #' @export
+#'
+#' @return list with an element for each `type`, consisting of a character
+#'   vector of download paths
+#'
 #' @family update repo functions
 #'
 #' @example /inst/examples/example_checkVersions.R
