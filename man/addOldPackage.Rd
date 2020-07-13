@@ -67,7 +67,8 @@ automatically and must be specified by the user in \code{pkgs} and \code{vers}. 
 ### `checkVersions` and `add.packages.miniCRAN` require an existing miniCRAN repo
 
 # Specify list of packages to download
-revolution <- c(CRAN = getOption("miniCRAN.mran"))
+revolution <- c(CRAN = getOption("minicran.mran"))
+revolution
 pkgs <- c("foreach")
 pkgTypes <- c("source", "win.binary")
 
