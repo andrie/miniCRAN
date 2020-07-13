@@ -1,7 +1,4 @@
 if(interactive()) library(testthat)
-context("pkgDep")
-
-
 
 # incorrect package list --------------------------------------------------
 

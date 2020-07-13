@@ -1,4 +1,3 @@
-context("pkgAvail")
 
 test_that("pkgAvail throws warnings and errors for incorrect CRAN repos", {
   expect_warning(pkgAvail(repos = ""))

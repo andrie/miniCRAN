@@ -48,6 +48,9 @@ repository PACKAGES file.}
 \item{quiet}{If TRUE, suppress status messages (if any), and the progress bar
 during download.}
 }
+\value{
+character vector of downloaded package files
+}
 \description{
 Given a list of packages, downloads these packages to a specified destination
 folder using the required CRAN folder structure, and finally creates the
@@ -106,7 +109,8 @@ pdb <- cranJuly2014
   )
 }
 
-pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = revolution, type = "source", suggests = FALSE)
+pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = revolution,
+                  type = "source", suggests = FALSE)
 pkgList
 
 

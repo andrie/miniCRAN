@@ -30,6 +30,9 @@
 #'   repository PACKAGES file.
 #'
 #' @export
+#' 
+#' @return character vector of downloaded package files
+#' 
 #' @family update repo functions
 #'
 #' @importFrom utils download.packages
@@ -37,7 +40,13 @@
 #' @example /inst/examples/example_makeRepo.R
 makeRepo <- function(pkgs, path, repos = getOption("repos"), type = "source",
                      Rversion = R.version, download = TRUE, writePACKAGES = TRUE, quiet = FALSE) {
-  if (!file.exists(path)) stop("Download path does not exist")
+  
+  assert_that(is_path(path))
+  # if (!file.exists(path)) stop("Download path does not exist")
+  assert_that(path_exists(path))
+  
+  assert_that(is_repos(repos)) 
+  
 
   downloaded <- lapply(type, function(t) {
     pkgPath <- repoBinPath(path = path, type = t, Rversion = Rversion)
@@ -92,7 +101,7 @@ updateRepoIndex <- function(path, type = "source", Rversion = R.version) {
   n <- lapply(type, function(t) {
     pkgPath <- repoBinPath(path = path, type = t, Rversion = Rversion)
     if (grepl("mac.binary", t)) t <- "mac.binary"
-    write_packages(dir = pkgPath, type = t)
+    write_packages(dir = pkgPath, type = t, r_version = Rversion)
   })
   names(n) <- type
   n

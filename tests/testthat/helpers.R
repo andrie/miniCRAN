@@ -61,7 +61,7 @@ mock_download_packages <- function(pkgs, destdir, available, type, ...) {
   t(downloads)
 }
 
-mock_write_packages <- function(dir, type = "source") {
+mock_write_packages <- function(dir, type = "source", r_version) {
   pattern <- ".tgz$|.zip$|.tar.gz$"
   if (grepl("mac.binary", type)) type <- "mac.binary"
   ff <- list.files(dir, recursive = TRUE, full.names = TRUE, pattern = pattern)
@@ -82,7 +82,12 @@ mock_write_packages <- function(dir, type = "source") {
     write.dcf(db, con)
     close(con)
     rownames(db) <- db[, "Package"]
-    saveRDS(db, file.path(dir, "PACKAGES.rds"), compress = "xz")
+    r_version <- twodigitRversion(r_version)
+    if (r_version >= "3.5.0") {
+      saveRDS(db, file.path(dir, "PACKAGES.rds"), compress = "xz")
+    } else {
+      saveRDS(db, file.path(dir, "PACKAGES.rds"), compress = "xz", version = 2)
+    }
   }
   np
 }

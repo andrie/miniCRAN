@@ -1,7 +1,6 @@
 if (interactive()) {library(testthat); Sys.setenv(NOT_CRAN = "true")}
 # set_mock_environment()
 
-context("updateRepo")
 
 # make baseline repo ------------------------------------------------------
 
@@ -100,7 +99,7 @@ pkgsAddLocal <- c("MASS")
 
 for (pkg_type in names(types)) {
   
-  context(sprintf(" - Add local packages to repo (%s)", pkg_type))
+  # context(sprintf(" - Add local packages to repo (%s)", pkg_type))
   
   test_that(
     sprintf("addLocalPackage copies %s files and rebuilds PACKAGES", 
@@ -112,6 +111,7 @@ for (pkg_type in names(types)) {
       
       tmpdir <- file.path(tempdir(), "miniCRAN", "local", pkg_type)
       expect_true(dir.create(tmpdir, recursive = TRUE, showWarnings = FALSE))
+      
       tmpdir <- normalizePath(tmpdir)
       expect_true(dir.exists(tmpdir))
       on.exit(unlink(tmpdir, recursive = TRUE), add = TRUE)
@@ -174,8 +174,9 @@ if (!is.online(MRAN_mirror, tryHttp = FALSE)) {
 }
 
 pkg_type <- names(types)[1]
+
 for (pkg_type in names(types)) {
-  context(sprintf(" - Check for updates (%s)", pkg_type))
+  # context(sprintf(" - Check for updates (%s)", pkg_type))
   
   test_that(
     sprintf("updatePackages downloads %s files and builds PACKAGES", pkg_type), 
@@ -244,8 +245,9 @@ for (pkg_type in names(types)) {
 
 # Check for duplicate packages --------------------------------------------
 
-context(" - Check for duplicate files")
+# context(" - Check for duplicate files")
 
+pkg_type <- names(types)[3]
 for (pkg_type in names(types)) {
   
   test_that(
@@ -254,48 +256,48 @@ for (pkg_type in names(types)) {
       
       skip_on_cran()
       skip_if_offline(MRAN_mirror)
-          
       
-          oldVersions <- list(package = c("acepack"),
-                              version = c("1.3-2"))
-          
-          if (pkg_type != "source") {
-            
-            expect_error(
-              with_mock(
-                download_packages = mock_download_packages,
-                write_packages = mock_write_packages,
-                .env = "miniCRAN",
-                {
-                  addOldPackage(oldVersions[["package"]], path = repo_root, 
-                                vers = oldVersions[["version"]],
-                                repos = MRAN_mirror, type = pkg_type)
-                })
-            )
-          } else {
-            with_mock(
-              download_packages = mock_download_packages,
-              write_packages = mock_write_packages,
-              .env = "miniCRAN",
-              {
-                addOldPackage(oldVersions[["package"]], path = repo_root, 
-                              vers = oldVersions[["version"]],
-                              repos = MRAN_mirror, type = pkg_type)
-              })
-            files <- suppressWarnings(
-              checkVersions(path = repo_root, type = pkg_type)[[pkg_type]]
-            )
-            
-            expect_true(
-              all(file.exists(files))
-            )
-            
-            pkgs <- sapply(strsplit(basename(files), "_"), "[[", 1)
-            dupes <- pkgs[duplicated(pkgs)]
-            expect_true(
-              all(dupes == oldVersions[["package"]])
-            )
-            
-          }
+      
+      oldVersions <- list(package = c("acepack"),
+                          version = c("1.3-2"))
+      
+      if (pkg_type != "source") {
+        
+        expect_error(
+          with_mock(
+            download_packages = mock_download_packages,
+            write_packages = mock_write_packages,
+            .env = "miniCRAN",
+            {
+              addOldPackage(oldVersions[["package"]], path = repo_root, 
+                            vers = oldVersions[["version"]],
+                            repos = MRAN_mirror, type = pkg_type)
+            })
+        )
+      } else {
+        with_mock(
+          download_packages = mock_download_packages,
+          write_packages = mock_write_packages,
+          .env = "miniCRAN",
+          {
+            addOldPackage(oldVersions[["package"]], path = repo_root, 
+                          vers = oldVersions[["version"]],
+                          repos = MRAN_mirror, type = pkg_type)
+          })
+        files <- suppressWarnings(
+          checkVersions(path = repo_root, type = pkg_type)[[pkg_type]]
+        )
+        
+        expect_true(
+          all(file.exists(files))
+        )
+        
+        pkgs <- sapply(strsplit(basename(files), "_"), "[[", 1)
+        dupes <- pkgs[duplicated(pkgs)]
+        expect_true(
+          all(dupes == oldVersions[["package"]])
+        )
+        
+      }
     })
 }

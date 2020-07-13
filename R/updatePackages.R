@@ -67,6 +67,71 @@ oldPackages <- function(path = NULL, repos = getOption("repos"),
 }
 
 
+simplifyRepos <- function(repos, t, Rversion) {
+  tail <- substring(contribUrl("---", type = t, Rversion = Rversion), 4)
+  ind  <- regexpr(tail, repos, fixed = TRUE)
+  ind  <- ifelse(ind > 0, ind - 1, nchar(repos, type = "c"))
+  substr(repos, 1, ind)
+}
+
+graphics_capable <- function() {
+  .Platform$OS.type == "windows" || 
+    .Platform$GUI == "AQUA"      ||
+    (capabilities("tcltk") && capabilities("X11"))
+}
+
+select_from_list <- function(choices, preselect, multiple, title, graphics) {
+  utils::select.list(choices, preselect, multiple, title, graphics)
+}
+
+ask_to_update <- function(oldPkgs, t, Rversion, ask = FALSE) { 
+  if (is.character(ask) && ask == "graphics") {
+    if (graphics_capable()) {
+      k <- select_from_list(
+        choices = oldPkgs[, 1L], 
+        preselect = oldPkgs[, 1L], 
+        multiple = TRUE,
+        title = "Packages to be updated", 
+        graphics = TRUE
+      )
+      oldPkgs[match(k, oldPkgs[, 1L]), , drop = FALSE]
+    } else {
+      ask_to_update_package(oldPkgs, t, Rversion)
+    }
+  } else {
+    if (isTRUE(ask)) {
+      ask_to_update_package(oldPkgs, t, Rversion)
+    } else {
+      oldPkgs
+    }
+  }
+}
+
+read_line_wrapper <- function(prompt = "") {
+  base::readline(prompt)
+}
+
+ask_to_update_package <- function(old, t, Rversion) {
+  update <- NULL
+  for (k in seq_len(nrow(old))) {
+    cat(old[k, "Package"], ":\n",
+        "Local Version", old[k, "LocalVer"], "\n",
+        "Repos Version", old[k, "ReposVer"],
+        "available at", simplifyRepos(old[k, "Repository"], t, Rversion))
+    cat("\n")
+    answer <- tolower(substr(read_line_wrapper("Update (y/N/c)?  "), 1L, 1L))
+    if (answer == "c") {
+      cat("cancelled by user\n")
+      return(invisible())
+    }
+    if (answer == "y") {
+      update <- rbind(update, old[k, ])
+    }
+  }
+  update
+}
+
+
 
 #' @inheritParams makeRepo
 #'
@@ -85,40 +150,21 @@ oldPackages <- function(path = NULL, repos = getOption("repos"),
 #'
 #' @export
 #'
-updatePackages <- function(path = NULL, repos = getOption("repos"), method = NULL, ask = TRUE,
-                           availPkgs = pkgAvail(repos = repos, type = type, Rversion = Rversion),
-                           oldPkgs = NULL, type = "source", Rversion = R.version, quiet = FALSE
+updatePackages <- function(
+  path = NULL, 
+  repos = getOption("repos"), 
+  method = NULL, 
+  ask = TRUE,
+  availPkgs = pkgAvail(repos = repos, type = type, Rversion = Rversion),
+  oldPkgs = NULL, 
+  type = "source",
+  Rversion = R.version, 
+  quiet = FALSE
 ) {
-
+  
   assert_that(is_path(path))
 
-  text.select <- function(old, t) {
-    update <- NULL
-    for (k in seq_len(nrow(old))) {
-      cat(old[k, "Package"], ":\n",
-          "Local Version", old[k, "LocalVer"], "\n",
-          "Repos Version", old[k, "ReposVer"],
-          "available at", simplifyRepos(old[k, "Repository"], t))
-      cat("\n")
-      answer <- substr(readline("Update (y/N/c)?  "), 1L, 1L)
-      if (answer == "c" | answer == "C") {
-        cat("cancelled by user\n")
-        return(invisible())
-      }
-      if (answer == "y" | answer == "Y") update <- rbind(update, old[k, ])
-    }
-    update
-  }
-
-  simplifyRepos <- function(repos, t) {
-    tail <- substring(contribUrl("---", type = t, Rversion = Rversion), 4)
-    ind <- regexpr(tail, repos, fixed = TRUE)
-    ind <- ifelse(ind > 0, ind - 1, nchar(repos, type = "c"))
-    substr(repos, 1, ind)
-  }
-
-  do_one <- function(t) {
-    force(ask)
+  do_one <- function(t, Rversion, ask) {
     if (!is.matrix(oldPkgs) && is.character(oldPkgs)) {
       subset <- oldPkgs
       oldPkgs <- NULL
@@ -126,38 +172,37 @@ updatePackages <- function(path = NULL, repos = getOption("repos"), method = NUL
       subset <- NULL
     }
     if (is.null(oldPkgs)) {
-      oldPkgs <- oldPackages(path = path, repos = repos, method = method,
-                             availPkgs = availPkgs, type = t, Rversion = Rversion)
+      oldPkgs <- oldPackages(
+        path = path, repos = repos, method = method,
+        availPkgs = availPkgs, type = t, Rversion = Rversion
+      )
       if (is.null(oldPkgs)) {
         message("All packages are up to date from repos: ", names(repos))
         return(invisible())
       }
-    } else if (!(is.matrix(oldPkgs) && is.character(oldPkgs))) {
-      stop("invalid 'oldPkgs'; must be a character vector or a result from oldPackages()")
+    } else {
+      if (!(is.matrix(oldPkgs) && is.character(oldPkgs))) {
+        msg <- paste0(
+          "invalid 'oldPkgs'; ",
+          "must be a character vector or a result from oldPackages()"
+        )
+        stop(msg)
+      }
     }
     if (!is.null(subset)) {
       oldPkgs <- oldPkgs[rownames(oldPkgs) %in% subset, , drop = FALSE]
       if (nrow(oldPkgs) == 0) return(invisible())
     }
-    update <- if (is.character(ask) && ask == "graphics") {
-      if (.Platform$OS.type == " windows" || .Platform$GUI == "AQUA" ||
-          (capabilities("tcltk") && capabilities("X11"))) {
-        k <- select.list(oldPkgs[, 1L], oldPkgs[, 1L], multiple = TRUE,
-                         title = "Packages to be updated", graphics = TRUE)
-        oldPkgs[match(k, oldPkgs[, 1L]), , drop = FALSE]
-      } else {
-        text.select(oldPkgs, t)
-      }
-    } else if (isTRUE(ask)) {
-      text.select(oldPkgs, t)
-    } else {
-      oldPkgs
-    }
+    
+    update <- ask_to_update(oldPkgs = oldPkgs, t = t, Rversion = Rversion, ask = ask)
+    
     if (length(update[, "Package"])) {
-      addPackage(update[, "Package"], path = path, repos = repos, type = t,
-                 quiet = quiet, deps = FALSE, Rversion = Rversion)
+      addPackage(
+        update[, "Package"], path = path, repos = repos, type = t,
+        quiet = quiet, deps = FALSE, Rversion = Rversion
+      )
     }
   }
 
-  lapply(type, do_one)
+  lapply(type, do_one, Rversion = Rversion, ask = ask)
 }

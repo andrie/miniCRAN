@@ -53,6 +53,9 @@ installed on other platforms.  Passed to \code{\link[=download.packages]{downloa
 
 \item{...}{Other arguments passed to \code{\link[=available.packages]{available.packages()}}}
 }
+\value{
+character vector of package names
+}
 \description{
 Performs recursive retrieve for \code{Depends}, \code{Imports} and \code{LinkLibrary}.
 Performs non-recursive retrieve for \code{Suggests}.

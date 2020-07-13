@@ -1,4 +1,3 @@
-context("r-version")
 
 # R.version
 R.version_3.6.0 <- structure(list(

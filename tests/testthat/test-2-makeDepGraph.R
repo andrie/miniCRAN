@@ -30,7 +30,6 @@ checkPkgDepFunctions <- function(pkg, availPkgs = cranJuly2014,
 }
 
 
-context("makeDepGraph ")
 
 mock_require <- function(pkg, ...) {
   packages.to.exclude <- c("igraph")

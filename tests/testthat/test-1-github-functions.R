@@ -2,7 +2,6 @@ if (interactive()) library(testthat)
 
 # Copyright (c) Andrie de Vries 2018
 
-context("github-functions")
 
 test_that("package file extension is computed correctly", {
   expect_equal(pkgFileExt("source"), ".tar.gz")

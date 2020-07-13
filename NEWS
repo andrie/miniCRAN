@@ -4,11 +4,15 @@ miniCRAN dev version
 Bug fixes:
 
 * Fix "t undefined in scope error" #125, contributed by @Calligross (https://github.com/calligross)
+* Update code and tests to write PACKAGES.rds with compression version 2 for versions of R earlier than R-3.5.0 #129
 
 Minor changes:
 
 * Removed the dependency on `XML`.  This will only affect a non-essential function (`getCranDesription`) on versions of R prior to R-3.4.0
 * Removed reference to dependency on `curl`, since the actual dependency was removed in a previous version of the package.
+* Treat the `writePACKAGES` argument consistently, as suggested by @vh-d in #130
+* Improve test coverage
+
 
 
 

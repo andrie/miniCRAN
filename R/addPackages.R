@@ -21,6 +21,10 @@ if (getRversion() >= "3.1.0") {
 #'   for removal.
 #'
 #' @export
+#'
+#' @return list with an element for each `type`, consisting of a character
+#'   vector of download paths
+#'
 #' @family update repo functions
 #'
 #' @example /inst/examples/example_checkVersions.R
@@ -35,7 +39,10 @@ checkVersions <- function(pkgs = NULL, path = NULL, type = "source",
     if (is.null(pkgs)) {
       files <- dir(pkgPath)
     } else {
-      files <- sapply(pkgs, function(x) list.files(pkgPath, pattern = paste0(x, "_")) )
+      files <- sapply(
+        pkgs, 
+        function(x) list.files(pkgPath, pattern = paste0(x, "_")) 
+      )
     }
     files <- unlist(files)
     pkgFiles <- grep("\\.(tar\\.gz|zip|tgz)$", basename(files), value = TRUE)
@@ -44,7 +51,8 @@ checkVersions <- function(pkgs = NULL, path = NULL, type = "source",
     pkgs <- sapply(strsplit(files, "_"), "[[", 1)
     dupes <- pkgs[duplicated(pkgs)]
     if (length(dupes)) {
-      warning("Duplicate package(s): ", paste(dupes, collapse = ", "), call. = FALSE)
+      warning("Duplicate package(s): ", paste(dupes, collapse = ", "), 
+              call. = FALSE)
     }
     file.path(pkgPath, pkgFiles)
   }
@@ -113,10 +121,10 @@ addPackage <- function(pkgs = NULL, path = NULL, repos = getOption("repos"),
     }
   }
 
-  lapply(type, do_one)
+  ret <- lapply(type, do_one)
 
-  n <- if (writePACKAGES) updateRepoIndex(path = path, type = type, Rversion = Rversion)
-  invisible(n)
+  if (writePACKAGES) updateRepoIndex(path = path, type = type, Rversion = Rversion)
+  invisible(ret)
 }
 
 
@@ -174,8 +182,11 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
                                    method = "auto", mode = "wb", quiet = quiet)
     if (result != 0) warning("error downloading file ", x)
   }
-  sapply(oldPkgs, do_one)
-  if (writePACKAGES) invisible(updateRepoIndex(path = path, type = type, Rversion))
+  ret <- sapply(oldPkgs, do_one)
+  if (writePACKAGES) {
+    updateRepoIndex(path = path, type = type, Rversion)
+  }
+  invisible(ret)
 }
 
 
@@ -269,7 +280,7 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 #'   (i.e., the package directory path is constructed from `file.path(pkgPath,
 #'   pkgs)`).
 #'   
-#' @param build    Logical indicating whether packages should be build prior to
+#' @param build Logical indicating whether packages should be build prior to
 #'   adding.
 #'
 #' @return Installs the packages and returns the new package index.
@@ -350,12 +361,14 @@ addLocalPackage <- function(pkgs = NULL, pkgPath = NULL, path = NULL,
     
     # remove previous package versions
     if (length(prev[-same]) > 0) unlink(prev[-same])
+    file.path(repoPath, files)[copied]
   }
   
-  sapply(type, do_one)
+  ret <- sapply(type, do_one)
 
   # write package index for each folder:
-  index <- updateRepoIndex(path = path, type = type, Rversion = Rversion)
-
-  invisible(index)
+  if (writePACKAGES) {
+    updateRepoIndex(path = path, type = type, Rversion = Rversion)
+  }
+  invisible(ret)
 }

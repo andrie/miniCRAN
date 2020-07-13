@@ -26,6 +26,9 @@ install. See \code{\link[=install.packages]{install.packages()}}.}
 \value{
 Returns invisibly the file paths to packages with multiple versions
 for removal.
+
+list with an element for each \code{type}, consisting of a character
+vector of download paths
 }
 \description{
 Checks for previous versions, and returns the file paths for packages with
@@ -35,7 +38,8 @@ multiple versions. You can subsequently decide which version to keep.
 ### `checkVersions` and `add.packages.miniCRAN` require an existing miniCRAN repo
 
 # Specify list of packages to download
-revolution <- c(CRAN = getOption("miniCRAN.mran"))
+revolution <- c(CRAN = getOption("minicran.mran"))
+revolution
 pkgs <- c("foreach")
 pkgTypes <- c("source", "win.binary")
 
