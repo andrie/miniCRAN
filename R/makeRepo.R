@@ -40,7 +40,13 @@
 #' @example /inst/examples/example_makeRepo.R
 makeRepo <- function(pkgs, path, repos = getOption("repos"), type = "source",
                      Rversion = R.version, download = TRUE, writePACKAGES = TRUE, quiet = FALSE) {
-  if (!file.exists(path)) stop("Download path does not exist")
+  
+  assert_that(is_path(path))
+  # if (!file.exists(path)) stop("Download path does not exist")
+  assert_that(path_exists(path))
+  
+  assert_that(is_repos(repos)) 
+  
 
   downloaded <- lapply(type, function(t) {
     pkgPath <- repoBinPath(path = path, type = t, Rversion = Rversion)

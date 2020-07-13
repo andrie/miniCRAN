@@ -152,7 +152,8 @@ print.pkgDep <- function(x, ...) {
 pkgAvail <- function(repos = getOption("repos"), 
                      type = "source", 
                      Rversion = R.version, quiet = FALSE) {
-  if (!grepl("^http://|file:///", repos[1]) && file.exists(repos[1])) {
+  assert_that(is_repos(repos))
+  if (!grepl("^https*://|file:///", repos[1]) && file.exists(repos[1])) {
      repos <- paste0("file:///", normalizePath(repos[1],
                                                mustWork = FALSE, 
                                                winslash = "/"))
