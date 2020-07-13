@@ -235,8 +235,9 @@ automatically and must be specified by the user in <code>pkgs</code> and <code>v
     <pre class="examples"><div class='input'><span class='co'>### `checkVersions` and `add.packages.miniCRAN` require an existing miniCRAN repo</span>
 
 <span class='co'># Specify list of packages to download</span>
-<span class='kw'>revolution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(CRAN = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"miniCRAN.mran"</span>))
-<span class='kw'>pkgs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"foreach"</span>)
+<span class='kw'>revolution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(CRAN = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"minicran.mran"</span>))
+<span class='kw'>revolution</span></div><div class='output co'>#&gt;                         CRAN 
+#&gt; "https://cran.microsoft.com" </div><div class='input'><span class='kw'>pkgs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"foreach"</span>)
 <span class='kw'>pkgTypes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"source"</span>, <span class='st'>"win.binary"</span>)
 
 <span class='kw'>pdb</span> <span class='op'>&lt;-</span> <span class='kw'>cranJuly2014</span>

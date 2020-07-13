@@ -215,6 +215,9 @@ during download.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>character vector of downloaded package files</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Internally makes use of <code><a href='https://rdrr.io/r/utils/download.packages.html'>utils::download.packages()</a></code> and
@@ -262,7 +265,8 @@ subfolders for Windows as well as the various OSX binaries.</p>
   )
 }
 
-<span class='kw'>pkgList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/miniCRAN/man/pkgDep.html'>pkgDep</a></span>(<span class='kw'>pkgs</span>, availPkgs = <span class='kw'>pdb</span>, repos = <span class='kw'>revolution</span>, type = <span class='st'>"source"</span>, suggests = <span class='fl'>FALSE</span>)
+<span class='kw'>pkgList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/miniCRAN/man/pkgDep.html'>pkgDep</a></span>(<span class='kw'>pkgs</span>, availPkgs = <span class='kw'>pdb</span>, repos = <span class='kw'>revolution</span>,
+                  type = <span class='st'>"source"</span>, suggests = <span class='fl'>FALSE</span>)
 <span class='kw'>pkgList</span></div><div class='output co'>#&gt; [1] "foreach"   "codetools" "iterators"</div><div class='input'>
 
 <span class='co'>if</span> (<span class='fl'>FALSE</span>) {
