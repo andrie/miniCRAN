@@ -145,11 +145,11 @@ and adds (or replaces) a row in the available package database." />
 and adds (or replaces) a row in the available package database.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/miniCRAN/man/addPackageListingGithub.html'>addPackageListingGithub</a></span>(
-  pdb = <span class='fu'><a href='https://rdrr.io/pkg/miniCRAN/man/pkgAvail.html'>pkgAvail</a></span>(),
-  <span class='kw'>repo</span>,
-  username = <span class='kw'>NULL</span>,
-  branch = <span class='st'>"master"</span>
+    <pre class="usage"><span class='fu'>addPackageListingGithub</span>(
+  <span class='kw'>pdb</span> <span class='kw'>=</span> <span class='fu'><a href='pkgAvail.html'>pkgAvail</a></span>(),
+  <span class='no'>repo</span>,
+  <span class='kw'>username</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>branch</span> <span class='kw'>=</span> <span class='st'>"master"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -157,7 +157,7 @@ and adds (or replaces) a row in the available package database.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>pdb</th>
-      <td><p>Package database, usually the result of <code><a href='https://rdrr.io/pkg/miniCRAN/man/pkgAvail.html'>pkgAvail()</a></code> or
+      <td><p>Package database, usually the result of <code><a href='pkgAvail.html'>pkgAvail()</a></code> or
 <code><a href='https://rdrr.io/r/utils/available.packages.html'>available.packages()</a></code></p></td>
     </tr>
     <tr>
@@ -179,21 +179,21 @@ and adds (or replaces) a row in the available package database.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Create package database</span>
-<span class='kw'>pdb</span> <span class='op'>&lt;-</span> <span class='kw'>cranJuly2014</span>
+<span class='no'>pdb</span> <span class='kw'>&lt;-</span> <span class='no'>cranJuly2014</span>
 
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-  <span class='kw'>pdb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/miniCRAN/man/pkgAvail.html'>pkgAvail</a></span>(repos = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(CRAN = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"minicran.mran"</span>)))
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+  <span class='no'>pdb</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='pkgAvail.html'>pkgAvail</a></span>(<span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>CRAN</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"minicran.mran"</span>)))
 
   <span class='co'># Overwrite pdb with development version of miniCRAN at github</span>
-  <span class='kw'>newpdb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/miniCRAN/man/addPackageListingGithub.html'>addPackageListingGithub</a></span>(pdb = <span class='kw'>pdb</span>, <span class='st'>"andrie/miniCRAN"</span>)
-  <span class='kw'>newpdb</span>[<span class='st'>"miniCRAN"</span>, ]
+  <span class='no'>newpdb</span> <span class='kw'>&lt;-</span> <span class='fu'>addPackageListingGithub</span>(<span class='kw'>pdb</span> <span class='kw'>=</span> <span class='no'>pdb</span>, <span class='st'>"andrie/miniCRAN"</span>)
+  <span class='no'>newpdb</span>[<span class='st'>"miniCRAN"</span>, ]
 
   <span class='co'># Add package from github that's not currently on CRAN</span>
-  <span class='kw'>newpdb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/miniCRAN/man/addPackageListingGithub.html'>addPackageListingGithub</a></span>(pdb = <span class='kw'>pdb</span>, repo = <span class='st'>"RevolutionAnalytics/checkpoint"</span>)
-  <span class='kw'>newpdb</span>[<span class='st'>"checkpoint"</span>, ]
+  <span class='no'>newpdb</span> <span class='kw'>&lt;-</span> <span class='fu'>addPackageListingGithub</span>(<span class='kw'>pdb</span> <span class='kw'>=</span> <span class='no'>pdb</span>, <span class='kw'>repo</span> <span class='kw'>=</span> <span class='st'>"RevolutionAnalytics/checkpoint"</span>)
+  <span class='no'>newpdb</span>[<span class='st'>"checkpoint"</span>, ]
 
   <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1</span>)
-  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/miniCRAN/man/makeDepGraph.html'>makeDepGraph</a></span>(<span class='st'>"checkpoint"</span>, availPkgs = <span class='kw'>newpdb</span>, suggests = <span class='fl'>TRUE</span>))
+  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='makeDepGraph.html'>makeDepGraph</a></span>(<span class='st'>"checkpoint"</span>, <span class='kw'>availPkgs</span> <span class='kw'>=</span> <span class='no'>newpdb</span>, <span class='kw'>suggests</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -210,7 +210,7 @@ and adds (or replaces) a row in the available package database.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

@@ -145,18 +145,18 @@ Performs non-recursive retrieve for Suggests." />
 Performs non-recursive retrieve for <code>Suggests</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/miniCRAN/man/pkgDep.html'>pkgDep</a></span>(
-  <span class='kw'>pkg</span>,
-  <span class='kw'>availPkgs</span>,
-  repos = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"repos"</span>),
-  type = <span class='st'>"source"</span>,
-  depends = <span class='fl'>TRUE</span>,
-  suggests = <span class='fl'>TRUE</span>,
-  enhances = <span class='fl'>FALSE</span>,
-  includeBasePkgs = <span class='fl'>FALSE</span>,
-  Rversion = <span class='kw'>R.version</span>,
-  quiet = <span class='fl'>FALSE</span>,
-  <span class='kw'>...</span>
+    <pre class="usage"><span class='fu'>pkgDep</span>(
+  <span class='no'>pkg</span>,
+  <span class='no'>availPkgs</span>,
+  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"repos"</span>),
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"source"</span>,
+  <span class='kw'>depends</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>suggests</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>enhances</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>includeBasePkgs</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>Rversion</span> <span class='kw'>=</span> <span class='no'>R.version</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -225,24 +225,24 @@ installed on other platforms.  Passed to <code><a href='https://rdrr.io/r/utils/
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other dependency functions: 
-<code><a href='https://rdrr.io/pkg/miniCRAN/man/basePkgs.html'>basePkgs</a>()</code>,
-<code><a href='https://rdrr.io/pkg/miniCRAN/man/makeDepGraph.html'>makeDepGraph</a>()</code>,
-<code><a href='https://rdrr.io/pkg/miniCRAN/man/plot.pkgDepGraph.html'>plot.pkgDepGraph</a>()</code></p></div>
+<code><a href='basePkgs.html'>basePkgs</a>()</code>,
+<code><a href='makeDepGraph.html'>makeDepGraph</a>()</code>,
+<code><a href='plot.pkgDepGraph.html'>plot.pkgDepGraph</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='https://rdrr.io/pkg/miniCRAN/man/pkgDep.html'>pkgDep</a></span>(pkg = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ggplot2"</span>, <span class='st'>"plyr"</span>, <span class='st'>"reshape2"</span>),
-       repos = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(CRAN = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"minicran.mran"</span>))
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>pkgDep</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ggplot2"</span>, <span class='st'>"plyr"</span>, <span class='st'>"reshape2"</span>),
+       <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>CRAN</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"minicran.mran"</span>))
 )
 }
 
-<span class='kw'>pdb</span> <span class='op'>&lt;-</span> <span class='kw'>cranJuly2014</span>
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='kw'>pdb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/miniCRAN/man/pkgAvail.html'>pkgAvail</a></span>(repos = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(CRAN = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"minicran.mran"</span>)))
+<span class='no'>pdb</span> <span class='kw'>&lt;-</span> <span class='no'>cranJuly2014</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>pdb</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='pkgAvail.html'>pkgAvail</a></span>(<span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>CRAN</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"minicran.mran"</span>)))
 }
 
-<span class='fu'><a href='https://rdrr.io/pkg/miniCRAN/man/pkgDep.html'>pkgDep</a></span>(pkg = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ggplot2"</span>, <span class='st'>"plyr"</span>, <span class='st'>"reshape2"</span>), <span class='kw'>pdb</span>)</div><div class='output co'>#&gt;  [1] "ggplot2"      "plyr"         "reshape2"     "digest"       "gtable"      
+<span class='fu'>pkgDep</span>(<span class='kw'>pkg</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ggplot2"</span>, <span class='st'>"plyr"</span>, <span class='st'>"reshape2"</span>), <span class='no'>pdb</span>)</div><div class='output co'>#&gt;  [1] "ggplot2"      "plyr"         "reshape2"     "digest"       "gtable"      
 #&gt;  [6] "scales"       "proto"        "MASS"         "Rcpp"         "stringr"     
 #&gt; [11] "RColorBrewer" "dichromat"    "munsell"      "labeling"     "colorspace"  
 #&gt; [16] "SparseM"      "lattice"      "survival"     "Formula"      "latticeExtra"
@@ -251,7 +251,8 @@ installed on other platforms.  Passed to <code><a href='https://rdrr.io/r/utils/
 #&gt; [31] "highr"        "markdown"     "mime"         "nlme"         "Matrix"      
 #&gt; [36] "codetools"    "iterators"    "quantreg"     "Hmisc"        "mapproj"     
 #&gt; [41] "hexbin"       "maptools"     "multcomp"     "testthat"     "knitr"       
-#&gt; [46] "mgcv"         "abind"        "foreach"      "doMC"         "itertools"   </div><div class='input'></div></pre>
+#&gt; [46] "mgcv"         "abind"        "foreach"      "doMC"         "itertools"   </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -267,7 +268,7 @@ installed on other platforms.  Passed to <code><a href='https://rdrr.io/r/utils/
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

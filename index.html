@@ -146,32 +146,26 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation:</h2>
 <p>Get the stable version from CRAN:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"miniCRAN"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st"><a href="https://github.com/andrie/miniCRAN">"miniCRAN"</a></span>)
-</pre></div>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"miniCRAN"</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"miniCRAN"</span>)</pre></div>
 <div id="development-version" class="section level3">
 <h3 class="hasAnchor">
 <a href="#development-version" class="anchor"></a>Development version</h3>
 <p>Get the latest development version from github:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="co"># Use `devtools` to install directly from github</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://devtools.r-lib.org">devtools</a></span>)
-<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"andrie/miniCRAN"</span>)
-</pre></div>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># Use `devtools` to install directly from github</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">devtools</span>)
+<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"andrie/miniCRAN"</span>)</pre></div>
 </div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example:</h2>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="co"># Determine and download the packages `ggplot2`, `plyr` and `reshape2`, </span>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="co"># Determine and download the packages `ggplot2`, `plyr` and `reshape2`, </span>
 <span class="co"># including their dependencies:</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st"><a href="https://github.com/andrie/miniCRAN">"miniCRAN"</a></span>)
-<span class="kw">pkgs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"ggplot2"</span>, <span class="st">"plyr"</span>, <span class="st">"reshape2"</span>)
-<span class="fu"><a href="reference/makeRepo.html">makeRepo</a></span>(<span class="fu"><a href="reference/pkgDep.html">pkgDep</a></span>(<span class="kw">pkgs</span>), path = <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span>(), <span class="st">"miniCRAN"</span>))
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"miniCRAN"</span>)
+<span class="no">pkgs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"ggplot2"</span>, <span class="st">"plyr"</span>, <span class="st">"reshape2"</span>)
+<span class="fu"><a href="reference/makeRepo.html">makeRepo</a></span>(<span class="fu"><a href="reference/pkgDep.html">pkgDep</a></span>(<span class="no">pkgs</span>), <span class="kw">path</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span>(), <span class="st">"miniCRAN"</span>))</pre></div>
 </div>
 <div id="supported-by-microsoft" class="section level2">
 <h2 class="hasAnchor">
@@ -227,7 +221,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

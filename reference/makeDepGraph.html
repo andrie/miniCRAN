@@ -143,15 +143,15 @@
     <p>Each package is a node, and a dependency is an edge</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/miniCRAN/man/makeDepGraph.html'>makeDepGraph</a></span>(
-  <span class='kw'>pkg</span>,
-  <span class='kw'>availPkgs</span>,
-  repos = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"repos"</span>),
-  type = <span class='st'>"source"</span>,
-  suggests = <span class='fl'>TRUE</span>,
-  enhances = <span class='fl'>FALSE</span>,
-  includeBasePkgs = <span class='fl'>FALSE</span>,
-  <span class='kw'>...</span>
+    <pre class="usage"><span class='fu'>makeDepGraph</span>(
+  <span class='no'>pkg</span>,
+  <span class='no'>availPkgs</span>,
+  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"repos"</span>),
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"source"</span>,
+  <span class='kw'>suggests</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>enhances</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>includeBasePkgs</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -198,33 +198,33 @@ installed on other platforms.  Passed to <code><a href='https://rdrr.io/r/utils/
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/miniCRAN/man/pkgDep.html'>pkgDep()</a></code> to extract package dependencies</p>
+    <div class='dont-index'><p><code><a href='pkgDep.html'>pkgDep()</a></code> to extract package dependencies</p>
 <p>Other dependency functions: 
-<code><a href='https://rdrr.io/pkg/miniCRAN/man/basePkgs.html'>basePkgs</a>()</code>,
-<code><a href='https://rdrr.io/pkg/miniCRAN/man/pkgDep.html'>pkgDep</a>()</code>,
-<code><a href='https://rdrr.io/pkg/miniCRAN/man/plot.pkgDepGraph.html'>plot.pkgDepGraph</a>()</code></p></div>
+<code><a href='basePkgs.html'>basePkgs</a>()</code>,
+<code><a href='pkgDep.html'>pkgDep</a>()</code>,
+<code><a href='plot.pkgDepGraph.html'>plot.pkgDepGraph</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 
 
-<span class='kw'>availPkgs</span> <span class='op'>&lt;-</span> <span class='kw'>cranJuly2014</span>
+<span class='no'>availPkgs</span> <span class='kw'>&lt;-</span> <span class='no'>cranJuly2014</span>
 
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='kw'>availPkgs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/miniCRAN/man/pkgAvail.html'>pkgAvail</a></span>(
-  repos = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(CRAN = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"minicran.mran"</span>)),
-  type = <span class='st'>"source"</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>availPkgs</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='pkgAvail.html'>pkgAvail</a></span>(
+  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>CRAN</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"minicran.mran"</span>)),
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"source"</span>
   )
 }
 
 
 <span class='co'># Create dependency graph using stored database of available packages</span>
-<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/miniCRAN/man/makeDepGraph.html'>makeDepGraph</a></span>(
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>makeDepGraph</span>(
   <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ggplot2"</span>, <span class='st'>"forecast"</span>),
-  availPkgs = <span class='kw'>availPkgs</span>
+  <span class='kw'>availPkgs</span> <span class='kw'>=</span> <span class='no'>availPkgs</span>
 )
 
-<span class='co'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='kw'><a href='http://igraph.org'>igraph</a></span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>p</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: igraph</span></div><div class='output co'>#&gt; <span class='message'></span>
+<span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>igraph</span>)) <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>p</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: igraph</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘igraph’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    decompose, spectrum</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:base’:</span>
@@ -232,15 +232,15 @@ installed on other platforms.  Passed to <code><a href='https://rdrr.io/r/utils/
 #&gt; <span class='message'>    union</span></div><div class='output co'>#&gt; <span class='warning'>Warning: conversion failure on '→' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;</span></div><div class='output co'>#&gt; <span class='warning'>Warning: conversion failure on '→' in 'mbcsToSbcs': dot substituted for &lt;86&gt;</span></div><div class='output co'>#&gt; <span class='warning'>Warning: conversion failure on '→' in 'mbcsToSbcs': dot substituted for &lt;92&gt;</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font metrics unknown for Unicode character U+2192</span></div><div class='output co'>#&gt; <span class='warning'>Warning: conversion failure on '→' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;</span></div><div class='output co'>#&gt; <span class='warning'>Warning: conversion failure on '→' in 'mbcsToSbcs': dot substituted for &lt;86&gt;</span></div><div class='output co'>#&gt; <span class='warning'>Warning: conversion failure on '→' in 'mbcsToSbcs': dot substituted for &lt;92&gt;</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font metrics unknown for Unicode character U+2192</span></div><div class='output co'>#&gt; <span class='warning'>Warning: conversion failure on '→' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;</span></div><div class='output co'>#&gt; <span class='warning'>Warning: conversion failure on '→' in 'mbcsToSbcs': dot substituted for &lt;86&gt;</span></div><div class='output co'>#&gt; <span class='warning'>Warning: conversion failure on '→' in 'mbcsToSbcs': dot substituted for &lt;92&gt;</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font metrics unknown for Unicode character U+2192</span></div><div class='output co'>#&gt; <span class='warning'>Warning: conversion failure on '→' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;</span></div><div class='output co'>#&gt; <span class='warning'>Warning: conversion failure on '→' in 'mbcsToSbcs': dot substituted for &lt;86&gt;</span></div><div class='output co'>#&gt; <span class='warning'>Warning: conversion failure on '→' in 'mbcsToSbcs': dot substituted for &lt;92&gt;</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font metrics unknown for Unicode character U+2192</span></div><div class='img'><img src='makeDepGraph-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
 
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
   <span class='co'># Create dependency graph using newly retrieved database from CRAN</span>
 
-  <span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/miniCRAN/man/makeDepGraph.html'>makeDepGraph</a></span>(
+  <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>makeDepGraph</span>(
   <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ggplot2"</span>, <span class='st'>"forecast"</span>),
-  repos = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(CRAN = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"minicran.mran"</span>)),
-  type = <span class='st'>"source"</span>
+  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>CRAN</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"minicran.mran"</span>)),
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"source"</span>
 )
-<span class='co'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='kw'><a href='http://igraph.org'>igraph</a></span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>p</span>)
+<span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>igraph</span>)) <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>p</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -257,7 +257,7 @@ installed on other platforms.  Passed to <code><a href='https://rdrr.io/r/utils/
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

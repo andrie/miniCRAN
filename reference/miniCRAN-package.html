@@ -173,10 +173,10 @@ considerations.</p>
     
 
 <ul>
-<li><p><code><a href='https://rdrr.io/pkg/miniCRAN/man/pkgAvail.html'>pkgAvail()</a></code>: Read from a local (or remote) CRAN-like repository and
+<li><p><code><a href='pkgAvail.html'>pkgAvail()</a></code>: Read from a local (or remote) CRAN-like repository and
 determine available packages.</p></li>
-<li><p><code><a href='https://rdrr.io/pkg/miniCRAN/man/pkgDep.html'>pkgDep()</a></code>: Find (recursive) package dependencies.</p></li>
-<li><p><code><a href='https://rdrr.io/pkg/miniCRAN/man/makeRepo.html'>makeRepo()</a></code> : Make a mini CRAN repository, by downloading packages (and
+<li><p><code><a href='pkgDep.html'>pkgDep()</a></code>: Find (recursive) package dependencies.</p></li>
+<li><p><code><a href='makeRepo.html'>makeRepo()</a></code> : Make a mini CRAN repository, by downloading packages (and
 their dependencies) and creating the appropriate file structure for a
 repository.  This allows you to use functions like
 <code><a href='https://rdrr.io/r/utils/available.packages.html'>utils::available.packages()</a></code> and <code><a href='https://rdrr.io/r/utils/install.packages.html'>utils::install.packages()</a></code> on your local
@@ -189,7 +189,7 @@ will work as expected:</p><ul>
 <li><p><code><a href='https://rdrr.io/r/utils/install.packages.html'>utils::install.packages()</a></code></p></li>
 </ul>
 
-<p>The main function is <code><a href='https://rdrr.io/pkg/miniCRAN/man/makeRepo.html'>makeRepo()</a></code> - this will download all the required
+<p>The main function is <code><a href='makeRepo.html'>makeRepo()</a></code> - this will download all the required
 packages, with their dependencies, into the appropriate repository file
 structure, and then create the repository index (PACKAGES) file.</p>
     <h2 class="hasAnchor" id="updating-packages-in-a-repo"><a class="anchor" href="#updating-packages-in-a-repo"></a>Updating packages in a repo</h2>
@@ -197,8 +197,8 @@ structure, and then create the repository index (PACKAGES) file.</p>
     
 
 <ul>
-<li><p><code><a href='https://rdrr.io/pkg/miniCRAN/man/updatePackages.html'>oldPackages()</a></code>: Indicates packages which have a (suitable) later version
-on the repositories * <code><a href='https://rdrr.io/pkg/miniCRAN/man/updatePackages.html'>updatePackages()</a></code>: Offers to download and install
+<li><p><code><a href='updatePackages.html'>oldPackages()</a></code>: Indicates packages which have a (suitable) later version
+on the repositories * <code><a href='updatePackages.html'>updatePackages()</a></code>: Offers to download and install
 such packages</p></li>
 </ul>
 
@@ -207,11 +207,11 @@ such packages</p></li>
     
 
 
-<p>To get a recursive list of dependencies as well as a plot, use <code><a href='https://rdrr.io/pkg/miniCRAN/man/pkgDep.html'>pkgDep()</a></code>
-followed by  <code><a href='https://rdrr.io/pkg/miniCRAN/man/makeDepGraph.html'>makeDepGraph()</a></code>.</p><ul>
-<li><p><code><a href='https://rdrr.io/pkg/miniCRAN/man/pkgDep.html'>pkgDep()</a></code>: Find (recursive) package dependencies.</p></li>
-<li><p><code><a href='https://rdrr.io/pkg/miniCRAN/man/makeDepGraph.html'>makeDepGraph()</a></code>: Create graph of selected package dependencies.</p></li>
-<li><p><code><a href='https://rdrr.io/pkg/miniCRAN/man/plot.pkgDepGraph.html'>plot.pkgDepGraph()</a></code>: Create a visualization of the dependency graph</p></li>
+<p>To get a recursive list of dependencies as well as a plot, use <code><a href='pkgDep.html'>pkgDep()</a></code>
+followed by  <code><a href='makeDepGraph.html'>makeDepGraph()</a></code>.</p><ul>
+<li><p><code><a href='pkgDep.html'>pkgDep()</a></code>: Find (recursive) package dependencies.</p></li>
+<li><p><code><a href='makeDepGraph.html'>makeDepGraph()</a></code>: Create graph of selected package dependencies.</p></li>
+<li><p><code><a href='plot.pkgDepGraph.html'>plot.pkgDepGraph()</a></code>: Create a visualization of the dependency graph</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="package-options"><a class="anchor" href="#package-options"></a>Package options</h2>
@@ -219,7 +219,7 @@ followed by  <code><a href='https://rdrr.io/pkg/miniCRAN/man/makeDepGraph.html'>
     
 
 
-<dl>
+<dl'>
 <dt><code>minicran.mran</code></dt><dd><p>preferred MRAN URL. Defaults to
 <a href='https://mran.microsoft.com'>https://mran.microsoft.com</a> for R versions 3.2.2 and greater. Versions
 earlier than 3.2.2 use HTTP instead of HTTPS.</p></dd> 
@@ -233,15 +233,6 @@ earlier than 3.2.2 use HTTP instead of HTTPS.</p></dd>
 </ul>
 
 </div>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p><strong>Maintainer</strong>: Andrie de Vries <a href='mailto:apdevries@gmail.com'>apdevries@gmail.com</a> [copyright holder]</p>
-<p>Other contributors:</p><ul>
-<li><p>Alex Chubaty <a href='mailto:alex.chubaty@gmail.com'>alex.chubaty@gmail.com</a> [contributor]</p></li>
-<li><p>Microsoft Corporation [copyright holder]</p></li>
-</ul>
-
-
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -258,7 +249,7 @@ earlier than 3.2.2 use HTTP instead of HTTPS.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
