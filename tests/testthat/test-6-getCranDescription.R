@@ -12,7 +12,7 @@ test_that("can read CRAN description", {
     function(...) testthis::read_testdata("/pdb.rds")
   )
   p <- getCranDescription("miniCRAN", repos = c(CRAN = getOption("minicran.mran")))
-  expect_is(p, "data.frame")
+  expect_s3_class(p, "data.frame")
   expect_equal(p$Package[1], "miniCRAN")
 })
 

@@ -40,7 +40,7 @@ for (pkg_type in names(types)) {
     ret <- makeRepo(pkgList, path = repo_root, repos = revolution, 
                     type = pkg_type, quiet = TRUE, Rversion = rvers)
     
-    expect_is(ret, "character")
+    expect_type(ret, "character")
     expect_equal(length(ret), length(pkgList))
     
     expect_true(
@@ -68,7 +68,7 @@ for (pkg_type in names(types)) {
     ret <- makeRepo(pkgList, path = new_repo_root, repos = localCRAN, 
                     type = pkg_type, quiet = TRUE, Rversion = rvers)
     
-    expect_is(ret, "character")
+    expect_type(ret, "character")
     expect_equal(length(ret), length(pkgList))
     
     expect_true(

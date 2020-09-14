@@ -1,6 +1,13 @@
-miniCRAN v0.2.13 (Release date: 2020-07-13)
+miniCRAN v0.2.14 (Release date: 2020-09-14)
 ================
 
+* No functional changes
+* Updated tests to comply with `testthat_3.0.0`
+
+
+
+miniCRAN v0.2.13 (Release date: 2020-07-13)
+================
 
 Changes:
 
@@ -17,9 +24,6 @@ Minor changes:
 * Treat the `writePACKAGES` argument consistently, as suggested by @vh-d in #130
 * Improve test coverage
 * Fix some broken examples
-
-
-
 
 
 miniCRAN v0.2.12 (Release date: 2019-07-06)
@@ -43,8 +47,6 @@ Internal changes
 * Rewrote mocking mechanism in tests
 
 
-
-
 miniCRAN v0.2.11 (Release date: 2018-01-15)
 ================
 
@@ -57,8 +59,6 @@ Bug fixes:
 Other changes:
 * Use `pkgdown` to build documentation site (#105)
 * Speed up unit testing by mocking internal functions (#107)
-
-
 
 
 miniCRAN v0.2.10 (Release date: 2017-10-21)

@@ -43,7 +43,7 @@ for (pkg_type in (types)) {
       }
     )
 
-    expect_is(ret, "character")
+    expect_type(ret, "character")
     expect_equal(length(ret), length(pkgList))
 
     expect_true(

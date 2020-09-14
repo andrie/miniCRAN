@@ -44,7 +44,7 @@ test_that("readDescription reads file", {
   sf <- system.file("DESCRIPTION", package = "miniCRAN")
   desc <- readDescription(sf)
 
-  expect_is(desc, "list")
+  expect_type(desc, "list")
   expect_true(
     all(c("Imports", "Suggests", "Package") %in% names(desc))
   )

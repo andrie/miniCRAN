@@ -29,15 +29,15 @@ test_that("sample repo is setup correctly", {
   skip_if_offline(revolution)
   
   pdb <<- lapply(types, pkgAvail, repos = revolution, Rversion = rvers, quiet = TRUE)
-  expect_is(pdb, "list")
+  expect_type(pdb, "list")
   pkgList <<- lapply(types, function(type) {
     pkgDep(pkg = pkgs, type = types[type], availPkgs = pdb[[type]],
            repos = revolution, suggests = FALSE, Rversion = rvers)
   })
-  expect_is(pkgList, "list")
+  expect_type(pkgList, "list")
   
   z <- .createSampleRepo(path = repo_root, MRAN = revolution, Rversion = rvers)
-  expect_is(z, "character")
+  expect_type(z, "character")
   expect_equal(unname(pkgAvail(repo_root, quiet = TRUE)[, "Package"]), sort(pkgs))
 })
 
@@ -49,7 +49,7 @@ pkgsAdd <- c("forecast")
 pkg_type <- names(types)[1]
 for (pkg_type in names(types)) {
   
-  context(sprintf(" - Add packages to repo (%s)", pkg_type))
+  # context(sprintf(" - Add packages to repo (%s)", pkg_type))
   
   test_that(sprintf(
     "addPackage downloads %s files and rebuilds PACKAGES file", 

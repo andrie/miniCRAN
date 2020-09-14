@@ -25,7 +25,7 @@ test_that("asking for confirmation", {
         z <- 
           ask_to_update(old, "source", "3.1", ask = TRUE)
       )
-      expect_equivalent(old, z)
+      expect_equal(old, z, ignore_attr = TRUE)
     }
   )
 
@@ -51,7 +51,7 @@ test_that("asking for confirmation", {
         z <- 
           ask_to_update(old, "source", "3.1", ask = "graphics")
       )
-      expect_equivalent(old, z)
+      expect_equal(old, z, ignore_attr = TRUE)
     }
   )
   
