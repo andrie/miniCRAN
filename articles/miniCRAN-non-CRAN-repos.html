@@ -95,7 +95,7 @@
       <h1 data-toc-skip>Using repositories other than CRAN with miniCRAN</h1>
                         <h4 class="author">Andrie de Vries</h4>
             
-            <h4 class="date">August 04, 2020</h4>
+            <h4 class="date">September 14, 2020</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/andrie/miniCRAN/blob/master/vignettes/miniCRAN-non-CRAN-repos.rmd"><code>vignettes/miniCRAN-non-CRAN-repos.rmd</code></a></small>
       <div class="hidden name"><code>miniCRAN-non-CRAN-repos.rmd</code></div>
@@ -107,53 +107,63 @@
 <p>Although the package name <code>miniCRAN</code> seems to indicate you can only use CRAN as a repository, you can in fact use any CRAN-like repository.</p>
 <p>This vignette contains some examples of how to refer to different package repositories, including CRAN, alternative mirrors of CRAN, R-Forge as well as BioConductor.</p>
 <p>To simplify the code to show the salient features, we use a little helper function, <code>index()</code> that is a simple wrapper around <code><a href="https://rdrr.io/r/utils/available.packages.html">available.packages()</a></code>:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co"># Wrapper around available.packages ---------------------------------------</span>
-
-<span class="no">index</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">url</span>, <span class="no">type</span> <span class="kw">=</span> <span class="st">"source"</span>, <span class="no">filters</span> <span class="kw">=</span> <span class="kw">NULL</span>, <span class="no">head</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="no">cols</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Package"</span>, <span class="st">"Version"</span>)) {
-  <span class="no">contribUrl</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/contrib.url.html">contrib.url</a></span>(<span class="no">url</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="no">type</span>)
-  <span class="no">p</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/available.packages.html">available.packages</a></span>(<span class="no">contribUrl</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="no">type</span>, <span class="kw">filters</span> <span class="kw">=</span> <span class="no">filters</span>)
-  <span class="no">p</span>[<span class="fl">1</span>:<span class="no">head</span>, <span class="no">cols</span>]
-}</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="co"># Wrapper around available.packages ---------------------------------------</span>
+ 
+<span class="kw">index</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">url</span>, <span class="kw">type</span> = <span class="st">"source"</span>, <span class="kw">filters</span> = <span class="kw">NULL</span>, <span class="kw">head</span> = <span class="fl">5</span>, <span class="kw">cols</span> = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Package"</span>, <span class="st">"Version"</span>)) {
+  <span class="kw">contribUrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/contrib.url.html">contrib.url</a></span>(<span class="kw">url</span>, type = <span class="kw">type</span>)
+  <span class="kw">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/available.packages.html">available.packages</a></span>(<span class="kw">contribUrl</span>, type = <span class="kw">type</span>, filters = <span class="kw">filters</span>)
+  <span class="kw">p</span>[<span class="fl">1</span><span class="op">:</span><span class="kw">head</span>, <span class="kw">cols</span>]
+}
+</pre></div>
 <div id="using-cran" class="section level2">
 <h2 class="hasAnchor">
 <a href="#using-cran" class="anchor"></a>Using CRAN</h2>
 <p>The URL for the master mirror in Austria:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">CRAN</span> <span class="kw">&lt;-</span> <span class="st">"http://cran.r-project.org"</span>
-<span class="fu">index</span>(<span class="no">CRAN</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="kw">CRAN</span> <span class="op">&lt;-</span> <span class="st">"http://cran.r-project.org"</span>
+<span class="fu">index</span>(<span class="kw">CRAN</span>)
+</pre></div>
 </div>
 <div id="using-a-different-mirror" class="section level2">
 <h2 class="hasAnchor">
 <a href="#using-a-different-mirror" class="anchor"></a>Using a different mirror</h2>
 <p>You can also point to any other mirror, for example the stable version hosted by Revolution Analytics:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">revoStable</span> <span class="kw">&lt;-</span> <span class="st">"http://packages.revolutionanalytics.com/cran/3.1/stable"</span>
-<span class="fu">index</span>(<span class="no">revoStable</span>)
-
-<span class="no">revoMirror</span> <span class="kw">&lt;-</span> <span class="st">"http://cran.revolutionanalytics.com"</span>
-<span class="fu">index</span>(<span class="no">revoMirror</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="kw">revoStable</span> <span class="op">&lt;-</span> <span class="st">"http://packages.revolutionanalytics.com/cran/3.1/stable"</span>
+<span class="fu">index</span>(<span class="kw">revoStable</span>)
+ 
+<span class="kw">revoMirror</span> <span class="op">&lt;-</span> <span class="st">"http://cran.revolutionanalytics.com"</span>
+<span class="fu">index</span>(<span class="kw">revoMirror</span>)
+</pre></div>
 </div>
 <div id="using-r-forge" class="section level2">
 <h2 class="hasAnchor">
 <a href="#using-r-forge" class="anchor"></a>Using R-forge</h2>
 <p>R-forge has CRAN-like structure:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">rforge</span> <span class="kw">&lt;-</span> <span class="st">"http://r-forge.r-project.org"</span>
-<span class="fu">index</span>(<span class="no">rforge</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="kw">rforge</span> <span class="op">&lt;-</span> <span class="st">"http://r-forge.r-project.org"</span>
+<span class="fu">index</span>(<span class="kw">rforge</span>)
+</pre></div>
 </div>
 <div id="using-bioconductor" class="section level2">
 <h2 class="hasAnchor">
 <a href="#using-bioconductor" class="anchor"></a>Using BioConductor</h2>
 <p>Although BioConductor has a different preferred install mechanism, the underlying repository structure is also CRAN-like:</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">bioc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/eval.html">local</a></span>({
-  <span class="no">env</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html">new.env</a></span>()
-  <span class="fu"><a href="https://rdrr.io/r/base/on.exit.html">on.exit</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span>(<span class="no">env</span>))
-  <span class="fu"><a href="https://rdrr.io/r/base/eval.html">evalq</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="st">"http://bioconductor.org/biocLite.R"</span>, <span class="kw">local</span> <span class="kw">=</span> <span class="fl">TRUE</span>), <span class="no">env</span>)
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="kw">bioc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/eval.html">local</a></span>({
+  <span class="kw">env</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html">new.env</a></span>()
+  <span class="fu"><a href="https://rdrr.io/r/base/on.exit.html">on.exit</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span>(<span class="kw">env</span>))
+  <span class="fu"><a href="https://rdrr.io/r/base/eval.html">evalq</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="st">"http://bioconductor.org/biocLite.R"</span>, local = <span class="fl">TRUE</span>), <span class="kw">env</span>)
   <span class="fu">biocinstallRepos</span>()
 })
-
-<span class="no">bioc</span>
-<span class="no">bioc</span>[<span class="fu"><a href="https://rdrr.io/r/base/grep.html">grep</a></span>(<span class="st">"BioC"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">bioc</span>))]
-
-
-<span class="fu">index</span>(<span class="no">bioc</span>[<span class="st">"BioCsoft"</span>])</pre></body></html></div>
+ 
+<span class="kw">bioc</span>
+<span class="kw">bioc</span>[<span class="fu"><a href="https://rdrr.io/r/base/grep.html">grep</a></span>(<span class="st">"BioC"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">bioc</span>))]
+ 
+ 
+<span class="fu">index</span>(<span class="kw">bioc</span>[<span class="st">"BioCsoft"</span>])
+</pre></div>
 </div>
   </div>
 
@@ -172,7 +182,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
