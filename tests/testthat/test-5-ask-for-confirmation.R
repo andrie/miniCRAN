@@ -42,7 +42,7 @@ test_that("asking for confirmation", {
   )
 
   with_mock(
-    read_line_wrapper = function(...) { "n" },
+    read_line_wrapper = function(...) { "y" },
     graphics_capable = function() { TRUE },
     select_from_list = function(choices, ...) { choices },
     .env = "miniCRAN", 

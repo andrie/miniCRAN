@@ -106,7 +106,7 @@ ask_to_update <- function(oldPkgs, t, Rversion, ask = FALSE) {
         oldPkgs
       }
     }
-  rownames(z) <- z[, "Package"]
+  rownames(z) <- unname(z[, "Package"])
   z
 }
 
