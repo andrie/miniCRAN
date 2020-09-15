@@ -85,26 +85,29 @@ select_from_list <- function(choices, preselect, multiple, title, graphics) {
 }
 
 ask_to_update <- function(oldPkgs, t, Rversion, ask = FALSE) { 
-  if (is.character(ask) && ask == "graphics") {
-    if (graphics_capable()) {
-      k <- select_from_list(
-        choices = oldPkgs[, 1L], 
-        preselect = oldPkgs[, 1L], 
-        multiple = TRUE,
-        title = "Packages to be updated", 
-        graphics = TRUE
-      )
-      oldPkgs[match(k, oldPkgs[, 1L]), , drop = FALSE]
+  z <- 
+    if (is.character(ask) && ask == "graphics") {
+      if (graphics_capable()) {
+        k <- select_from_list(
+          choices = oldPkgs[, 1L], 
+          preselect = oldPkgs[, 1L], 
+          multiple = TRUE,
+          title = "Packages to be updated", 
+          graphics = TRUE
+        )
+        oldPkgs[match(k, oldPkgs[, 1L]), , drop = FALSE]
+      } else {
+        ask_to_update_package(oldPkgs, t, Rversion)
+      }
     } else {
-      ask_to_update_package(oldPkgs, t, Rversion)
+      if (isTRUE(ask)) {
+        ask_to_update_package(oldPkgs, t, Rversion)
+      } else {
+        oldPkgs
+      }
     }
-  } else {
-    if (isTRUE(ask)) {
-      ask_to_update_package(oldPkgs, t, Rversion)
-    } else {
-      oldPkgs
-    }
-  }
+  rownames(z) <- z[, "Package"]
+  z
 }
 
 read_line_wrapper <- function(prompt = "") {
