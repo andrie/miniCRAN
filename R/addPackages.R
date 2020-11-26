@@ -41,7 +41,7 @@ checkVersions <- function(pkgs = NULL, path = NULL, type = "source",
     } else {
       files <- sapply(
         pkgs, 
-        function(x) list.files(pkgPath, pattern = paste0(x, "_")) 
+        function(x) list.files(pkgPath, pattern = paste0("^", x, "_")) 
       )
     }
     files <- unlist(files)
