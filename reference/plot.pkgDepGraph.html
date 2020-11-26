@@ -144,16 +144,16 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for pkgDepGraph</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(
-  <span class='kw'>x</span>,
-  <span class='kw'>pkgsToHighlight</span>,
-  main = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span>(<span class='kw'>x</span>, <span class='st'>"pkgs"</span>), collapse = <span class='st'>", "</span>),
-  legendPosition = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>1.2</span>, <span class='op'>-</span><span class='fl'>1</span>),
-  shape = <span class='st'>"circle"</span>,
-  vertex.size = <span class='fl'>8</span>,
-  cex = <span class='fl'>1</span>,
-  <span class='kw'>...</span>
-)</pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>pkgsToHighlight</span>,
+  main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"pkgs"</span><span class='op'>)</span>, collapse <span class='op'>=</span> <span class='st'>", "</span><span class='op'>)</span>,
+  legendPosition <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1.2</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>,
+  shape <span class='op'>=</span> <span class='st'>"circle"</span>,
+  vertex.size <span class='op'>=</span> <span class='fl'>8</span>,
+  cex <span class='op'>=</span> <span class='fl'>1</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -205,36 +205,36 @@ the edge legend is not displayed.</p></td>
 <code><a href='pkgDep.html'>pkgDep</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>tags</span> <span class='op'>&lt;-</span> <span class='st'>"chron"</span>
+    <pre class="examples"><div class='input'><span class='va'>tags</span> <span class='op'>&lt;-</span> <span class='st'>"chron"</span>
 
 <span class='co'># Plot using defaults</span>
-<span class='kw'>pdb</span> <span class='op'>&lt;-</span> <span class='kw'>cranJuly2014</span>
+<span class='va'>pdb</span> <span class='op'>&lt;-</span> <span class='va'>cranJuly2014</span>
 
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-  <span class='kw'>pdb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='pkgAvail.html'>pkgAvail</a></span>(
-    repos = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(CRAN = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"minicran.mran"</span>)),
-    type = <span class='st'>"source"</span>
-  )
-}
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>pdb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='pkgAvail.html'>pkgAvail</a></span><span class='op'>(</span>
+    repos <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>CRAN <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"minicran.mran"</span><span class='op'>)</span><span class='op'>)</span>,
+    type <span class='op'>=</span> <span class='st'>"source"</span>
+  <span class='op'>)</span>
+<span class='op'>}</span>
 
-<span class='kw'>dg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='makeDepGraph.html'>makeDepGraph</a></span>(<span class='kw'>tags</span>, availPkgs = <span class='kw'>pdb</span>  , includeBasePkgs = <span class='fl'>FALSE</span>,
-                   suggests = <span class='fl'>TRUE</span>, enhances = <span class='fl'>TRUE</span>)
+<span class='va'>dg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='makeDepGraph.html'>makeDepGraph</a></span><span class='op'>(</span><span class='va'>tags</span>, availPkgs <span class='op'>=</span> <span class='va'>pdb</span>  , includeBasePkgs <span class='op'>=</span> <span class='cn'>FALSE</span>,
+                   suggests <span class='op'>=</span> <span class='cn'>TRUE</span>, enhances <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>42</span>);
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>dg</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>42</span><span class='op'>)</span>;
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>dg</span><span class='op'>)</span>
 </div><div class='img'><img src='plot.pkgDepGraph-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Move edge legend to top left</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>42</span>);
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>dg</span>, legendPosition = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>1</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>42</span><span class='op'>)</span>;
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>dg</span>, legendPosition <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='plot.pkgDepGraph-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Change font size and shape size</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>42</span>);
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>dg</span>, legendPosition = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>1</span>), vertex.size = <span class='fl'>20</span>,  cex = <span class='fl'>0.5</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>42</span><span class='op'>)</span>;
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>dg</span>, legendPosition <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>, vertex.size <span class='op'>=</span> <span class='fl'>20</span>,  cex <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
 </div><div class='img'><img src='plot.pkgDepGraph-3.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='co'># Move vertex legend to top right</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>42</span>);
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>dg</span>, legendPosition = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>), vertex.size = <span class='fl'>20</span>,  cex = <span class='fl'>0.5</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>42</span><span class='op'>)</span>;
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>dg</span>, legendPosition <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>, vertex.size <span class='op'>=</span> <span class='fl'>20</span>,  cex <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
 </div><div class='img'><img src='plot.pkgDepGraph-4.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>

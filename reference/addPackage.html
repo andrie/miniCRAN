@@ -143,16 +143,16 @@
     <p>Add packages to a miniCRAN repository.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>addPackage</span>(
-  pkgs = <span class='kw'>NULL</span>,
-  path = <span class='kw'>NULL</span>,
-  repos = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"repos"</span>),
-  type = <span class='st'>"source"</span>,
-  Rversion = <span class='kw'>R.version</span>,
-  writePACKAGES = <span class='fl'>TRUE</span>,
-  deps = <span class='fl'>TRUE</span>,
-  quiet = <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>addPackage</span><span class='op'>(</span>
+  pkgs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  path <span class='op'>=</span> <span class='cn'>NULL</span>,
+  repos <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"repos"</span><span class='op'>)</span>,
+  type <span class='op'>=</span> <span class='st'>"source"</span>,
+  Rversion <span class='op'>=</span> <span class='va'>R.version</span>,
+  writePACKAGES <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  deps <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -219,56 +219,56 @@ returns the number of packages written to the index files.</p>
     <pre class="examples"><div class='input'><span class='co'>### `checkVersions` and `add.packages.miniCRAN` require an existing miniCRAN repo</span>
 
 <span class='co'># Specify list of packages to download</span>
-<span class='kw'>revolution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(CRAN = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"minicran.mran"</span>))
-<span class='kw'>revolution</span>
+<span class='va'>revolution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>CRAN <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"minicran.mran"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>revolution</span>
 </div><div class='output co'>#&gt;                         CRAN 
-#&gt; "https://cran.microsoft.com" </div><div class='input'><span class='kw'>pkgs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"foreach"</span>)
-<span class='kw'>pkgTypes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"source"</span>, <span class='st'>"win.binary"</span>)
+#&gt; "https://cran.microsoft.com" </div><div class='input'><span class='va'>pkgs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"foreach"</span><span class='op'>)</span>
+<span class='va'>pkgTypes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"source"</span>, <span class='st'>"win.binary"</span><span class='op'>)</span>
 
-<span class='kw'>pdb</span> <span class='op'>&lt;-</span> <span class='kw'>cranJuly2014</span>
+<span class='va'>pdb</span> <span class='op'>&lt;-</span> <span class='va'>cranJuly2014</span>
 
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-  <span class='kw'>pdb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='pkgAvail.html'>pkgAvail</a></span>(repos = <span class='kw'>revolution</span>, type = <span class='st'>"source"</span>)
-}
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>pdb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='pkgAvail.html'>pkgAvail</a></span><span class='op'>(</span>repos <span class='op'>=</span> <span class='va'>revolution</span>, type <span class='op'>=</span> <span class='st'>"source"</span><span class='op'>)</span>
+<span class='op'>}</span>
 
-<span class='kw'>pkgList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='pkgDep.html'>pkgDep</a></span>(<span class='kw'>pkgs</span>, availPkgs = <span class='kw'>pdb</span>, repos = <span class='kw'>revolution</span>, type = <span class='st'>"source"</span>, suggests = <span class='fl'>FALSE</span>)
-<span class='kw'>pkgList</span>
+<span class='va'>pkgList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='pkgDep.html'>pkgDep</a></span><span class='op'>(</span><span class='va'>pkgs</span>, availPkgs <span class='op'>=</span> <span class='va'>pdb</span>, repos <span class='op'>=</span> <span class='va'>revolution</span>, type <span class='op'>=</span> <span class='st'>"source"</span>, suggests <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>pkgList</span>
 </div><div class='output co'>#&gt; [1] "foreach"   "codetools" "iterators"</div><div class='input'>
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='co'># Create temporary folder for miniCRAN</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span>(<span class='kw'>pth</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>"miniCRAN"</span>))
+  <span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='va'>pth</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"miniCRAN"</span><span class='op'>)</span><span class='op'>)</span>
 
   <span class='co'># Make repo for source and win.binary</span>
-  <span class='fu'><a href='makeRepo.html'>makeRepo</a></span>(<span class='kw'>pkgList</span>, path = <span class='kw'>pth</span>, repos = <span class='kw'>revolution</span>, type = <span class='kw'>pkgTypes</span>)
+  <span class='fu'><a href='makeRepo.html'>makeRepo</a></span><span class='op'>(</span><span class='va'>pkgList</span>, path <span class='op'>=</span> <span class='va'>pth</span>, repos <span class='op'>=</span> <span class='va'>revolution</span>, type <span class='op'>=</span> <span class='va'>pkgTypes</span><span class='op'>)</span>
 
   <span class='co'># Add other versions of a package (and assume these were added previously)</span>
-  <span class='kw'>oldVers</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(package = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"foreach"</span>, <span class='st'>"codetools"</span>, <span class='st'>"iterators"</span>),
-                        version = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1.4.0"</span>, <span class='st'>"0.2-7"</span>, <span class='st'>"1.0.5"</span>),
-                        stringsAsFactors = <span class='fl'>FALSE</span>)
-  <span class='kw'>pkgs</span> <span class='op'>&lt;-</span> <span class='kw'>oldVers</span><span class='op'>$</span><span class='kw'>package</span>
-  <span class='fu'><a href='addOldPackage.html'>addOldPackage</a></span>(<span class='kw'>pkgs</span>, path = <span class='kw'>pth</span>, vers = <span class='kw'>oldVers</span><span class='op'>$</span><span class='kw'>version</span>, repos = <span class='kw'>revolution</span>, type = <span class='st'>"source"</span>)
+  <span class='va'>oldVers</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>package <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"foreach"</span>, <span class='st'>"codetools"</span>, <span class='st'>"iterators"</span><span class='op'>)</span>,
+                        version <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1.4.0"</span>, <span class='st'>"0.2-7"</span>, <span class='st'>"1.0.5"</span><span class='op'>)</span>,
+                        stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+  <span class='va'>pkgs</span> <span class='op'>&lt;-</span> <span class='va'>oldVers</span><span class='op'>$</span><span class='va'>package</span>
+  <span class='fu'><a href='addOldPackage.html'>addOldPackage</a></span><span class='op'>(</span><span class='va'>pkgs</span>, path <span class='op'>=</span> <span class='va'>pth</span>, vers <span class='op'>=</span> <span class='va'>oldVers</span><span class='op'>$</span><span class='va'>version</span>, repos <span class='op'>=</span> <span class='va'>revolution</span>, type <span class='op'>=</span> <span class='st'>"source"</span><span class='op'>)</span>
   <span class='co'># NOTE: older binary versions would need to be build from source</span>
 
   <span class='co'># List package versions in the miniCRAN repo (produces warning about duplicates)</span>
-  <span class='kw'>pkgVersionsSrc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='checkVersions.html'>checkVersions</a></span>(<span class='kw'>pkgs</span>, path = <span class='kw'>pth</span>, type = <span class='st'>"source"</span>)
-  <span class='kw'>pkgVersionsBin</span> <span class='op'>&lt;-</span> <span class='fu'><a href='checkVersions.html'>checkVersions</a></span>(<span class='kw'>pkgs</span>, path = <span class='kw'>pth</span>, type = <span class='st'>"win.binary"</span>)
+  <span class='va'>pkgVersionsSrc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='checkVersions.html'>checkVersions</a></span><span class='op'>(</span><span class='va'>pkgs</span>, path <span class='op'>=</span> <span class='va'>pth</span>, type <span class='op'>=</span> <span class='st'>"source"</span><span class='op'>)</span>
+  <span class='va'>pkgVersionsBin</span> <span class='op'>&lt;-</span> <span class='fu'><a href='checkVersions.html'>checkVersions</a></span><span class='op'>(</span><span class='va'>pkgs</span>, path <span class='op'>=</span> <span class='va'>pth</span>, type <span class='op'>=</span> <span class='st'>"win.binary"</span><span class='op'>)</span>
 
   <span class='co'># After inspecting package versions, remove old versions</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span>(<span class='kw'>pkgVersionsSrc</span>) <span class='co'># "foreach_1.4.0.tar.gz"  "foreach_1.4.2.tar.gz"</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span>(<span class='kw'>pkgVersionsBin</span>) <span class='co'># "foreach_1.4.0.zip"     "foreach_1.4.2.zip"</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>pkgVersionsSrc</span>[<span class='fl'>1</span>], <span class='kw'>pkgVersionsBin</span>[<span class='fl'>1</span>]))
+  <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span><span class='op'>(</span><span class='va'>pkgVersionsSrc</span><span class='op'>)</span> <span class='co'># "foreach_1.4.0.tar.gz"  "foreach_1.4.2.tar.gz"</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span><span class='op'>(</span><span class='va'>pkgVersionsBin</span><span class='op'>)</span> <span class='co'># "foreach_1.4.0.zip"     "foreach_1.4.2.zip"</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>pkgVersionsSrc</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>pkgVersionsBin</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
 
   <span class='co'># Rebuild package index after adding/removing files</span>
-  <span class='fu'><a href='makeRepo.html'>updateRepoIndex</a></span>(<span class='kw'>pth</span>, type = <span class='kw'>pkgTypes</span>, Rversion = <span class='kw'>R.version</span>)
+  <span class='fu'><a href='makeRepo.html'>updateRepoIndex</a></span><span class='op'>(</span><span class='va'>pth</span>, type <span class='op'>=</span> <span class='va'>pkgTypes</span>, Rversion <span class='op'>=</span> <span class='va'>R.version</span><span class='op'>)</span>
 
-  <span class='fu'><a href='pkgAvail.html'>pkgAvail</a></span>(<span class='kw'>pth</span>, type = <span class='st'>"source"</span>)
+  <span class='fu'><a href='pkgAvail.html'>pkgAvail</a></span><span class='op'>(</span><span class='va'>pth</span>, type <span class='op'>=</span> <span class='st'>"source"</span><span class='op'>)</span>
 
   <span class='co'># Add new packages (from CRAN) to the miniCRAN repo</span>
-  <span class='fu'>addPackage</span>(<span class='st'>"Matrix"</span>, path = <span class='kw'>pth</span>, repos = <span class='kw'>revolution</span>, type = <span class='kw'>pkgTypes</span>)
+  <span class='fu'>addPackage</span><span class='op'>(</span><span class='st'>"Matrix"</span>, path <span class='op'>=</span> <span class='va'>pth</span>, repos <span class='op'>=</span> <span class='va'>revolution</span>, type <span class='op'>=</span> <span class='va'>pkgTypes</span><span class='op'>)</span>
 
   <span class='co'># Delete temporary folder</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span>(<span class='kw'>pth</span>, recursive = <span class='fl'>TRUE</span>)
-}
+  <span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span><span class='op'>(</span><span class='va'>pth</span>, recursive <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
