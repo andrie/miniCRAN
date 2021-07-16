@@ -372,3 +372,40 @@ addLocalPackage <- function(pkgs = NULL, pkgPath = NULL, path = NULL,
   }
   invisible(ret)
 }
+
+#' Add package from GitHub
+#'
+#' @param repo Github repository name in the format `username/repo`.
+#' @param ... Additional arguments passed to `addLocalPackage()`.
+#'
+#' @export.
+#' @docType methods
+#'
+#' @author Marvin Steijaert
+#' @author Alex Chubaty
+#' 
+#' @note Currently, only installing from master branch is supported.
+#' 
+#' @importFrom utils unzip
+#' 
+#' @examples
+#' \dontrun{
+#'   addPackageGitHub("andrie/miniCRAN", path = reposPath)
+#' }
+addPackageGitHub <- function(repo, ...) {
+  packageName <- basename(repo)
+  exDir <- file.path(tempdir(), packageName)
+  if (dir.exists(exDir)) unlink(exDir, recursive = TRUE)
+  zipFile <- file.path(tempdir(), paste0(packageName, ".zip"))
+  
+  ## TODO: needs to handle HEAD instead of 'master' (to allow for 'main' branch)
+  ## TODO: allow arbitrary git reference, à la devtools::install_github()
+  ## TODO: allow installation from github repo that keeps pkg in a subdir
+  ## TODO: use GITHUB_PAT to allow downloading from private repos
+  download.file(paste0("https://github.com/", repo, "/zipball/master"), zipFile, mode = "wb")
+  unzip(zipFile, exdir = exDir)
+  file.rename(list.files(exDir, full.names = TRUE)[1], file.path(exDir, packageName))
+  
+  ## TODO: addLocalPackage() does not add the dependencies of the locally built package!
+  addLocalPackage(packageName, exDir, ..., build = TRUE)
+}
