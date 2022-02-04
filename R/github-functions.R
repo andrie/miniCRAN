@@ -105,14 +105,14 @@ readDescriptionGithub <- function(repo, username, branch = "master", quiet = TRU
 #'   `"andrie/rrd"`
 #' @param username Optional character vector. Name of repository on github, e.g.
 #'   `"andrie/rrd"`
-#' @param branch name of branch, defaults to `"master"`
+#' @param branch name of branch, defaults to `"main"`
 
 #' @export
 #' @family github functions
 #'
 #' @example /inst/examples/example_addPackageListingGithub.R
 addPackageListingGithub <- function(
-  pdb = pkgAvail(), repo, username = NULL, branch = "master"
+  pdb = pkgAvail(), repo, username = NULL, branch = "main"
 ) {
   desc <- readDescriptionGithub(repo = repo, username = username, branch = branch)
   addPackageListing(pdb, desc)
