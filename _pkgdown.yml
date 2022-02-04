@@ -1,3 +1,5 @@
+template:
+  bootstrap: 5
 destination: docs
 url: http://andrie.github.io/miniCRAN/
 reference:
