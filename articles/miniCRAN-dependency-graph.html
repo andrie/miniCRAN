@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,18 +40,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">miniCRAN</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.14.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -64,7 +60,7 @@
       <a href="../articles/miniCRAN-dependency-graph.html">Using miniCRAN to identify package dependencies</a>
     </li>
     <li>
-      <a href="../articles/miniCRAN-introduction.html">Using miniCRAN to create a local CRAN repository</a>
+      <a href="../articles/miniCRAN-introduction.html">Using miniCRAN to create and maintain a local CRAN repository</a>
     </li>
     <li>
       <a href="../articles/miniCRAN-non-CRAN-repos.html">Using repositories other than CRAN with miniCRAN</a>
@@ -74,8 +70,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/andrie/miniCRAN/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/andrie/miniCRAN/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -89,16 +85,15 @@
 
       
 
-      </header><script src="miniCRAN-dependency-graph_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="miniCRAN-dependency-graph_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="miniCRAN-dependency-graph_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="miniCRAN-dependency-graph_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Using miniCRAN to identify package dependencies</h1>
-                        <h4 class="author">Andrie de Vries</h4>
+                        <h4 data-toc-skip class="author">Andrie de Vries</h4>
             
-            <h4 class="date">November 26, 2020</h4>
+            <h4 data-toc-skip class="date">February 04, 2022</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/andrie/miniCRAN/blob/master/vignettes/miniCRAN-dependency-graph.rmd"><code>vignettes/miniCRAN-dependency-graph.rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/andrie/miniCRAN/blob/HEAD/vignettes/miniCRAN-dependency-graph.rmd" class="external-link"><code>vignettes/miniCRAN-dependency-graph.rmd</code></a></small>
       <div class="hidden name"><code>miniCRAN-dependency-graph.rmd</code></div>
 
     </div>
@@ -107,7 +102,7 @@
     
 <p>The <code>miniCRAN</code> package exposes two functions that provide information about dependencies:</p>
 <ul>
-<li><p>The function <code><a href="../reference/pkgDep.html">pkgDep()</a></code> returns a character vector with the names of dependencies. Internally, <code><a href="../reference/pkgDep.html">pkgDep()</a></code> is a wrapper around <code><a href="https://rdrr.io/r/tools/package_dependencies.html">tools::package_dependencies()</a></code>, a base R function that, well, tells you about package dependencies. My <code><a href="../reference/pkgDep.html">pkgDep()</a></code> function is in one way a convenience, but more importantly it sets different defaults (more about this later).</p></li>
+<li><p>The function <code><a href="../reference/pkgDep.html">pkgDep()</a></code> returns a character vector with the names of dependencies. Internally, <code><a href="../reference/pkgDep.html">pkgDep()</a></code> is a wrapper around <code><a href="https://rdrr.io/r/tools/package_dependencies.html" class="external-link">tools::package_dependencies()</a></code>, a base R function that, well, tells you about package dependencies. My <code><a href="../reference/pkgDep.html">pkgDep()</a></code> function is in one way a convenience, but more importantly it sets different defaults (more about this later).</p></li>
 <li><p>The function <code><a href="../reference/makeDepGraph.html">makeDepGraph()</a></code> creates a graph representation of the dependencies.</p></li>
 </ul>
 <p>The package <code>chron</code> neatly illustrates the different roles of Imports, Suggests and Enhances:</p>
@@ -116,9 +111,9 @@
 <li><p><code>chron</code> <strong>Suggests</strong> the packages scales and ggplot2. This means that <code>chron</code> uses some functions from these packages in examples or in its vignettes. However, these functions are not necessary to use <code>chron</code></p></li>
 <li><p><code>chron</code> <strong>Enhances</strong> the package <code>zoo</code>, meaning that it adds something to <code>zoo</code> packages. These enhancements are made available to you if you have <code>zoo</code> installed.</p></li>
 </ul>
-<div id="a-worked-example-using-the-package-chron" class="section level2">
-<h2 class="hasAnchor">
-<a href="#a-worked-example-using-the-package-chron" class="anchor"></a>A worked example using the package chron</h2>
+<div class="section level2">
+<h2 id="a-worked-example-using-the-package-chron">A worked example using the package chron<a class="anchor" aria-label="anchor" href="#a-worked-example-using-the-package-chron"></a>
+</h2>
 <p>The function <code><a href="../reference/pkgDep.html">pkgDep()</a></code> exposes not only these dependencies, but also all recursive dependencies. In other words, it answers the question which packages need to be installed to satisfy all dependencies of dependencies.</p>
 <p>This means that the algorithm is as follows:</p>
 <ul>
@@ -128,49 +123,49 @@
 </ul>
 <p>The resulting list of packages should then contain the complete list necessary to satisfy all dependencies. In code:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/andrie/miniCRAN">"miniCRAN"</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/andrie/miniCRAN" class="external-link">"miniCRAN"</a></span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tags</span> <span class="op">&lt;-</span> <span class="st">"chron"</span>
 <span class="fu"><a href="../reference/pkgDep.html">pkgDep</a></span><span class="op">(</span><span class="va">tags</span>, availPkgs <span class="op">=</span> <span class="va">cranJuly2014</span><span class="op">)</span></code></pre></div>
-<pre><code>##  [1] "chron"        "RColorBrewer" "dichromat"    "munsell"      "plyr"        
-##  [6] "labeling"     "colorspace"   "Rcpp"         "digest"       "gtable"      
-## [11] "reshape2"     "scales"       "proto"        "MASS"         "stringr"     
-## [16] "ggplot2"</code></pre>
+<pre><code><span class="co">##  [1] "chron"        "RColorBrewer" "dichromat"    "munsell"      "plyr"        </span>
+<span class="co">##  [6] "labeling"     "colorspace"   "Rcpp"         "digest"       "gtable"      </span>
+<span class="co">## [11] "reshape2"     "scales"       "proto"        "MASS"         "stringr"     </span>
+<span class="co">## [16] "ggplot2"</span></code></pre>
 <p>To create an igraph plot of the dependencies, use the function <code><a href="../reference/makeDepGraph.html">makeDepGraph()</a></code> and plot the results:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeDepGraph.html">makeDepGraph</a></span><span class="op">(</span><span class="va">tags</span>, enhances <span class="op">=</span> <span class="cn">TRUE</span>, availPkgs <span class="op">=</span> <span class="va">cranJuly2014</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">dg</span>, legendPosition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, vertex.size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dg</span>, legendPosition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, vertex.size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></code></pre></div>
 <p><img src="miniCRAN-dependency-graph_files/figure-html/makeDepGraph-1.png" width="700"></p>
 <p>Note how the dependencies expand to <code>zoo</code> (enhanced), <code>scales</code> and <code>ggplot</code> (suggested) and then recursively from there to get all the <code>Imports</code> and <code>LinkingTo</code> dependencies.</p>
 </div>
-<div id="an-example-with-multiple-input-packages" class="section level2">
-<h2 class="hasAnchor">
-<a href="#an-example-with-multiple-input-packages" class="anchor"></a>An example with multiple input packages</h2>
+<div class="section level2">
+<h2 id="an-example-with-multiple-input-packages">An example with multiple input packages<a class="anchor" aria-label="anchor" href="#an-example-with-multiple-input-packages"></a>
+</h2>
 <p>As a final example, create a dependency graph of seven very popular R packages:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tags</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ggplot2"</span>, <span class="st">"data.table"</span>, <span class="st">"plyr"</span>, <span class="st">"knitr"</span>, <span class="st">"shiny"</span>, <span class="st">"xts"</span>, <span class="st">"lattice"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">tags</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ggplot2"</span>, <span class="st">"data.table"</span>, <span class="st">"plyr"</span>, <span class="st">"knitr"</span>, <span class="st">"shiny"</span>, <span class="st">"xts"</span>, <span class="st">"lattice"</span><span class="op">)</span>
 <span class="fu"><a href="../reference/pkgDep.html">pkgDep</a></span><span class="op">(</span><span class="va">tags</span>, suggests <span class="op">=</span> <span class="cn">TRUE</span>, enhances <span class="op">=</span> <span class="cn">FALSE</span>, availPkgs <span class="op">=</span> <span class="va">cranJuly2014</span><span class="op">)</span></code></pre></div>
-<pre><code>##  [1] "ggplot2"      "data.table"   "plyr"         "knitr"        "shiny"       
-##  [6] "xts"          "lattice"      "digest"       "gtable"       "reshape2"    
-## [11] "scales"       "proto"        "MASS"         "Rcpp"         "stringr"     
-## [16] "RColorBrewer" "dichromat"    "munsell"      "labeling"     "colorspace"  
-## [21] "evaluate"     "formatR"      "highr"        "markdown"     "mime"        
-## [26] "httpuv"       "caTools"      "RJSONIO"      "xtable"       "htmltools"   
-## [31] "bitops"       "zoo"          "SparseM"      "survival"     "Formula"     
-## [36] "latticeExtra" "cluster"      "maps"         "sp"           "foreign"     
-## [41] "mvtnorm"      "TH.data"      "sandwich"     "nlme"         "Matrix"      
-## [46] "bit"          "codetools"    "iterators"    "timeDate"     "quadprog"    
-## [51] "Hmisc"        "BH"           "quantreg"     "mapproj"      "hexbin"      
-## [56] "maptools"     "multcomp"     "testthat"     "mgcv"         "chron"       
-## [61] "reshape"      "fastmatch"    "bit64"        "abind"        "foreach"     
-## [66] "doMC"         "itertools"    "testit"       "rgl"          "XML"         
-## [71] "RCurl"        "Cairo"        "timeSeries"   "tseries"      "its"         
-## [76] "fts"          "tis"          "KernSmooth"</code></pre>
+<pre><code><span class="co">##  [1] "ggplot2"      "data.table"   "plyr"         "knitr"        "shiny"       </span>
+<span class="co">##  [6] "xts"          "lattice"      "digest"       "gtable"       "reshape2"    </span>
+<span class="co">## [11] "scales"       "proto"        "MASS"         "Rcpp"         "stringr"     </span>
+<span class="co">## [16] "RColorBrewer" "dichromat"    "munsell"      "labeling"     "colorspace"  </span>
+<span class="co">## [21] "evaluate"     "formatR"      "highr"        "markdown"     "mime"        </span>
+<span class="co">## [26] "httpuv"       "caTools"      "RJSONIO"      "xtable"       "htmltools"   </span>
+<span class="co">## [31] "bitops"       "zoo"          "SparseM"      "survival"     "Formula"     </span>
+<span class="co">## [36] "latticeExtra" "cluster"      "maps"         "sp"           "foreign"     </span>
+<span class="co">## [41] "mvtnorm"      "TH.data"      "sandwich"     "nlme"         "Matrix"      </span>
+<span class="co">## [46] "bit"          "codetools"    "iterators"    "timeDate"     "quadprog"    </span>
+<span class="co">## [51] "Hmisc"        "BH"           "quantreg"     "mapproj"      "hexbin"      </span>
+<span class="co">## [56] "maptools"     "multcomp"     "testthat"     "mgcv"         "chron"       </span>
+<span class="co">## [61] "reshape"      "fastmatch"    "bit64"        "abind"        "foreach"     </span>
+<span class="co">## [66] "doMC"         "itertools"    "testit"       "rgl"          "XML"         </span>
+<span class="co">## [71] "RCurl"        "Cairo"        "timeSeries"   "tseries"      "its"         </span>
+<span class="co">## [76] "fts"          "tis"          "KernSmooth"</span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeDepGraph.html">makeDepGraph</a></span><span class="op">(</span><span class="va">tags</span>, enhances <span class="op">=</span> <span class="cn">TRUE</span>, availPkgs <span class="op">=</span> <span class="va">cranJuly2014</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">dg</span>, legendPosition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, vertex.size <span class="op">=</span> <span class="fl">10</span>, cex <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dg</span>, legendPosition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, vertex.size <span class="op">=</span> <span class="fl">10</span>, cex <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></code></pre></div>
 <p><img src="miniCRAN-dependency-graph_files/figure-html/so-tags-1.png" width="960"></p>
 </div>
   </div>
@@ -186,11 +181,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Andrie de Vries.</p>
+  <p></p>
+<p>Developed by Andrie de Vries.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -198,6 +195,8 @@
 
   
 
+
+  
 
   </body>
 </html>
