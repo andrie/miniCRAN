@@ -35,7 +35,7 @@ set_test_types <- function() {
       unset = "source, win.binary, mac.binary, mac.binary.mavericks"
     )
   
-  types <- gsub(" +", ",", types)
+  types <- gsub(" +", "", types)
   strsplit(types, ",")[[1]]
 }
 
