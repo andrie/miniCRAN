@@ -1,6 +1,3 @@
-if (interactive()) {library(testthat); Sys.setenv(NOT_CRAN = "true")}
-# set_mock_environment()
-
 
 # make baseline repo ------------------------------------------------------
 
@@ -17,7 +14,10 @@ if (interactive()) {library(testthat); Sys.setenv(NOT_CRAN = "true")}
   rvers <- "3.1"
   pkgs <- c("chron", "adaptivetau")
   
-  types <- set_test_types()
+  types <- intersect(
+    set_test_types(),
+    c("source", "win.binary", "mac.binary")
+  )
   
   names(types) <- types
   pdb <- list()
