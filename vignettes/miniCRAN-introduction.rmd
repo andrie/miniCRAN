@@ -1,5 +1,5 @@
 ---
-title: "Using miniCRAN to create a local CRAN repository"
+title: "Using miniCRAN to create and maintain a local CRAN repository"
 author: "Andrie de Vries and Alex Chubaty"
 date:   "`r as.character(format(Sys.Date(), format='%B %d, %Y'))`"
 output: rmarkdown::html_vignette
