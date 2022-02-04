@@ -8,13 +8,14 @@
 [![R build
 status](https://github.com/andrie/miniCRAN/workflows/R-CMD-check/badge.svg)](https://github.com/andrie/miniCRAN/actions)
 [![Code
-coverage](https://codecov.io/gh/andrie/miniCRAN/branch/master/graph/badge.svg)](https://codecov.io/gh/andrie/miniCRAN?branch=master)
+coverage](https://codecov.io/gh/andrie/miniCRAN/branch/main/graph/badge.svg)](https://codecov.io/gh/andrie/miniCRAN?branch=main)
 [![CRAN
 version](http://www.r-pkg.org/badges/version/miniCRAN)](http://www.r-pkg.org/pkg/miniCRAN)
 [![CRAN RStudio mirror
 downloads](http://cranlogs.r-pkg.org/badges/miniCRAN)](http://www.r-pkg.org/pkg/miniCRAN)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/miniCRAN)](https://cran.r-project.org/package=miniCRAN)
+[![R-CMD-check](https://github.com/andrie/miniCRAN/workflows/R-CMD-check/badge.svg)](https://github.com/andrie/miniCRAN/actions)
 <!-- badges: end -->
 
 Create a mini version of CRAN containing only selected packages
@@ -35,7 +36,7 @@ then downloads only this subset.
 ## Important functions:
 
 | Function           | Use it for                                                              |
-| ------------------ | ----------------------------------------------------------------------- |
+|--------------------|-------------------------------------------------------------------------|
 | `pkgDep()`         | Find package dependencies                                               |
 | `makeRepo()`       | Make repository (with or without downloading packages)                  |
 | `addPackage()`     | Add additional packages (and their dependencies) to existing repository |
