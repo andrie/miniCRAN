@@ -1,4 +1,3 @@
-if (interactive()) {library(testthat); library(testthis)}
 
 test_that("can read CRAN description", {
 
@@ -6,10 +5,16 @@ test_that("can read CRAN description", {
   skip_if(getRversion() <= "3.4")
 
   skip_if_not_installed("mockery")
+  skip_if_not_installed("testthis")
+
   mockery::stub(
     getCranDescription,
     what = "tools::CRAN_package_db",
-    function(...) testthis::read_testdata("/pdb.rds")
+    function(...) {
+      suppressMessages(
+        testthis::read_testdata("/pdb.rds")
+      )
+    }
   )
   p <- getCranDescription("miniCRAN", repos = c(CRAN = getOption("minicran.mran")))
   expect_s3_class(p, "data.frame")

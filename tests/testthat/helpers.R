@@ -28,6 +28,18 @@ skip_if_offline <- function(url = MRAN()) {
 }
 
 
+set_test_types <- function() {
+  types <- 
+    Sys.getenv(
+      "minicran_test_scope",
+      unset = "source, win.binary, mac.binary, mac.binary.mavericks"
+    )
+  
+  types <- gsub(" +", ",", types)
+  strsplit(types, ",")[[1]]
+}
+
+
 # Use in unit tests to check if source or binary files are in repo
 .checkForRepoFiles <- function(path, pkgList, prefix) {
   ptn <- "tar\\.gz|zip|tgz"
@@ -123,4 +135,72 @@ mock_write_packages <- function(dir, type = "source", r_version) {
   makeRepo(pkgList_mac, path = path, repos = MRAN,
            type = "mac.binary",
            quiet = TRUE, Rversion = Rversion)
+}
+
+make_fake_package <- function(version = "0.1.0", base_path = tempdir()) {
+  fake_package <- file.path(base_path, "fake.package")
+  dir.create(fake_package, showWarnings = FALSE)
+  
+  # Create a fake function to add to the package
+  foo <- function(x)NA
+  
+  # Create the skeleton
+  
+  # browser()
+  
+  if (getRversion() >= "3.5") {
+    suppressMessages(
+    package.skeleton(
+      "fake.package", 
+      path = base_path, 
+      list = "foo",
+      force = TRUE, 
+      environment = environment(foo),
+      encoding = "UTF-8"
+    )
+    )
+  } else {
+    suppressMessages(
+    package.skeleton(
+      "fake.package", 
+      path = base_path, 
+      list = "foo",
+      force = TRUE, 
+      environment = environment(foo)
+    )
+    )
+  }
+  
+  # Remove unnecessary detritus from skeleton
+  file.remove(file.path(fake_package, "NAMESPACE"))
+  unlink(file.path(fake_package, "data"), recursive = TRUE)
+  unlink(file.path(fake_package, "man"), recursive = TRUE)
+  unlink(file.path(fake_package, "Read-and-delete-me"), recursive = TRUE)
+
+    # Write a function file with some roxygen
+  writeLines(
+    con = file.path(fake_package, "R", "foo.R"),
+    text = "
+  #' Foo.
+  #' 
+  #' Does nothing.
+  #' @export
+  #' foo <- function(x)NULL
+  
+  ")
+  
+  # Set package version
+  desc <- readLines(file.path(fake_package, "DESCRIPTION"))
+  version_line <- grep("^Version:", desc)
+  desc[version_line] <- paste0("Version: ", version)
+  writeLines(desc, con = file.path(file.path(fake_package, "DESCRIPTION")))
+
+  # Document the package
+  
+  suppressMessages(
+  devtools::document(fake_package, quiet = TRUE)
+  )
+
+  # Build the package
+  devtools::build(fake_package, path = base_path, quiet = TRUE)
 }

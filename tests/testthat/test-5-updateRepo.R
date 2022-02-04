@@ -17,8 +17,7 @@ if (interactive()) {library(testthat); Sys.setenv(NOT_CRAN = "true")}
   rvers <- "3.1"
   pkgs <- c("chron", "adaptivetau")
   
-  types <- c("win.binary", "mac.binary", "source")
-  # types <- c("win.binary")
+  types <- set_test_types()
   
   names(types) <- types
   pdb <- list()
@@ -66,7 +65,7 @@ for (pkg_type in names(types)) {
       prefix <- repoPrefix(pkg_type, Rversion = rvers)
       
       
-      with_mock(
+     mockr::with_mock(
         download_packages = mock_download_packages,
         write_packages = mock_write_packages,
         .env = "miniCRAN",
@@ -117,7 +116,7 @@ for (pkg_type in names(types)) {
       on.exit(unlink(tmpdir, recursive = TRUE), add = TRUE)
       
       # get most recent version
-      with_mock(
+     mockr::with_mock(
         download_packages = mock_download_packages,
         write_packages = mock_write_packages,
         .env = "miniCRAN",
@@ -138,7 +137,7 @@ for (pkg_type in names(types)) {
       )
       expect_equal(length(list.files(tmpdir)), 2)
       
-      with_mock(
+     mockr::with_mock(
         download_packages = mock_download_packages,
         write_packages = mock_write_packages,
         .env = "miniCRAN",
@@ -206,7 +205,7 @@ for (pkg_type in names(types)) {
         )
       )
      
-      with_mock(
+     mockr::with_mock(
         download_packages = mock_download_packages,
         write_packages = mock_write_packages,
         .env = "miniCRAN",
@@ -227,7 +226,7 @@ for (pkg_type in names(types)) {
         file.exists(file.path(repo_root, prefix, "PACKAGES.gz"))
       )
       
-      with_mock(
+     mockr::with_mock(
         download_packages = mock_download_packages,
         write_packages = mock_write_packages,
         .env = "miniCRAN",
@@ -264,7 +263,7 @@ for (pkg_type in names(types)) {
       if (pkg_type != "source") {
         
         expect_error(
-          with_mock(
+         mockr::with_mock(
             download_packages = mock_download_packages,
             write_packages = mock_write_packages,
             .env = "miniCRAN",
@@ -275,7 +274,7 @@ for (pkg_type in names(types)) {
             })
         )
       } else {
-        with_mock(
+       mockr::with_mock(
           download_packages = mock_download_packages,
           write_packages = mock_write_packages,
           .env = "miniCRAN",
