@@ -40,6 +40,7 @@ repoPrefix <- function(type, Rversion) {
 #' @inheritParams repoPrefix
 #' 
 #' @keywords Internal
+#' @noRd
 repoBinPath <- function(path, type, Rversion) {
   normalizePath(file.path(path, repoPrefix(type, Rversion)), mustWork = FALSE, winslash = "/")
 }

@@ -8,7 +8,7 @@ addPackageListingGithub(
   pdb = pkgAvail(),
   repo,
   username = NULL,
-  branch = "master"
+  branch = "main"
 )
 }
 \arguments{
@@ -21,7 +21,7 @@ addPackageListingGithub(
 \item{username}{Optional character vector. Name of repository on github, e.g.
 \code{"andrie/rrd"}}
 
-\item{branch}{name of branch, defaults to \code{"master"}}
+\item{branch}{name of branch, defaults to \code{"main"}}
 }
 \description{
 Downloads the DESCRIPTION file from a package on github, parses the fields
