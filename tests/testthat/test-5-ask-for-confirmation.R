@@ -17,7 +17,9 @@ old <- matrix(
 
 test_that("asking for confirmation", {
   
- mockr::with_mock(
+  skip_if_not_installed("mockr") 
+  
+  mockr::with_mock(
     read_line_wrapper = function(...) { "y" },
     .env = "miniCRAN", 
     {

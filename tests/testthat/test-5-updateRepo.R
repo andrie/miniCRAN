@@ -48,7 +48,7 @@ pkgsAdd <- c("forecast")
 pkg_type <- names(types)[1]
 for (pkg_type in names(types)) {
   
-  # context(sprintf(" - Add packages to repo (%s)", pkg_type))
+  skip_if_not_installed("mockr") 
   
   test_that(sprintf(
     "addPackage downloads %s files and rebuilds PACKAGES file", 
@@ -98,8 +98,7 @@ pkgsAddLocal <- c("MASS")
 
 for (pkg_type in names(types)) {
   
-  # context(sprintf(" - Add local packages to repo (%s)", pkg_type))
-  
+  skip_if_not_installed("mockr") 
   test_that(
     sprintf("addLocalPackage copies %s files and rebuilds PACKAGES", 
             pkg_type), 

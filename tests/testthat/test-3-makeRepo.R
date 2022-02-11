@@ -21,6 +21,7 @@
 types <- set_test_types()
 
 for (pkg_type in (types)) {
+  skip_if_not_installed("mockr") 
   test_that(sprintf("makeRepo downloads %s files and builds PACKAGES",
                     pkg_type), {
 
