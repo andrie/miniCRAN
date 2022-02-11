@@ -1,4 +1,4 @@
-This is a release with no functional changes and prepares for testthat_3.0.0
+This is a release with no functional changes but fixes failing tests on CRAN, and to comply with CRAN policy.
 
 ## R CMD check results
 
@@ -7,4 +7,4 @@ There were no ERRORs, WARNINGs or NOTEs.
 
 ## Downstream dependencies
 
-`miniCRAN` has reverse dependencies  (`deepdep` and `AzureML`), and all tests pass
+`miniCRAN` has reverse dependencies  (`deepdep`), and all tests pass.
