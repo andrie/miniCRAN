@@ -1,3 +1,11 @@
+miniCRAN v1.2.15
+================
+
+* No functional changes
+* Use `mockr` for mocking in tests tests
+* Updated tests to comply with CRAN policy
+
+
 miniCRAN v0.2.14 (Release date: 2020-09-14)
 ================
 
