@@ -87,19 +87,19 @@ and adds (or replaces) a row in the available package database.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Create package database</span></span>
 <span class="r-in"><span class="va">pdb</span> <span class="op">&lt;-</span> <span class="va">cranJuly2014</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="va">pdb</span> <span class="op">&lt;-</span> <span class="fu"><a href="pkgAvail.html">pkgAvail</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>CRAN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"minicran.mran"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in">  <span class="va">pdb</span> <span class="op">&lt;-</span> <span class="fu"><a href="pkgAvail.html">pkgAvail</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>CRAN <span class="op">=</span> <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in">  <span class="co"># Overwrite pdb with development version of miniCRAN at github</span></span>
 <span class="r-in">  <span class="va">newpdb</span> <span class="op">&lt;-</span> <span class="fu">addPackageListingGithub</span><span class="op">(</span>pdb <span class="op">=</span> <span class="va">pdb</span>, <span class="st">"andrie/miniCRAN"</span><span class="op">)</span></span>
 <span class="r-in">  <span class="va">newpdb</span><span class="op">[</span><span class="st">"miniCRAN"</span>, <span class="op">]</span></span>
 <span class="r-in"></span>
 <span class="r-in">  <span class="co"># Add package from github that's not currently on CRAN</span></span>
-<span class="r-in">  <span class="va">newpdb</span> <span class="op">&lt;-</span> <span class="fu">addPackageListingGithub</span><span class="op">(</span>pdb <span class="op">=</span> <span class="va">pdb</span>, repo <span class="op">=</span> <span class="st">"RevolutionAnalytics/checkpoint"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">newpdb</span><span class="op">[</span><span class="st">"checkpoint"</span>, <span class="op">]</span></span>
+<span class="r-in">  <span class="va">newpdb</span> <span class="op">&lt;-</span> <span class="fu">addPackageListingGithub</span><span class="op">(</span>pdb <span class="op">=</span> <span class="va">pdb</span>, repo <span class="op">=</span> <span class="st">"tidyverse/ggplot2"</span>, branch <span class="op">=</span> <span class="st">"main"</span><span class="op">)</span></span>
+<span class="r-in">  <span class="va">newpdb</span><span class="op">[</span><span class="st">"ggplot2"</span>, <span class="op">]</span></span>
 <span class="r-in"></span>
 <span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="makeDepGraph.html">makeDepGraph</a></span><span class="op">(</span><span class="st">"checkpoint"</span>, availPkgs <span class="op">=</span> <span class="va">newpdb</span>, suggests <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="makeDepGraph.html">makeDepGraph</a></span><span class="op">(</span><span class="st">"ggplot2"</span>, availPkgs <span class="op">=</span> <span class="va">newpdb</span>, suggests <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
 </code></pre></div>
     </div>

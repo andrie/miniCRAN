@@ -157,43 +157,40 @@ subfolders for Windows as well as the various OSX binaries.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co"># Specify list of packages to download</span></span>
-<span class="r-in"><span class="va">revolution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>CRAN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"minicran.mran"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">revolution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>CRAN <span class="op">=</span> <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">pkgs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"foreach"</span><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="va">pdb</span> <span class="op">&lt;-</span> <span class="va">cranJuly2014</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in">  <span class="va">pdb</span> <span class="op">&lt;-</span> <span class="va">cranJuly2014</span></span>
+<span class="r-in">  </span>
 <span class="r-in">  <span class="va">pdb</span> <span class="op">&lt;-</span> <span class="fu"><a href="pkgAvail.html">pkgAvail</a></span><span class="op">(</span></span>
 <span class="r-in">    repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>CRAN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"minicran.mran"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span class="r-in">    type <span class="op">=</span> <span class="st">"source"</span></span>
 <span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">pkgList</span> <span class="op">&lt;-</span> <span class="fu"><a href="pkgDep.html">pkgDep</a></span><span class="op">(</span><span class="va">pkgs</span>, availPkgs <span class="op">=</span> <span class="va">pdb</span>, repos <span class="op">=</span> <span class="va">revolution</span>,</span>
-<span class="r-in">                  type <span class="op">=</span> <span class="st">"source"</span>, suggests <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">pkgList</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "foreach"   "codetools" "iterators"</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># Create temporary folder for miniCRAN</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"miniCRAN"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Make repo for source and win.binary</span></span>
-<span class="r-in"><span class="fu">makeRepo</span><span class="op">(</span><span class="va">pkgList</span>, path <span class="op">=</span> <span class="va">pth</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># List all files in miniCRAN</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">pth</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Check for available packages</span></span>
-<span class="r-in"><span class="fu"><a href="pkgAvail.html">pkgAvail</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="va">pth</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Repeat process for windows binaries</span></span>
-<span class="r-in"><span class="fu">makeRepo</span><span class="op">(</span><span class="va">pkgList</span>, path <span class="op">=</span> <span class="va">pth</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="st">"win.binary"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="pkgAvail.html">pkgAvail</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="va">pth</span>, type <span class="op">=</span> <span class="st">"win.binary"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Delete temporary folder</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="va">pth</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in">  </span>
+<span class="r-in">  <span class="va">pkgList</span> <span class="op">&lt;-</span> <span class="fu"><a href="pkgDep.html">pkgDep</a></span><span class="op">(</span><span class="va">pkgs</span>, availPkgs <span class="op">=</span> <span class="va">pdb</span>, repos <span class="op">=</span> <span class="va">revolution</span>,</span>
+<span class="r-in">                    type <span class="op">=</span> <span class="st">"source"</span>, suggests <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in">  <span class="va">pkgList</span></span>
+<span class="r-in">  </span>
+<span class="r-in">  </span>
+<span class="r-in">  <span class="co"># Create temporary folder for miniCRAN</span></span>
+<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"miniCRAN"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in">  </span>
+<span class="r-in">  <span class="co"># Make repo for source and win.binary</span></span>
+<span class="r-in">  <span class="fu">makeRepo</span><span class="op">(</span><span class="va">pkgList</span>, path <span class="op">=</span> <span class="va">pth</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span>
+<span class="r-in">  </span>
+<span class="r-in">  <span class="co"># List all files in miniCRAN</span></span>
+<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">pth</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in">  </span>
+<span class="r-in">  <span class="co"># Check for available packages</span></span>
+<span class="r-in">  <span class="fu"><a href="pkgAvail.html">pkgAvail</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="va">pth</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span>
+<span class="r-in">  </span>
+<span class="r-in">  <span class="co"># Repeat process for windows binaries</span></span>
+<span class="r-in">  <span class="fu">makeRepo</span><span class="op">(</span><span class="va">pkgList</span>, path <span class="op">=</span> <span class="va">pth</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="st">"win.binary"</span><span class="op">)</span></span>
+<span class="r-in">  <span class="fu"><a href="pkgAvail.html">pkgAvail</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="va">pth</span>, type <span class="op">=</span> <span class="st">"win.binary"</span><span class="op">)</span></span>
+<span class="r-in">  </span>
+<span class="r-in">  <span class="co"># Delete temporary folder</span></span>
+<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="va">pth</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
 </code></pre></div>
     </div>
