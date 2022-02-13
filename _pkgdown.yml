@@ -45,5 +45,6 @@ reference:
   - miniCRAN-package
   - repoPrefix
   - twodigitRversion
+  - is.online
 
 
