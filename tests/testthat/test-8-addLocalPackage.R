@@ -15,6 +15,7 @@ repo_path <- file.path(tempdir(), "cran")
 test_that("can add fake local package", {
   
   skip_on_cran()
+  skip_if_offline()
   
   # create the fake package
   fake_path <- file.path(tempdir(), "fake.package")

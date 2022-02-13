@@ -1,9 +1,9 @@
 
 .onLoad <- function(libname, pkgname) {
   mran.url <- if (getRversion() >= "3.2.2") {
-    "https://cran.microsoft.com" ## use HTTPS
+    "https://mran.microsoft.com" ## use HTTPS
   } else {
-    "http://cran.microsoft.com" ## use HTTP
+    "http://mran.microsoft.com" ## use HTTP
   }
 
   ## set options using the approach used by devtools
