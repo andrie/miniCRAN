@@ -28,9 +28,9 @@ This is a wrapper around \code{tools::CRAN_package_db} and may be
 deprecated in future versions of the package.
 }
 \examples{
-\dontrun{
-getCranDescription(c("igraph", "ggplot2", "XML"),
-  repos = c(CRAN = getOption("minicran.mran"))
-)
+if (interactive()) {
+  getCranDescription(c("igraph", "ggplot2", "XML"),
+                     repos = c(CRAN = getOption("minicran.mran"))
+  )
 }
 }

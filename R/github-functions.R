@@ -80,8 +80,9 @@ addPackageListing <- function(pdb = pkgAvail(), dcf, warnings = TRUE) {
 # blocking of a package's (re-)installation after it has been required/loaded?
 
 #' @importFrom httr GET stop_for_status content
-readDescriptionGithub <- function(repo, username, branch = "master", quiet = TRUE) {
-  if (!missing(username) && !is.null(username)) repo <- paste(username, repo, sep = "/")
+readDescriptionGithub <- function(repo, username = NULL, branch = "master", quiet = TRUE) {
+  # browser()
+  if (!is.null(username)) repo <- paste(username, repo, sep = "/")
   pkg <- sprintf("https://github.com/%s/raw/%s/DESCRIPTION", repo, branch)
   ff <- tempfile()
   on.exit(unlink(ff))

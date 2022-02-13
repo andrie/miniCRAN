@@ -3,12 +3,11 @@ tags <- "chron"
 # Plot using defaults
 pdb <- cranJuly2014
 
-\dontrun{
-  pdb <- pkgAvail(
-    repos = c(CRAN = getOption("minicran.mran")),
-    type = "source"
-  )
-}
+pdb <- pkgAvail(
+  repos = c(CRAN = getOption("minicran.mran")),
+  type = "source"
+)
+
 
 dg <- makeDepGraph(tags, availPkgs = pdb  , includeBasePkgs = FALSE,
                    suggests = TRUE, enhances = TRUE)
