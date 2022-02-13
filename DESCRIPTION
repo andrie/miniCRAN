@@ -36,12 +36,13 @@ Suggests:
     mockery,
     testthis,
     roxygen2,
-    mockr
+    mockr,
+    spelling
 LazyData: true
 LazyLoad: true
 VignetteBuilder: knitr
 RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
-Language: en-GB
+Language: en-US
 Config/testthat/edition: 3
