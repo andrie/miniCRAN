@@ -38,7 +38,7 @@ multiple versions. You can subsequently decide which version to keep.
 ### `checkVersions` and `add.packages.miniCRAN` require an existing miniCRAN repo
 
 # Specify list of packages to download
-revolution <- c(CRAN = getOption("minicran.mran"))
+revolution <- c(CRAN = "https://cloud.r-project.org")
 revolution
 pkgs <- c("foreach")
 pkgTypes <- c("source", "win.binary")
