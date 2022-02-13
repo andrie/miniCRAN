@@ -1,4 +1,11 @@
-miniCRAN v1.2.15
+miniCRAN v0.2.16
+================
+
+* No functional changes
+* Further tests and examples fixes to pass `R CMD check` on CRAN
+
+
+miniCRAN v0.2.15
 ================
 
 * No functional changes

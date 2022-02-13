@@ -1,5 +1,5 @@
 Package: miniCRAN
-Version: 0.2.15
+Version: 0.2.16
 Authors@R: c(
     person("Andrie", "de Vries", role=c("aut", "cre", "cph"), email="apdevries@gmail.com"),
     person("Alex", "Chubaty", role="ctb", email="alex.chubaty@gmail.com"),
