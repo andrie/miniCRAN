@@ -1,11 +1,17 @@
 # helper functions for testing
 
+hostname <- function(x) {
+  sub("https*://", "", x)
+}
+
+mran_host <- hostname(MRAN())
 
 # Interrupt the test if url can not be reached
 skip_if_offline <- function(url = NULL) {
-  if (is.null(url)) url <- MRAN()
+  if (is.null(url)) url <- mran_host
   if (!is.online(url = url)) testthat::skip("offline")
 }
+
 
 
 set_test_types <- function() {
