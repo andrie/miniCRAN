@@ -1,8 +1,6 @@
 if (interactive()) {library(testthat); Sys.setenv(NOT_CRAN = "true")}
 # set_mock_environment()
 
-context("deleteRepo")
-
 # make baseline repo ------------------------------------------------------
 
 {
@@ -37,7 +35,7 @@ pkgsDep1 <- c("randtoolbox", "lhs")
 pkgsDep2 <- "rngWELL"
 pkgsDep3 <- "Rcpp"
 
-mock_write_packages_delete <- function(dir, type = "source") {
+mock_write_packages_delete <- function(dir, type = "source", r_version) {
   db <- structure(c(
     "lhs", "LVGP", "randtoolbox", "Rcpp", "RcppArmadillo",
     "rngWELL", "1.0.1", "2.1.5", "1.17.1", "1.0.1", "0.9.300.2.0",
@@ -55,7 +53,7 @@ mock_write_packages_delete <- function(dir, type = "source") {
   .Dim = c(6L, 11L),
   .Dimnames = list(NULL, c("Package", "Version", "Depends", "Enhances", "License",
                            "Archs", "Suggests", "Imports", "LinkingTo", "Priority", "License_is_FOSS")))
-  mock_write_packages(dir, type, db)
+  mock_write_packages(dir, type, r_version, db)
 }
 
 pkg_type <- names(types)[1]
@@ -81,8 +79,6 @@ for (pkg_type in names(types)) {
     )
   }
 
-  context(sprintf(" - Delete packages from repo (%s)", pkg_type))
-
   test_that(sprintf(
     "deletePackage deletes %s files",
     pkg_type), {
@@ -91,7 +87,8 @@ for (pkg_type in names(types)) {
       skip_if_offline(revolution)
 
       pdb <<- lapply(types, pkgAvail, repos = revolution, Rversion = rvers, quiet = TRUE)
-      pkgListAdd <- pkgDep(pkgsAdd, availPkgs = pdb[[pkg_type]],
+      pkgListAdd <- pkgDep(pkgsAdd,
+                           availPkgs = pdb[[pkg_type]],
                            repos = revolution,
                            type  = pkg_type,
                            suggests = FALSE,
