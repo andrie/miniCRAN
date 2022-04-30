@@ -1,19 +1,12 @@
-## Test environments
+This is a release with no functional changes but fixes failing tests on CRAN, and to comply with CRAN policy.
 
-* local Windows install, R-3.4.3
-* ubuntu trusty 14.04 (on travis-ci), testing on:
-  - R-release
-  - R-oldrel
-  - R-devel
-* XCode (Mac OS) (on travis-ci)
+In particular, I have reviewed all examples to run in less than 5 seconds, and tests to run only if internet connection is available, and to print informative messages if not.
 
 ## R CMD check results
 
-There were no ERRORs or WARNINGs.
+There were no ERRORs, WARNINGs or NOTEs.
 
-There is a NOTE on old releases, that `tools::CRAN_package_db()` is not exported.
-In my code I use `if (getRversion() >= "3.4.1") {...}` to test for this condition, and only refer to `CRAN_package_db()` in more recent releases.
 
 ## Downstream dependencies
 
-`miniCRAN` has only one reverse dependency, `AzureML`, and all tests pass
+`miniCRAN` has reverse dependencies  (`deepdep`), and all tests pass.

@@ -1,30 +1,28 @@
 # helper functions for testing
 
-# Returns TRUE if a URL can be accessed
-is.online <- function(url = MRAN(), tryHttp = TRUE) {
-  readFromUrl <- function(url){
-    z <- tryCatch(suppressWarnings(readLines(url, n = 1, warn = FALSE)),
-                  error = function(e) e
-    )
-    !inherits(z, "error")
-  }
-
-  if (!readFromUrl(url)) {
-    if (grepl("^https://", url) && tryHttp) {
-      url <- sub("^https://", "http://", url) # for older versions of R
-      if (!readFromUrl(url))
-        return(FALSE)
-    } else {
-      return(FALSE)
-    }
-  }
-
-  TRUE
+hostname <- function(x) {
+  sub("https*://", "", x)
 }
 
+mran_host <- hostname(MRAN())
+
 # Interrupt the test if url can not be reached
-skip_if_offline <- function(url = MRAN()) {
-  if (!is.online(url)) testthat::skip("offline")
+skip_if_offline <- function(url = NULL) {
+  if (is.null(url)) url <- mran_host
+  if (!is.online(url = url)) testthat::skip("offline")
+}
+
+
+
+set_test_types <- function() {
+  types <- 
+    Sys.getenv(
+      "minicran_test_scope",
+      unset = "source, win.binary, mac.binary, mac.binary.mavericks"
+    )
+  
+  types <- gsub(" +", "", types)
+  strsplit(types, ",")[[1]]
 }
 
 
@@ -61,7 +59,7 @@ mock_download_packages <- function(pkgs, destdir, available, type, ...) {
   t(downloads)
 }
 
-mock_write_packages <- function(dir, type = "source", db = NULL) {
+mock_write_packages <- function(dir, type = "source", r_version, db = NULL) {
   pattern <- ".tgz$|.zip$|.tar.gz$"
   if (grepl("mac.binary", type)) type <- "mac.binary"
   ff <- list.files(dir, recursive = TRUE, full.names = TRUE, pattern = pattern)
@@ -84,7 +82,12 @@ mock_write_packages <- function(dir, type = "source", db = NULL) {
     write.dcf(db, con)
     close(con)
     rownames(db) <- db[, "Package"]
-    saveRDS(db, file.path(dir, "PACKAGES.rds"), compress = "xz")
+    r_version <- twodigitRversion(r_version)
+    if (r_version >= "3.5.0") {
+      saveRDS(db, file.path(dir, "PACKAGES.rds"), compress = "xz")
+    } else {
+      saveRDS(db, file.path(dir, "PACKAGES.rds"), compress = "xz", version = 2)
+    }
   }
   np
 }
@@ -120,4 +123,72 @@ mock_write_packages <- function(dir, type = "source", db = NULL) {
   makeRepo(pkgList_mac, path = path, repos = MRAN,
            type = "mac.binary",
            quiet = TRUE, Rversion = Rversion)
+}
+
+make_fake_package <- function(version = "0.1.0", base_path = tempdir()) {
+  fake_package <- file.path(base_path, "fake.package")
+  dir.create(fake_package, showWarnings = FALSE)
+  
+  # Create a fake function to add to the package
+  foo <- function(x)NA
+  
+  # Create the skeleton
+  
+  # browser()
+  
+  if (getRversion() >= "3.5") {
+    suppressMessages(
+    package.skeleton(
+      "fake.package", 
+      path = base_path, 
+      list = "foo",
+      force = TRUE, 
+      environment = environment(foo),
+      encoding = "UTF-8"
+    )
+    )
+  } else {
+    suppressMessages(
+    package.skeleton(
+      "fake.package", 
+      path = base_path, 
+      list = "foo",
+      force = TRUE, 
+      environment = environment(foo)
+    )
+    )
+  }
+  
+  # Remove unnecessary detritus from skeleton
+  file.remove(file.path(fake_package, "NAMESPACE"))
+  unlink(file.path(fake_package, "data"), recursive = TRUE)
+  unlink(file.path(fake_package, "man"), recursive = TRUE)
+  unlink(file.path(fake_package, "Read-and-delete-me"), recursive = TRUE)
+
+    # Write a function file with some roxygen
+  writeLines(
+    con = file.path(fake_package, "R", "foo.R"),
+    text = "
+  #' Foo.
+  #' 
+  #' Does nothing.
+  #' @export
+  #' foo <- function(x)NULL
+  
+  ")
+  
+  # Set package version
+  desc <- readLines(file.path(fake_package, "DESCRIPTION"))
+  version_line <- grep("^Version:", desc)
+  desc[version_line] <- paste0("Version: ", version)
+  writeLines(desc, con = file.path(file.path(fake_package, "DESCRIPTION")))
+
+  # Document the package
+  
+  suppressMessages(
+  devtools::document(fake_package, quiet = TRUE)
+  )
+
+  # Build the package
+  devtools::build(fake_package, path = base_path, quiet = TRUE)
 }

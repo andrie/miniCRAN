@@ -6,3 +6,14 @@ LICENSE.md
 ^docs$
 ^_pkgdown\.yml$
 cran-comments.md
+^README\.Rmd$
+^pkgdown$
+^codecov\.yml$
+^tests/testthat/disabled/
+^man-roxygen/
+^logo.svg$
+^CRAN-RELEASE$
+^revdep$
+^\.github$
+^cran-comments\.md$
+^CRAN-SUBMISSION$

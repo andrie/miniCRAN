@@ -4,17 +4,30 @@
 \alias{makeDepGraph}
 \title{Create dependency graph from available packages.}
 \usage{
-makeDepGraph(pkg, availPkgs, repos = getOption("repos"), type = "source",
-  suggests = TRUE, enhances = FALSE, includeBasePkgs = FALSE, ...)
+makeDepGraph(
+  pkg,
+  availPkgs,
+  repos = getOption("repos"),
+  type = "source",
+  suggests = TRUE,
+  enhances = FALSE,
+  includeBasePkgs = FALSE,
+  ...
+)
 }
 \arguments{
 \item{pkg}{Character vector of packages.}
 
-\item{availPkgs}{Data frame with an element called \code{package}. The \code{package} element is a vector of available packages.  Defaults to reading this list from CRAN, using \code{\link[=available.packages]{available.packages()}}}
+\item{availPkgs}{Data frame with an element called \code{package}. The \code{package}
+element is a vector of available packages.  Defaults to reading this list
+from CRAN, using \code{\link[=available.packages]{available.packages()}}}
 
-\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link[=available.packages]{available.packages()}}}
+\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g.
+\code{"http://cran.us.r-project.org"}. Passed to \code{\link[=available.packages]{available.packages()}}}
 
-\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
+\item{type}{Possible values are (currently) "source", "mac.binary" and
+"win.binary": the binary types can be listed and downloaded but not
+installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
 
 \item{suggests}{If TRUE, retrieves Suggests dependencies (non-recursively)}
 
@@ -29,42 +42,44 @@ Each package is a node, and a dependency is an edge
 }
 \examples{
 
-
-
-availPkgs <- cranJuly2014
-
-\dontrun{
-availPkgs <- pkgAvail(
-  repos = c(CRAN = getOption("minicran.mran")),
-  type = "source"
+if (interactive()) {
+  availPkgs <- cranJuly2014
+  
+  availPkgs <- pkgAvail(
+    repos = c(CRAN = "https://cloud.r-project.org"),
+    type = "source"
   )
-}
-
-
-# Create dependency graph using stored database of available packages
-p <- makeDepGraph(
-  c("ggplot2", "forecast"),
-  availPkgs = availPkgs
-)
-
-if(require(igraph)) plot(p)
-
-
-
-\dontrun{
-  # Create dependency graph using newly retrieved database from CRAN
-
+  
+  
+  # Create dependency graph using stored database of available packages
   p <- makeDepGraph(
-  c("ggplot2", "forecast"),
-  repos = c(CRAN = getOption("minicran.mran")),
-  type = "source"
-)
-if(require(igraph)) plot(p)
+    c("ggplot2", "forecast"),
+    availPkgs = availPkgs
+  )
+  
+  if(require(igraph)) plot(p)
+
+  # Create dependency graph using newly retrieved database from CRAN
+  
+  p <- makeDepGraph(
+    c("ggplot2", "forecast"),
+    repos = c(CRAN = getOption("minicran.mran")),
+    type = "source"
+  )
+  if(requireNamespace("igraph", quietly = TRUE)) {
+    plot(p)
+  } else {
+    message("install package `igraph` to view dependency graph")
+  }
+  
 }
 }
 \seealso{
 \code{\link[=pkgDep]{pkgDep()}} to extract package dependencies
 
-Other dependency functions: \code{\link{basePkgs}},
-  \code{\link{pkgDep}}, \code{\link{plot.pkgDepGraph}}
+Other dependency functions: 
+\code{\link{basePkgs}()},
+\code{\link{pkgDep}()},
+\code{\link{plot.pkgDepGraph}()}
 }
+\concept{dependency functions}

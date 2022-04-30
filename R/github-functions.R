@@ -25,7 +25,7 @@ getPkgVersFromFile <- function(file) {
     row.names(df) <- seq_len(nrow(df))
     df
   } else {
-    data.frame(package = character(0), version = character(0))
+    data.frame(package = character(0), version = character(0), stringsAsFactors = FALSE)
   }
 }
 
@@ -59,7 +59,8 @@ addPackageListing <- function(pdb = pkgAvail(), dcf, warnings = TRUE) {
   #   pkgRow <- match(pkgName, rownames(pdb))
   pkgRow <- match(pkgName, pdb[, "Package"])
   newRow <- with(dcf,
-                 c(Package, Version, NA, Depends, Imports, LinkingTo, Suggests, Enhances, License,
+                 c(Package, Version, NA,
+                   Depends, Imports, LinkingTo, Suggests, Enhances, License,
                    rep(NA, 8)))
   if (!is.na(pkgRow)) {
     pdb[pkgRow, ] <- newRow
@@ -75,16 +76,16 @@ addPackageListing <- function(pdb = pkgAvail(), dcf, warnings = TRUE) {
 
 
 
-# from http://stackoverflow.com/questions/13163248
-# Possible to override the blocking of a package's (re-)installation after it has been required/loaded?
+# from http://stackoverflow.com/questions/13163248 Possible to override the
+# blocking of a package's (re-)installation after it has been required/loaded?
 
 #' @importFrom httr GET stop_for_status content
-readDescriptionGithub <- function(repo, username, branch = "master", quiet = TRUE) {
-  if (!missing(username) && !is.null(username)) repo <- paste(username, repo, sep = "/")
+readDescriptionGithub <- function(repo, username = NULL, branch = "master", quiet = TRUE) {
+  # browser()
+  if (!is.null(username)) repo <- paste(username, repo, sep = "/")
   pkg <- sprintf("https://github.com/%s/raw/%s/DESCRIPTION", repo, branch)
   ff <- tempfile()
   on.exit(unlink(ff))
-  #   download.file(url=pkg, destfile=ff, quiet=quiet, method="curl")
   request <- GET(pkg)
   stop_for_status(request)
   writeBin(content(request), ff)
@@ -96,18 +97,24 @@ readDescriptionGithub <- function(repo, username, branch = "master", quiet = TRU
 
 #' Add DESCRIPTION information from package on github.
 #'
-#' Downloads the DESCRIPTION file from a package on github, parses the fields and adds (or replaces) a row in the available package database.
+#' Downloads the DESCRIPTION file from a package on github, parses the fields
+#' and adds (or replaces) a row in the available package database.
 #'
-#' @param pdb Package database, usually the result of [pkgAvail()] or [available.packages()]
-#' @param repo Character vector. Name of repository on github, e.g. `"RevolutionAnalytics/checkpoint"`
-#' @param username Optional character vector. Name of repository on github, e.g. `"RevolutionAnalytics/checkpoint"``
-#' @param branch name of branch, defaults to `"master"`
+#' @param pdb Package database, usually the result of [pkgAvail()] or
+#'   [available.packages()]
+#' @param repo Character vector. Name of repository on github, e.g.
+#'   `"andrie/rrd"`
+#' @param username Optional character vector. Name of repository on github, e.g.
+#'   `"andrie/rrd"`
+#' @param branch name of branch, defaults to `"main"`
 
 #' @export
 #' @family github functions
 #'
 #' @example /inst/examples/example_addPackageListingGithub.R
-addPackageListingGithub <- function(pdb = pkgAvail(), repo, username = NULL, branch = "master") {
+addPackageListingGithub <- function(
+  pdb = pkgAvail(), repo, username = NULL, branch = "main"
+) {
   desc <- readDescriptionGithub(repo = repo, username = username, branch = branch)
   addPackageListing(pdb, desc)
 }

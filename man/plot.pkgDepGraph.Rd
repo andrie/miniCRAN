@@ -4,22 +4,34 @@
 \alias{plot.pkgDepGraph}
 \title{Plots a package dependency graph.}
 \usage{
-\method{plot}{pkgDepGraph}(x, pkgsToHighlight, main = paste(attr(x, "pkgs"),
-  collapse = ", "), legendPosition = c(-1.2, -1), shape = "circle",
-  vertex.size = 8, cex = 1, ...)
+\method{plot}{pkgDepGraph}(
+  x,
+  pkgsToHighlight,
+  main = paste(attr(x, "pkgs"), collapse = ", "),
+  legendPosition = c(-1.2, -1),
+  shape = "circle",
+  vertex.size = 8,
+  cex = 1,
+  ...
+)
 }
 \arguments{
-\item{x}{pkgDepGraph object}
+\item{x}{Object to plot}
 
-\item{pkgsToHighlight}{Optional character vector with names of package to highlight. If missing, defaults to packages used in original call to \code{\link[=makeDepGraph]{makeDepGraph()}}}
+\item{pkgsToHighlight}{Optional character vector with names of package to
+highlight. If missing, defaults to packages used in original call to
+\code{\link[=makeDepGraph]{makeDepGraph()}}}
 
 \item{main}{Title of plot}
 
-\item{legendPosition}{Numeric vector of length 2, indicating (x, y) position of edge legend. Both values should be in the range \code{[-1; 1]}.  If \code{NULL}, the edge legend is not displayed.}
+\item{legendPosition}{Numeric vector of length 2, indicating (x, y) position
+of edge legend. Both values should be in the range \verb{[-1; 1]}.  If \code{NULL},
+the edge legend is not displayed.}
 
-\item{shape}{Shape of edge.  See \code{\link[igraph:igraph.plotting]{igraph::igraph.plotting()}}. Could be "none", "circle", "square", ...}
+\item{shape}{Shape of edge.  See \code{\link[igraph:plot.common]{igraph::igraph.plotting()}}. Could be
+"none", "circle", "square", ...}
 
-\item{vertex.size}{Size of vertex shape. \code{\link[igraph:igraph.plotting]{igraph::igraph.plotting()}}}
+\item{vertex.size}{Size of vertex shape. \code{\link[igraph:plot.common]{igraph::igraph.plotting()}}}
 
 \item{cex}{Vertex label size.}
 
@@ -32,36 +44,43 @@ Plots a package dependency graph.
 tags <- "chron"
 
 # Plot using defaults
-pdb <- cranJuly2014
 
-\dontrun{
+if (interactive()){
   pdb <- pkgAvail(
     repos = c(CRAN = getOption("minicran.mran")),
     type = "source"
   )
+} else {
+  pdb <- cranJuly2014
 }
 
-dg <- makeDepGraph(tags, availPkgs = pdb  , includeBasePkgs = FALSE,
-                   suggests = TRUE, enhances = TRUE)
 
-set.seed(42);
-plot(dg)
-
-# Move edge legend to top left
-set.seed(42);
-plot(dg, legendPosition = c(-1, 1))
-
-# Change font size and shape size
-set.seed(42);
-plot(dg, legendPosition = c(-1, 1), vertex.size = 20,  cex = 0.5)
-
-
-# Move vertex legend to top right
-set.seed(42);
-plot(dg, legendPosition = c(1, 1), vertex.size = 20,  cex = 0.5)
-
+if (interactive()) {
+  dg <- makeDepGraph(tags, availPkgs = pdb  , includeBasePkgs = FALSE,
+                     suggests = TRUE, enhances = TRUE)
+  
+  set.seed(43);
+  plot(dg)
+  
+  
+  # Move edge legend to top left
+  set.seed(42);
+  plot(dg, legendPosition = c(-1, 1))
+  
+  # Change font size and shape size
+  set.seed(42);
+  plot(dg, legendPosition = c(-1, 1), vertex.size = 20,  cex = 0.5)
+  
+  
+  # Move vertex legend to top right
+  set.seed(42);
+  plot(dg, legendPosition = c(1, 1), vertex.size = 20,  cex = 0.5)
+}
 }
 \seealso{
-Other dependency functions: \code{\link{basePkgs}},
-  \code{\link{makeDepGraph}}, \code{\link{pkgDep}}
+Other dependency functions: 
+\code{\link{basePkgs}()},
+\code{\link{makeDepGraph}()},
+\code{\link{pkgDep}()}
 }
+\concept{dependency functions}

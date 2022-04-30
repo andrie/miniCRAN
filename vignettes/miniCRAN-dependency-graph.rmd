@@ -32,8 +32,8 @@ The function `pkgDep()` exposes not only these dependencies, but also all recurs
 
 This means that the algorithm is as follows:
 
-* First retrieve a list of Suggests and Enhances, using a non-recursive dependency search
-* Next, perform a recursive search for all Imports, Depends and LinkingTo
+* First retrieve a list of `Suggests` and `Enhances`, using a non-recursive dependency search
+* Next, perform a recursive search for all `Imports`, `Depends` and `LinkingTo`
 
 The resulting list of packages should then contain the complete list necessary to satisfy all dependencies. In code:
 

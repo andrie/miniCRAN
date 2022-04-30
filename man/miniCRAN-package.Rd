@@ -3,53 +3,75 @@
 \docType{package}
 \name{miniCRAN-package}
 \alias{miniCRAN-package}
+\alias{_PACKAGE}
 \alias{miniCRAN}
 \alias{minicran}
-\title{Create a Private Version of CRAN Containing Only Selected Packages}
+\title{description}
 \description{
-At the end of 2014, CRAN consisted of more than 6,000 packages.  Many organisations need to maintain a private mirror of CRAN, but with only a subset of packages that are relevant to them.
-
-\code{miniCRAN} makes it possible to create an internally consistent repository consisting of selected packages from CRAN-like repositories.  The user specifies a set of desired packages, and miniCRAN recursively reads the dependency tree for these packages, then downloads only this subset.
+At the end of 2014, CRAN consisted of more than 6,000 packages.  Many
+organisations need to maintain a private mirror of CRAN, but with only a
+subset of packages that are relevant to them.
+}
+\details{
+\code{miniCRAN} makes it possible to create an internally consistent repository
+consisting of selected packages from CRAN-like repositories.  The user
+specifies a set of desired packages, and miniCRAN recursively reads the
+dependency tree for these packages, then downloads only this subset.
 
 There are many reasons for not creating a complete mirror CRAN using \code{rsync}:
 \itemize{
-\item You may wish to mirror only a subset of CRAN, for security, legal compliance or any other in-house reason
-\item You may wish to restrict internal package use to a subset of public packages, to minimize package duplication, or other reasons of coding standards
-\item You may wish to make packages available from public repositories other than CRAN, e.g. BioConductor, r-forge, OmegaHat, etc.
+\item You may wish to mirror only a subset of CRAN, for security, legal
+compliance or any other in-house reason
+\item You may wish to restrict internal package use to a subset of public
+packages, to minimize package duplication, or other reasons of coding
+standards
+\item You may wish to make packages available from public repositories other than
+CRAN, e.g. BioConductor, r-forge, OmegaHat, etc.
 \item You may wish to add custom in-house packages to your repository
 }
 
-The ambition of \code{miniCRAN} is to eventually satisfy all of these considerations.
+The ambition of \code{miniCRAN} is to eventually satisfy all of these
+considerations.
 }
 \section{Making a private repo}{
 
 \itemize{
-\item \code{\link[=pkgAvail]{pkgAvail()}}: Read from a local (or remote) CRAN-like repository and determine available packages.
+\item \code{\link[=pkgAvail]{pkgAvail()}}: Read from a local (or remote) CRAN-like repository and
+determine available packages.
 \item \code{\link[=pkgDep]{pkgDep()}}: Find (recursive) package dependencies.
-\item \code{\link[=makeRepo]{makeRepo()}} : Make a mini CRAN repository, by downloading packages (and their dependencies) and creating the appropriate file structure for a repository.  This allows you to use functions like \code{\link[utils:available.packages]{utils::available.packages()}} and \code{\link[utils:install.packages]{utils::install.packages()}} on your local repository.
+\item \code{\link[=makeRepo]{makeRepo()}} : Make a mini CRAN repository, by downloading packages (and
+their dependencies) and creating the appropriate file structure for a
+repository.  This allows you to use functions like
+\code{\link[utils:available.packages]{utils::available.packages()}} and \code{\link[utils:install.packages]{utils::install.packages()}} on your local
+repository.
 }
 
-This subset will be internally consistent, i.e. the following functions will work as expected:
+This subset will be internally consistent, i.e. the following functions
+will work as expected:
 \itemize{
 \item \code{\link[utils:available.packages]{utils::available.packages()}}
 \item \code{\link[utils:install.packages]{utils::install.packages()}}
 }
 
-The main function is \code{\link[=makeRepo]{makeRepo()}} - this will download all the required packages, with their dependencies, into the appropriate repository file structure, and then create the repository index (PACKAGES) file.
+The main function is \code{\link[=makeRepo]{makeRepo()}} - this will download all the required
+packages, with their dependencies, into the appropriate repository file
+structure, and then create the repository index (PACKAGES) file.
 }
 
 \section{Updating packages in a repo}{
 
 \itemize{
-\item \code{\link[=oldPackages]{oldPackages()}}: Indicates packages which have a (suitable) later version on the repositories
-\item \code{\link[=updatePackages]{updatePackages()}}: Offers to download and install such packages
+\item \code{\link[=oldPackages]{oldPackages()}}: Indicates packages which have a (suitable) later version
+on the repositories * \code{\link[=updatePackages]{updatePackages()}}: Offers to download and install
+such packages
 }
 }
 
 \section{Creating dependencies}{
 
 
-To get a recursive list of dependencies as well as a plot, use \code{\link[=pkgDep]{pkgDep()}} followed by  \code{\link[=makeDepGraph]{makeDepGraph()}}.
+To get a recursive list of dependencies as well as a plot, use \code{\link[=pkgDep]{pkgDep()}}
+followed by  \code{\link[=makeDepGraph]{makeDepGraph()}}.
 \itemize{
 \item \code{\link[=pkgDep]{pkgDep()}}: Find (recursive) package dependencies.
 \item \code{\link[=makeDepGraph]{makeDepGraph()}}: Create graph of selected package dependencies.
@@ -60,13 +82,27 @@ To get a recursive list of dependencies as well as a plot, use \code{\link[=pkgD
 \section{Package options}{
 
 
-\describe{
-\item{\code{minicran.mran}}{preferred MRAN URL. Defaults to \url{https://mran.microsoft.com}
-for R versions 3.2.2 and greater. Versions earlier than 3.2.2 use HTTP instead of HTTPS.}
-}
+\describe{ \item{\code{minicran.mran}}{preferred MRAN URL. Defaults to
+\url{https://mran.microsoft.com} for R versions 3.2.2 and greater. Versions
+earlier than 3.2.2 use HTTP instead of HTTPS.} }
 }
 
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/andrie/miniCRAN}
+  \item Report bugs at \url{https://github.com/andrie/miniCRAN/issues}
+}
+
+}
 \author{
-Andrie de Vries \email{apdevries@gmail.com} with contributions from Alex Chubaty \email{alex.chubaty@gmail.com}
+\strong{Maintainer}: Andrie de Vries \email{apdevries@gmail.com} [copyright holder]
+
+Other contributors:
+\itemize{
+  \item Alex Chubaty \email{alex.chubaty@gmail.com} [contributor]
+  \item Microsoft Corporation [copyright holder]
+}
+
 }
 \keyword{package}

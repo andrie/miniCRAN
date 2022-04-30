@@ -1,18 +1,65 @@
-miniCRAN v0.2.11.9000 (Dev)
+miniCRAN v0.2.16
+================
+
+* No functional changes
+* Further tests and examples fixes to pass `R CMD check` on CRAN
+
+
+miniCRAN v0.2.15
+================
+
+* No functional changes
+* Use `mockr` for mocking in tests tests
+* Updated tests to comply with CRAN policy
+
+
+miniCRAN v0.2.14 (Release date: 2020-09-14)
+================
+
+* No functional changes
+* Updated tests to comply with `testthat_3.0.0`
+
+
+
+miniCRAN v0.2.13 (Release date: 2020-07-13)
+================
+
+Changes:
+
+* Removed the dependency on `XML`.  This will only affect a non-essential function (`getCranDesription`) on versions of R prior to R-3.4.0
+
+Bug fixes:
+
+* Fix "t undefined in scope error" #125, contributed by @Calligross (https://github.com/calligross)
+* Update code and tests to write PACKAGES.rds with compression version 2 for versions of R earlier than R-3.5.0 #129
+
+Minor changes:
+
+* Removed reference to dependency on `curl`, since the actual dependency was removed in a previous version of the package.
+* Treat the `writePACKAGES` argument consistently, as suggested by @vh-d in #130
+* Improve test coverage
+* Fix some broken examples
+
+
+miniCRAN v0.2.12 (Release date: 2019-07-06)
 ================
 
 New features:
 * Added `deletePackage` to remove packages and their dependencies (#81)
 
 Bug fixes:
-* Experimental support for mac.binary.el-capitan (#111)
+
+* Experimental support for mac.binary.el-capitan (#111 and #121)
 * Fixed description of `availPkgs` in documentation (#108)
 * Added backward compatibility for R<3.3.0 when `repos` argument to `available.packages()` was added (#109)
 
+API change
+
+* On R version 3.4.0 and earlier, `getCranDescription()` will throw a warning that this function is no longer supported.  This is in preparation to remove the dependency on `XML` in a future release.
+
 Internal changes
+
 * Rewrote mocking mechanism in tests
-
-
 
 
 miniCRAN v0.2.11 (Release date: 2018-01-15)
@@ -27,8 +74,6 @@ Bug fixes:
 Other changes:
 * Use `pkgdown` to build documentation site (#105)
 * Speed up unit testing by mocking internal functions (#107)
-
-
 
 
 miniCRAN v0.2.10 (Release date: 2017-10-21)

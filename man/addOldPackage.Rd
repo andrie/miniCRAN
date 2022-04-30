@@ -4,93 +4,142 @@
 \alias{addOldPackage}
 \title{Add old package versions to a miniCRAN repository.}
 \usage{
-addOldPackage(pkgs = NULL, path = NULL, vers = NULL,
-  repos = getOption("repos"), type = "source", Rversion = R.version,
-  writePACKAGES = TRUE, deps = FALSE, quiet = TRUE)
+addOldPackage(
+  pkgs = NULL,
+  path = NULL,
+  vers = NULL,
+  repos = getOption("repos"),
+  type = "source",
+  Rversion = R.version,
+  writePACKAGES = TRUE,
+  deps = FALSE,
+  quiet = TRUE
+)
 }
 \arguments{
 \item{pkgs}{Character vector of packages to download}
 
-\item{path}{Destination download path. This path is the root folder of your new repository.}
+\item{path}{Destination download path. This path is the root folder of your
+new repository.}
 
 \item{vers}{The package version to install.}
 
-\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g. \code{"http://cran.us.r-project.org"}. Passed to \code{\link[=available.packages]{available.packages()}}}
+\item{repos}{URL(s) of the 'contrib' sections of the repositories, e.g.
+\code{"http://cran.us.r-project.org"}. Passed to \code{\link[=available.packages]{available.packages()}}}
 
-\item{type}{Possible values are (currently) "source", "mac.binary" and "win.binary": the binary types can be listed and downloaded but not installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
+\item{type}{Possible values are (currently) "source", "mac.binary" and
+"win.binary": the binary types can be listed and downloaded but not
+installed on other platforms.  Passed to \code{\link[=download.packages]{download.packages()}}.}
 
-\item{Rversion}{Version of R. Can be specified as a character string with the two digit R version, e.g. "3.1".  Defaults to \link{R.version}}
+\item{Rversion}{Version of R (only used if \code{type} is not \code{source}.) Defaults to \link{R.version}, but this can be specified as any of the following formats:
+\itemize{
+\item a character string with the two digit R version, e.g. "3.1"
+\item a list with components \code{major} and \code{minor}
+\item the result of \code{\link[=getRversion]{getRversion()}}
+\item the result of \link{R.version}
+}}
 
-\item{writePACKAGES}{If TRUE, calls \code{\link[=write_PACKAGES]{write_PACKAGES()}} to update the repository PACKAGES file.}
+\item{writePACKAGES}{If TRUE, calls \code{\link[=write_PACKAGES]{write_PACKAGES()}} to update the
+repository PACKAGES file.}
 
-\item{deps}{logical indicating whether the package dependencies should be added (default \code{TRUE}).}
+\item{deps}{logical indicating whether the package dependencies should be
+added (default \code{TRUE}).}
 
-\item{quiet}{If TRUE, suppress status messages (if any), and the progress bar during download.}
+\item{quiet}{If TRUE, suppress status messages (if any), and the progress bar
+during download.}
 }
 \value{
-Adds the packages, rebuilds the package index, and invisibly returns the number of packages written to the index files.
+Adds the packages, rebuilds the package index, and invisibly returns
+the number of packages written to the index files.
 }
 \description{
-Will download and add older source package versions. Older binary versions are not normally available on CRAN and should be build from source on the platform for which they are required. As such, specifying \code{type!="source"} will likely fail as the download will not be successful.
+Will download and add older source package versions. Older binary versions
+are not normally available on CRAN and should be built from source on the
+platform for which they are required. As such, specifying \code{type!="source"}
+will likely fail as the download will not be successful.
 }
 \note{
-Dependencies for old package versions cannot be determined automatically and must be specified by the user in \code{pkgs} and \code{vers}. Thus, \code{deps=FALSE} is the default for this function.
+Dependencies for old package versions cannot be determined
+automatically and must be specified by the user in \code{pkgs} and \code{vers}. Thus,
+\code{deps=FALSE} is the default for this function.
 }
 \examples{
 ### `checkVersions` and `add.packages.miniCRAN` require an existing miniCRAN repo
 
 # Specify list of packages to download
-revolution <- c(CRAN = getOption("miniCRAN.mran"))
+revolution <- c(CRAN = "https://cloud.r-project.org")
+revolution
 pkgs <- c("foreach")
 pkgTypes <- c("source", "win.binary")
 
-pdb <- cranJuly2014
-
-\dontrun{
-  pdb <- pkgAvail(repos = revolution, type = "source")
+if (interactive()) {
+  if (!is.online()) {
+    message("MRAN seems to be not available.  Check your internet connection.")
+  } else {
+    pdb <- pkgAvail(repos = revolution, type = "source")
+  }
+} else {
+  pdb <- cranJuly2014
 }
 
-pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = revolution, type = "source", suggests = FALSE)
-pkgList
 
-\dontrun{
-  # Create temporary folder for miniCRAN
-  dir.create(pth <- file.path(tempdir(), "miniCRAN"))
+if (interactive()) {
+  if (!is.online()) {
+    message("MRAN seems to be not available.  Check your internet connection.")
+  } else {
+    pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = revolution, type = "source", suggests = FALSE)
+    pkgList
+  }
+}
 
-  # Make repo for source and win.binary
-  makeRepo(pkgList, path = pth, repos = revolution, type = pkgTypes)
+# Create temporary folder for miniCRAN
 
-  # Add other versions of a package (and assume these were added previously)
-  oldVers <- data.frame(package = c("foreach", "codetools", "iterators"),
-                        version = c("1.4.0", "0.2-7", "1.0.5"),
-                        stringsAsFactors = FALSE)
-  pkgs <- oldVers$package
-  addOldPackage(pkgs, path = pth, vers = oldVers$version, repos = revolution, type = "source")
-  # NOTE: older binary versions would need to be build from source
-
-  # List package versions in the miniCRAN repo (produces warning about duplicates)
-  pkgVersionsSrc <- checkVersions(pkgs, path = pth, type = "source")
-  pkgVersionsBin <- checkVersions(pkgs, path = pth, type = "win.binary")
-
-  # After inspecting package versions, remove old versions
-  basename(pkgVersionsSrc) # "foreach_1.4.0.tar.gz"  "foreach_1.4.2.tar.gz"
-  basename(pkgVersionsBin) # "foreach_1.4.0.zip"     "foreach_1.4.2.zip"
-  file.remove(c(pkgVersionsSrc[1], pkgVersionsBin[1]))
-
-  # Rebuild package index after adding/removing files
-  updateRepoIndex(pth, type = pkgTypes, Rversion = R.version)
-
-  pkgAvail(pth, type = "source")
-
-  # Add new packages (from CRAN) to the miniCRAN repo
-  addPackage("Matrix", path = pth, repos = revolution, type = pkgTypes)
-
-  # Delete temporary folder
-  unlink(pth, recursive = TRUE)
+if (interactive()) {
+  if (!is.online()) {
+    message("MRAN seems to be not available.  Check your internet connection.")
+  } else {
+    dir.create(pth <- file.path(tempdir(), "miniCRAN"))
+    
+    # Make repo for source and win.binary
+    makeRepo(pkgList, path = pth, repos = revolution, type = pkgTypes)
+    
+    # Add other versions of a package (and assume these were added previously)
+    oldVers <- data.frame(
+      package = c("foreach", "codetools", "iterators"),
+      version = c("1.4.0", "0.2-7", "1.0.5"),
+      stringsAsFactors = FALSE
+    )
+    pkgs <- oldVers$package
+    addOldPackage(pkgs, path = pth, vers = oldVers$version, repos = revolution, type = "source")
+    # NOTE: older binary versions would need to be build from source
+    
+    # List package versions in the miniCRAN repo (produces warning about duplicates)
+    pkgVersionsSrc <- checkVersions(pkgs, path = pth, type = "source")
+    pkgVersionsBin <- checkVersions(pkgs, path = pth, type = "win.binary")
+    
+    # After inspecting package versions, remove old versions
+    basename(pkgVersionsSrc$source) # "foreach_1.4.0.tar.gz"  "foreach_1.4.2.tar.gz"
+    basename(pkgVersionsBin$win.binary) # "foreach_1.4.0.zip"     "foreach_1.4.2.zip"
+    file.remove(c(pkgVersionsSrc$source[1], pkgVersionsBin$win.binary[1]))
+    
+    # Rebuild package index after adding/removing files
+    updateRepoIndex(pth, type = pkgTypes, Rversion = R.version)
+    
+    pkgAvail(pth, type = "source")
+    
+    # Add new packages (from CRAN) to the miniCRAN repo
+    addPackage("Matrix", path = pth, repos = revolution, type = pkgTypes)
+    
+    # Delete temporary folder
+    unlink(pth, recursive = TRUE)
+  }
 }
 }
 \seealso{
-Other update repo functions: \code{\link{addPackage}},
-  \code{\link{checkVersions}}, \code{\link{makeRepo}},
-  \code{\link{updatePackages}}
+Other update repo functions: 
+\code{\link{addPackage}()},
+\code{\link{checkVersions}()},
+\code{\link{makeRepo}()},
+\code{\link{updatePackages}()}
 }
+\concept{update repo functions}

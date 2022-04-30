@@ -1,6 +1,4 @@
-if (interactive()) {library(testthat); Sys.setenv(NOT_CRAN = "true")}
 
-context("makeRepo")
 
 {
   revolution <- MRAN("2014-10-15")
@@ -19,23 +17,25 @@ context("makeRepo")
   
 }
 
-types <- c("source", "win.binary", "mac.binary", "mac.binary.mavericks")
+# types are defined in env var `minicran_test_scope`
+types <- set_test_types()
 
 for (pkg_type in (types)) {
-  context(sprintf(" - %s", pkg_type))
+  skip_if_not_installed("mockr") 
   test_that(sprintf("makeRepo downloads %s files and builds PACKAGES",
                     pkg_type), {
 
     skip_on_cran()
     skip_if_offline()
-    
+    skip_if_not_installed("mockr")
+
     pdb <- pkgAvail(repos = revolution, type = pkg_type, Rversion = rvers, quiet = TRUE)
     pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = revolution, type = pkg_type,
                       suggests = FALSE, Rversion = rvers, quiet = FALSE)
     prefix <- repoPrefix(pkg_type, Rversion = rvers)
     dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
 
-    with_mock(
+    mockr::with_mock(
       download_packages = mock_download_packages,
       write_packages = mock_write_packages,
       .env = "miniCRAN",
@@ -45,7 +45,7 @@ for (pkg_type in (types)) {
       }
     )
 
-    expect_is(ret, "character")
+    expect_type(ret, "character")
     expect_equal(length(ret), length(pkgList))
 
     expect_true(

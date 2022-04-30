@@ -1,12 +1,11 @@
 if (interactive()) {library(testthat); Sys.setenv(NOT_CRAN = "true")}
 
-context("makeRepo from local miniCRAN")
 
 {
-  revolution <- MRAN("2014-10-15")
-  if (!is.online(revolution, tryHttp = FALSE)) {
+  revolution_mran <- MRAN("2014-10-15")
+  if (!is.online(revolution_mran, tryHttp = FALSE)) {
     # Use http:// for older versions of R
-    revolution <- sub("^https://", "http://", revolution)
+    revolution_mran <- sub("^https://", "http://", revolution_mran)
   }
   rvers = "3.2"
   pkgs <- c("MASS")
@@ -26,22 +25,22 @@ pkg_type <- names(types)
 for (pkg_type in names(types)) {
   test_that(sprintf("makeRepo downloads %s files and builds PACKAGES file", pkg_type), {
     # skip_on_cran()
-    skip_if_offline()
+    skip_if_offline(revolution_mran)
     
     # Create local miniCRAN
     # mockery::stub(makeRepo, "download_packages", mock_download_packages, depth = 1)
     # mockery::stub(updateRepoIndex, "write_packages", mock_write_packages, depth = 1)
     
-    pdb <- pkgAvail(repos = revolution, type = pkg_type, Rversion = rvers, quiet = TRUE)
-    pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = revolution, type = pkg_type,
+    pdb <- pkgAvail(repos = revolution_mran, type = pkg_type, Rversion = rvers, quiet = TRUE)
+    pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = revolution_mran, type = pkg_type,
                       suggests = FALSE, Rversion = rvers)
     prefix <- repoPrefix(pkg_type, Rversion = rvers)
     dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
     
-    ret <- makeRepo(pkgList, path = repo_root, repos = revolution, 
+    ret <- makeRepo(pkgList, path = repo_root, repos = revolution_mran, 
                     type = pkg_type, quiet = TRUE, Rversion = rvers)
     
-    expect_is(ret, "character")
+    expect_type(ret, "character")
     expect_equal(length(ret), length(pkgList))
     
     expect_true(
@@ -69,7 +68,7 @@ for (pkg_type in names(types)) {
     ret <- makeRepo(pkgList, path = new_repo_root, repos = localCRAN, 
                     type = pkg_type, quiet = TRUE, Rversion = rvers)
     
-    expect_is(ret, "character")
+    expect_type(ret, "character")
     expect_equal(length(ret), length(pkgList))
     
     expect_true(

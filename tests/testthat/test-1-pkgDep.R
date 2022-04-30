@@ -1,7 +1,4 @@
 if(interactive()) library(testthat)
-context("pkgDep")
-
-
 
 # incorrect package list --------------------------------------------------
 
@@ -9,7 +6,7 @@ test_that("pkgDep throws warnings and errors", {
   
   expect_error(
     pkgDep(availPkgs = cranJuly2014), 
-    "pkg should be a character vector with package names"
+    "argument \"pkg\" is missing, with no default"
   )
   
   expect_error(
@@ -41,7 +38,7 @@ test_that("pkgDep throws warnings and errors", {
 test_that("pkgDep treats suggests correctly", {
   
   exp <- pkgDep("ggplot2", availPkgs = cranJuly2014, suggests=FALSE)
-  expect_is(exp, "pkgDep")
+  expect_s3_class(exp, "pkgDep")
   expect_identical(
     as.vector(exp), 
     c("ggplot2", "plyr", "digest", "gtable", "reshape2", "scales", 
@@ -50,7 +47,7 @@ test_that("pkgDep treats suggests correctly", {
   )
   
   exp <- pkgDep("ggplot2", availPkgs = cranJuly2014, suggests=TRUE)
-  expect_is(exp, "pkgDep")
+  expect_s3_class(exp, "pkgDep")
   expect_identical(
     as.vector(exp), 
     c("ggplot2", "plyr", "digest", "gtable", "reshape2", "scales", 
@@ -70,14 +67,14 @@ test_that("pkgDep treats suggests correctly", {
 
 test_that("pkgDep treats includeBasePkgs correctly", {
   exp <- pkgDep("reshape2", includeBasePkgs=TRUE, availPkgs = cranJuly2014, suggests=FALSE)
-  expect_is(exp, "pkgDep")
+  expect_s3_class(exp, "pkgDep")
   expect_identical(
     as.vector(exp), 
     c("reshape2", "plyr", "stringr", "Rcpp", "methods")
   )
   
   exp <- pkgDep("reshape2", includeBasePkgs=FALSE, availPkgs = cranJuly2014, suggests=FALSE)
-  expect_is(exp, "pkgDep")
+  expect_s3_class(exp, "pkgDep")
   expect_identical(
     as.vector(exp), 
     c("reshape2", "plyr", "stringr", "Rcpp")

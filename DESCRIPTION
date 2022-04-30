@@ -1,12 +1,13 @@
 Package: miniCRAN
-Date: 2018-06-22
-Version: 0.2.11.9000
-Authors@R: c(person("Microsoft Corporation", role="cph"), person("Andrie", "de
-    Vries", role=c("aut", "cre", "cph"), email="apdevries@gmail.com"),
+Version: 0.2.16.9000
+Authors@R: c(
+    person("Andrie", "de Vries", role=c("aut", "cre", "cph"), email="apdevries@gmail.com"),
     person("Alex", "Chubaty", role="ctb", email="alex.chubaty@gmail.com"),
-    person("Anton", "Antonov", role="ctb", email="tonytonov@gmail.com"))
+    person("Anton", "Antonov", role="ctb", email="tonytonov@gmail.com"),
+    person("Microsoft Corporation", role="cph")
+    )
 License: GPL-2
-Copyright: Microsoft Corporation, Andrie de Vries
+Copyright: Andrie de Vries, Microsoft Corporation
 Title: Create a Mini Version of CRAN Containing Only Selected Packages
 Description: Makes it possible to create an internally consistent
     repository consisting of selected packages from CRAN-like repositories.
@@ -17,8 +18,6 @@ Description: Makes it possible to create an internally consistent
     behind a firewall, or remote locations with slow (or zero) Internet access.
 URL: https://github.com/andrie/miniCRAN
 BugReports: https://github.com/andrie/miniCRAN/issues
-SystemRequirements: Imports the `curl` and `XML` packages. These have system
-    requirements on `libxml2-devel`, `libcurl-devel` and `openssl-devel`.
 Imports:
     graphics,
     httr,
@@ -26,19 +25,25 @@ Imports:
     stats,
     tools,
     utils,
-    XML,
-    igraph
+    igraph,
+    assertthat (>= 0.2.0)
 Suggests:
     devtools,
     knitr,
     rmarkdown,
-    testthat(>= 0.9),
+    testthat (>= 2.1.0),
     covr,
     withr,
     mockery,
-    testthis
+    testthis,
+    roxygen2,
+    mockr,
+    spelling
 LazyData: true
 LazyLoad: true
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
+Language: en-US
+Config/testthat/edition: 3
