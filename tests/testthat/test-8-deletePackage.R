@@ -28,6 +28,13 @@ if (interactive()) {library(testthat); Sys.setenv(NOT_CRAN = "true")}
 # LVGP imports randtoolbox, which depends on rngWELL
 # LVGP imports lhs, which imports Rcpp
 # RcppArmadillo imports Rcpp
+#
+# rngWELL -- randtoolbox
+#                       \
+# Rcpp   --   lhs   --   LVGP
+#     \
+#      RcppArmadillo
+
 pkgsAdd1 <- "LVGP"
 pkgsAdd2 <- "RcppArmadillo"
 pkgsAdd <- c(pkgsAdd1, pkgsAdd2)
@@ -37,22 +44,28 @@ pkgsDep3 <- "Rcpp"
 
 mock_write_packages_delete <- function(dir, type = "source", r_version) {
   db <- structure(c(
-    "lhs", "LVGP", "randtoolbox", "Rcpp", "RcppArmadillo",
-    "rngWELL", "1.0.1", "2.1.5", "1.17.1", "1.0.1", "0.9.300.2.0",
-    "0.10-5", "R (>= 3.4.0)", "R (>= 3.4.0), stats (>= 3.2.5), parallel (>= 3.2.5)",
+    "lhs", "LVGP", "randtoolbox", "Rcpp", "RcppArmadillo", "rngWELL",
+    "1.0.1", "2.1.5", "1.17.1", "1.0.1", "0.9.300.2.0", "0.10-5",
+    "R (>= 3.4.0)", "R (>= 3.4.0), stats (>= 3.2.5), parallel (>= 3.2.5)",
     "rngWELL (>= 0.10-1)", "R (>= 3.0.0)", "R (>= 3.3.0)", "R (>= 3.0.0)",
-    NA, NA, NA, NA, NA, NA, "GPL-3", "GPL-2", "BSD_3_clause + file LICENSE",
-    "GPL (>= 2)", "GPL (>= 2)", "BSD_3_clause + file LICENSE", "i386, x64",
-    NA, "i386, x64", "i386, x64", "i386, x64", "i386, x64", "testthat, DoE.base, knitr, rmarkdown, covr",
-    NA, NA, "RUnit, inline, rbenchmark, knitr, rmarkdown, pinp, pkgKitten (>= 0.1.2)",
-    "RUnit, Matrix, pkgKitten, reticulate, rmarkdown, knitr, pinp, slam",
-    NA, "Rcpp", "lhs(>= 0.14), randtoolbox(>= 1.17)", NA, "methods, utils",
-    "Rcpp (>= 0.11.0), stats, utils, methods", NA, "Rcpp", NA, NA,
-    NA, "Rcpp", NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
+    NA, NA, NA, NA, NA, NA,
+    "GPL-3", "GPL-2", "BSD_3_clause + file LICENSE",
+    "GPL (>= 2)", "GPL (>= 2)", "BSD_3_clause + file LICENSE",
+    "i386, x64", NA, "i386, x64", "i386, x64", "i386, x64", "i386, x64",
+    "testthat, DoE.base, knitr, rmarkdown, covr", NA, NA,
+    "RUnit, inline, rbenchmark, knitr, rmarkdown, pinp, pkgKitten (>= 0.1.2)",
+    "RUnit, Matrix, pkgKitten, reticulate, rmarkdown, knitr, pinp, slam", NA,
+    "Rcpp", "lhs(>= 0.14), randtoolbox(>= 1.17)", NA,
+    "methods, utils", "Rcpp (>= 0.11.0), stats, utils, methods", NA,
+    "Rcpp", NA, NA, NA, "Rcpp", NA,
+    NA, NA, NA, NA, NA, NA,
+    NA, NA, NA, NA, NA, NA
   ),
   .Dim = c(6L, 11L),
-  .Dimnames = list(NULL, c("Package", "Version", "Depends", "Enhances", "License",
-                           "Archs", "Suggests", "Imports", "LinkingTo", "Priority", "License_is_FOSS")))
+  .Dimnames = list(NULL, c("Package", "Version", "Depends",
+                           "Enhances", "License", "Archs",
+                           "Suggests", "Imports", "LinkingTo",
+                           "Priority", "License_is_FOSS")))
   mock_write_packages(dir, type, r_version, db)
 }
 
@@ -79,9 +92,7 @@ for (pkg_type in names(types)) {
     )
   }
 
-  test_that(sprintf(
-    "deletePackage deletes %s files",
-    pkg_type), {
+  test_that(sprintf("deletePackage deletes %s files", pkg_type), {
 
       skip_on_cran()
       skip_if_offline(revolution)
@@ -96,13 +107,20 @@ for (pkg_type in names(types)) {
 
       restoreTestRepo(pkgsAdd)
 
-      # Delete only listed packages, leave all deps as is
+      # Delete only listed packages, leave all dependencies as is
+      # rngWELL -- randtoolbox
+      #                       \
+      # Rcpp   --   lhs   --   LVGP[x]
+      #     \
+      #      RcppArmadillo[x]
+
       with_mock(
         download_packages = mock_download_packages,
         write_packages = mock_write_packages,
         .env = "miniCRAN",
         {
-          deletePackage(pkgsAdd, path = repo_root, type = pkg_type, Rversion = rvers, deps = FALSE)
+          deletePackage(pkgsAdd, path = repo_root, type = pkg_type,
+                        Rversion = rvers, deps = FALSE)
           pdb <- pkgAvail(repo_root,
                           type = pkg_type,
                           Rversion = rvers,
@@ -116,16 +134,22 @@ for (pkg_type in names(types)) {
         )
       )
 
-      # Add the package once again, remove with all first-tier dependencies
       restoreTestRepo(pkgsAdd)
+
+      # Delete listed packages with all first-tier dependencies
+      # rngWELL -- randtoolbox[x]
+      #                         \
+      # Rcpp[x]  --  lhs[x]  --  LVGP[x]
+      #     \
+      #      RcppArmadillo[x]
 
       with_mock(
         download_packages = mock_download_packages,
         write_packages = mock_write_packages,
         .env = "miniCRAN",
         {
-          deletePackage(pkgsAdd, path = repo_root, type = pkg_type, Rversion = rvers,
-                        deps = TRUE)
+          deletePackage(pkgsAdd, path = repo_root, type = pkg_type,
+                        Rversion = rvers, deps = TRUE)
           pdb <- pkgAvail(repo_root,
                           type = pkg_type,
                           Rversion = rvers,
@@ -139,16 +163,22 @@ for (pkg_type in names(types)) {
         )
       )
 
-      # Add the package once again, remove with all recursive dependencies
       restoreTestRepo(pkgsAdd)
+
+      # Delete listed packages with all recursive dependencies
+      # rngWELL[x] -- randtoolbox[x]
+      #                             \
+      # Rcpp[x]   --   lhs[x]   --   LVGP[x]
+      #     \
+      #      RcppArmadillo[x]
 
       with_mock(
         download_packages = mock_download_packages,
         write_packages = mock_write_packages,
         .env = "miniCRAN",
         {
-          deletePackage(pkgsAdd, path = repo_root, type = pkg_type, Rversion = rvers,
-                        deps = TRUE, recursive = TRUE)
+          deletePackage(pkgsAdd, path = repo_root, type = pkg_type,
+                        Rversion = rvers, deps = TRUE, recursive = TRUE)
           pdb <- pkgAvail(repo_root,
                           type = pkg_type,
                           Rversion = rvers,
@@ -162,16 +192,22 @@ for (pkg_type in names(types)) {
         )
       )
 
-      # Add the package once again, remove with all reverse recursive dependencies
       restoreTestRepo(pkgsAdd)
+
+      # Delete listed packages with all reverse recursive dependencies
+      # rngWELL -- randtoolbox
+      #                             \
+      # Rcpp[x]   --   lhs[x]   --   LVGP[x]
+      #     \
+      #      RcppArmadillo[x]
 
       with_mock(
         download_packages = mock_download_packages,
         write_packages = mock_write_packages,
         .env = "miniCRAN",
         {
-          deletePackage(pkgsDep3, path = repo_root, type = pkg_type, Rversion = rvers,
-                        deps = TRUE, recursive = TRUE, reverse = TRUE)
+          deletePackage(pkgsDep3, path = repo_root, type = pkg_type,
+                        Rversion = rvers, deps = TRUE, recursive = TRUE, reverse = TRUE)
           pdb <- pkgAvail(repo_root,
                           type = pkg_type,
                           Rversion = rvers,

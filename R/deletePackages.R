@@ -1,13 +1,13 @@
 #' Delete packages from a miniCRAN repository.
 #' @inheritParams addPackage
 #' @param deps logical indicating whether the package reverse dependencies should be removed (default `TRUE`).
-#' @param ... arguments passed over to `tools::package_dependencies`: use `which`, `recursive`, `reverse`
-#' to specify what should happen to dependencies of removed packages
+#' @inheritParams tools::package_dependencies which recursive
 #' @export
 #' @family update repo functions
 deletePackage <- function(pkgs = NULL, path = NULL,
                           type = "source", Rversion = R.version,
-                          writePACKAGES = TRUE, deps = TRUE, ...) {
+                          writePACKAGES = TRUE, deps = TRUE,
+                          which = "strong", recursive = FALSE, reverse = FALSE) {
   if (is.null(path) || is.null(pkgs)) stop("path and pkgs must both be specified.")
 
   sapply(type, function(t) {
@@ -16,18 +16,17 @@ deletePackage <- function(pkgs = NULL, path = NULL,
     purgePackage(pkgs, db, t, repoPath)
 
     if (deps) {
-      d <- tools::package_dependencies(db = db, ...)
+      pdb <- tools::package_dependencies(db = db, which = which,
+                                         recursive = recursive, reverse = reverse)
       depends <- unique(unlist(lapply(pkgs, function(pkg) {
-        if (!is.null(d[[pkg]])) d[[pkg]] else character()
+        if (!is.null(pdb[[pkg]])) pdb[[pkg]] else character()
       })))
-      l <- list(...)
-      if ('reverse' %in% names(l)) {
+      if (reverse) {
         # Check for needed packages, which uses direct dependencies
-        l[['reverse']] <- FALSE
-        l[['db']] <- db
-        d <- do.call(tools::package_dependencies, l)
+        pdb <- tools::package_dependencies(db = db, which = which,
+                                           recursive = recursive, reverse = FALSE)
       }
-      needed <- unique(unlist(d[!names(d) %in% c(pkgs, depends)]))
+      needed <- unique(unlist(pdb[!names(pdb) %in% c(pkgs, depends)]))
 
       toRemoveDeps <- depends[!depends %in% needed]
       if (length(toRemoveDeps)) {
