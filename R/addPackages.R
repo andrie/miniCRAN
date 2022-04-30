@@ -184,7 +184,7 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
   }
   ret <- sapply(oldPkgs, do_one)
   if (writePACKAGES) {
-    updateRepoIndex(path = path, type = type, Rversion)
+    updateRepoIndex(path = path, type = type, Rversion = Rversion)
   }
   invisible(ret)
 }
