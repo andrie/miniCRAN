@@ -33,29 +33,32 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #'
 #' @param depends If TRUE, retrieves `Depends`, `Imports` and `LinkingTo` dependencies
 #'   (non-recursively)
-#'   
+#'
 #' @param suggests If TRUE, retrieves Suggests dependencies (non-recursively)
-#' 
+#'
 #' @param enhances If TRUE, retrieves Enhances dependencies (non-recursively)
-#' 
+#'
 #' @param quiet If TRUE, suppresses warnings
 #'
 #' @param includeBasePkgs If TRUE, include base R packages in results
-#' 
+#'
+#' @param recursive If TRUE, (reverse) dependencies of (reverse) dependencies (and so on) should be included. Input can also be a character vector indicating the type of (reverse) dependencies to be added recursively
+#'
 #' @template Rversion
-#' 
+#'
 #' @param ... Other arguments passed to [available.packages()]
 #'
 #' @export
 #' @family dependency functions
-#' 
+#'
 #' @return character vector of package names
 #'
 #' @example /inst/examples/example_pkgDep.R
-#'   
+#'
 pkgDep <- function(pkg, availPkgs, repos = getOption("repos"), type = "source",
                    depends = TRUE, suggests = TRUE, enhances = FALSE,
-                   includeBasePkgs = FALSE, Rversion = R.version, quiet = FALSE, ...) 
+                   includeBasePkgs = FALSE, recursive = TRUE,
+                   Rversion = R.version, quiet = FALSE, ...)
 {
   assert_that(is_package(pkg))
 
@@ -63,7 +66,7 @@ pkgDep <- function(pkg, availPkgs, repos = getOption("repos"), type = "source",
     warning("Returning nothing, since depends, suggests and enhances are all FALSE")
     return(character(0))
   }
-  
+
 
   if (missing(availPkgs)) {
     if (!is.null(names(repos)) & repos["CRAN"] == "@CRAN@") {
@@ -73,7 +76,7 @@ pkgDep <- function(pkg, availPkgs, repos = getOption("repos"), type = "source",
     availPkgs <- pkgAvail(repos = repos, type = type, Rversion = Rversion,
                           quiet = quiet, ...)
   }
-  
+
   assert_that(nrow(availPkgs) > 0, msg = "Unable to retrieve available packages from CRAN")
 
 
@@ -109,7 +112,7 @@ pkgDep <- function(pkg, availPkgs, repos = getOption("repos"), type = "source",
   # Depends, Imports and LinkingTo
   p_dep <- tools::package_dependencies(n_req_all, availPkgs,
                                        which = c("Depends", "Imports", "LinkingTo"),
-                                       recursive = TRUE)
+                                       recursive = recursive)
   n_dep <- unique(unname(unlist(p_dep)))
 
   p_all <- p_dep
@@ -149,13 +152,13 @@ print.pkgDep <- function(x, ...) {
 #' @export
 #' @family create repo functions
 #' @seealso [pkgDep()]
-pkgAvail <- function(repos = getOption("repos"), 
-                     type = "source", 
+pkgAvail <- function(repos = getOption("repos"),
+                     type = "source",
                      Rversion = R.version, quiet = FALSE) {
   assert_that(is_repos(repos))
   if (!grepl("^https*://|file:///", repos[1]) && file.exists(repos[1])) {
      repos <- paste0("file:///", normalizePath(repos[1],
-                                               mustWork = FALSE, 
+                                               mustWork = FALSE,
                                                winslash = "/"))
   } else {
     if (!is.null(names(repos)) && isTRUE(unname(repos["CRAN"]) == "@CRAN@")) {
@@ -165,19 +168,19 @@ pkgAvail <- function(repos = getOption("repos"),
   ap <- function() {
     if (getRversion() >= "3.3.0") {
     utils::available.packages(
-      contribUrl(repos, 
-                 type = type, 
-                 Rversion = Rversion), 
-      type = type, 
+      contribUrl(repos,
+                 type = type,
+                 Rversion = Rversion),
+      type = type,
       filters = list(),
       repos = repos
     )
     } else {
       utils::available.packages(
-        contribUrl(repos, 
-                   type = type, 
-                   Rversion = Rversion), 
-        type = type, 
+        contribUrl(repos,
+                   type = type,
+                   Rversion = Rversion),
+        type = type,
         filters = list()
       )
     }
@@ -188,30 +191,30 @@ pkgAvail <- function(repos = getOption("repos"),
 
 
 # Modified copy of utils::contrib.url()
-contribUrl <- function (repos = getOption("repos"), 
-                        type = getOption("pkgType"), 
+contribUrl <- function (repos = getOption("repos"),
+                        type = getOption("pkgType"),
                         Rversion = R.version) {
   Rversion <- twodigitRversion(Rversion)
-  if (type == "both") 
+  if (type == "both")
     type <- "source"
-  if (type == "binary") 
+  if (type == "binary")
     type <- .Platform$pkgType
   if (is.null(repos)) return(NULL)
-  
+
   if ("@CRAN@" %in% repos && interactive()) {
-    cat(gettext("--- Please select a CRAN mirror for use in this session ---"), 
+    cat(gettext("--- Please select a CRAN mirror for use in this session ---"),
         "\n", sep = "")
     flush.console()
     chooseCRANmirror()
     m <- match("@CRAN@", repos)
     nm <- names(repos)
     repos[m] <- getOption("repos")["CRAN"]
-    if (is.null(nm)) 
+    if (is.null(nm))
       nm <- rep("", length(repos))
     nm[m] <- "CRAN"
     names(repos) <- nm
   }
-  if ("@CRAN@" %in% repos) 
+  if ("@CRAN@" %in% repos)
     stop("trying to use CRAN without setting a mirror")
   ver <- Rversion
   mac.path <- "macosx"
@@ -219,15 +222,15 @@ contribUrl <- function (repos = getOption("repos"),
     mac.path <- paste(mac.path, substring(type, 12L), sep = "/")
     type <- "mac.binary"
   }
-  res <- switch(type, 
-                source = paste(gsub("/$", "", repos), 
-                               "src", "contrib", 
-                               sep = "/"), 
-                mac.binary = paste(gsub("/$", "", repos), 
-                                   "bin", mac.path, "contrib", 
-                                   ver, sep = "/"), 
-                win.binary = paste(gsub("/$", "", repos), 
-                                   "bin", "windows", "contrib", 
+  res <- switch(type,
+                source = paste(gsub("/$", "", repos),
+                               "src", "contrib",
+                               sep = "/"),
+                mac.binary = paste(gsub("/$", "", repos),
+                                   "bin", mac.path, "contrib",
+                                   ver, sep = "/"),
+                win.binary = paste(gsub("/$", "", repos),
+                                   "bin", "windows", "contrib",
                                    ver, sep = "/"))
   res
 }

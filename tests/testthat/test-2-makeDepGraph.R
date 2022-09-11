@@ -3,16 +3,19 @@ checkPkgDepFunctions <- function(pkg, availPkgs = cranJuly2014,
                                  type = "source",
                                  suggests = TRUE,
                                  enhances = FALSE,
-                                 includeBasePkgs = FALSE) {
+                                 includeBasePkgs = FALSE,
+                                 recursive = TRUE) {
 
   p1 <- pkgDep(pkg, availPkgs = availPkgs,
                repos = repos, type = type,
                suggests = suggests, enhances = enhances,
-               includeBasePkgs = includeBasePkgs)
+               includeBasePkgs = includeBasePkgs,
+               recursive = recursive)
   p2 <- makeDepGraph(pkg, availPkgs = availPkgs,
                      repos = repos, type = type,
                      suggests = suggests, enhances = enhances,
-                     includeBasePkgs = includeBasePkgs)
+                     includeBasePkgs = includeBasePkgs,
+                     recursive = recursive)
 
   vnames <- igraph::V(p2)$name
   diff1 <- setdiff(vnames, p1)
@@ -79,6 +82,9 @@ test_that("makeDepGraph and pgkDep gives similar results for MASS", {
   expect_true(
     checkPkgDepFunctions(tag, includeBasePkgs = TRUE, enhances = TRUE)
   )
+  expect_true(
+    checkPkgDepFunctions(tag, suggests = FALSE, recursive = FALSE)
+  )
 
 })
 
@@ -100,6 +106,9 @@ test_that("makeDepGraph and pgkDep gives similar results for chron", {
   )
   expect_true(
     checkPkgDepFunctions(tag, includeBasePkgs = TRUE, enhances = TRUE)
+  )
+  expect_true(
+    checkPkgDepFunctions(tag, suggests = FALSE, recursive = FALSE)
   )
 
 })
@@ -123,6 +132,9 @@ test_that("makeDepGraph and pgkDep gives similar results for data.table", {
   expect_true(
     checkPkgDepFunctions(tag, includeBasePkgs = TRUE, enhances = TRUE)
   )
+  expect_true(
+    checkPkgDepFunctions(tag, suggests = FALSE, recursive = FALSE)
+  )
 
 })
 
@@ -143,6 +155,9 @@ test_that("makeDepGraph and pgkDep gives similar results for ggplot2", {
   )
   expect_true(
     checkPkgDepFunctions(tag, includeBasePkgs = TRUE, enhances = TRUE)
+  )
+  expect_true(
+    checkPkgDepFunctions(tag, suggests = FALSE, recursive = FALSE)
   )
 
 })
@@ -165,6 +180,9 @@ test_that("makeDepGraph and pgkDep gives similar results for complex query", {
   )
   expect_true(
     checkPkgDepFunctions(tag, includeBasePkgs = TRUE, enhances = TRUE)
+  )
+  expect_true(
+    checkPkgDepFunctions(tag, suggests = FALSE, recursive = FALSE)
   )
 
 })

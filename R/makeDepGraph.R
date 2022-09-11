@@ -42,7 +42,8 @@ addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests"
 makeDepGraph <- function(
   pkg, availPkgs, repos = getOption("repos"), type = "source",
   suggests = TRUE, enhances = FALSE,
-  includeBasePkgs = FALSE, ...)
+  includeBasePkgs = FALSE,
+  recursive = TRUE, ...)
 {
 
   if (missing(availPkgs)) {
@@ -87,7 +88,7 @@ makeDepGraph <- function(
   p_dep <- unique(unlist(
                   tools::package_dependencies(
                     pkg, db = availPkgs,
-                    which = c("Imports", "Depends", "LinkingTo"), recursive = TRUE)
+                    which = c("Imports", "Depends", "LinkingTo"), recursive = recursive)
   ))
   pkg <- unique(c(p_dep, pkg))
 
@@ -102,6 +103,9 @@ makeDepGraph <- function(
   nedges <- nrow(edges)
   if (nedges && !includeBasePkgs)
     edges <- edges[!(edges[["dep"]] %in% basePkgs()), ]
+
+  if (nedges && !recursive)
+    edges <- edges[(edges[["dep"]] %in% p_dep), ]
 
   vert <- unique(c(pkg_orig, edges[["dep"]], edges[["package"]]))
   ret <- igraph::graph.data.frame(d = edges, directed = TRUE, vertices = vert)

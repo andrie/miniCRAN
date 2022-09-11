@@ -13,6 +13,7 @@ pkgDep(
   suggests = TRUE,
   enhances = FALSE,
   includeBasePkgs = FALSE,
+  recursive = TRUE,
   Rversion = R.version,
   quiet = FALSE,
   ...
@@ -40,6 +41,8 @@ installed on other platforms.  Passed to \code{\link[=download.packages]{downloa
 \item{enhances}{If TRUE, retrieves Enhances dependencies (non-recursively)}
 
 \item{includeBasePkgs}{If TRUE, include base R packages in results}
+
+\item{recursive}{If TRUE, (reverse) dependencies of (reverse) dependencies (and so on) should be included. Input can also be a character vector indicating the type of (reverse) dependencies to be added recursively}
 
 \item{Rversion}{Version of R (only used if \code{type} is not \code{source}.) Defaults to \link{R.version}, but this can be specified as any of the following formats:
 \itemize{
