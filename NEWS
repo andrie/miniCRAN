@@ -1,3 +1,9 @@
+miniCRAN v0.2.17
+================
+
+* `makeDepGraph()` and `pkgDep()` gain an argument `recursive` to control whether dependencies of dependencies are retrieved or not (default = TRUE for default behaviour identical to previous versions) (#149)
+
+
 miniCRAN v0.2.16
 ================
 
@@ -44,7 +50,7 @@ Minor changes:
 miniCRAN v0.2.12 (Release date: 2019-07-06)
 ================
 
-New features: 
+New features:
 * None
 
 Bug fixes:
@@ -65,7 +71,7 @@ Internal changes
 miniCRAN v0.2.11 (Release date: 2018-01-15)
 ================
 
-New features: 
+New features:
 * None
 
 Bug fixes:
