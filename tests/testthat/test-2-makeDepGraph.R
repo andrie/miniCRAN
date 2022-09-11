@@ -85,6 +85,12 @@ test_that("makeDepGraph and pgkDep gives similar results for MASS", {
   expect_true(
     checkPkgDepFunctions(tag, suggests = FALSE, recursive = FALSE)
   )
+  expect_true(
+    checkPkgDepFunctions(tag, suggests = TRUE, recursive = FALSE)
+  )
+  expect_true(
+    checkPkgDepFunctions(tag, enhances = TRUE, recursive = FALSE)
+  )
 
 })
 
@@ -109,6 +115,12 @@ test_that("makeDepGraph and pgkDep gives similar results for chron", {
   )
   expect_true(
     checkPkgDepFunctions(tag, suggests = FALSE, recursive = FALSE)
+  )
+  expect_true(
+    checkPkgDepFunctions(tag, suggests = TRUE, recursive = FALSE)
+  )
+  expect_true(
+    checkPkgDepFunctions(tag, enhances = TRUE, recursive = FALSE)
   )
 
 })
@@ -135,6 +147,12 @@ test_that("makeDepGraph and pgkDep gives similar results for data.table", {
   expect_true(
     checkPkgDepFunctions(tag, suggests = FALSE, recursive = FALSE)
   )
+  expect_true(
+    checkPkgDepFunctions(tag, suggests = TRUE, recursive = FALSE)
+  )
+  expect_true(
+    checkPkgDepFunctions(tag, enhances = TRUE, recursive = FALSE)
+  )
 
 })
 
@@ -158,6 +176,12 @@ test_that("makeDepGraph and pgkDep gives similar results for ggplot2", {
   )
   expect_true(
     checkPkgDepFunctions(tag, suggests = FALSE, recursive = FALSE)
+  )
+  expect_true(
+    checkPkgDepFunctions(tag, suggests = TRUE, recursive = FALSE)
+  )
+  expect_true(
+    checkPkgDepFunctions(tag, enhances = TRUE, recursive = FALSE)
   )
 
 })
@@ -183,6 +207,12 @@ test_that("makeDepGraph and pgkDep gives similar results for complex query", {
   )
   expect_true(
     checkPkgDepFunctions(tag, suggests = FALSE, recursive = FALSE)
+  )
+  expect_true(
+    checkPkgDepFunctions(tag, suggests = TRUE, recursive = FALSE)
+  )
+  expect_true(
+    checkPkgDepFunctions(tag, enhances = TRUE, recursive = FALSE)
   )
 
 })

@@ -36,7 +36,7 @@ installed on other platforms.  Passed to \code{\link[=download.packages]{downloa
 
 \item{includeBasePkgs}{If TRUE, include base R packages in results}
 
-\item{recursive}{If TRUE, (reverse) dependencies of (reverse) dependencies (and so on) should be included. Input can also be a character vector indicating the type of (reverse) dependencies to be added recursively}
+\item{recursive}{If TRUE, (reverse) dependencies of (reverse) dependencies (and so on) should be included}
 
 \item{...}{Other arguments passed to \code{\link[=available.packages]{available.packages()}}}
 }

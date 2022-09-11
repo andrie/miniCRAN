@@ -14,7 +14,7 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 
 #' Retrieves package dependencies.
 #'
-#' Performs recursive retrieve for `Depends`, `Imports` and `LinkLibrary`.
+#' Performs recursive or non-recursive retrieve for `Depends`, `Imports` and `LinkLibrary`.
 #' Performs non-recursive retrieve for `Suggests`.
 #'
 #'
@@ -42,7 +42,7 @@ basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
 #'
 #' @param includeBasePkgs If TRUE, include base R packages in results
 #'
-#' @param recursive If TRUE, (reverse) dependencies of (reverse) dependencies (and so on) should be included. Input can also be a character vector indicating the type of (reverse) dependencies to be added recursively
+#' @param recursive If TRUE, (reverse) dependencies of (reverse) dependencies (and so on) should be included
 #'
 #' @template Rversion
 #'
@@ -62,11 +62,13 @@ pkgDep <- function(pkg, availPkgs, repos = getOption("repos"), type = "source",
 {
   assert_that(is_package(pkg))
 
+  if (is.character(recursive))
+    stop("The argument recursive must be a logicial (TRUE or FALSE).")
+
   if (!depends & !suggests & !enhances) {
     warning("Returning nothing, since depends, suggests and enhances are all FALSE")
     return(character(0))
   }
-
 
   if (missing(availPkgs)) {
     if (!is.null(names(repos)) & repos["CRAN"] == "@CRAN@") {
@@ -110,7 +112,11 @@ pkgDep <- function(pkg, availPkgs, repos = getOption("repos"), type = "source",
   }
 
   # Depends, Imports and LinkingTo
-  p_dep <- tools::package_dependencies(n_req_all, availPkgs,
+  pkg2 <- n_req_all
+  if (!recursive)
+    pkg2 <- n_req
+
+  p_dep <- tools::package_dependencies(pkg2, availPkgs,
                                        which = c("Depends", "Imports", "LinkingTo"),
                                        recursive = recursive)
   n_dep <- unique(unname(unlist(p_dep)))

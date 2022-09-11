@@ -46,6 +46,9 @@ makeDepGraph <- function(
   recursive = TRUE, ...)
 {
 
+  if (is.character(recursive))
+    stop("The argument recursive must be a logicial (TRUE or FALSE).")
+
   if (missing(availPkgs)) {
     availPkgs <- pkgAvail(repos = repos, type = type)
   }
@@ -85,9 +88,14 @@ makeDepGraph <- function(
     ))
     pkg <- unique(c(p_enh, pkg))
   }
+
+  pkg2 <- pkg
+  if(!recursive)
+    pkg2 <- pkg_orig
+
   p_dep <- unique(unlist(
                   tools::package_dependencies(
-                    pkg, db = availPkgs,
+                    pkg2, db = availPkgs,
                     which = c("Imports", "Depends", "LinkingTo"), recursive = recursive)
   ))
   pkg <- unique(c(p_dep, pkg))
@@ -105,7 +113,7 @@ makeDepGraph <- function(
     edges <- edges[!(edges[["dep"]] %in% basePkgs()), ]
 
   if (nedges && !recursive)
-    edges <- edges[(edges[["dep"]] %in% p_dep), ]
+    edges <- edges[(edges[["dep"]] %in% pkg), ]
 
   vert <- unique(c(pkg_orig, edges[["dep"]], edges[["package"]]))
   ret <- igraph::graph.data.frame(d = edges, directed = TRUE, vertices = vert)

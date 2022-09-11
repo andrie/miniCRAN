@@ -85,20 +85,27 @@ test_that("pkgDep treats includeBasePkgs correctly", {
 # recursive ---------------------------------------------------------
 
 test_that("pkgDep treats recursive correctly", {
-  exp <- pkgDep("forecast", recursive=TRUE, availPkgs = cranJuly2014, suggests=FALSE)
+  exp <- pkgDep("chron", recursive = TRUE, availPkgs = cranJuly2014)
   expect_s3_class(exp, "pkgDep")
   expect_identical(
     as.vector(exp),
-    c("forecast", "zoo", "timeDate", "tseries", "fracdiff", "Rcpp",
-      "nnet", "colorspace", "RcppArmadillo", "quadprog", "lattice")
+    c("chron", "RColorBrewer", "dichromat", "munsell", "plyr", "labeling",
+      "colorspace", "Rcpp", "digest", "gtable", "reshape2", "scales",
+      "proto", "MASS", "stringr", "ggplot2")
   )
 
-  exp <- pkgDep("forecast", recursive=FALSE, availPkgs = cranJuly2014, suggests=FALSE)
+  exp <- pkgDep("chron", recursive = FALSE, availPkgs = cranJuly2014, suggests = FALSE)
   expect_s3_class(exp, "pkgDep")
   expect_identical(
     as.vector(exp),
-    c("forecast", "zoo", "timeDate", "tseries", "fracdiff", "Rcpp",
-      "nnet", "colorspace", "RcppArmadillo")
+    c("chron")
+  )
+
+  exp <- pkgDep("chron", recursive = FALSE, availPkgs = cranJuly2014, suggests = TRUE)
+  expect_s3_class(exp, "pkgDep")
+  expect_identical(
+    as.vector(exp),
+    c("chron", "scales", "ggplot2")
   )
 
 })
