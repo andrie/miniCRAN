@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Using miniCRAN to create and maintain a local CRAN repository">
 <meta property="og:description" content="miniCRAN">
@@ -75,11 +75,11 @@
 
 
 <script src="miniCRAN-introduction_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <main id="main"><div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.svg" class="logo" alt=""><h1>Using miniCRAN to create and maintain a local CRAN repository</h1>
                         <h4 data-toc-skip class="author">Andrie de Vries and Alex Chubaty</h4>
             
-            <h4 data-toc-skip class="date">March 11, 2022</h4>
+            <h4 data-toc-skip class="date">November 24, 2022</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/andrie/miniCRAN/blob/HEAD/vignettes/miniCRAN-introduction.rmd" class="external-link"><code>vignettes/miniCRAN-introduction.rmd</code></a></small>
       <div class="d-none name"><code>miniCRAN-introduction.rmd</code></div>
@@ -91,40 +91,40 @@
 <p>For example, imagine a scenario where you want to create a repository that consists of the package <code>foreach</code> and its dependencies.</p>
 <p>Start by creating the dependency list:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/andrie/miniCRAN" class="external-link">"miniCRAN"</a></span><span class="op">)</span>
-
-<span class="co"># use Revolution Analytics CRAN mirror</span>
-<span class="va">revolution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>CRAN <span class="op">=</span> <span class="st">"http://cran.microsoft.com"</span><span class="op">)</span>
-
-<span class="co"># Specify list of packages to download</span>
-<span class="va">pkgs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"foreach"</span><span class="op">)</span>
-<span class="va">pkgList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pkgDep.html">pkgDep</a></span><span class="op">(</span><span class="va">pkgs</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="st">"source"</span>, suggests <span class="op">=</span> <span class="cn">FALSE</span>, 
-                  availPkgs <span class="op">=</span> <span class="va">cranJuly2014</span><span class="op">)</span>
-<span class="va">pkgList</span></code></pre></div>
-<pre><code><span class="co">## [1] "foreach"   "codetools" "iterators"</span></code></pre>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/andrie/miniCRAN" class="external-link">"miniCRAN"</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># use Revolution Analytics CRAN mirror</span></span>
+<span><span class="va">revolution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>CRAN <span class="op">=</span> <span class="st">"http://cran.microsoft.com"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Specify list of packages to download</span></span>
+<span><span class="va">pkgs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"foreach"</span><span class="op">)</span></span>
+<span><span class="va">pkgList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pkgDep.html">pkgDep</a></span><span class="op">(</span><span class="va">pkgs</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="st">"source"</span>, suggests <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>                  availPkgs <span class="op">=</span> <span class="va">cranJuly2014</span><span class="op">)</span></span>
+<span><span class="va">pkgList</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "foreach"   "codetools" "iterators"</span></span></code></pre>
 <p>Next, create a repository with the function <code><a href="../reference/makeRepo.html">makeRepo()</a></code>. In this example, get the required files for <code>source</code> packages as well as windows binaries:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Create temporary folder for miniCRAN</span>
-<span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"miniCRAN"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># Make repo for source and win.binary</span>
-<span class="fu"><a href="../reference/makeRepo.html">makeRepo</a></span><span class="op">(</span><span class="va">pkgList</span>, path <span class="op">=</span> <span class="va">pth</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"source"</span>, <span class="st">"win.binary"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Create temporary folder for miniCRAN</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"miniCRAN"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Make repo for source and win.binary</span></span>
+<span><span class="fu"><a href="../reference/makeRepo.html">makeRepo</a></span><span class="op">(</span><span class="va">pkgList</span>, path <span class="op">=</span> <span class="va">pth</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"source"</span>, <span class="st">"win.binary"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Investigate the repository file structure:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># List all files in miniCRAN</span>
-<span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">pth</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span>, full.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># List all files in miniCRAN</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">pth</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span>, full.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>Use <code>pkgAvail</code> to list available packages in your repository:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Check for available packages</span>
-<span class="fu"><a href="../reference/pkgAvail.html">pkgAvail</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="va">pth</span>, type <span class="op">=</span> <span class="st">"win.binary"</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Check for available packages</span></span>
+<span><span class="fu"><a href="../reference/pkgAvail.html">pkgAvail</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="va">pth</span>, type <span class="op">=</span> <span class="st">"win.binary"</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="install-packages-from-your-local-repository">Install packages from your local repository<a class="anchor" aria-label="anchor" href="#install-packages-from-your-local-repository"></a>
 </h2>
 <p>To install packages from a local repository, you need to use the <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier" class="external-link">Uniform Resource Identifier</a> (URI) convention <code>file:///</code> to point to your file location.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="va">pkgs</span>, 
-                 repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"file:///"</span>, <span class="va">pth</span><span class="op">)</span>,
-                 type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="va">pkgs</span>, </span>
+<span>                 repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"file:///"</span>, <span class="va">pth</span><span class="op">)</span>,</span>
+<span>                 type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="adding-packages-to-an-existing-minicran-repository">Adding packages to an existing miniCRAN repository<a class="anchor" aria-label="anchor" href="#adding-packages-to-an-existing-minicran-repository"></a>
@@ -134,9 +134,9 @@
 </h3>
 <p>After creating a local miniCRAN repository, additional packages and their dependencies can easily be added. This mechanism can also be used to re-add an existing package to the miniCRAN repo.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Add new packages (from CRAN) to the miniCRAN repo</span>
-<span class="fu"><a href="../reference/addPackage.html">addPackage</a></span><span class="op">(</span><span class="st">"Matrix"</span>, path <span class="op">=</span> <span class="va">pth</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"source"</span>, <span class="st">"win.binary"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="../reference/pkgAvail.html">pkgAvail</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="va">pth</span>, type <span class="op">=</span> <span class="st">"win.binary"</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Add new packages (from CRAN) to the miniCRAN repo</span></span>
+<span><span class="fu"><a href="../reference/addPackage.html">addPackage</a></span><span class="op">(</span><span class="st">"Matrix"</span>, path <span class="op">=</span> <span class="va">pth</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"source"</span>, <span class="st">"win.binary"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/pkgAvail.html">pkgAvail</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="va">pth</span>, type <span class="op">=</span> <span class="st">"win.binary"</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <p>The value that is returned (invisibly) via <code>addPackage</code> is the number of packages written to the index file, <em>i.e.</em>, the total number of packages in the repo of that type.</p>
 </div>
 <div class="section level3">
@@ -145,34 +145,34 @@
 <p>To add a specific version of a package from CRAN (or another CRAN-like repository), we can easily download the source packages from the CRAN archives. Dependencies for old package versions cannot be determined automatically and must be specified by the user.</p>
 <p><em>Note:</em> in order to to add binaries of older packages, you will need to download the source and build the binaries on the intended platform yourself. You will need the appropriate R development tools installed in order to build package binaries from source.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create a data frame with the package and version info</span>
-<span class="va">oldVers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
-  package <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"foreach"</span>, <span class="st">"codetools"</span>, <span class="st">"iterators"</span><span class="op">)</span>,
-  version <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1.4.0"</span>, <span class="st">"0.2-7"</span>, <span class="st">"1.0.5"</span><span class="op">)</span>,
-  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="co"># download old source package version and create repo index</span>
-<span class="fu"><a href="../reference/addOldPackage.html">addOldPackage</a></span><span class="op">(</span><span class="va">pkgList</span>, path <span class="op">=</span> <span class="va">pth</span>, vers <span class="op">=</span> <span class="va">oldVers</span><span class="op">$</span><span class="va">version</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># create a data frame with the package and version info</span></span>
+<span><span class="va">oldVers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  package <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"foreach"</span>, <span class="st">"codetools"</span>, <span class="st">"iterators"</span><span class="op">)</span>,</span>
+<span>  version <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1.4.0"</span>, <span class="st">"0.2-7"</span>, <span class="st">"1.0.5"</span><span class="op">)</span>,</span>
+<span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># download old source package version and create repo index</span></span>
+<span><span class="fu"><a href="../reference/addOldPackage.html">addOldPackage</a></span><span class="op">(</span><span class="va">pkgList</span>, path <span class="op">=</span> <span class="va">pth</span>, vers <span class="op">=</span> <span class="va">oldVers</span><span class="op">$</span><span class="va">version</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span></code></pre></div>
 <p>You will get a warning whenever there are multiple versions of a package saved in the repository. Currently, you need to manually remove duplicate versions before rebuilding the repository’s package index.</p>
 <p>Note: This last step is important, otherwise you may end up with a repo in an inconsistent state.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># List package versions in the miniCRAN repo (produces warning about duplicates)</span>
-<span class="va">pkgVersionsSrc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/checkVersions.html">checkVersions</a></span><span class="op">(</span><span class="va">pkgList</span>, path <span class="op">=</span> <span class="va">pth</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span>
-<span class="va">pkgVersionsBin</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/checkVersions.html">checkVersions</a></span><span class="op">(</span><span class="va">pkgList</span>, path <span class="op">=</span> <span class="va">pth</span>, type <span class="op">=</span> <span class="st">"win.binary"</span><span class="op">)</span>
-
-<span class="co"># After inspecting package versions, remove old versions</span>
-<span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">pkgVersionsSrc</span><span class="op">)</span> <span class="co"># duplicate versions</span>
-<span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">pkgVersionsBin</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">pkgVersionsSrc</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">6</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
-
-<span class="co"># rebuild the package index after removing duplicate package versions</span>
-<span class="fu"><a href="../reference/makeRepo.html">updateRepoIndex</a></span><span class="op">(</span><span class="va">pth</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"source"</span>, <span class="st">"win.binary"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># List package versions in the miniCRAN repo (produces warning about duplicates)</span></span>
+<span><span class="va">pkgVersionsSrc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/checkVersions.html">checkVersions</a></span><span class="op">(</span><span class="va">pkgList</span>, path <span class="op">=</span> <span class="va">pth</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span>
+<span><span class="va">pkgVersionsBin</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/checkVersions.html">checkVersions</a></span><span class="op">(</span><span class="va">pkgList</span>, path <span class="op">=</span> <span class="va">pth</span>, type <span class="op">=</span> <span class="st">"win.binary"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># After inspecting package versions, remove old versions</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">pkgVersionsSrc</span><span class="op">)</span> <span class="co"># duplicate versions</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">pkgVersionsBin</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">pkgVersionsSrc</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">6</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># rebuild the package index after removing duplicate package versions</span></span>
+<span><span class="fu"><a href="../reference/makeRepo.html">updateRepoIndex</a></span><span class="op">(</span><span class="va">pth</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"source"</span>, <span class="st">"win.binary"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>To see the updated list of packages available in the miniCRAN repo:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/pkgAvail.html">pkgAvail</a></span><span class="op">(</span><span class="va">pth</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span> <span class="co"># contains the old versions</span>
-<span class="fu"><a href="../reference/pkgAvail.html">pkgAvail</a></span><span class="op">(</span><span class="va">pth</span>, type <span class="op">=</span> <span class="st">"win.binary"</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span> <span class="co"># contains the current versions</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/pkgAvail.html">pkgAvail</a></span><span class="op">(</span><span class="va">pth</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span> <span class="co"># contains the old versions</span></span>
+<span><span class="fu"><a href="../reference/pkgAvail.html">pkgAvail</a></span><span class="op">(</span><span class="va">pth</span>, type <span class="op">=</span> <span class="st">"win.binary"</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span> <span class="co"># contains the current versions</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="adding-packages-from-other-sources">Adding packages from other sources<a class="anchor" aria-label="anchor" href="#adding-packages-from-other-sources"></a>
@@ -185,14 +185,14 @@
 </h2>
 <p>Checking for updated versions of the packages currently stored in the miniCRAN repository:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Check if updated packages are available</span>
-<span class="fu"><a href="../reference/updatePackages.html">oldPackages</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">pth</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="co"># should need update</span>
-<span class="fu"><a href="../reference/updatePackages.html">oldPackages</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">pth</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="st">"win.binary"</span><span class="op">)</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="co"># should be current</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Check if updated packages are available</span></span>
+<span><span class="fu"><a href="../reference/updatePackages.html">oldPackages</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">pth</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="co"># should need update</span></span>
+<span><span class="fu"><a href="../reference/updatePackages.html">oldPackages</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">pth</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="st">"win.binary"</span><span class="op">)</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="co"># should be current</span></span></code></pre></div>
 <p>Update the versions of the packages currently stored in the miniCRAN repository. By default, a prompt is given to confirm the update for each package. This prompt can be suppressed using <code>ask = FALSE</code>, which will update all packages. Be careful using this option if you want to keep certain packages at an older version.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Update available packages</span>
-<span class="fu"><a href="../reference/updatePackages.html">updatePackages</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">pth</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="st">"source"</span>, ask <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># should need update</span>
-<span class="fu"><a href="../reference/updatePackages.html">updatePackages</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">pth</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="st">"win.binary"</span>, ask <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># should be current</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Update available packages</span></span>
+<span><span class="fu"><a href="../reference/updatePackages.html">updatePackages</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">pth</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="st">"source"</span>, ask <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># should need update</span></span>
+<span><span class="fu"><a href="../reference/updatePackages.html">updatePackages</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">pth</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="st">"win.binary"</span>, ask <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># should be current</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
@@ -207,7 +207,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>
