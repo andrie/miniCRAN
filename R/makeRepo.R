@@ -101,7 +101,15 @@ updateRepoIndex <- function(path, type = "source", Rversion = R.version) {
   n <- lapply(type, function(t) {
     pkgPath <- repoBinPath(path = path, type = t, Rversion = Rversion)
     if (grepl("mac.binary", t)) t <- "mac.binary"
+    # browser()
     write_packages(dir = pkgPath, type = t, r_version = Rversion)
+    if (twodigitRversion(Rversion) < "3.5.0") {
+      pfiles <- list.files(path = pkgPath, pattern = "PACKAGES.rds", recursive = TRUE, full.names = TRUE)
+      for (f in pfiles) {
+        pf <- readRDS(f)
+        saveRDS(pf, file = f, version = 2)
+      }
+    }
   })
   names(n) <- type
   n

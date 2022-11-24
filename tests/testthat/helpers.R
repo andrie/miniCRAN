@@ -82,9 +82,9 @@ mock_write_packages <- function(dir, type = "source", r_version) {
     rownames(db) <- db[, "Package"]
     r_version <- twodigitRversion(r_version)
     if (r_version >= "3.5.0") {
-      saveRDS(db, file.path(dir, "PACKAGES.rds"), compress = "xz")
+      saveRDS(db, file.path(dir, "PACKAGES.rds"))
     } else {
-      saveRDS(db, file.path(dir, "PACKAGES.rds"), compress = "xz", version = 2)
+      saveRDS(db, file.path(dir, "PACKAGES.rds"), version = 2)
     }
   }
   np
