@@ -74,12 +74,14 @@
 
 
 
-<script src="miniCRAN-non-CRAN-repos_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.svg" class="logo" alt=""><h1>Using repositories other than CRAN with miniCRAN</h1>
-                        <h4 data-toc-skip class="author">Andrie de Vries</h4>
+                        <h4 data-toc-skip class="author">Andrie de
+Vries</h4>
             
-            <h4 data-toc-skip class="date">March 20, 2024</h4>
+            <h4 data-toc-skip class="date">March 23, 2024</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/andrie/miniCRAN/blob/HEAD/vignettes/miniCRAN-non-CRAN-repos.rmd" class="external-link"><code>vignettes/miniCRAN-non-CRAN-repos.rmd</code></a></small>
       <div class="d-none name"><code>miniCRAN-non-CRAN-repos.rmd</code></div>
@@ -87,9 +89,15 @@
 
     
     
-<p>Although the package name <code>miniCRAN</code> seems to indicate you can only use CRAN as a repository, you can in fact use any CRAN-like repository.</p>
-<p>This vignette contains some examples of how to refer to different package repositories, including CRAN, alternative mirrors of CRAN, R-Forge as well as BioConductor.</p>
-<p>To simplify the code to show the salient features, we use a little helper function, <code>index()</code> that is a simple wrapper around <code><a href="https://rdrr.io/r/utils/available.packages.html" class="external-link">available.packages()</a></code>:</p>
+<p>Although the package name <code>miniCRAN</code> seems to indicate you
+can only use CRAN as a repository, you can in fact use any CRAN-like
+repository.</p>
+<p>This vignette contains some examples of how to refer to different
+package repositories, including CRAN, alternative mirrors of CRAN,
+R-Forge as well as BioConductor.</p>
+<p>To simplify the code to show the salient features, we use a little
+helper function, <code>index()</code> that is a simple wrapper around
+<code><a href="https://rdrr.io/r/utils/available.packages.html" class="external-link">available.packages()</a></code>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Wrapper around available.packages ---------------------------------------</span></span>
 <span> </span>
@@ -109,7 +117,8 @@
 <div class="section level2">
 <h2 id="using-a-different-mirror">Using a different mirror<a class="anchor" aria-label="anchor" href="#using-a-different-mirror"></a>
 </h2>
-<p>You can also point to any other mirror, for example the stable version hosted by Revolution Analytics:</p>
+<p>You can also point to any other mirror, for example the stable
+version hosted by Revolution Analytics:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">revoStable</span> <span class="op">&lt;-</span> <span class="st">"http://packages.revolutionanalytics.com/cran/3.1/stable"</span></span>
 <span><span class="fu">index</span><span class="op">(</span><span class="va">revoStable</span><span class="op">)</span></span>
@@ -128,7 +137,8 @@
 <div class="section level2">
 <h2 id="using-bioconductor">Using BioConductor<a class="anchor" aria-label="anchor" href="#using-bioconductor"></a>
 </h2>
-<p>Although BioConductor has a different preferred install mechanism, the underlying repository structure is also CRAN-like:</p>
+<p>Although BioConductor has a different preferred install mechanism,
+the underlying repository structure is also CRAN-like:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bioc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">local</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>  <span class="va">env</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span><span class="op">)</span></span>
