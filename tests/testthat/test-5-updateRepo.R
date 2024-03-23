@@ -11,13 +11,13 @@
     # Use http:// for older versions of R
     revolution <- sub("^https://", "http://", revolution)
   }
-  rvers <- "4.0"
-  pkgs <- c("chron", "XML")
+  rvers <- "4.2"
+  pkgs <- c("chron", "data.table")
   
   types <- intersect(
     set_test_types(),
-    # c("source", "win.binary", "mac.binary")
-    c("source", "win.binary")
+    # c("source", "win.binary")
+    c("source", "win.binary", "mac.binary")
   )
   
   names(types) <- types
@@ -38,10 +38,10 @@ test_that("sample repo is setup correctly", {
   })
   expect_type(pkgList, "list")
   
-  z <- .createSampleRepo(path = repo_root, MRAN = revolution, Rversion = rvers, 
+  .createSampleRepo(path = repo_root, MRAN = revolution, Rversion = rvers, 
     pkgs = pkgs, types = names(types))
   # expect_type(z, "character")
-  pkg_names <- unname(pkgAvail(repo_root, quiet = TRUE)[, "Package"])
+  pkg_names <- unname(pkgAvail(repo_root, quiet = TRUE, type = type, Rversion = rvers)[, "Package"])
   expect_true(all(pkgs %in% pkg_names))
 })
 
@@ -49,8 +49,8 @@ test_that("sample repo is setup correctly", {
 # Add packages to repo ----------------------------------------------------
 
 pkgsAdd <- c("Rcpp")
-
 pkg_type <- names(types)[1]
+
 for (pkg_type in names(types)) {
   
   skip_if_not_installed("mockr") 
@@ -198,7 +198,7 @@ for (pkg_type in names(types)) {
       # In the following allow for differences between mac.binary and other types
       expect_gte(nrow(old), 1)
       expect_equal(ncol(old), 4)
-      expect_true( "XML" %in% rownames(old))
+      expect_true( "data.table" %in% rownames(old))
      
      mockr::with_mock(
         download_packages = mock_download_packages,

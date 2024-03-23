@@ -76,7 +76,10 @@ pkgDep <- function(pkg, availPkgs, repos = getOption("repos"), type = "source",
                           quiet = quiet, ...)
   }
   
-  assert_that(nrow(availPkgs) > 0, msg = "Unable to retrieve available packages from CRAN")
+  assert_that(
+    nrow(availPkgs) > 0, 
+    msg = sprintf("Unable to retrieve %s package %s from %s", type, pkg, repos)
+  )
 
 
   pkgInAvail <- pkg %in% availPkgs[, "Package"]

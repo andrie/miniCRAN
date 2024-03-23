@@ -100,8 +100,8 @@ mock_write_packages <- function(dir, type = "source", r_version) {
   if (missing(pkgs)) pkgs <- c("chron", "curl")
   if (missing(types)) types <- set_test_types() 
 
-  pdb_source <- pkgAvail(repos = MRAN, type = "source", Rversion = Rversion)
-  pdb_win    <- pkgAvail(repos = MRAN, type = "win.binary", Rversion = Rversion)
+  # pdb_source <- pkgAvail(repos = MRAN, type = "source", Rversion = Rversion)
+  # pdb_win    <- pkgAvail(repos = MRAN, type = "win.binary", Rversion = Rversion)
   # pdb_mac    <- pkgAvail(repos = MRAN, type = "mac.binary", Rversion = Rversion)
 
   mockr::with_mock(
@@ -111,7 +111,8 @@ mock_write_packages <- function(dir, type = "source", r_version) {
     {
 
       for (type in types) {
-        pkgList_source <- pkgDep(pkgs, availPkgs = pdb_source, repos = MRAN,
+        pdb <- pkgAvail(repos = MRAN, type = type, Rversion = Rversion)
+        pkgList_source <- pkgDep(pkgs, availPkgs = pdb, repos = MRAN,
           type = type, suggests = FALSE, Rversion = Rversion)
           
         makeRepo(pkgList_source, path = path, repos = MRAN,
@@ -119,20 +120,6 @@ mock_write_packages <- function(dir, type = "source", r_version) {
           quiet = TRUE, Rversion = Rversion)
 
       }
-        
-      # pkgList_win <- pkgDep(pkgs, availPkgs = pdb_win, repos = MRAN,
-      #   type = "win.binary",
-      #   suggests = FALSE, Rversion = Rversion)
-      # makeRepo(pkgList_win, path = path, repos = MRAN,
-      #   type = "win.binary",
-      #   quiet = TRUE, Rversion = Rversion)
-        
-      # pkgList_mac <- pkgDep(pkgs, availPkgs = pdb_mac, repos = MRAN,
-      #                       type = "mac.binary",
-      #                       suggests = FALSE, Rversion = Rversion)
-      # makeRepo(pkgList_mac, path = path, repos = MRAN,
-      #          type = "mac.binary",
-      #          quiet = TRUE, Rversion = Rversion)
   }
 )
 }
