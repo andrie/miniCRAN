@@ -32,7 +32,6 @@ addDepType <- function(p, type = c("Imports", "Depends", "LinkingTo", "Suggests"
 #' @inheritParams pkgDep
 #' @inheritParams makeRepo
 #'
-#' @importFrom igraph graph.data.frame
 #' @export
 #' @family dependency functions
 #'
@@ -104,7 +103,7 @@ makeDepGraph <- function(
     edges <- edges[!(edges[["dep"]] %in% basePkgs()), ]
 
   vert <- unique(c(pkg_orig, edges[["dep"]], edges[["package"]]))
-  ret <- igraph::graph.data.frame(d = edges, directed = TRUE, vertices = vert)
+  ret <- igraph::graph_from_data_frame(d = edges, directed = TRUE, vertices = vert)
   class(ret) <- c("pkgDepGraph", "igraph")
   attr(ret, "pkgs") <- pkg_orig
   ret

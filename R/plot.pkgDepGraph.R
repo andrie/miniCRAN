@@ -14,7 +14,7 @@
 #' @param cex Vertex label size.
 #' @param ... Ignored
 #'
-#' @importFrom igraph V get.edge.attribute plot.igraph
+#' @importFrom igraph V plot.igraph
 #' @export
 #'
 #' @family dependency functions
@@ -42,9 +42,9 @@ plot.pkgDepGraph <- function(
   vShape <- c("none", shape)[1 + topLevel]
 
   edgeColor <- c(Imports = "red", Depends = "orange", Suggests = "grey80", Enhances = "blue", LinkingTo = "black")
-  eColor <- edgeColor[igraph::get.edge.attribute(x, "type")]
+  eColor <- edgeColor[igraph::edge_attr(x, "type")]
 
-  typesInGraph <- unique(igraph::get.edge.attribute(x, "type"))
+  typesInGraph <- unique(igraph::edge_attr(x, "type"))
   edgeColor <- edgeColor[typesInGraph]
   # eColor    <- eColor[typesInGraph]
 
