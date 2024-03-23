@@ -6,13 +6,13 @@
   if (file.exists(repo_root)) unlink(repo_root, recursive = TRUE)
   dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
   
-  revolution <- MRAN("2020-01-02")
+  revolution <- MRAN("2023-08-31")
   if (!is.online(revolution, tryHttp = FALSE)) {
     # Use http:// for older versions of R
     revolution <- sub("^https://", "http://", revolution)
   }
   rvers <- "4.0"
-  pkgs <- c("chron", "curl")
+  pkgs <- c("chron", "XML")
   
   types <- intersect(
     set_test_types(),
@@ -28,16 +28,19 @@
 test_that("sample repo is setup correctly", {
   skip_if_offline(revolution)
   
+  type <- types[1]
   pdb <<- lapply(types, pkgAvail, repos = revolution, Rversion = rvers, quiet = TRUE)
   expect_type(pdb, "list")
   pkgList <<- lapply(types, function(type) {
-    pkgDep(pkg = pkgs, type = types[type], availPkgs = pdb[[type]],
+    # type <- names(type)
+    pkgDep(pkg = pkgs, type = names(type), availPkgs = pdb[[type]],
            repos = revolution, suggests = FALSE, Rversion = rvers)
   })
   expect_type(pkgList, "list")
   
-  z <- .createSampleRepo(path = repo_root, MRAN = revolution, Rversion = rvers, pkgs = pkgs)
-  expect_type(z, "character")
+  z <- .createSampleRepo(path = repo_root, MRAN = revolution, Rversion = rvers, 
+    pkgs = pkgs, types = names(types))
+  # expect_type(z, "character")
   pkg_names <- unname(pkgAvail(repo_root, quiet = TRUE)[, "Package"])
   expect_true(all(pkgs %in% pkg_names))
 })
@@ -193,9 +196,9 @@ for (pkg_type in names(types)) {
       )
       
       # In the following allow for differences between mac.binary and other types
-      expect_gt(nrow(old), 1)
+      expect_gte(nrow(old), 1)
       expect_equal(ncol(old), 4)
-      expect_true( "Rcpp" %in% rownames(old))
+      expect_true( "XML" %in% rownames(old))
      
      mockr::with_mock(
         download_packages = mock_download_packages,

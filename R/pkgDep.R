@@ -8,9 +8,11 @@
 #' @family dependency functions
 #'
 #' @seealso [pkgDep()]
-basePkgs <- function()names(which(installed.packages()[, "Priority"] == "base"))
+basePkgs <- function() names(which(installed.packages()[, "Priority"] == "base"))
 
-
+availPkgNames <- function(pdb) {
+  pdb[, "Package"]
+}
 
 #' Retrieves package dependencies.
 #'
@@ -78,6 +80,8 @@ pkgDep <- function(pkg, availPkgs, repos = getOption("repos"), type = "source",
 
 
   pkgInAvail <- pkg %in% availPkgs[, "Package"]
+  pkgInAvail <- pkg %in% availPkgNames(availPkgs)
+  # browser()
   if (sum(pkgInAvail) == 0 ) stop("No valid packages in pkg")
   if (sum(pkgInAvail) < length(pkg)) {
     warning("Package not recognized: ", paste(pkg[!pkgInAvail], collapse = ", "))

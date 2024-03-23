@@ -94,10 +94,11 @@ mock_write_packages <- function(dir, type = "source", r_version) {
 
 
 # Create sample repo from MRAN snapshot
-.createSampleRepo <- function(MRAN, path, pkgs, Rversion = "4.0") {
+.createSampleRepo <- function(MRAN, path, pkgs, Rversion = "4.0", types) {
   if (missing(MRAN)) MRAN <- MRAN("2024-01-02")
   if (missing(path)) path <- file.path(tempdir(), "miniCRAN", Sys.Date())
   if (missing(pkgs)) pkgs <- c("chron", "curl")
+  if (missing(types)) types <- set_test_types() 
 
   pdb_source <- pkgAvail(repos = MRAN, type = "source", Rversion = Rversion)
   pdb_win    <- pkgAvail(repos = MRAN, type = "win.binary", Rversion = Rversion)
@@ -109,19 +110,22 @@ mock_write_packages <- function(dir, type = "source", r_version) {
     .env = "miniCRAN",
     {
 
-      pkgList_source <- pkgDep(pkgs, availPkgs = pdb_source, repos = MRAN,
-        type = "source", suggests = FALSE, Rversion = Rversion)
+      for (type in types) {
+        pkgList_source <- pkgDep(pkgs, availPkgs = pdb_source, repos = MRAN,
+          type = type, suggests = FALSE, Rversion = Rversion)
+          
+        makeRepo(pkgList_source, path = path, repos = MRAN,
+          type = type,
+          quiet = TRUE, Rversion = Rversion)
+
+      }
         
-      makeRepo(pkgList_source, path = path, repos = MRAN,
-        type = "source",
-        quiet = TRUE, Rversion = Rversion)
-        
-      pkgList_win <- pkgDep(pkgs, availPkgs = pdb_win, repos = MRAN,
-        type = "win.binary",
-        suggests = FALSE, Rversion = Rversion)
-      makeRepo(pkgList_win, path = path, repos = MRAN,
-        type = "win.binary",
-        quiet = TRUE, Rversion = Rversion)
+      # pkgList_win <- pkgDep(pkgs, availPkgs = pdb_win, repos = MRAN,
+      #   type = "win.binary",
+      #   suggests = FALSE, Rversion = Rversion)
+      # makeRepo(pkgList_win, path = path, repos = MRAN,
+      #   type = "win.binary",
+      #   quiet = TRUE, Rversion = Rversion)
         
       # pkgList_mac <- pkgDep(pkgs, availPkgs = pdb_mac, repos = MRAN,
       #                       type = "mac.binary",
