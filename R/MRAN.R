@@ -3,9 +3,10 @@ MRAN <- function(snapshot = NULL) {
   if (missing("snapshot") || is.null(snapshot)) {
     url
   } else {
-    sprintf("%s/snapshot/%s", url, snapshot)
+    sprintf("%s/%s", url, snapshot)
   }
 }
+
 CRAN <- function() getOption("repos")[1]
 
 
@@ -16,7 +17,9 @@ CRAN <- function() getOption("repos")[1]
 #' 
 #' @export
 is.online <- function(url = NULL, tryHttp = TRUE) {
-  if (is.null(url)) url <- MRAN()
+    if (is.null(url)) url <- MRAN()
+  url <- sub("latest$", "", url)
+  url <- sub("\\d{4}-\\d{2}-\\d{2}$", "", url)
   
   readFromUrl <- function(url){
     z <- tryCatch(suppressWarnings(readLines(url, n = 1, warn = FALSE)),

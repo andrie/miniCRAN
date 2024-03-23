@@ -1,6 +1,6 @@
 
 old <- matrix(
-  c("adaptivetau", "BH", "digest", 
+  c("nomnoml", "BH", "digest", 
     "2.1", "1.54.0-4", "0.6.4",
     "2.2", "1.55.0-1", "0.6.7", 
     "https://cran.microsoft.com/snapshot/2015-01-01/bin/windows/contrib/3.1", 
@@ -9,7 +9,7 @@ old <- matrix(
   ), 
   ncol = 4, 
   dimnames = list(
-    c("adaptivetau", "BH", "digest"),
+    c("nomnoml", "BH", "digest"),
     c("Package", "LocalVer", "ReposVer", "Repository"))
 )
 

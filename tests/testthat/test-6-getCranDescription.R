@@ -17,25 +17,7 @@ test_that("can read CRAN description", {
       )
     }
   )
-  p <- getCranDescription("ggplot2", repos = c(CRAN = getOption("minicran.mran")))
+  p <- getCranDescription("ggplot2", repos = MRAN("2024-01-02"))
   expect_s3_class(p, "data.frame")
   expect_equal(p$Package[1], "ggplot2")
 })
-
-# test_that("throws error on old versions of R", {
-#   skip_if_not_installed("mockery")
-#   if (getRversion() > "3.4.0") {
-#     # mock the version of R to force the error
-#     mockery::stub(
-#       getCranDescription, 
-#       what = "getRversion",
-#       how = "3.4.0"
-#     )
-#   }
-#   expect_error(
-#     getCranDescription("miniCRAN", repos = c(CRAN = getOption("minicran.mran"))),
-#     "This function is not available"
-#   )
-# })
-#   
-# 

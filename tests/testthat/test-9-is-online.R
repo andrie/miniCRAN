@@ -4,4 +4,5 @@ test_that("is online", {
   # Should always be TRUE, but will trigger github action failure if 
   # MRAN is offline
   expect_true(is.online())
+  expect_true(is.online(MRAN("2024-01-02")))
 })

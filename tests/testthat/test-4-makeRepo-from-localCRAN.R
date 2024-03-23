@@ -2,12 +2,12 @@ if (interactive()) {library(testthat); Sys.setenv(NOT_CRAN = "true")}
 
 
 {
-  revolution_mran <- MRAN("2014-10-15")
+  revolution_mran <- MRAN("2024-01-02")
   if (!is.online(revolution_mran, tryHttp = FALSE)) {
     # Use http:// for older versions of R
     revolution_mran <- sub("^https://", "http://", revolution_mran)
   }
-  rvers = "3.2"
+  rvers <- "4.0"
   pkgs <- c("MASS")
   repo_root <- file.path(tempdir(), "miniCRAN", Sys.Date())
   new_repo_root <- file.path(tempdir(), "newMiniCRAN", Sys.Date())

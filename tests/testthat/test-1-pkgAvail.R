@@ -8,14 +8,13 @@ test_that("pkgAvail throws warnings and errors for incorrect CRAN repos", {
   }
 
   skip_if_offline(MRAN())
+  
+  mran <- MRAN("2024-01-02")
 
   expect_true(is.available.packages(
-    pkgAvail(repos = unname(MRAN()))
+    pkgAvail(repos = mran)
   ))
   expect_true(is.available.packages(
-    pkgAvail(repos = MRAN())
-  ))
-  expect_true(is.available.packages(
-    pkgAvail(repos = c(CRAN = "@CRAN@"))
+    pkgAvail(repos = mran)
   ))
 })

@@ -1,13 +1,13 @@
 
 
 {
-  revolution <- MRAN("2014-10-15")
+  revolution <- MRAN("2024-01-02")
   if (!is.online(revolution, tryHttp = FALSE)) {
     # Use http:// for older versions of R
     revolution <- sub("^https://", "http://", revolution)
   }
-  rvers = "3.1"
-  pkgs <- c("Bmix")
+  rvers <- "4.0"
+  pkgs <- c("Rcpp")
   repo_root <- file.path(tempdir(), "miniCRAN", Sys.Date())
   if (file.exists(repo_root)) unlink(repo_root, recursive = TRUE)
   
@@ -20,8 +20,8 @@
 # types are defined in env var `minicran_test_scope`
 types <- set_test_types()
 
-for (pkg_type in (types)) {
-  skip_if_not_installed("mockr") 
+test_for_type <- function(pkg_type) {
+  # skip_if_not_installed("mockr") 
   test_that(sprintf("makeRepo downloads %s files and builds PACKAGES",
                     pkg_type), {
 
@@ -63,5 +63,7 @@ for (pkg_type in (types)) {
     )
   })
 }
+
+for (pkg_type in (types)) {test_for_type(pkg_type = pkg_type)}
 
 unlink(repo_root, recursive = TRUE)
