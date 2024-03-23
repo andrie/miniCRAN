@@ -3,7 +3,6 @@
 \docType{package}
 \name{miniCRAN-package}
 \alias{miniCRAN-package}
-\alias{_PACKAGE}
 \alias{miniCRAN}
 \alias{minicran}
 \title{description}
