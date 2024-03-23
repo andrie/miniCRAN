@@ -8,7 +8,7 @@ Authors@R: c(
 License: GPL-2
 Copyright: Andrie de Vries, Microsoft Corporation
 Title: Create a Mini Version of CRAN Containing Only Selected Packages
-Description: Makes it possible to create an internally consistent
+# Description: Makes it possible to create an internally consistent
     repository consisting of selected packages from CRAN-like repositories.
     The user specifies a set of desired packages, and 'miniCRAN' recursively
     reads the dependency tree for these packages, then downloads only this

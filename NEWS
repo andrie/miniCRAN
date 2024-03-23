@@ -1,3 +1,9 @@
+miniCRAN v0.2.16.9000
+================
+
+* Support for `mac.binary.big-sur` (#152)
+* Rewrite tests to use [Posit Public Package Manager](https://packagemanager.posit.co), since MRAN ceased to operate their service during 2023
+
 miniCRAN v0.2.16
 ================
 

@@ -17,3 +17,6 @@ $RECYCLE.BIN/
 .DS_Store
 docs
 revdep
+README_files/
+.Renviron
+

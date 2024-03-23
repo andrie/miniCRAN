@@ -1,21 +1,19 @@
 
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # miniCRAN <img src='man/figures/miniCRAN-logo.png' align="right" height="139" />
 
 <!-- badges: start -->
 
-[![R build
-status](https://github.com/andrie/miniCRAN/workflows/R-CMD-check/badge.svg)](https://github.com/andrie/miniCRAN/actions)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/miniCRAN.png)](https://CRAN.R-project.org/package=miniCRAN)
+[![R-CMD-check](https://github.com/andrie/miniCRAN/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/andrie/miniCRAN/actions/workflows/R-CMD-check.yaml)
 [![Code
 coverage](https://codecov.io/gh/andrie/miniCRAN/branch/main/graph/badge.svg)](https://codecov.io/gh/andrie/miniCRAN?branch=main)
-[![CRAN
-version](http://www.r-pkg.org/badges/version/miniCRAN)](http://www.r-pkg.org/pkg/miniCRAN)
 [![CRAN RStudio mirror
-downloads](http://cranlogs.r-pkg.org/badges/miniCRAN)](http://www.r-pkg.org/pkg/miniCRAN)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/miniCRAN)](https://cran.r-project.org/package=miniCRAN)
-[![R-CMD-check](https://github.com/andrie/miniCRAN/workflows/R-CMD-check/badge.svg)](https://github.com/andrie/miniCRAN/actions)
+downloads](http://cranlogs.r-pkg.org/badges/miniCRAN.png)](http://www.r-pkg.org/pkg/miniCRAN)
+
 <!-- badges: end -->
 
 Create a mini version of CRAN containing only selected packages
