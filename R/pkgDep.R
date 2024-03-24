@@ -84,7 +84,6 @@ pkgDep <- function(pkg, availPkgs, repos = getOption("repos"), type = "source",
 
   pkgInAvail <- pkg %in% availPkgs[, "Package"]
   pkgInAvail <- pkg %in% availPkgNames(availPkgs)
-  # browser()
   if (sum(pkgInAvail) == 0 ) stop("No valid packages in pkg")
   if (sum(pkgInAvail) < length(pkg)) {
     warning("Package not recognized: ", paste(pkg[!pkgInAvail], collapse = ", "))
@@ -153,12 +152,16 @@ print.pkgDep <- function(x, ...) {
 #' repository, otherwise attempts to read from a CRAN mirror at the `repos` url.
 #'
 #' @inheritParams pkgDep
+#' 
+#' @param filters passed to [utils::available.packages]
+#' 
 #' @export
 #' @family create repo functions
 #' @seealso [pkgDep()]
 pkgAvail <- function(repos = getOption("repos"), 
                      type = "source", 
-                     Rversion = R.version, quiet = FALSE) {
+                     Rversion = R.version, quiet = FALSE,
+                    filters = NULL) {
   assert_that(is_repos(repos))
   if (!grepl("^https*://|file:///", repos[1]) && file.exists(repos[1])) {
      repos <- paste0("file:///", normalizePath(repos[1],
@@ -176,7 +179,7 @@ pkgAvail <- function(repos = getOption("repos"),
                  type = type, 
                  Rversion = Rversion), 
       type = type, 
-      filters = list(),
+      filters = filters,
       repos = repos
     )
     } else {
@@ -185,7 +188,7 @@ pkgAvail <- function(repos = getOption("repos"),
                    type = type, 
                    Rversion = Rversion), 
         type = type, 
-        filters = list()
+        filters = filters
       )
     }
   }

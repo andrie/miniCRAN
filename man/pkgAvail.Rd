@@ -8,7 +8,8 @@ pkgAvail(
   repos = getOption("repos"),
   type = "source",
   Rversion = R.version,
-  quiet = FALSE
+  quiet = FALSE,
+  filters = NULL
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ installed on other platforms.  Passed to \code{\link[=download.packages]{downloa
 }}
 
 \item{quiet}{If TRUE, suppresses warnings}
+
+\item{filters}{passed to \link[utils:available.packages]{utils::available.packages}}
 }
 \description{
 This is a thin wrapper around \code{\link[utils:available.packages]{utils::available.packages()}}.  If the argument
