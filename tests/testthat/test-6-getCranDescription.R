@@ -17,7 +17,7 @@ test_that("can read CRAN description", {
       )
     }
   )
-  p <- getCranDescription("ggplot2", repos = MRAN("2024-01-02"))
+  p <- getCranDescription("ggplot2", repos = p3m("2024-01-02"))
   expect_s3_class(p, "data.frame")
   expect_equal(p$Package[1], "ggplot2")
 })

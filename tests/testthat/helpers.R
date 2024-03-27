@@ -7,9 +7,9 @@ hostname <- function(x) {
 
 
 # Interrupt the test if url can not be reached
-skip_if_offline <- function(url = MRAN()) {
+skip_if_offline <- function(url = p3m()) {
   # browser()
-  mran_host <- hostname(MRAN())
+  mran_host <- hostname(p3m())
   if (is.null(url)) url <- mran_host
   if (!is.online(url = url)) testthat::skip("offline")
 }
@@ -93,16 +93,16 @@ mock_write_packages <- function(dir, type = "source", r_version) {
 }
 
 
-# Create sample repo from MRAN snapshot
-.createSampleRepo <- function(MRAN, path, pkgs, Rversion = "4.0", types) {
-  if (missing(MRAN)) MRAN <- MRAN("2024-01-02")
+# Create sample repo from p3m snapshot
+.createSampleRepo <- function(p3m, path, pkgs, Rversion = "4.0", types) {
+  if (missing(p3m)) p3m <- p3m("2024-01-02")
   if (missing(path)) path <- file.path(tempdir(), "miniCRAN", Sys.Date())
   if (missing(pkgs)) pkgs <- c("chron", "curl")
   if (missing(types)) types <- set_test_types() 
 
-  # pdb_source <- pkgAvail(repos = MRAN, type = "source", Rversion = Rversion)
-  # pdb_win    <- pkgAvail(repos = MRAN, type = "win.binary", Rversion = Rversion)
-  # pdb_mac    <- pkgAvail(repos = MRAN, type = "mac.binary", Rversion = Rversion)
+  # pdb_source <- pkgAvail(repos = p3m, type = "source", Rversion = Rversion)
+  # pdb_win    <- pkgAvail(repos = p3m, type = "win.binary", Rversion = Rversion)
+  # pdb_mac    <- pkgAvail(repos = p3m, type = "mac.binary", Rversion = Rversion)
 
   mockr::with_mock(
     download_packages = mock_download_packages,
@@ -111,11 +111,11 @@ mock_write_packages <- function(dir, type = "source", r_version) {
     {
 
       for (type in types) {
-        pdb <- pkgAvail(repos = MRAN, type = type, Rversion = Rversion)
-        pkgList_source <- pkgDep(pkgs, availPkgs = pdb, repos = MRAN,
+        pdb <- pkgAvail(repos = p3m, type = type, Rversion = Rversion)
+        pkgList_source <- pkgDep(pkgs, availPkgs = pdb, repos = p3m,
           type = type, suggests = FALSE, Rversion = Rversion)
           
-        makeRepo(pkgList_source, path = path, repos = MRAN,
+        makeRepo(pkgList_source, path = path, repos = p3m,
           type = type,
           quiet = TRUE, Rversion = Rversion)
 

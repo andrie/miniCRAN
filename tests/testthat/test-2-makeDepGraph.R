@@ -1,5 +1,5 @@
 checkPkgDepFunctions <- function(pkg, availPkgs = cranJuly2014,
-                                 repos = MRAN(),
+                                 repos = p3m(),
                                  type = "source",
                                  suggests = TRUE,
                                  enhances = FALSE,

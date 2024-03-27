@@ -8,7 +8,7 @@ pkgTypes <- c("source", "win.binary")
 
 if (interactive()) {
   if (!is.online()) {
-    message("MRAN seems to be not available.  Check your internet connection.")
+    message("p3m seems to be not available.  Check your internet connection.")
   } else {
     pdb <- pkgAvail(repos = revolution, type = "source")
   }
@@ -19,7 +19,7 @@ if (interactive()) {
 
 if (interactive()) {
   if (!is.online()) {
-    message("MRAN seems to be not available.  Check your internet connection.")
+    message("p3m seems to be not available.  Check your internet connection.")
   } else {
     pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = revolution, type = "source", suggests = FALSE)
     pkgList
@@ -30,7 +30,7 @@ if (interactive()) {
 
 if (interactive()) {
   if (!is.online()) {
-    message("MRAN seems to be not available.  Check your internet connection.")
+    message("p3m seems to be not available.  Check your internet connection.")
   } else {
     dir.create(pth <- file.path(tempdir(), "miniCRAN"))
     

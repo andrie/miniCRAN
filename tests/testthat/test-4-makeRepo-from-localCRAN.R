@@ -2,7 +2,7 @@ if (interactive()) {library(testthat); Sys.setenv(NOT_CRAN = "true")}
 
 
 {
-  revolution_mran <- MRAN("2024-01-02")
+  revolution_mran <- p3m("2024-01-02")
   if (!is.online(revolution_mran, tryHttp = FALSE)) {
     # Use http:// for older versions of R
     revolution_mran <- sub("^https://", "http://", revolution_mran)

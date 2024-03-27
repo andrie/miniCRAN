@@ -1,4 +1,4 @@
-MRAN <- function(snapshot = NULL) {
+p3m <- function(snapshot = NULL) {
   url <- getOption("minicran.mran")
   if (missing("snapshot") || is.null(snapshot)) {
     url
@@ -10,14 +10,14 @@ MRAN <- function(snapshot = NULL) {
 CRAN <- function() getOption("repos")[1]
 
 
-#' Returns TRUE if the MRAN URL can be accessed.
+#' Returns TRUE if the p3m URL can be accessed.
 #' 
-#' @param url MRAN url
+#' @param url p3m url
 #' @param tryHttp If TRUE, also attempts http URL, for compatibility with older versions of R
 #' 
 #' @export
 is.online <- function(url = NULL, tryHttp = TRUE) {
-    if (is.null(url)) url <- MRAN()
+    if (is.null(url)) url <- p3m()
   url <- sub("latest$", "", url)
   url <- sub("\\d{4}-\\d{2}-\\d{2}$", "", url)
   

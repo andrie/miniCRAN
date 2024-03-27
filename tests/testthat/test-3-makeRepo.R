@@ -1,7 +1,7 @@
 
 
 {
-  revolution <- MRAN("2023-08-31")
+  revolution <- p3m("2023-08-31")
   if (!is.online(revolution, tryHttp = FALSE)) {
     # Use http:// for older versions of R
     revolution <- sub("^https://", "http://", revolution)

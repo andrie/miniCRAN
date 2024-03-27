@@ -6,7 +6,7 @@
   if (file.exists(repo_root)) unlink(repo_root, recursive = TRUE)
   dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
   
-  revolution <- MRAN("2023-08-31")
+  revolution <- p3m("2023-08-31")
   if (!is.online(revolution, tryHttp = FALSE)) {
     # Use http:// for older versions of R
     revolution <- sub("^https://", "http://", revolution)
@@ -38,7 +38,7 @@ test_that("sample repo is setup correctly", {
   })
   expect_type(pkgList, "list")
   
-  .createSampleRepo(path = repo_root, MRAN = revolution, Rversion = rvers, 
+  .createSampleRepo(path = repo_root, p3m = revolution, Rversion = rvers, 
     pkgs = pkgs, types = names(types))
   # expect_type(z, "character")
   pkg_names <- unname(pkgAvail(repo_root, quiet = TRUE, type = type, Rversion = rvers)[, "Package"])
@@ -170,10 +170,10 @@ for (pkg_type in names(types)) {
 # Check for updates -------------------------------------------------------
 
 
-MRAN_mirror <- MRAN("2024-01-02")
-if (!is.online(MRAN_mirror, tryHttp = FALSE)) {
+p3m_mirror <- p3m("2024-01-02")
+if (!is.online(p3m_mirror, tryHttp = FALSE)) {
   # Use http:// for older versions of R
-  MRAN_mirror <- sub("^https://", "http://", revolution)
+  p3m_mirror <- sub("^https://", "http://", revolution)
 }
 
 pkg_type <- names(types)[1]
@@ -185,12 +185,12 @@ for (pkg_type in names(types)) {
     {
       
       skip_on_cran()
-      skip_if_offline(MRAN_mirror)
+      skip_if_offline(p3m_mirror)
 
       prefix <- repoPrefix(pkg_type, Rversion = rvers)
       
       old <- suppressWarnings(
-        oldPackages(path = repo_root, repos = MRAN_mirror, 
+        oldPackages(path = repo_root, repos = p3m_mirror, 
                            type = pkg_type, Rversion = rvers,
                            quiet = FALSE)
       )
@@ -205,7 +205,7 @@ for (pkg_type in names(types)) {
         write_packages = mock_write_packages,
         .env = "miniCRAN",
         {
-          updatePackages(path = repo_root, repos = MRAN_mirror, type = pkg_type,
+          updatePackages(path = repo_root, repos = p3m_mirror, type = pkg_type,
                          ask = FALSE, quiet = TRUE, Rversion = rvers)
         })
 
@@ -226,7 +226,7 @@ for (pkg_type in names(types)) {
         write_packages = mock_write_packages,
         .env = "miniCRAN",
         {
-          old <- oldPackages(path = repo_root, repos = MRAN_mirror, 
+          old <- oldPackages(path = repo_root, repos = p3m_mirror, 
                              type = pkg_type, Rversion = rvers)
         })
       # browser()
@@ -247,7 +247,7 @@ for (pkg_type in names(types)) {
     {
       
       skip_on_cran()
-      skip_if_offline(MRAN_mirror)
+      skip_if_offline(p3m_mirror)
       
       
       oldVersions <- list(package = c("acepack"),
@@ -263,7 +263,7 @@ for (pkg_type in names(types)) {
             {
               addOldPackage(oldVersions[["package"]], path = repo_root, 
                             vers = oldVersions[["version"]],
-                            repos = MRAN_mirror, type = pkg_type)
+                            repos = p3m_mirror, type = pkg_type)
             })
         )
       } else {
@@ -274,7 +274,7 @@ for (pkg_type in names(types)) {
           {
             addOldPackage(oldVersions[["package"]], path = repo_root, 
                           vers = oldVersions[["version"]],
-                          repos = MRAN_mirror, type = pkg_type)
+                          repos = p3m_mirror, type = pkg_type)
           })
         files <- suppressWarnings(
           checkVersions(path = repo_root, type = pkg_type)[[pkg_type]]

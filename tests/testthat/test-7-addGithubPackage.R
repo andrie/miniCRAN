@@ -4,7 +4,7 @@ test_that("can add package from github",{
   skip_on_cran()
   skip_if_offline()
 
-  pdb <- pkgAvail(repos = MRAN("2024-01-02"))
+  pdb <- pkgAvail(repos = p3m("2024-01-02"))
   expect_type(pdb, "character")
 
   # Overwrite pdb with development version of miniCRAN at github

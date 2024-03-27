@@ -69,7 +69,7 @@ pkgDep <- function(pkg, availPkgs, repos = getOption("repos"), type = "source",
 
   if (missing(availPkgs)) {
     if (!is.null(names(repos)) & repos["CRAN"] == "@CRAN@") {
-      repos <- MRAN()
+      repos <- p3m()
     }
     if (is.na(type)) type <- "source"
     availPkgs <- pkgAvail(repos = repos, type = type, Rversion = Rversion,
@@ -169,7 +169,7 @@ pkgAvail <- function(repos = getOption("repos"),
                                                winslash = "/"))
   } else {
     if (!is.null(names(repos)) && isTRUE(unname(repos["CRAN"]) == "@CRAN@")) {
-      repos <- MRAN()
+      repos <- p3m()
     }
   }
   ap <- function() {

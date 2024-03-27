@@ -7,9 +7,9 @@ test_that("pkgAvail throws warnings and errors for incorrect CRAN repos", {
     all(is.matrix(x), dim(x)[2] == 17, names(x)[1:3] == c("Package", "Version", "Priority", "Depends"))
   }
 
-  skip_if_offline(MRAN())
+  skip_if_offline(p3m())
   
-  mran <- MRAN("2024-01-02")
+  mran <- p3m("2024-01-02")
 
   expect_true(is.available.packages(
     pkgAvail(repos = mran)
