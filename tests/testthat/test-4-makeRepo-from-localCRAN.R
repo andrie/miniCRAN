@@ -22,10 +22,10 @@ names(types) <- c("win.binary")
 
 pkg_type <- names(types)
 
-for (pkg_type in names(types)) {
-  test_that(sprintf("makeRepo downloads %s files and builds PACKAGES file", pkg_type), {
-    # skip_on_cran()
-    skip_if_offline(revolution_mran)
+test_that("makeRepo downloads files and builds PACKAGES file", {
+  skip_if_offline(revolution_mran)
+  # skip_on_cran()
+  for (pkg_type in names(types)) {
     
     # Create local miniCRAN
     # mockery::stub(makeRepo, "download_packages", mock_download_packages, depth = 1)
@@ -83,7 +83,7 @@ for (pkg_type in names(types)) {
       )
     )
     
-  })
-}
+  }
+})
 
 unlink(repo_root, recursive = TRUE)
