@@ -20,3 +20,5 @@ revdep
 README_files/
 .Renviron
 
+/doc/
+/Meta/
