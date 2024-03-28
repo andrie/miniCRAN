@@ -1,90 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://andrie.github.io/miniCRAN/404.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/404.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/LICENSE.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/LICENSE.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/articles/index.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/articles/index.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/articles/miniCRAN-dependency-graph.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/articles/miniCRAN-dependency-graph.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/articles/miniCRAN-introduction.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/articles/miniCRAN-introduction.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/articles/miniCRAN-non-CRAN-repos.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/articles/miniCRAN-non-CRAN-repos.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/authors.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/authors.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/index.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/index.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/addLocalPackage.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/addLocalPackage.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/addOldPackage.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/addOldPackage.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/addPackage.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/addPackage.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/addPackageListingGithub.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/addPackageListingGithub.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/basePkgs.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/basePkgs.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/checkVersions.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/checkVersions.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/cranJuly2014.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/cranJuly2014.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/getCranDescription.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/getCranDescription.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/index.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/index.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/is.online.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/is.online.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/listFiles.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/listFiles.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/makeDepGraph.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/makeDepGraph.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/makeLibrary.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/makeLibrary.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/makeRepo.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/makeRepo.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/miniCRAN-package.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/miniCRAN-package.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/pkgAvail.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/pkgAvail.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/pkgDep.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/pkgDep.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/plot.pkgDepGraph.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/plot.pkgDepGraph.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/repoPrefix.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/repoPrefix.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/twodigitRversion.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/twodigitRversion.html</loc>
   </url>
   <url>
-    <loc>http://andrie.github.io/miniCRAN/reference/updatePackages.html</loc>
+    <loc>https://andrie.github.io/miniCRAN/reference/updatePackages.html</loc>
   </url>
 </urlset>

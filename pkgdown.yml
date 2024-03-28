@@ -5,8 +5,8 @@ articles:
   miniCRAN-dependency-graph: miniCRAN-dependency-graph.html
   miniCRAN-introduction: miniCRAN-introduction.html
   miniCRAN-non-CRAN-repos: miniCRAN-non-CRAN-repos.html
-last_built: 2024-03-27T10:10Z
+last_built: 2024-03-28T20:45Z
 urls:
-  reference: http://andrie.github.io/miniCRAN/reference
-  article: http://andrie.github.io/miniCRAN/articles
+  reference: https://andrie.github.io/miniCRAN/reference
+  article: https://andrie.github.io/miniCRAN/articles
 

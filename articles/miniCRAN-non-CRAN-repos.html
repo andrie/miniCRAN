@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Using repositories other than CRAN with miniCRAN">
 <meta property="og:description" content="miniCRAN">
-<meta property="og:image" content="http://andrie.github.io/miniCRAN/logo.svg">
+<meta property="og:image" content="https://andrie.github.io/miniCRAN/logo.svg">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">miniCRAN</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.16.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +81,7 @@
                         <h4 data-toc-skip class="author">Andrie de
 Vries</h4>
             
-            <h4 data-toc-skip class="date">March 27, 2024</h4>
+            <h4 data-toc-skip class="date">March 28, 2024</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/andrie/miniCRAN/blob/HEAD/vignettes/miniCRAN-non-CRAN-repos.rmd" class="external-link"><code>vignettes/miniCRAN-non-CRAN-repos.rmd</code></a></small>
       <div class="d-none name"><code>miniCRAN-non-CRAN-repos.rmd</code></div>
@@ -101,7 +101,8 @@ helper function, <code>index()</code> that is a simple wrapper around
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Wrapper around available.packages ---------------------------------------</span></span>
 <span> </span>
-<span><span class="va">index</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">url</span>, <span class="va">type</span> <span class="op">=</span> <span class="st">"source"</span>, <span class="va">filters</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">head</span> <span class="op">=</span> <span class="fl">5</span>, <span class="va">cols</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Package"</span>, <span class="st">"Version"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="va">index</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">url</span>, <span class="va">type</span> <span class="op">=</span> <span class="st">"source"</span>, <span class="va">filters</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">head</span> <span class="op">=</span> <span class="fl">5</span>, </span>
+<span>                  <span class="va">cols</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Package"</span>, <span class="st">"Version"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">contribUrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/contrib.url.html" class="external-link">contrib.url</a></span><span class="op">(</span><span class="va">url</span>, type <span class="op">=</span> <span class="va">type</span><span class="op">)</span></span>
 <span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/available.packages.html" class="external-link">available.packages</a></span><span class="op">(</span><span class="va">contribUrl</span>, type <span class="op">=</span> <span class="va">type</span>, filters <span class="op">=</span> <span class="va">filters</span><span class="op">)</span></span>
 <span>  <span class="va">p</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">head</span>, <span class="va">cols</span><span class="op">]</span></span>
@@ -111,47 +112,33 @@ helper function, <code>index()</code> that is a simple wrapper around
 </h2>
 <p>The URL for the master mirror in Austria:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">CRAN</span> <span class="op">&lt;-</span> <span class="st">"http://cran.r-project.org"</span></span>
+<code class="sourceCode R"><span><span class="va">CRAN</span> <span class="op">&lt;-</span> <span class="st">"https://cran.r-project.org"</span></span>
 <span><span class="fu">index</span><span class="op">(</span><span class="va">CRAN</span><span class="op">)</span></span></code></pre></div>
+<p>Your output should look like this (albeit with different packages and
+version numbers):</p>
+<pre><code>              Package         Version
+A3            "A3"            "1.0.0"
+AalenJohansen "AalenJohansen" "1.0"  
+AATtools      "AATtools"      "0.0.2"
+ABACUS        "ABACUS"        "1.0.0"
+abasequence   "abasequence"   "0.1.0"</code></pre>
 </div>
 <div class="section level2">
 <h2 id="using-a-different-mirror">Using a different mirror<a class="anchor" aria-label="anchor" href="#using-a-different-mirror"></a>
 </h2>
-<p>You can also point to any other mirror, for example the stable
-version hosted by Revolution Analytics:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">revoStable</span> <span class="op">&lt;-</span> <span class="st">"http://packages.revolutionanalytics.com/cran/3.1/stable"</span></span>
-<span><span class="fu">index</span><span class="op">(</span><span class="va">revoStable</span><span class="op">)</span></span>
-<span> </span>
-<span><span class="va">revoMirror</span> <span class="op">&lt;-</span> <span class="st">"http://cran.revolutionanalytics.com"</span></span>
-<span><span class="fu">index</span><span class="op">(</span><span class="va">revoMirror</span><span class="op">)</span></span></code></pre></div>
+<p>You can also point to any other mirror, for example the snapshot
+taken on 2024-01-02 by Posit Public Package Manager:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p3m</span> <span class="op">&lt;-</span> <span class="st">"https://packagemanager.posit.co/cran/2024-01-02"</span></span>
+<span><span class="fu">index</span><span class="op">(</span><span class="va">p3m</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="using-r-forge">Using R-forge<a class="anchor" aria-label="anchor" href="#using-r-forge"></a>
 </h2>
 <p>R-forge has CRAN-like structure:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">rforge</span> <span class="op">&lt;-</span> <span class="st">"http://r-forge.r-project.org"</span></span>
-<span><span class="fu">index</span><span class="op">(</span><span class="va">rforge</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="using-bioconductor">Using BioConductor<a class="anchor" aria-label="anchor" href="#using-bioconductor"></a>
-</h2>
-<p>Although BioConductor has a different preferred install mechanism,
-the underlying repository structure is also CRAN-like:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">bioc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">local</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>  <span class="va">env</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/on.exit.html" class="external-link">on.exit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">env</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">evalq</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="st">"http://bioconductor.org/biocLite.R"</span>, local <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="va">env</span><span class="op">)</span></span>
-<span>  <span class="fu">biocinstallRepos</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span>
-<span> </span>
-<span><span class="va">bioc</span></span>
-<span><span class="va">bioc</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"BioC"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">bioc</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span>
-<span> </span>
-<span> </span>
-<span><span class="fu">index</span><span class="op">(</span><span class="va">bioc</span><span class="op">[</span><span class="st">"BioCsoft"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">rforge</span> <span class="op">&lt;-</span> <span class="st">"https://r-forge.r-project.org"</span></span>
+<span><span class="fu">index</span><span class="op">(</span><span class="va">rforge</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

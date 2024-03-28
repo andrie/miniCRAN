@@ -9,7 +9,7 @@ repository. — makeRepo"><meta property="og:description" content="Given a list 
 folder using the required CRAN folder structure, and finally creates the
 PACKAGES index file.  Since the folder structure mimics the required
 structure and files of a CRAN repository, it supports functions like
-utils::install.packages()."><meta property="og:image" content="http://andrie.github.io/miniCRAN/logo.svg"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+utils::install.packages()."><meta property="og:image" content="https://andrie.github.io/miniCRAN/logo.svg"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body>
@@ -20,7 +20,7 @@ utils::install.packages()."><meta property="og:image" content="http://andrie.git
     
     <a class="navbar-brand me-2" href="../index.html">miniCRAN</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.16.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -98,7 +98,7 @@ new repository.</p></dd>
 
 <dt>repos</dt>
 <dd><p>URL(s) of the 'contrib' sections of the repositories, e.g.
-<code>"http://cran.us.r-project.org"</code>. Passed to <code><a href="https://rdrr.io/r/utils/available.packages.html" class="external-link">available.packages()</a></code></p></dd>
+<code>"https://cran.us.r-project.org"</code>. Passed to <code><a href="https://rdrr.io/r/utils/available.packages.html" class="external-link">available.packages()</a></code></p></dd>
 
 
 <dt>type</dt>
@@ -174,7 +174,7 @@ subfolders for Windows as well as the various OSX binaries.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Specify list of packages to download</span></span></span>
-<span class="r-in"><span><span class="va">revolution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>CRAN <span class="op">=</span> <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mirror</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>CRAN <span class="op">=</span> <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">pkgs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"foreach"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
@@ -185,7 +185,7 @@ subfolders for Windows as well as the various OSX binaries.</p>
 <span class="r-in"><span>    type <span class="op">=</span> <span class="st">"source"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span>  </span></span>
-<span class="r-in"><span>  <span class="va">pkgList</span> <span class="op">&lt;-</span> <span class="fu"><a href="pkgDep.html">pkgDep</a></span><span class="op">(</span><span class="va">pkgs</span>, availPkgs <span class="op">=</span> <span class="va">pdb</span>, repos <span class="op">=</span> <span class="va">revolution</span>,</span></span>
+<span class="r-in"><span>  <span class="va">pkgList</span> <span class="op">&lt;-</span> <span class="fu"><a href="pkgDep.html">pkgDep</a></span><span class="op">(</span><span class="va">pkgs</span>, availPkgs <span class="op">=</span> <span class="va">pdb</span>, repos <span class="op">=</span> <span class="va">mirror</span>,</span></span>
 <span class="r-in"><span>                    type <span class="op">=</span> <span class="st">"source"</span>, suggests <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">pkgList</span></span></span>
 <span class="r-in"><span>  </span></span>
@@ -194,7 +194,7 @@ subfolders for Windows as well as the various OSX binaries.</p>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"miniCRAN"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  </span></span>
 <span class="r-in"><span>  <span class="co"># Make repo for source and win.binary</span></span></span>
-<span class="r-in"><span>  <span class="fu">makeRepo</span><span class="op">(</span><span class="va">pkgList</span>, path <span class="op">=</span> <span class="va">pth</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">makeRepo</span><span class="op">(</span><span class="va">pkgList</span>, path <span class="op">=</span> <span class="va">pth</span>, repos <span class="op">=</span> <span class="va">mirror</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  </span></span>
 <span class="r-in"><span>  <span class="co"># List all files in miniCRAN</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">pth</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
@@ -203,7 +203,7 @@ subfolders for Windows as well as the various OSX binaries.</p>
 <span class="r-in"><span>  <span class="fu"><a href="pkgAvail.html">pkgAvail</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="va">pth</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  </span></span>
 <span class="r-in"><span>  <span class="co"># Repeat process for windows binaries</span></span></span>
-<span class="r-in"><span>  <span class="fu">makeRepo</span><span class="op">(</span><span class="va">pkgList</span>, path <span class="op">=</span> <span class="va">pth</span>, repos <span class="op">=</span> <span class="va">revolution</span>, type <span class="op">=</span> <span class="st">"win.binary"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">makeRepo</span><span class="op">(</span><span class="va">pkgList</span>, path <span class="op">=</span> <span class="va">pth</span>, repos <span class="op">=</span> <span class="va">mirror</span>, type <span class="op">=</span> <span class="st">"win.binary"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="pkgAvail.html">pkgAvail</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="va">pth</span>, type <span class="op">=</span> <span class="st">"win.binary"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  </span></span>
 <span class="r-in"><span>  <span class="co"># Delete temporary folder</span></span></span>
