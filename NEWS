@@ -1,8 +1,18 @@
-miniCRAN v0.2.16.9000
+miniCRAN v0.3.0
 ================
 
 * Support for `mac.binary.big-sur` (#152)
+
+Bug fixes:
+
+* Don't download incorrect devel version of package (#153)
+
+Internal:
 * Rewrite tests to use [Posit Public Package Manager](https://packagemanager.posit.co), since MRAN ceased to operate their service during 2023
+* Rename internal function `MRAN()` to `p3m()` to reflect using Posit Public Package Manager (P3M)
+* Fix old http references
+* Fix old references to revolution and MRAN
+
 
 miniCRAN v0.2.16
 ================
