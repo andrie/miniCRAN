@@ -1,12 +1,12 @@
 ## ----make-repo-1--------------------------------------------------------------
 library("miniCRAN")
 
-# use Revolution Analytics CRAN mirror
-revolution <- c(CRAN = "http://cran.microsoft.com")
+# use mirror Analytics CRAN mirror
+mirror <- c(CRAN = "https://cloud.r-project.org")
 
 # Specify list of packages to download
 pkgs <- c("foreach")
-pkgList <- pkgDep(pkgs, repos = revolution, type = "source", suggests = FALSE, 
+pkgList <- pkgDep(pkgs, repos = mirror, type = "source", suggests = FALSE, 
                   availPkgs = cranJuly2014)
 pkgList
 
@@ -15,7 +15,7 @@ pkgList
 #  dir.create(pth <- file.path(tempdir(), "miniCRAN"))
 #  
 #  # Make repo for source and win.binary
-#  makeRepo(pkgList, path = pth, repos = revolution, type = c("source", "win.binary"))
+#  makeRepo(pkgList, path = pth, repos = mirror, type = c("source", "win.binary"))
 
 ## ----make-repo-3, eval=FALSE--------------------------------------------------
 #  # List all files in miniCRAN
@@ -32,7 +32,7 @@ pkgList
 
 ## ----addto-repo-new-1, eval=FALSE---------------------------------------------
 #  # Add new packages (from CRAN) to the miniCRAN repo
-#  addPackage("Matrix", path = pth, repos = revolution, type = c("source", "win.binary"))
+#  addPackage("Matrix", path = pth, repos = mirror, type = c("source", "win.binary"))
 #  pkgAvail(repos = pth, type = "win.binary")[, c(1:3, 5)]
 
 ## ----addto-repo-old-1, eval=FALSE---------------------------------------------
@@ -44,7 +44,7 @@ pkgList
 #  )
 #  
 #  # download old source package version and create repo index
-#  addOldPackage(pkgList, path = pth, vers = oldVers$version, repos = revolution, type = "source")
+#  addOldPackage(pkgList, path = pth, vers = oldVers$version, repos = mirror, type = "source")
 
 ## ----addto-repo-old-2, eval=FALSE---------------------------------------------
 #  # List package versions in the miniCRAN repo (produces warning about duplicates)
@@ -66,13 +66,13 @@ pkgList
 
 ## ----update-repo-1, eval=FALSE------------------------------------------------
 #  # Check if updated packages are available
-#  oldPackages(path = pth, repos = revolution, type = "source")[, 1:3] # should need update
-#  oldPackages(path = pth, repos = revolution, type = "win.binary")[, 1:3] # should be current
+#  oldPackages(path = pth, repos = mirror, type = "source")[, 1:3] # should need update
+#  oldPackages(path = pth, repos = mirror, type = "win.binary")[, 1:3] # should be current
 
 ## ----update-repo-2, eval=FALSE------------------------------------------------
 #  # Update available packages
-#  updatePackages(path = pth, repos = revolution, type = "source", ask = FALSE) # should need update
-#  updatePackages(path = pth, repos = revolution, type = "win.binary", ask = FALSE) # should be current
+#  updatePackages(path = pth, repos = mirror, type = "source", ask = FALSE) # should need update
+#  updatePackages(path = pth, repos = mirror, type = "win.binary", ask = FALSE) # should be current
 
 ## ----cleanup, include=FALSE, eval=FALSE---------------------------------------
 #  # Delete temporary folder

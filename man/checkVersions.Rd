@@ -38,16 +38,16 @@ multiple versions. You can subsequently decide which version to keep.
 ### `checkVersions` and `add.packages.miniCRAN` require an existing miniCRAN repo
 
 # Specify list of packages to download
-revolution <- c(CRAN = "https://cloud.r-project.org")
-revolution
+mirror <- c(CRAN = "https://cloud.r-project.org")
+mirror
 pkgs <- c("foreach")
 pkgTypes <- c("source", "win.binary")
 
 if (interactive()) {
   if (!is.online()) {
-    message("MRAN seems to be not available.  Check your internet connection.")
+    message("p3m seems to be not available.  Check your internet connection.")
   } else {
-    pdb <- pkgAvail(repos = revolution, type = "source")
+    pdb <- pkgAvail(repos = mirror, type = "source")
   }
 } else {
   pdb <- cranJuly2014
@@ -56,9 +56,9 @@ if (interactive()) {
 
 if (interactive()) {
   if (!is.online()) {
-    message("MRAN seems to be not available.  Check your internet connection.")
+    message("p3m seems to be not available.  Check your internet connection.")
   } else {
-    pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = revolution, type = "source", suggests = FALSE)
+    pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = mirror, type = "source", suggests = FALSE)
     pkgList
   }
 }
@@ -67,12 +67,12 @@ if (interactive()) {
 
 if (interactive()) {
   if (!is.online()) {
-    message("MRAN seems to be not available.  Check your internet connection.")
+    message("p3m seems to be not available.  Check your internet connection.")
   } else {
     dir.create(pth <- file.path(tempdir(), "miniCRAN"))
     
     # Make repo for source and win.binary
-    makeRepo(pkgList, path = pth, repos = revolution, type = pkgTypes)
+    makeRepo(pkgList, path = pth, repos = mirror, type = pkgTypes)
     
     # Add other versions of a package (and assume these were added previously)
     oldVers <- data.frame(
@@ -81,7 +81,7 @@ if (interactive()) {
       stringsAsFactors = FALSE
     )
     pkgs <- oldVers$package
-    addOldPackage(pkgs, path = pth, vers = oldVers$version, repos = revolution, type = "source")
+    addOldPackage(pkgs, path = pth, vers = oldVers$version, repos = mirror, type = "source")
     # NOTE: older binary versions would need to be build from source
     
     # List package versions in the miniCRAN repo (produces warning about duplicates)
@@ -99,7 +99,7 @@ if (interactive()) {
     pkgAvail(pth, type = "source")
     
     # Add new packages (from CRAN) to the miniCRAN repo
-    addPackage("Matrix", path = pth, repos = revolution, type = pkgTypes)
+    addPackage("Matrix", path = pth, repos = mirror, type = pkgTypes)
     
     # Delete temporary folder
     unlink(pth, recursive = TRUE)

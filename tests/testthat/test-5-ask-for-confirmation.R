@@ -3,9 +3,9 @@ old <- matrix(
   c("nomnoml", "BH", "digest", 
     "2.1", "1.54.0-4", "0.6.4",
     "2.2", "1.55.0-1", "0.6.7", 
-    "https://cran.microsoft.com/snapshot/2015-01-01/bin/windows/contrib/3.1", 
-    "https://cran.microsoft.com/snapshot/2015-01-01/bin/windows/contrib/3.1", 
-    "https://cran.microsoft.com/snapshot/2015-01-01/bin/windows/contrib/3.1"
+    "https://packagemanager.posit.co/cran/2024-01-02",
+    "https://packagemanager.posit.co/cran/2024-01-02",
+    "https://packagemanager.posit.co/cran/2024-01-02"
   ), 
   ncol = 4, 
   dimnames = list(

@@ -1,6 +1,6 @@
 
 # Specify list of packages to download
-revolution <- c(CRAN = "https://cloud.r-project.org")
+mirror <- c(CRAN = "https://cloud.r-project.org")
 pkgs <- c("foreach")
 
 if (interactive()) {
@@ -11,7 +11,7 @@ if (interactive()) {
     type = "source"
   )
   
-  pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = revolution,
+  pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = mirror,
                     type = "source", suggests = FALSE)
   pkgList
   
@@ -20,7 +20,7 @@ if (interactive()) {
   dir.create(pth <- file.path(tempdir(), "miniCRAN"))
   
   # Make repo for source and win.binary
-  makeRepo(pkgList, path = pth, repos = revolution, type = "source")
+  makeRepo(pkgList, path = pth, repos = mirror, type = "source")
   
   # List all files in miniCRAN
   list.files(pth, recursive = TRUE)
@@ -29,7 +29,7 @@ if (interactive()) {
   pkgAvail(repos = pth, type = "source")
   
   # Repeat process for windows binaries
-  makeRepo(pkgList, path = pth, repos = revolution, type = "win.binary")
+  makeRepo(pkgList, path = pth, repos = mirror, type = "win.binary")
   pkgAvail(repos = pth, type = "win.binary")
   
   # Delete temporary folder

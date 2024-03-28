@@ -1,87 +1,118 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="Andrie de Vries" />
 
-<meta name="date" content="2019-06-30" />
+<meta name="date" content="2024-03-28" />
 
 <title>Using repositories other than CRAN with miniCRAN</title>
 
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {  }
+{ }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -90,13 +121,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -104,6 +142,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
+
 
 
 
@@ -117,9 +156,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -288,7 +324,8 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
@@ -301,75 +338,59 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 
-<h1 class="title toc-ignore">Using repositories other than CRAN with miniCRAN</h1>
+<h1 class="title toc-ignore">Using repositories other than CRAN with
+miniCRAN</h1>
 <h4 class="author">Andrie de Vries</h4>
-<h4 class="date">June 30, 2019</h4>
+<h4 class="date">March 28, 2024</h4>
 
 
 
-<p>Although the package name <code>miniCRAN</code> seems to indicate you can only use CRAN as a repository, you can in fact use any CRAN-like repository.</p>
-<p>This vignette contains some examples of how to refer to different package repositories, including CRAN, alternative mirrors of CRAN, R-Forge as well as BioConductor.</p>
-<p>To simplify the code to show the salient features, we use a little helper function, <code>index()</code> that is a simple wrapper around <code>available.packages()</code>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># Wrapper around available.packages ---------------------------------------</span></a>
-<a class="sourceLine" id="cb1-2" title="2"> </a>
-<a class="sourceLine" id="cb1-3" title="3">index &lt;-<span class="st"> </span><span class="cf">function</span>(url, <span class="dt">type =</span> <span class="st">&quot;source&quot;</span>, <span class="dt">filters =</span> <span class="ot">NULL</span>, <span class="dt">head =</span> <span class="dv">5</span>, <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;Package&quot;</span>, <span class="st">&quot;Version&quot;</span>)) {</a>
-<a class="sourceLine" id="cb1-4" title="4">  contribUrl &lt;-<span class="st"> </span><span class="kw">contrib.url</span>(url, <span class="dt">type =</span> type)</a>
-<a class="sourceLine" id="cb1-5" title="5">  p &lt;-<span class="st"> </span><span class="kw">available.packages</span>(contribUrl, <span class="dt">type =</span> type, <span class="dt">filters =</span> filters)</a>
-<a class="sourceLine" id="cb1-6" title="6">  p[<span class="dv">1</span><span class="op">:</span>head, cols]</a>
-<a class="sourceLine" id="cb1-7" title="7">}</a></code></pre></div>
+<p>Although the package name <code>miniCRAN</code> seems to indicate you
+can only use CRAN as a repository, you can in fact use any CRAN-like
+repository.</p>
+<p>This vignette contains some examples of how to refer to different
+package repositories, including CRAN, alternative mirrors of CRAN,
+R-Forge as well as BioConductor.</p>
+<p>To simplify the code to show the salient features, we use a little
+helper function, <code>index()</code> that is a simple wrapper around
+<code>available.packages()</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Wrapper around available.packages ---------------------------------------</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a> </span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="cf">function</span>(url, <span class="at">type =</span> <span class="st">&quot;source&quot;</span>, <span class="at">filters =</span> <span class="cn">NULL</span>, <span class="at">head =</span> <span class="dv">5</span>, </span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>                  <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;Package&quot;</span>, <span class="st">&quot;Version&quot;</span>)) {</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  contribUrl <span class="ot">&lt;-</span> <span class="fu">contrib.url</span>(url, <span class="at">type =</span> type)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">available.packages</span>(contribUrl, <span class="at">type =</span> type, <span class="at">filters =</span> filters)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  p[<span class="dv">1</span><span class="sc">:</span>head, cols]</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>}</span></code></pre></div>
 <div id="using-cran" class="section level2">
 <h2>Using CRAN</h2>
 <p>The URL for the master mirror in Austria:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">CRAN &lt;-<span class="st"> &quot;http://cran.r-project.org&quot;</span></a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="kw">index</span>(CRAN)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>CRAN <span class="ot">&lt;-</span> <span class="st">&quot;https://cran.r-project.org&quot;</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">index</span>(CRAN)</span></code></pre></div>
+<p>Your output should look like this (albeit with different packages and
+version numbers):</p>
+<pre><code>              Package         Version
+A3            &quot;A3&quot;            &quot;1.0.0&quot;
+AalenJohansen &quot;AalenJohansen&quot; &quot;1.0&quot;  
+AATtools      &quot;AATtools&quot;      &quot;0.0.2&quot;
+ABACUS        &quot;ABACUS&quot;        &quot;1.0.0&quot;
+abasequence   &quot;abasequence&quot;   &quot;0.1.0&quot;</code></pre>
 </div>
 <div id="using-a-different-mirror" class="section level2">
 <h2>Using a different mirror</h2>
-<p>You can also point to any other mirror, for example the stable version hosted by Revolution Analytics:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">revoStable &lt;-<span class="st"> &quot;http://packages.revolutionanalytics.com/cran/3.1/stable&quot;</span></a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="kw">index</span>(revoStable)</a>
-<a class="sourceLine" id="cb3-3" title="3"> </a>
-<a class="sourceLine" id="cb3-4" title="4">revoMirror &lt;-<span class="st"> &quot;http://cran.revolutionanalytics.com&quot;</span></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="kw">index</span>(revoMirror)</a></code></pre></div>
+<p>You can also point to any other mirror, for example the snapshot
+taken on 2024-01-02 by Posit Public Package Manager:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>p3m <span class="ot">&lt;-</span> <span class="st">&quot;https://packagemanager.posit.co/cran/2024-01-02&quot;</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">index</span>(p3m)</span></code></pre></div>
 </div>
 <div id="using-r-forge" class="section level2">
 <h2>Using R-forge</h2>
 <p>R-forge has CRAN-like structure:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">rforge &lt;-<span class="st"> &quot;http://r-forge.r-project.org&quot;</span></a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="kw">index</span>(rforge)</a></code></pre></div>
-</div>
-<div id="using-bioconductor" class="section level2">
-<h2>Using BioConductor</h2>
-<p>Although BioConductor has a different preferred install mechanism, the underlying repository structure is also CRAN-like:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">bioc &lt;-<span class="st"> </span><span class="kw">local</span>({</a>
-<a class="sourceLine" id="cb5-2" title="2">  env &lt;-<span class="st"> </span><span class="kw">new.env</span>()</a>
-<a class="sourceLine" id="cb5-3" title="3">  <span class="kw">on.exit</span>(<span class="kw">rm</span>(env))</a>
-<a class="sourceLine" id="cb5-4" title="4">  <span class="kw">evalq</span>(<span class="kw">source</span>(<span class="st">&quot;http://bioconductor.org/biocLite.R&quot;</span>, <span class="dt">local =</span> <span class="ot">TRUE</span>), env)</a>
-<a class="sourceLine" id="cb5-5" title="5">  <span class="kw">biocinstallRepos</span>()</a>
-<a class="sourceLine" id="cb5-6" title="6">})</a>
-<a class="sourceLine" id="cb5-7" title="7"> </a>
-<a class="sourceLine" id="cb5-8" title="8">bioc</a>
-<a class="sourceLine" id="cb5-9" title="9">bioc[<span class="kw">grep</span>(<span class="st">&quot;BioC&quot;</span>, <span class="kw">names</span>(bioc))]</a>
-<a class="sourceLine" id="cb5-10" title="10"> </a>
-<a class="sourceLine" id="cb5-11" title="11"> </a>
-<a class="sourceLine" id="cb5-12" title="12"><span class="kw">index</span>(bioc[<span class="st">&quot;BioCsoft&quot;</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>rforge <span class="ot">&lt;-</span> <span class="st">&quot;https://r-forge.r-project.org&quot;</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">index</span>(rforge)</span></code></pre></div>
 </div>
 
 
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
 
 <!-- code folding -->
 

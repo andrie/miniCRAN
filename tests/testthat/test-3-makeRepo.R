@@ -1,10 +1,10 @@
 
 
 {
-  revolution <- p3m("2023-08-31")
-  if (!is.online(revolution, tryHttp = FALSE)) {
+  mirror <- p3m("2023-08-31")
+  if (!is.online(mirror, tryHttp = FALSE)) {
     # Use http:// for older versions of R
-    revolution <- sub("^https://", "http://", revolution)
+    mirror <- sub("^https://", "http://", mirror)
   }
   rvers <- "4.3"
   pkgs <- c("Rcpp")
@@ -29,9 +29,9 @@ test_that("makeRepo downloads files and builds PACKAGES", {
   types <- set_test_types()
   for (pkg_type in types) {
     
-    # pdb <- pkgAvail(repos = revolution, type = pkg_type, quiet = TRUE)
-    pdb <- pkgAvail(repos = revolution, type = pkg_type, Rversion = rvers, quiet = TRUE)
-    pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = revolution, type = pkg_type,
+    # pdb <- pkgAvail(repos = mirror, type = pkg_type, quiet = TRUE)
+    pdb <- pkgAvail(repos = mirror, type = pkg_type, Rversion = rvers, quiet = TRUE)
+    pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = mirror, type = pkg_type,
       suggests = FALSE, Rversion = rvers, quiet = FALSE)
       prefix <- repoPrefix(pkg_type, Rversion = rvers)
       dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
@@ -41,7 +41,7 @@ test_that("makeRepo downloads files and builds PACKAGES", {
     write_packages = mock_write_packages,
     .env = "miniCRAN",
     {
-      makeRepo(pkgList, path = repo_root, repos = revolution,
+      makeRepo(pkgList, path = repo_root, repos = mirror,
                 type = pkg_type, quiet = TRUE, Rversion = rvers)
     }
   )

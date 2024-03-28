@@ -6,10 +6,10 @@
   if (file.exists(repo_root)) unlink(repo_root, recursive = TRUE)
   dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
   
-  revolution <- p3m("2023-08-31")
-  if (!is.online(revolution, tryHttp = FALSE)) {
+  mirror <- p3m("2023-08-31")
+  if (!is.online(mirror, tryHttp = FALSE)) {
     # Use http:// for older versions of R
-    revolution <- sub("^https://", "http://", revolution)
+    mirror <- sub("^https://", "http://", mirror)
   }
   rvers <- "4.2"
   pkgs <- c("chron", "data.table")
@@ -26,19 +26,19 @@
 }
 
 test_that("sample repo is setup correctly", {
-  skip_if_offline(revolution)
+  skip_if_offline(mirror)
   
   type <- types[1]
-  pdb <<- lapply(types, pkgAvail, repos = revolution, Rversion = rvers, quiet = TRUE)
+  pdb <<- lapply(types, pkgAvail, repos = mirror, Rversion = rvers, quiet = TRUE)
   expect_type(pdb, "list")
   pkgList <<- lapply(types, function(type) {
     # type <- names(type)
     pkgDep(pkg = pkgs, type = names(type), availPkgs = pdb[[type]],
-           repos = revolution, suggests = FALSE, Rversion = rvers)
+           repos = mirror, suggests = FALSE, Rversion = rvers)
   })
   expect_type(pkgList, "list")
   
-  .createSampleRepo(path = repo_root, p3m = revolution, Rversion = rvers, 
+  .createSampleRepo(path = repo_root, p3m = mirror, Rversion = rvers, 
     pkgs = pkgs, types = names(types))
   # expect_type(z, "character")
   pkg_names <- unname(pkgAvail(repo_root, quiet = TRUE, type = type, Rversion = rvers)[, "Package"])
@@ -60,10 +60,10 @@ for (pkg_type in names(types)) {
     pkg_type), {
       
       skip_on_cran()
-      skip_if_offline(revolution)
+      skip_if_offline(mirror)
       
       pkgListAdd <- pkgDep(pkgsAdd, availPkgs = pdb[[pkg_type]],
-                           repos = revolution,
+                           repos = mirror,
                            type  = pkg_type,
                            suggests = FALSE,
                            Rversion = rvers)
@@ -75,7 +75,7 @@ for (pkg_type in names(types)) {
         write_packages = mock_write_packages,
         .env = "miniCRAN",
         {
-          addPackage(pkgListAdd, path = repo_root, repos = revolution, type = pkg_type,
+          addPackage(pkgListAdd, path = repo_root, repos = mirror, type = pkg_type,
                  quiet = TRUE, Rversion = rvers)
         })
 
@@ -110,7 +110,7 @@ for (pkg_type in names(types)) {
     {
       
       skip_on_cran()
-      skip_if_offline(revolution)
+      skip_if_offline(mirror)
       
       tmpdir <- file.path(tempdir(), "miniCRAN", "local", pkg_type)
       expect_true(dir.create(tmpdir, recursive = TRUE, showWarnings = FALSE))
@@ -129,8 +129,8 @@ for (pkg_type in names(types)) {
           res <- download_packages(
             pkgsAddLocal, destdir = tmpdir, 
             type = pkg_type,
-            available = pkgAvail(revolution, pkg_type, rvers),
-            contriburl = contribUrl(revolution, pkg_type, rvers),
+            available = pkgAvail(mirror, pkg_type, rvers),
+            contriburl = contribUrl(mirror, pkg_type, rvers),
             quiet = TRUE)
         })
       
@@ -173,7 +173,7 @@ for (pkg_type in names(types)) {
 p3m_mirror <- p3m("2024-01-02")
 if (!is.online(p3m_mirror, tryHttp = FALSE)) {
   # Use http:// for older versions of R
-  p3m_mirror <- sub("^https://", "http://", revolution)
+  p3m_mirror <- sub("^https://", "http://", mirror)
 }
 
 pkg_type <- names(types)[1]

@@ -21,7 +21,8 @@ To simplify the code to show the salient features, we use a little helper functi
 ```{r setup}
 # Wrapper around available.packages ---------------------------------------
  
-index <- function(url, type = "source", filters = NULL, head = 5, cols = c("Package", "Version")) {
+index <- function(url, type = "source", filters = NULL, head = 5, 
+                  cols = c("Package", "Version")) {
   contribUrl <- contrib.url(url, type = type)
   p <- available.packages(contribUrl, type = type, filters = filters)
   p[1:head, cols]
@@ -34,21 +35,28 @@ index <- function(url, type = "source", filters = NULL, head = 5, cols = c("Pack
 The URL for the master mirror in Austria:
 
 ```{r CRAN, eval=FALSE}
-CRAN <- "http://cran.r-project.org"
+CRAN <- "https://cran.r-project.org"
 index(CRAN)
 ```
 
+Your output should look like this (albeit with different packages and version numbers):
+
+```
+              Package         Version
+A3            "A3"            "1.0.0"
+AalenJohansen "AalenJohansen" "1.0"  
+AATtools      "AATtools"      "0.0.2"
+ABACUS        "ABACUS"        "1.0.0"
+abasequence   "abasequence"   "0.1.0"
+```
 
 ## Using a different mirror
 
-You can also point to any other mirror, for example the stable version hosted by Revolution Analytics:
+You can also point to any other mirror, for example the snapshot taken on 2024-01-02 by Posit Public Package Manager:
 
-```{r revo, eval=FALSE}
-revoStable <- "http://packages.revolutionanalytics.com/cran/3.1/stable"
-index(revoStable)
- 
-revoMirror <- "http://cran.revolutionanalytics.com"
-index(revoMirror)
+```{r p3m, eval=FALSE}
+p3m <- "https://packagemanager.posit.co/cran/2024-01-02"
+index(p3m)
 ```
 
 ## Using R-forge
@@ -56,25 +64,6 @@ index(revoMirror)
 R-forge has CRAN-like structure:
 
 ```{r rforge, eval=FALSE}
-rforge <- "http://r-forge.r-project.org"
+rforge <- "https://r-forge.r-project.org"
 index(rforge)
-```
-
-## Using BioConductor
-
-Although BioConductor has a different preferred install mechanism, the underlying repository structure is also CRAN-like:
-
-```{r bioc, eval=FALSE}
-bioc <- local({
-  env <- new.env()
-  on.exit(rm(env))
-  evalq(source("http://bioconductor.org/biocLite.R", local = TRUE), env)
-  biocinstallRepos()
-})
- 
-bioc
-bioc[grep("BioC", names(bioc))]
- 
- 
-index(bioc["BioCsoft"])
 ```
