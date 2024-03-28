@@ -1,6 +1,6 @@
 # Code copied from the pkgDepTools project
 # Copyright (C) Seth Falcon
-# http://www.bioconductor.org/packages/release/bioc/html/pkgDepTools.html
+# https://www.bioconductor.org/packages/release/bioc/html/pkgDepTools.html
 # 
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 2
@@ -10,7 +10,7 @@
 
 # Code copied from the pkgDepTools project
 # Copyright (C) Seth Falcon
-# http://www.bioconductor.org/packages/release/bioc/html/pkgDepTools.html
+# https://www.bioconductor.org/packages/release/bioc/html/pkgDepTools.html
 
 
 # Copy of tools:::split_op_version.

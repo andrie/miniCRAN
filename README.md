@@ -10,9 +10,9 @@
 status](https://www.r-pkg.org/badges/version/miniCRAN.png)](https://CRAN.R-project.org/package=miniCRAN)
 [![R-CMD-check](https://github.com/andrie/miniCRAN/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/andrie/miniCRAN/actions/workflows/R-CMD-check.yaml)
 [![Code
-coverage](https://codecov.io/gh/andrie/miniCRAN/branch/main/graph/badge.svg)](https://codecov.io/gh/andrie/miniCRAN?branch=main)
+coverage](https://codecov.io/gh/andrie/miniCRAN/branch/main/graph/badge.svg)](https://app.codecov.io/gh/andrie/miniCRAN?branch=main)
 [![CRAN RStudio mirror
-downloads](http://cranlogs.r-pkg.org/badges/miniCRAN.png)](http://www.r-pkg.org/pkg/miniCRAN)
+downloads](https://cranlogs.r-pkg.org/badges/miniCRAN.png)](https://www.r-pkg.org/pkg/miniCRAN)
 
 <!-- badges: end -->
 

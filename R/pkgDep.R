@@ -27,7 +27,7 @@ availPkgNames <- function(pdb) {
 #'   from CRAN, using [available.packages()]
 #'
 #' @param repos URL(s) of the 'contrib' sections of the repositories, e.g.
-#'   `"http://cran.us.r-project.org"`. Passed to [available.packages()]
+#'   `"https://cran.us.r-project.org"`. Passed to [available.packages()]
 #'
 #' @param type Possible values are (currently) "source", "mac.binary" and
 #'   "win.binary": the binary types can be listed and downloaded but not

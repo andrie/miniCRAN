@@ -62,7 +62,7 @@ plot.pkgDepGraph <- function(
        xlim = c(-1.5, 1)
   )
   pch1 <- rep(19, length(plotColours))
-  pch2 <- rep(-8594, length(edgeColor))  #http://www.alanwood.net/unicode/arrows.html
+  pch2 <- rep(-8594, length(edgeColor))  #https://www.alanwood.net/unicode/arrows.html
   yjust <- function(x) 0.5 * (x + 1)
   xjust <- function(x) 1
 

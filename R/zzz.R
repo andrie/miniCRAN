@@ -3,7 +3,7 @@
   mran.url <- if (getRversion() >= "3.2.2") {
     "https://packagemanager.posit.co/cran" ## use HTTPS
   } else {
-    "http://packagemanager.posit.co/cran" ## use HTTP
+    "https://packagemanager.posit.co/cran" ## use HTTP
   }
 
   ## set options using the approach used by devtools
