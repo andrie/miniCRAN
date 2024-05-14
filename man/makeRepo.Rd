@@ -14,6 +14,7 @@ makeRepo(
   Rversion = R.version,
   download = TRUE,
   writePACKAGES = TRUE,
+  filters = NULL,
   quiet = FALSE
 )
 
@@ -44,6 +45,8 @@ installed on other platforms.  Passed to \code{\link[=download.packages]{downloa
 
 \item{writePACKAGES}{If TRUE, calls \code{\link[=write_PACKAGES]{write_PACKAGES()}} to update the
 repository PACKAGES file.}
+
+\item{filters}{passed to \link[utils:available.packages]{utils::available.packages}}
 
 \item{quiet}{If TRUE, suppress status messages (if any), and the progress bar
 during download.}
