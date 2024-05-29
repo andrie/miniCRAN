@@ -13,6 +13,8 @@
 #'   [write_PACKAGES()]
 #'
 #' @inheritParams pkgDep
+#' 
+#' @inheritParams pkgAvail
 #'
 #' @param pkgs Character vector of packages to download
 #'
@@ -39,7 +41,9 @@
 #'
 #' @example /inst/examples/example_makeRepo.R
 makeRepo <- function(pkgs, path, repos = getOption("repos"), type = "source",
-                     Rversion = R.version, download = TRUE, writePACKAGES = TRUE, quiet = FALSE) {
+                     Rversion = R.version, download = TRUE, writePACKAGES = TRUE, 
+                     filters = NULL,
+                     quiet = FALSE) {
   
   assert_that(is_path(path))
   # if (!file.exists(path)) stop("Download path does not exist")
@@ -59,7 +63,7 @@ makeRepo <- function(pkgs, path, repos = getOption("repos"), type = "source",
       }
     }
 
-    pdb <- pkgAvail(repos = repos, type = t, Rversion = Rversion)
+    pdb <- pkgAvail(repos = repos, type = t, Rversion = Rversion, filters = filters)
 
     if (download) {
       download_packages(pkgs, destdir = pkgPath, available = pdb, repos = repos,
