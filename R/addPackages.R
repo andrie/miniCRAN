@@ -372,3 +372,114 @@ addLocalPackage <- function(pkgs = NULL, pkgPath = NULL, path = NULL,
   }
   invisible(ret)
 }
+
+# addGithubPakage -----------------------------------------------------------
+
+#' Add packages from GitHub to a miniCRAN repository.
+#' 
+#' Download the package source from the GitHub repository specified by `repo`, 
+#' build the source package and add it to the miniCRAN repository.
+#' 
+#' It uses the `remotes` package to download packages from GitHub and the 
+#' `devtools` package to build packages from source.
+#' 
+#' To build a package from source and then add it, use `build = TRUE`. 
+#'
+#' @note Currently, adding packages from GitHub does not check nor download 
+#'   their dependencies.
+#'   
+#' @inheritParams addPackage
+#' @inheritParams addLocalPackage
+#' @inheritParams addPackageListingGithub
+#' 
+#' @return Installs the packages from GitHub and returns the new package index.
+#' 
+#' @docType methods
+#' 
+#' @export
+
+addGithubPackage <- function(repo = NULL, path = NULL,
+                             type = "source", Rversion = R.version,
+                             writePACKAGES = TRUE, deps = FALSE,
+                             quiet = FALSE, build = FALSE) {
+  if (is.null(path) || is.null(repo)) {
+    stop("path and repo must be specified.")
+  }
+  
+  if(!requireNamespace("devtools", quietly = TRUE) || !requireNamespace("remotes", quietly = TRUE)){
+    stop("you must first install the 'devtools' and 'remotes' package.")
+  }
+  
+  # Download the source from GitHub, describe the repository information, etc., 
+  # and rebuild the source package.
+  remote <- remotes::github_remote(repo = repo)
+  pkgs <- remotes::remote_package_name(remote)
+  temp_source <- remotes::remote_download(remote)
+  utils::untar(temp_source, exdir = tools::file_path_sans_ext(temp_source, compression = TRUE))
+  sourcePath <- file.path(tools::file_path_sans_ext(temp_source, compression = TRUE), 
+                          list.files(tools::file_path_sans_ext(temp_source, compression = TRUE)))
+  pkgPath <- tools::file_path_sans_ext(temp_source, compression = TRUE)
+  remote_sha <- remotes::remote_sha(remote)
+  remotes::add_metadata(pkg_path = sourcePath, 
+                        remotes::remote_metadata(x = remote, source = sourcePath, sha =remote_sha))
+  temp_pkg <- devtools::build(pkg = sourcePath, path = pkgPath, quiet = quiet)
+  
+  # build local package if needed
+  if (isTRUE(build)) {
+    warning("Building local packages is still being tested.")
+    lapply(pkgs, function(x) {
+      devtools::build(pkg = temp_pkg, path = pkgPath,
+                      binary = ifelse(type == "source", FALSE, TRUE),
+                      quiet = quiet)
+    })
+  }
+  
+  # get list of pre-built packages for each type, filter by pkgs to be added
+  do_one <- function(t) {
+    repoPath <- file.path(path, repoPrefix(t, Rversion))
+    if (!dir.exists(repoPath)) dir.create(repoPath, recursive = TRUE)
+    files <- .listFiles(pkgs = pkgs, path = pkgPath, type = t)
+    
+    # check for previous package version and omit if identical
+    prev <- checkVersions(pkgs, path)
+    same <- which(basename(as.character(prev)) %in% files)
+    
+    if (length(same)) {
+      files <- files[-same]
+      if (length(files) == 0) {
+        if (!quiet) message("All packages up to date. Nothing to add.")
+        return(invisible(NULL))
+      }
+    }
+    
+    # copy other packages to their respective folders
+    lapply(files, function(x) {
+      f.src <- file.path(pkgPath, x)
+      f.dst <- file.path(repoPath, x)
+      
+      file.exists(f.src)
+      
+      if (!isTRUE(quiet)) message("copying ", x, "\n")
+      file.copy(from = f.src, to = f.dst)
+    })
+    
+    # check to ensure they all copied successfully
+    copied <- file.exists(file.path(repoPath, files))
+    if (!all(copied)) {
+      warning("the following ", t, " packages were not copied:\n",
+              paste(files[!copied], sep = ", "))
+    }
+    
+    # remove previous package versions
+    if (length(prev[-same]) > 0) unlink(prev[-same])
+    file.path(repoPath, files)[copied]
+  }
+  
+  ret <- sapply(type, do_one)
+  
+  # write package index for each folder:
+  if (writePACKAGES) {
+    updateRepoIndex(path = path, type = type, Rversion = Rversion)
+  }
+  invisible(ret)
+}
