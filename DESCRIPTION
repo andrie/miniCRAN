@@ -25,7 +25,8 @@ Imports:
     tools,
     utils,
     igraph,
-    assertthat (>= 0.2.0)
+    assertthat (>= 0.2.0),
+    remotes
 Suggests:
     devtools,
     knitr,
@@ -37,8 +38,7 @@ Suggests:
     testthis,
     roxygen2,
     mockr,
-    spelling,
-    remotes
+    spelling
 LazyData: true
 LazyLoad: true
 VignetteBuilder: knitr

@@ -13,7 +13,10 @@ addGithubPackage(
   writePACKAGES = TRUE,
   deps = FALSE,
   quiet = FALSE,
-  build = FALSE
+  ref = "HEAD",
+  subdir = NULL,
+  auth_token = github_pat(quiet),
+  host = "api.github.com"
 )
 }
 \arguments{
@@ -44,8 +47,23 @@ added (default \code{TRUE}).}
 \item{quiet}{If TRUE, suppress status messages (if any), and the progress bar
 during download.}
 
-\item{build}{Logical indicating whether packages should be build prior to
-adding.}
+\item{ref}{Desired git reference. Could be a commit, tag, or branch
+name, or a call to \code{\link[remotes:github_pull]{github_pull()}} or \code{\link[remotes:github_release]{github_release()}}. Defaults to
+\code{"HEAD"}, which means the default branch on GitHub and for git remotes.
+See \href{https://help.github.com/en/github/administering-a-repository/setting-the-default-branch}{setting-the-default-branch}
+for more details.}
+
+\item{subdir}{Subdirectory within repo that contains the R package.}
+
+\item{auth_token}{To install from a private repo, generate a personal
+access token (PAT) with at least repo scope in
+\url{https://github.com/settings/tokens} and
+supply to this argument. This is safer than using a password because
+you can easily delete a PAT without affecting any others. Defaults to
+the \code{GITHUB_PAT} environment variable.}
+
+\item{host}{GitHub API host to use. Override with your GitHub enterprise
+hostname, for example, \code{"github.hostname.com/api/v3"}.}
 }
 \value{
 Installs the packages from GitHub and returns the new package index.
@@ -55,10 +73,8 @@ Download the package source from the GitHub repository specified by \code{repo},
 build the source package and add it to the miniCRAN repository.
 }
 \details{
-It uses the \code{remotes} package to download packages from GitHub and the
+It uses the \code{remotes} package to download packages source from GitHub and the
 \code{devtools} package to build packages from source.
-
-To build a package from source and then add it, use \code{build = TRUE}.
 }
 \note{
 Currently, adding packages from GitHub does not check nor download
