@@ -3,7 +3,6 @@ BioConductor
 CMD
 HTTPS
 LocalVer
-MRAN
 OSX
 OmegaHat
 RStudio
@@ -16,10 +15,10 @@ contrib
 de
 ggplot
 github
+hostname
 http
 igraph
 organisations
 pre
 repo
 subfolders
-CRAN
