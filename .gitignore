@@ -22,3 +22,6 @@ README_files/
 
 /doc/
 /Meta/
+
+/.quarto/
+README.html
