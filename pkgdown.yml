@@ -1,12 +1,11 @@
 pandoc: 3.1.11
-pkgdown: 2.0.7
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   miniCRAN-dependency-graph: miniCRAN-dependency-graph.html
   miniCRAN-introduction: miniCRAN-introduction.html
   miniCRAN-non-CRAN-repos: miniCRAN-non-CRAN-repos.html
-last_built: 2024-03-28T20:45Z
+last_built: 2024-11-13T10:51Z
 urls:
   reference: https://andrie.github.io/miniCRAN/reference
   article: https://andrie.github.io/miniCRAN/articles
-
