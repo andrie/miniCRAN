@@ -20,7 +20,7 @@ set_test_types <- function() {
   types <- 
     Sys.getenv(
       "minicran_test_scope",
-      unset = "source, win.binary, mac.binary, mac.binary.mavericks"
+      unset = "source, win.binary, mac.binary"
     )
   
   types <- gsub(" +", "", types)
