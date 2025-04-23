@@ -1,6 +1,4 @@
-
 test_that("can read CRAN description", {
-
   skip_on_cran()
   skip_if_offline()
   skip_if(getRversion() <= "3.4")

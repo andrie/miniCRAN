@@ -1,28 +1,42 @@
-checkPkgDepFunctions <- function(pkg, availPkgs = cranJuly2014,
-                                 repos = p3m(),
-                                 type = "source",
-                                 suggests = TRUE,
-                                 enhances = FALSE,
-                                 includeBasePkgs = FALSE) {
-
-  p1 <- pkgDep(pkg, availPkgs = availPkgs,
-               repos = repos, type = type,
-               suggests = suggests, enhances = enhances,
-               includeBasePkgs = includeBasePkgs)
-  p2 <- makeDepGraph(pkg, availPkgs = availPkgs,
-                     repos = repos, type = type,
-                     suggests = suggests, enhances = enhances,
-                     includeBasePkgs = includeBasePkgs)
+checkPkgDepFunctions <- function(
+  pkg,
+  availPkgs = cranJuly2014,
+  repos = p3m(),
+  type = "source",
+  suggests = TRUE,
+  enhances = FALSE,
+  includeBasePkgs = FALSE
+) {
+  p1 <- pkgDep(
+    pkg,
+    availPkgs = availPkgs,
+    repos = repos,
+    type = type,
+    suggests = suggests,
+    enhances = enhances,
+    includeBasePkgs = includeBasePkgs
+  )
+  p2 <- makeDepGraph(
+    pkg,
+    availPkgs = availPkgs,
+    repos = repos,
+    type = type,
+    suggests = suggests,
+    enhances = enhances,
+    includeBasePkgs = includeBasePkgs
+  )
 
   vnames <- igraph::V(p2)$name
   diff1 <- setdiff(vnames, p1)
   diff2 <- setdiff(p1, vnames)
   result <- length(diff1) == 0 & length(diff2) == 0
   if (!result) {
-    msg <- paste0("\nmakeDepGraph() results not in pkgDep(): \n - ",
-                  paste(diff1, collapse = ", "),
-                  "\npkgDep() results not in makeDepGraph(): \n - ",
-                  paste(diff2, collapse = ", "))
+    msg <- paste0(
+      "\nmakeDepGraph() results not in pkgDep(): \n - ",
+      paste(diff1, collapse = ", "),
+      "\npkgDep() results not in makeDepGraph(): \n - ",
+      paste(diff2, collapse = ", ")
+    )
 
     warning(msg)
   }
@@ -30,20 +44,18 @@ checkPkgDepFunctions <- function(pkg, availPkgs = cranJuly2014,
 }
 
 
-
 mock_require <- function(pkg, ...) {
   packages.to.exclude <- c("igraph")
   inSearchPath <- any(
-    grepl(sprintf("package:%s$",
-                  paste(packages.to.exclude, collapse = "|")),
-          search())
+    grepl(
+      sprintf("package:%s$", paste(packages.to.exclude, collapse = "|")),
+      search()
+    )
   )
   if (inSearchPath) stop("Required package already in search path")
 
   package <- as.character(substitute(pkg))
-  if (package %in% packages.to.exclude)
-    FALSE
-  else
+  if (package %in% packages.to.exclude) FALSE else
     base::requireNamespace(package, character.only = TRUE, ...)
 }
 
@@ -79,12 +91,10 @@ test_that("makeDepGraph and pgkDep gives similar results for MASS", {
   expect_true(
     checkPkgDepFunctions(tag, includeBasePkgs = TRUE, enhances = TRUE)
   )
-
 })
 
 
 test_that("makeDepGraph and pgkDep gives similar results for chron", {
-
   skip_on_cran()
 
   tag <- "chron"
@@ -101,12 +111,10 @@ test_that("makeDepGraph and pgkDep gives similar results for chron", {
   expect_true(
     checkPkgDepFunctions(tag, includeBasePkgs = TRUE, enhances = TRUE)
   )
-
 })
 
 
 test_that("makeDepGraph and pgkDep gives similar results for data.table", {
-
   skip_on_cran()
 
   tag <- "data.table"
@@ -123,11 +131,9 @@ test_that("makeDepGraph and pgkDep gives similar results for data.table", {
   expect_true(
     checkPkgDepFunctions(tag, includeBasePkgs = TRUE, enhances = TRUE)
   )
-
 })
 
 test_that("makeDepGraph and pgkDep gives similar results for ggplot2", {
-
   skip_on_cran()
 
   tag <- "ggplot2"
@@ -144,12 +150,10 @@ test_that("makeDepGraph and pgkDep gives similar results for ggplot2", {
   expect_true(
     checkPkgDepFunctions(tag, includeBasePkgs = TRUE, enhances = TRUE)
   )
-
 })
 
 
 test_that("makeDepGraph and pgkDep gives similar results for complex query", {
-
   skip_on_cran()
 
   tag <- c("ggplot2", "data.table", "plyr", "knitr", "shiny", "xts", "lattice")
@@ -166,6 +170,4 @@ test_that("makeDepGraph and pgkDep gives similar results for complex query", {
   expect_true(
     checkPkgDepFunctions(tag, includeBasePkgs = TRUE, enhances = TRUE)
   )
-
 })
-

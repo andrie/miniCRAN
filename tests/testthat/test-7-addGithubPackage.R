@@ -1,6 +1,4 @@
-
-test_that("can add package from github",{
-
+test_that("can add package from github", {
   skip_on_cran()
   skip_if_offline()
 

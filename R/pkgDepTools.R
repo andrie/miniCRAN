@@ -1,34 +1,29 @@
 # Code copied from the pkgDepTools project
 # Copyright (C) Seth Falcon
 # https://www.bioconductor.org/packages/release/bioc/html/pkgDepTools.html
-# 
+#
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 2
 # as published by the Free Software Foundation
-
-
 
 # Code copied from the pkgDepTools project
 # Copyright (C) Seth Falcon
 # https://www.bioconductor.org/packages/release/bioc/html/pkgDepTools.html
 
-
 # Copy of tools:::split_op_version.
 
 # @rdname pkgDepTools
 # @keywords internal
-split_op_version <- function (x) {
+split_op_version <- function(x) {
   pat <- "^([^\\([:space:]]+)[[:space:]]*\\(([^\\)]+)\\).*"
   x1 <- sub(pat, "\\1", x)
   x2 <- sub(pat, "\\2", x)
   if (x2 != x1) {
     pat <- "[[:space:]]*([[<>=!]+)[[:space:]]+(.*)"
     version <- sub(pat, "\\2", x2)
-    if (!grepl("^r", version)) 
-      version <- package_version(version)
+    if (!grepl("^r", version)) version <- package_version(version)
     list(name = x1, op = sub(pat, "\\1", x2), version = version)
-  }
-  else list(name = x1)
+  } else list(name = x1)
 }
 
 

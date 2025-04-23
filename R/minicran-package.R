@@ -91,8 +91,6 @@
 "_PACKAGE"
 
 
-
-
 # data documentation ------------------------------------------------------
 
 #' Stored version of available.packages()

@@ -28,9 +28,13 @@ if (getRversion() >= "3.1.0") {
 #' @family update repo functions
 #'
 #' @example /inst/examples/example_checkVersions.R
-#'   
-checkVersions <- function(pkgs = NULL, path = NULL, type = "source",
-                          Rversion = R.version) {
+#'
+checkVersions <- function(
+  pkgs = NULL,
+  path = NULL,
+  type = "source",
+  Rversion = R.version
+) {
   if (is.null(path)) stop("path must be specified.")
   if (!file.exists(path)) stop("invalid path, ", path)
 
@@ -40,23 +44,26 @@ checkVersions <- function(pkgs = NULL, path = NULL, type = "source",
       files <- dir(pkgPath)
     } else {
       files <- sapply(
-        pkgs, 
-        function(x) list.files(pkgPath, pattern = paste0("^", x, "_")) 
+        pkgs,
+        function(x) list.files(pkgPath, pattern = paste0("^", x, "_"))
       )
     }
     files <- unlist(files)
     pkgFiles <- grep("\\.(tar\\.gz|zip|tgz)$", basename(files), value = TRUE)
-    
+
     # identify duplicate packages and warn the user
     pkgs <- sapply(strsplit(files, "_"), "[[", 1)
     dupes <- pkgs[duplicated(pkgs)]
     if (length(dupes)) {
-      warning("Duplicate package(s): ", paste(dupes, collapse = ", "), 
-              call. = FALSE)
+      warning(
+        "Duplicate package(s): ",
+        paste(dupes, collapse = ", "),
+        call. = FALSE
+      )
     }
     file.path(pkgPath, pkgFiles)
   }
-  
+
   duplicatePkgs <- sapply(type, do_one, simplify = FALSE)
   names(duplicatePkgs) <- type
   duplicatePkgs
@@ -64,7 +71,6 @@ checkVersions <- function(pkgs = NULL, path = NULL, type = "source",
 
 
 # addPackage---------------------------------------------------------------
-
 
 #' Add packages to a miniCRAN repository.
 #'
@@ -84,33 +90,54 @@ checkVersions <- function(pkgs = NULL, path = NULL, type = "source",
 #' @family update repo functions
 #'
 #' @example /inst/examples/example_checkVersions.R
-#'   
-addPackage <- function(pkgs = NULL, path = NULL, repos = getOption("repos"),
-                       type = "source", Rversion = R.version,
-                       writePACKAGES = TRUE, deps = TRUE, quiet = FALSE) {
-  if (is.null(path) || is.null(pkgs)) stop("path and pkgs must both be specified.")
+#'
+addPackage <- function(
+  pkgs = NULL,
+  path = NULL,
+  repos = getOption("repos"),
+  type = "source",
+  Rversion = R.version,
+  writePACKAGES = TRUE,
+  deps = TRUE,
+  quiet = FALSE
+) {
+  if (is.null(path) || is.null(pkgs))
+    stop("path and pkgs must both be specified.")
 
   do_one <- function(t) {
-    prev <- checkVersions(pkgs = pkgs, path = path, type = t, Rversion = Rversion)
+    prev <- checkVersions(
+      pkgs = pkgs,
+      path = path,
+      type = t,
+      Rversion = Rversion
+    )
     prev <- prev[[1]]
     prev.df <- getPkgVersFromFile(prev)
-    
+
     if (deps) pkgs <- pkgDep(pkgs, repos = repos, type = t, Rversion = Rversion)
-    
-    makeRepo(pkgs = pkgs, path = path, repos = repos, type = t, Rversion = Rversion,
-             download = TRUE, writePACKAGES = FALSE, quiet = quiet)
-    
+
+    makeRepo(
+      pkgs = pkgs,
+      path = path,
+      repos = repos,
+      type = t,
+      Rversion = Rversion,
+      download = TRUE,
+      writePACKAGES = FALSE,
+      quiet = quiet
+    )
+
     if (length(prev)) {
       curr <- suppressWarnings(
         checkVersions(pkgs = pkgs, path = path, type = t, Rversion = Rversion)
       )
       curr <- curr[[1]]
       curr.df <- getPkgVersFromFile(curr)
-        
+
       findPrevPackage <- function(x) {
-        grep(paste0("^", x), basename(prev)) 
-        }
-      
+        grep(paste0("^", x), basename(prev))
+      }
+
       dupes <- with(curr.df, package[duplicated(package)])
       if (length(dupes)) {
         to_remove <- lapply(dupes, findPrevPackage)
@@ -123,14 +150,13 @@ addPackage <- function(pkgs = NULL, path = NULL, repos = getOption("repos"),
 
   ret <- lapply(type, do_one)
 
-  if (writePACKAGES) updateRepoIndex(path = path, type = type, Rversion = Rversion)
+  if (writePACKAGES)
+    updateRepoIndex(path = path, type = type, Rversion = Rversion)
   invisible(ret)
 }
 
 
-
 # addOldPackage -----------------------------------------------------------
-
 
 #' Add old package versions to a miniCRAN repository.
 #'
@@ -156,30 +182,52 @@ addPackage <- function(pkgs = NULL, path = NULL, repos = getOption("repos"),
 #' @family update repo functions
 #'
 #' @example /inst/examples/example_checkVersions.R
-#'   
-addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
-                          repos = getOption("repos"),
-                          type = "source", Rversion = R.version,
-                          writePACKAGES=TRUE, deps=FALSE, quiet=TRUE) {
+#'
+addOldPackage <- function(
+  pkgs = NULL,
+  path = NULL,
+  vers = NULL,
+  repos = getOption("repos"),
+  type = "source",
+  Rversion = R.version,
+  writePACKAGES = TRUE,
+  deps = FALSE,
+  quiet = TRUE
+) {
   if (is.null(path) || is.null(pkgs) || is.null(vers)) {
     stop("path, pkgs, and vers must all be specified.")
   }
-  if (type != "source") stop("Older binary versions are not normally available on CRAN. ",
-                             "You must build the binary versions from source.")
+  if (type != "source")
+    stop(
+      "Older binary versions are not normally available on CRAN. ",
+      "You must build the binary versions from source."
+    )
   if (deps) {
-    message("Unable to automatically determine dependency version information.\n",
-            "Use pkgs and vers to identify which dependecies and their versions to download.")
+    message(
+      "Unable to automatically determine dependency version information.\n",
+      "Use pkgs and vers to identify which dependecies and their versions to download."
+    )
   }
   vers <- as.character(vers)
-  oldPkgs <- file.path(repos, repoPrefix(type, R.version), "Archive",
-                       pkgs, sprintf("%s_%s%s", pkgs, vers, pkgFileExt(type)))
+  oldPkgs <- file.path(
+    repos,
+    repoPrefix(type, R.version),
+    "Archive",
+    pkgs,
+    sprintf("%s_%s%s", pkgs, vers, pkgFileExt(type))
+  )
 
   pkgPath <- repoBinPath(path = path, type = type, Rversion = Rversion)
   if (!file.exists(pkgPath)) dir.create(pkgPath, recursive = TRUE)
-  
+
   do_one <- function(x) {
-    result <- download.file(x, destfile = file.path(pkgPath, basename(x)),
-                                   method = "auto", mode = "wb", quiet = quiet)
+    result <- download.file(
+      x,
+      destfile = file.path(pkgPath, basename(x)),
+      method = "auto",
+      mode = "wb",
+      quiet = quiet
+    )
     if (result != 0) warning("error downloading file ", x)
   }
   ret <- sapply(oldPkgs, do_one)
@@ -191,7 +239,6 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 
 
 # .listFiles -------------------------------------------------------------------
-
 
 #' List pre-built packages in a directory based on file extension
 #'
@@ -207,24 +254,28 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 #' @docType methods
 #'
 #' @keywords Internal
-#' 
+#'
 #' @examples
 #' \dontrun{
 #'  .listFiles('path/to/my/packages', type = "source")
 #' }
-#' 
+#'
 .listFiles <- function(pkgs, path, type) {
   stopifnot(dir.exists(path))
   pattern <- pkgFileExt(type)
 
   # get a list of all files in pkgPaths directory matching pattern
   f <- list.files(path, pattern = pattern)
-  
-  assert_that(is.character(f) && length(f) > 0, 
-              msg = sprintf("No files found in path with extension '%s'", pattern))
+
+  assert_that(
+    is.character(f) && length(f) > 0,
+    msg = sprintf("No files found in path with extension '%s'", pattern)
+  )
 
   # we only care about the subset matching pkgs
-  f <- sapply(pkgs, function(x) { grep(x, f, value = TRUE) })
+  f <- sapply(pkgs, function(x) {
+    grep(x, f, value = TRUE)
+  })
 
   if (length(f)) {
     # if multiple versions present, always use latest
@@ -232,7 +283,7 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
       x <- strsplit(f, "_")
       sapply(x, `[[`, 1)
     })
-    
+
     fv <- local({
       x <- strsplit(f, "_")
       x <- sapply(x, `[[`, 2)
@@ -240,7 +291,7 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
       x <- sapply(x, `[[`, 1)
       as.numeric_version(x)
     })
-    
+
     fout <- sapply(fp, function(x) {
       ids.p <- which(fp %in% x)
 
@@ -257,7 +308,6 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 }
 
 
-
 #' Add local packages to a miniCRAN repository.
 #'
 #' Examine the contents of a directory specified by `pkgPath` for pre-built
@@ -272,14 +322,14 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 #'   dependencies.
 #'
 #' @inheritParams addPackage
-#' 
+#'
 #' @param deps Not used. See note.
-#' 
+#'
 #' @param pkgPath  Character vector of directory location containing packages to
 #'   be added. Note that `pkgPath` should be the parent directory of the package
 #'   (i.e., the package directory path is constructed from `file.path(pkgPath,
 #'   pkgs)`).
-#'   
+#'
 #' @param build Logical indicating whether packages should be build prior to
 #'   adding.
 #'
@@ -298,11 +348,18 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 #'  addLocalPackage("myPackage", "path/to/my/package/sourcecode",
 #'                  "path/to/my/miniCRAN/repo", build = TRUE)
 #' }
-#' 
-addLocalPackage <- function(pkgs = NULL, pkgPath = NULL, path = NULL,
-                            type = "source", Rversion = R.version,
-                            writePACKAGES = TRUE, deps = FALSE,
-                            quiet = FALSE, build = FALSE) {
+#'
+addLocalPackage <- function(
+  pkgs = NULL,
+  pkgPath = NULL,
+  path = NULL,
+  type = "source",
+  Rversion = R.version,
+  writePACKAGES = TRUE,
+  deps = FALSE,
+  quiet = FALSE,
+  build = FALSE
+) {
   if (is.null(path) || is.null(pkgs) || is.null(pkgPath)) {
     stop("path, pkgs, and pkgPath must be specified.")
   }
@@ -314,9 +371,12 @@ addLocalPackage <- function(pkgs = NULL, pkgPath = NULL, path = NULL,
     warning("Building local packages is still being tested.")
     if (requireNamespace("devtools", quietly = TRUE)) {
       lapply(pkgs, function(x) {
-        devtools::build(pkg = file.path(pkgPath, x), path = pkgPath,
-                        binary = ifelse(type == "source", FALSE, TRUE),
-                        quiet = quiet)
+        devtools::build(
+          pkg = file.path(pkgPath, x),
+          path = pkgPath,
+          binary = ifelse(type == "source", FALSE, TRUE),
+          quiet = quiet
+        )
       })
     } else {
       stop("To build packages, you must first install the 'devtools' package.")
@@ -328,11 +388,11 @@ addLocalPackage <- function(pkgs = NULL, pkgPath = NULL, path = NULL,
     repoPath <- file.path(path, repoPrefix(t, Rversion))
     if (!dir.exists(repoPath)) dir.create(repoPath, recursive = TRUE)
     files <- .listFiles(pkgs = pkgs, path = pkgPath, type = t)
-    
+
     # check for previous package version and omit if identical
     prev <- checkVersions(pkgs, path)
     same <- which(basename(as.character(prev)) %in% files)
-    
+
     if (length(same)) {
       files <- files[-same]
       if (length(files) == 0) {
@@ -340,30 +400,34 @@ addLocalPackage <- function(pkgs = NULL, pkgPath = NULL, path = NULL,
         return(invisible(NULL))
       }
     }
-    
+
     # copy other packages to their respective folders
     lapply(files, function(x) {
       f.src <- file.path(pkgPath, x)
       f.dst <- file.path(repoPath, x)
-      
+
       file.exists(f.src)
-      
+
       if (!isTRUE(quiet)) message("copying ", x, "\n")
       file.copy(from = f.src, to = f.dst)
     })
-    
+
     # check to ensure they all copied successfully
     copied <- file.exists(file.path(repoPath, files))
     if (!all(copied)) {
-      warning("the following ", t, " packages were not copied:\n",
-              paste(files[!copied], sep = ", "))
+      warning(
+        "the following ",
+        t,
+        " packages were not copied:\n",
+        paste(files[!copied], sep = ", ")
+      )
     }
-    
+
     # remove previous package versions
     if (length(prev[-same]) > 0) unlink(prev[-same])
     file.path(repoPath, files)[copied]
   }
-  
+
   ret <- sapply(type, do_one)
 
   # write package index for each folder:

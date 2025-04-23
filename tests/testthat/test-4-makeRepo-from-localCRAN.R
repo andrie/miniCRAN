@@ -1,4 +1,7 @@
-if (interactive()) {library(testthat); Sys.setenv(NOT_CRAN = "true")}
+if (interactive()) {
+  library(testthat)
+  Sys.setenv(NOT_CRAN = "true")
+}
 
 
 {
@@ -13,7 +16,7 @@ if (interactive()) {library(testthat); Sys.setenv(NOT_CRAN = "true")}
   new_repo_root <- file.path(tempdir(), "newMiniCRAN", Sys.Date())
   if (file.exists(repo_root)) unlink(repo_root, recursive = TRUE)
   if (file.exists(new_repo_root)) unlink(new_repo_root, recursive = TRUE)
-  
+
   # list.files(repo_root, recursive = TRUE)
 }
 
@@ -26,23 +29,39 @@ test_that("makeRepo downloads files and builds PACKAGES file", {
   skip_if_offline(mirror)
   # skip_on_cran()
   for (pkg_type in names(types)) {
-    
     # Create local miniCRAN
     # mockery::stub(makeRepo, "download_packages", mock_download_packages, depth = 1)
     # mockery::stub(updateRepoIndex, "write_packages", mock_write_packages, depth = 1)
-    
-    pdb <- pkgAvail(repos = mirror, type = pkg_type, Rversion = rvers, quiet = TRUE)
-    pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = mirror, type = pkg_type,
-                      suggests = FALSE, Rversion = rvers)
+
+    pdb <- pkgAvail(
+      repos = mirror,
+      type = pkg_type,
+      Rversion = rvers,
+      quiet = TRUE
+    )
+    pkgList <- pkgDep(
+      pkgs,
+      availPkgs = pdb,
+      repos = mirror,
+      type = pkg_type,
+      suggests = FALSE,
+      Rversion = rvers
+    )
     prefix <- repoPrefix(pkg_type, Rversion = rvers)
     dir.create(repo_root, recursive = TRUE, showWarnings = FALSE)
-    
-    ret <- makeRepo(pkgList, path = repo_root, repos = mirror, 
-                    type = pkg_type, quiet = TRUE, Rversion = rvers)
-    
+
+    ret <- makeRepo(
+      pkgList,
+      path = repo_root,
+      repos = mirror,
+      type = pkg_type,
+      quiet = TRUE,
+      Rversion = rvers
+    )
+
     expect_type(ret, "character")
     expect_equal(length(ret), length(pkgList))
-    
+
     expect_true(
       .checkForRepoFiles(repo_root, pkgList, prefix)
     )
@@ -51,26 +70,41 @@ test_that("makeRepo downloads files and builds PACKAGES file", {
     )
     expect_true(
       all(
-        pkgList %in% pkgAvail(repos = repo_root, type = pkg_type, Rversion = rvers)[, "Package"]
+        pkgList %in%
+          pkgAvail(repos = repo_root, type = pkg_type, Rversion = rvers)[,
+            "Package"
+          ]
       )
     )
-    
+
     # Create miniCRAN from existing miniCRAN
-    
+
     localCRAN <- paste0("file:///", repo_root)
-    
+
     pdb <- pkgAvail(repos = localCRAN, type = pkg_type, Rversion = rvers)
-    pkgList <- pkgDep(pkgs, availPkgs = pdb, repos = localCRAN, type = pkg_type,
-                      suggests = FALSE, Rversion = rvers)
+    pkgList <- pkgDep(
+      pkgs,
+      availPkgs = pdb,
+      repos = localCRAN,
+      type = pkg_type,
+      suggests = FALSE,
+      Rversion = rvers
+    )
     prefix <- repoPrefix(pkg_type, Rversion = rvers)
     dir.create(new_repo_root, recursive = TRUE, showWarnings = FALSE)
-    
-    ret <- makeRepo(pkgList, path = new_repo_root, repos = localCRAN, 
-                    type = pkg_type, quiet = TRUE, Rversion = rvers)
-    
+
+    ret <- makeRepo(
+      pkgList,
+      path = new_repo_root,
+      repos = localCRAN,
+      type = pkg_type,
+      quiet = TRUE,
+      Rversion = rvers
+    )
+
     expect_type(ret, "character")
     expect_equal(length(ret), length(pkgList))
-    
+
     expect_true(
       .checkForRepoFiles(new_repo_root, pkgList, prefix)
     )
@@ -79,10 +113,12 @@ test_that("makeRepo downloads files and builds PACKAGES file", {
     )
     expect_true(
       all(
-        pkgList %in% pkgAvail(repos = new_repo_root, type = pkg_type, Rversion = rvers)[, "Package"]
+        pkgList %in%
+          pkgAvail(repos = new_repo_root, type = pkg_type, Rversion = rvers)[,
+            "Package"
+          ]
       )
     )
-    
   }
 })
 
