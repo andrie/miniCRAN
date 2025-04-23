@@ -26,7 +26,7 @@ is_package <- function(x) {
 }
 
 on_failure(is_package) <- function(call, env) {
-  paste0(deparse(call$x), "pkg should be a character vector with package names")
+  paste0(deparse(call$x), " should be a character vector with package names")
 }
 
 is_package_vector <- is_package
