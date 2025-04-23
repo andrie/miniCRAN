@@ -1,3 +1,10 @@
+miniCRAN v0.3.1
+===============
+
+* Add `filters` argument to `makeRepo()` #156
+* Minor updates to conform to CRAN policies
+
+
 miniCRAN v0.3.0
 ================
 
