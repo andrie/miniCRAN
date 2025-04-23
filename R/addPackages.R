@@ -33,7 +33,7 @@ checkVersions <- function(pkgs = NULL, path = NULL, type = "source",
                           Rversion = R.version) {
   if (is.null(path)) stop("path must be specified.")
   if (!file.exists(path)) stop("invalid path, ", path)
-
+  
   do_one <- function(type) {
     pkgPath <- repoBinPath(path, type, Rversion)
     if (is.null(pkgs)) {
@@ -89,7 +89,7 @@ addPackage <- function(pkgs = NULL, path = NULL, repos = getOption("repos"),
                        type = "source", Rversion = R.version,
                        writePACKAGES = TRUE, deps = TRUE, quiet = FALSE) {
   if (is.null(path) || is.null(pkgs)) stop("path and pkgs must both be specified.")
-
+  
   do_one <- function(t) {
     prev <- checkVersions(pkgs = pkgs, path = path, type = t, Rversion = Rversion)
     prev <- prev[[1]]
@@ -106,10 +106,10 @@ addPackage <- function(pkgs = NULL, path = NULL, repos = getOption("repos"),
       )
       curr <- curr[[1]]
       curr.df <- getPkgVersFromFile(curr)
-        
+      
       findPrevPackage <- function(x) {
         grep(paste0("^", x), basename(prev)) 
-        }
+      }
       
       dupes <- with(curr.df, package[duplicated(package)])
       if (length(dupes)) {
@@ -120,9 +120,9 @@ addPackage <- function(pkgs = NULL, path = NULL, repos = getOption("repos"),
       }
     }
   }
-
+  
   ret <- lapply(type, do_one)
-
+  
   if (writePACKAGES) updateRepoIndex(path = path, type = type, Rversion = Rversion)
   invisible(ret)
 }
@@ -173,13 +173,13 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
   vers <- as.character(vers)
   oldPkgs <- file.path(repos, repoPrefix(type, R.version), "Archive",
                        pkgs, sprintf("%s_%s%s", pkgs, vers, pkgFileExt(type)))
-
+  
   pkgPath <- repoBinPath(path = path, type = type, Rversion = Rversion)
   if (!file.exists(pkgPath)) dir.create(pkgPath, recursive = TRUE)
   
   do_one <- function(x) {
     result <- download.file(x, destfile = file.path(pkgPath, basename(x)),
-                                   method = "auto", mode = "wb", quiet = quiet)
+                            method = "auto", mode = "wb", quiet = quiet)
     if (result != 0) warning("error downloading file ", x)
   }
   ret <- sapply(oldPkgs, do_one)
@@ -216,16 +216,16 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
 .listFiles <- function(pkgs, path, type) {
   stopifnot(dir.exists(path))
   pattern <- pkgFileExt(type)
-
+  
   # get a list of all files in pkgPaths directory matching pattern
   f <- list.files(path, pattern = pattern)
   
   assert_that(is.character(f) && length(f) > 0, 
               msg = sprintf("No files found in path with extension '%s'", pattern))
-
+  
   # we only care about the subset matching pkgs
   f <- sapply(pkgs, function(x) { grep(x, f, value = TRUE) })
-
+  
   if (length(f)) {
     # if multiple versions present, always use latest
     fp <- local({
@@ -243,11 +243,11 @@ addOldPackage <- function(pkgs = NULL, path = NULL, vers = NULL,
     
     fout <- sapply(fp, function(x) {
       ids.p <- which(fp %in% x)
-
+      
       # numeric_version always returns version using '.' as separator,
       #   even if the package uses '-', so we need to ensure either will work
       id.v <- which(fv == max(fv[ids.p]))
-
+      
       f[id.v]
     })
     unique(fout)
@@ -306,9 +306,9 @@ addLocalPackage <- function(pkgs = NULL, pkgPath = NULL, path = NULL,
   if (is.null(path) || is.null(pkgs) || is.null(pkgPath)) {
     stop("path, pkgs, and pkgPath must be specified.")
   }
-
+  
   stopifnot(dir.exists(file.path(pkgPath)))
-
+  
   # build local package if needed
   if (isTRUE(build)) {
     warning("Building local packages is still being tested.")
@@ -322,7 +322,7 @@ addLocalPackage <- function(pkgs = NULL, pkgPath = NULL, path = NULL,
       stop("To build packages, you must first install the 'devtools' package.")
     }
   }
-
+  
   # get list of pre-built packages for each type, filter by pkgs to be added
   do_one <- function(t) {
     repoPath <- file.path(path, repoPrefix(t, Rversion))
@@ -365,10 +365,74 @@ addLocalPackage <- function(pkgs = NULL, pkgPath = NULL, path = NULL,
   }
   
   ret <- sapply(type, do_one)
-
+  
   # write package index for each folder:
   if (writePACKAGES) {
     updateRepoIndex(path = path, type = type, Rversion = Rversion)
   }
   invisible(ret)
 }
+
+# addGithubPakage -----------------------------------------------------------
+
+#' Add packages from GitHub to a miniCRAN repository.
+#' 
+#' Download the package source from the GitHub repository specified by `repo`, 
+#' build the source package and add it to the miniCRAN repository.
+#'  
+#' @details
+#' It uses the `remotes` package to download packages source from GitHub and the 
+#' `devtools` package to build packages from source.
+#'
+#' @note Currently, adding packages from GitHub does not check nor download 
+#'   their dependencies.
+#'   
+#' @inheritParams addPackage
+#' @inheritParams addLocalPackage
+#' @inheritParams addPackageListingGithub
+#' @inheritParams remotes::github_remote
+#' 
+#' @return Installs the packages from GitHub and returns the new package index.
+#' 
+#' @docType methods
+#' 
+#' @export
+
+addGithubPackage <- function(repo = NULL, path = NULL,
+                             type = "source", Rversion = R.version,
+                             writePACKAGES = TRUE, deps = FALSE,
+                             quiet = FALSE, ref = "HEAD", subdir = NULL,
+                             auth_token = github_pat(quiet),
+                             host = "api.github.com") {
+  if (is.null(path) || is.null(repo)) {
+    stop("path and repo must be specified.")
+  }
+  
+  if(!requireNamespace("devtools", quietly = TRUE) || !requireNamespace("remotes", quietly = TRUE)){
+    stop("you must first install the 'devtools' and 'remotes' package.")
+  }
+  
+  # Download the source from GitHub, describe the repository information, etc., 
+  # and rebuild the source package.
+  remote <- remotes::github_remote(repo = repo, ref = ref, subdir = subdir, 
+                                   auth_token = auth_token, host = host)
+  pkgs <- remotes::remote_package_name(remote)
+  temp_source <- remotes::remote_download(remote)
+  utils::untar(temp_source, 
+               exdir = tools::file_path_sans_ext(temp_source, compression = TRUE))
+  file.rename(file.path(tools::file_path_sans_ext(temp_source, compression = TRUE), 
+                        list.files(tools::file_path_sans_ext(temp_source, compression = TRUE))),
+              sourcePath <- file.path(tools::file_path_sans_ext(temp_source, compression = TRUE),
+                                      pkgs))
+  pkgPath <- tools::file_path_sans_ext(temp_source, compression = TRUE)
+  remote_sha <- remotes::remote_sha(remote)
+  remotes::add_metadata(pkg_path = sourcePath, 
+                        remotes::remote_metadata(x = remote, source = sourcePath, sha =remote_sha))
+
+  addLocalPackage(pkgs = pkgs, pkgPath = pkgPath, path = path, type = type,
+                  Rversion = Rversion, writePACKAGES = writePACKAGES, deps = deps,
+                  quiet = quiet, build = TRUE)
+}
+
+#'
+github_pat <- utils::getFromNamespace("github_pat", "remotes")
