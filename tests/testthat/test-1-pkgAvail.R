@@ -4,8 +4,8 @@ test_that("pkgAvail throws warnings and errors for incorrect CRAN repos", {
   is.available.packages <- function(x) {
     all(
       is.matrix(x),
-      dim(x)[2] == 17,
-      names(x)[1:3] == c("Package", "Version", "Priority", "Depends")
+      dim(x)[2] >= 17,
+      colnames(x)[1:4] == c("Package", "Version", "Priority", "Depends")
     )
   }
 
