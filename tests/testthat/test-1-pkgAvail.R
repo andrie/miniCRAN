@@ -2,10 +2,11 @@ test_that("pkgAvail throws warnings and errors for incorrect CRAN repos", {
   expect_warning(pkgAvail(repos = ""), "unable to access index for repository")
 
   is.available.packages <- function(x) {
+    required_cols <- c("Package", "Version", "Depends", "Imports", "Suggests")
     all(
       is.matrix(x),
-      dim(x)[2] >= 17,
-      colnames(x)[1:4] == c("Package", "Version", "Priority", "Depends")
+      nrow(x) > 0,
+      required_cols %in% colnames(x)
     )
   }
 
@@ -13,9 +14,6 @@ test_that("pkgAvail throws warnings and errors for incorrect CRAN repos", {
 
   mran <- p3m("2024-01-02")
 
-  expect_true(is.available.packages(
-    pkgAvail(repos = mran)
-  ))
   expect_true(is.available.packages(
     pkgAvail(repos = mran)
   ))

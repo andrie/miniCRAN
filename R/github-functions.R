@@ -70,23 +70,27 @@ readDescription <- function(file) {
 
 addPackageListing <- function(pdb = pkgAvail(), dcf, warnings = TRUE) {
   pkgName <- dcf[["Package"]]
-  #   pkgRow <- match(pkgName, rownames(pdb))
   pkgRow <- match(pkgName, pdb[, "Package"])
-  newRow <- with(
-    dcf,
-    c(
-      Package,
-      Version,
-      NA,
-      Depends,
-      Imports,
-      LinkingTo,
-      Suggests,
-      Enhances,
-      License,
-      rep(NA, 8)
-    )
+
+  # Build a new row matching pdb's actual column structure, filled by name
+  # so it stays correct as available.packages() gains or loses columns across R versions
+  newRow <- setNames(rep(NA_character_, ncol(pdb)), colnames(pdb))
+  known_fields <- c(
+    "Package", 
+    "Version", 
+    "Depends", 
+    "Imports",
+    "LinkingTo", 
+    "Suggests", 
+    "Enhances", 
+    "License"
   )
+  for (field in known_fields) {
+    if (field %in% names(newRow) && !is.null(dcf[[field]])) {
+      newRow[field] <- dcf[[field]]
+    }
+  }
+
   if (!is.na(pkgRow)) {
     pdb[pkgRow, ] <- newRow
     if (warnings) {
