@@ -1,0 +1,61 @@
+# Using repositories other than CRAN with miniCRAN
+
+Although the package name `miniCRAN` seems to indicate you can only use
+CRAN as a repository, you can in fact use any CRAN-like repository.
+
+This vignette contains some examples of how to refer to different
+package repositories, including CRAN, alternative mirrors of CRAN,
+R-Forge as well as BioConductor.
+
+To simplify the code to show the salient features, we use a little
+helper function, `index()` that is a simple wrapper around
+[`available.packages()`](https://rdrr.io/r/utils/available.packages.html):
+
+``` r
+# Wrapper around available.packages ---------------------------------------
+ 
+index <- function(url, type = "source", filters = NULL, head = 5, 
+                  cols = c("Package", "Version")) {
+  contribUrl <- contrib.url(url, type = type)
+  p <- available.packages(contribUrl, type = type, filters = filters)
+  p[1:head, cols]
+}
+```
+
+## Using CRAN
+
+The URL for the master mirror in Austria:
+
+``` r
+CRAN <- "https://cran.r-project.org"
+index(CRAN)
+```
+
+Your output should look like this (albeit with different packages and
+version numbers):
+
+                  Package         Version
+    A3            "A3"            "1.0.0"
+    AalenJohansen "AalenJohansen" "1.0"  
+    AATtools      "AATtools"      "0.0.2"
+    ABACUS        "ABACUS"        "1.0.0"
+    abasequence   "abasequence"   "0.1.0"
+
+## Using a different mirror
+
+You can also point to any other mirror, for example the snapshot taken
+on 2024-01-02 by Posit Public Package Manager:
+
+``` r
+p3m <- "https://packagemanager.posit.co/cran/2024-01-02"
+index(p3m)
+```
+
+## Using R-forge
+
+R-forge has CRAN-like structure:
+
+``` r
+rforge <- "https://r-forge.r-project.org"
+index(rforge)
+```
