@@ -1,3 +1,4 @@
+This is a minor update to fix the recent CRAN test errors on R-devel on Fedora.
 
 ## R CMD check results
 
