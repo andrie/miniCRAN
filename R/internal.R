@@ -49,6 +49,10 @@ repoPrefix <- function(type, Rversion) {
       "bin/macosx/big-sur-arm64/contrib/%s",
       Rversion
     ),
+    "mac.binary.sonoma-arm64" = sprintf(
+      "bin/macosx/sonoma-arm64/contrib/%s",
+      Rversion
+    ),
     stop("Type ", type, " not recognised.")
   )
 }
