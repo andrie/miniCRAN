@@ -73,6 +73,7 @@ Other dependency functions:
 ## Examples
 
 ``` r
+
 if (interactive()) {
   availPkgs <- cranJuly2014
   

@@ -17,18 +17,19 @@ then downloads only this subset.
 
 ## Important functions:
 
-| Function                                                                            | Use it for                                                              |
-|-------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| [`pkgDep()`](https://andrie.github.io/miniCRAN/reference/pkgDep.md)                 | Find package dependencies                                               |
-| [`makeRepo()`](https://andrie.github.io/miniCRAN/reference/makeRepo.md)             | Make repository (with or without downloading packages)                  |
-| [`addPackage()`](https://andrie.github.io/miniCRAN/reference/addPackage.md)         | Add additional packages (and their dependencies) to existing repository |
-| [`updatePackages()`](https://andrie.github.io/miniCRAN/reference/updatePackages.md) | Update the versions of packages currently in the repository             |
+| Function | Use it for |
+|----|----|
+| [`pkgDep()`](https://andrie.github.io/miniCRAN/reference/pkgDep.md) | Find package dependencies |
+| [`makeRepo()`](https://andrie.github.io/miniCRAN/reference/makeRepo.md) | Make repository (with or without downloading packages) |
+| [`addPackage()`](https://andrie.github.io/miniCRAN/reference/addPackage.md) | Add additional packages (and their dependencies) to existing repository |
+| [`updatePackages()`](https://andrie.github.io/miniCRAN/reference/updatePackages.md) | Update the versions of packages currently in the repository |
 
 ## Installation:
 
 Get the stable version from CRAN:
 
 ``` r
+
 install.packages("miniCRAN")
 library("miniCRAN")
 ```
@@ -38,6 +39,7 @@ library("miniCRAN")
 Get the latest development version from github:
 
 ``` r
+
 # Use `devtools` to install directly from github
 library(devtools)
 install_github("andrie/miniCRAN")
@@ -46,6 +48,7 @@ install_github("andrie/miniCRAN")
 ## Example:
 
 ``` r
+
 # Determine and download the packages `ggplot2`, `plyr` and `reshape2`, 
 # including their dependencies:
 

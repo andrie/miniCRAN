@@ -102,6 +102,7 @@ Other dependency functions:
 ## Examples
 
 ``` r
+
 if (interactive()) {
   pkgDep(pkg = c("ggplot2", "plyr", "reshape2"),
          repos = c(CRAN = "https://cloud.r-project.org")

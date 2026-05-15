@@ -134,6 +134,7 @@ Other update repo functions:
 ## Examples
 
 ``` r
+
 # Specify list of packages to download
 mirror <- c(CRAN = "https://cloud.r-project.org")
 pkgs <- c("foreach")

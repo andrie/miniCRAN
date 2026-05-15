@@ -52,10 +52,12 @@ The resulting list of packages should then contain the complete list
 necessary to satisfy all dependencies. In code:
 
 ``` r
+
 library("miniCRAN")
 ```
 
 ``` r
+
 tags <- "chron"
 pkgDep(tags, availPkgs = cranJuly2014)
 ```
@@ -70,6 +72,7 @@ To create an igraph plot of the dependencies, use the function
 and plot the results:
 
 ``` r
+
 dg <- makeDepGraph(tags, enhances = TRUE, availPkgs = cranJuly2014)
 set.seed(1)
 plot(dg, legendPosition = c(-1, 1), vertex.size = 20)
@@ -87,6 +90,7 @@ As a final example, create a dependency graph of seven very popular R
 packages:
 
 ``` r
+
 tags <- c("ggplot2", "data.table", "plyr", "knitr", "shiny", "xts", "lattice")
 pkgDep(tags, suggests = TRUE, enhances = FALSE, availPkgs = cranJuly2014)
 ```
@@ -109,6 +113,7 @@ pkgDep(tags, suggests = TRUE, enhances = FALSE, availPkgs = cranJuly2014)
     ## [76] "fts"          "tis"          "KernSmooth"
 
 ``` r
+
 dg <- makeDepGraph(tags, enhances = TRUE, availPkgs = cranJuly2014)
 set.seed(1)
 plot(dg, legendPosition = c(-1, -1), vertex.size = 10, cex = 0.7)

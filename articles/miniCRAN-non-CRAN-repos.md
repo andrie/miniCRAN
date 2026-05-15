@@ -12,6 +12,7 @@ helper function, `index()` that is a simple wrapper around
 [`available.packages()`](https://rdrr.io/r/utils/available.packages.html):
 
 ``` r
+
 # Wrapper around available.packages ---------------------------------------
  
 index <- function(url, type = "source", filters = NULL, head = 5, 
@@ -27,6 +28,7 @@ index <- function(url, type = "source", filters = NULL, head = 5,
 The URL for the master mirror in Austria:
 
 ``` r
+
 CRAN <- "https://cran.r-project.org"
 index(CRAN)
 ```
@@ -47,6 +49,7 @@ You can also point to any other mirror, for example the snapshot taken
 on 2024-01-02 by Posit Public Package Manager:
 
 ``` r
+
 p3m <- "https://packagemanager.posit.co/cran/2024-01-02"
 index(p3m)
 ```
@@ -56,6 +59,7 @@ index(p3m)
 R-forge has CRAN-like structure:
 
 ``` r
+
 rforge <- "https://r-forge.r-project.org"
 index(rforge)
 ```

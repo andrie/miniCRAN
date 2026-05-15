@@ -9,6 +9,7 @@ that consists of the package `foreach` and its dependencies.
 Start by creating the dependency list:
 
 ``` r
+
 library("miniCRAN")
 
 # define CRAN mirror
@@ -29,6 +30,7 @@ In this example, get the required files for `source` packages as well as
 windows binaries:
 
 ``` r
+
 # Create temporary folder for miniCRAN
 dir.create(pth <- file.path(tempdir(), "miniCRAN"))
 
@@ -39,6 +41,7 @@ makeRepo(pkgList, path = pth, repos = mirror, type = c("source", "win.binary"))
 Investigate the repository file structure:
 
 ``` r
+
 # List all files in miniCRAN
 list.files(pth, recursive = TRUE, full.names = FALSE)
 ```
@@ -46,6 +49,7 @@ list.files(pth, recursive = TRUE, full.names = FALSE)
 Use `pkgAvail` to list available packages in your repository:
 
 ``` r
+
 # Check for available packages
 pkgAvail(repos = pth, type = "win.binary")[, c(1:3, 5)]
 ```
@@ -58,6 +62,7 @@ Identifier](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier)
 (URI) convention `file:///` to point to your file location.
 
 ``` r
+
 install.packages(pkgs, 
                  repos = paste0("file:///", pth),
                  type = "source")
@@ -72,6 +77,7 @@ their dependencies can easily be added. This mechanism can also be used
 to re-add an existing package to the miniCRAN repo.
 
 ``` r
+
 # Add new packages (from CRAN) to the miniCRAN repo
 addPackage("Matrix", path = pth, repos = mirror, type = c("source", "win.binary"))
 pkgAvail(repos = pth, type = "win.binary")[, c(1:3, 5)]
@@ -94,6 +100,7 @@ yourself. You will need the appropriate R development tools installed in
 order to build package binaries from source.
 
 ``` r
+
 # create a data frame with the package and version info
 oldVers <- data.frame(
   package = c("foreach", "codetools", "iterators"),
@@ -113,6 +120,7 @@ Note: This last step is important, otherwise you may end up with a repo
 in an inconsistent state.
 
 ``` r
+
 # List package versions in the miniCRAN repo (produces warning about duplicates)
 pkgVersionsSrc <- checkVersions(pkgList, path = pth, type = "source")
 pkgVersionsBin <- checkVersions(pkgList, path = pth, type = "win.binary")
@@ -130,6 +138,7 @@ updateRepoIndex(pth, type = c("source", "win.binary"))
 To see the updated list of packages available in the miniCRAN repo:
 
 ``` r
+
 pkgAvail(pth, type = "source")[, c(1:3, 5)] # contains the old versions
 pkgAvail(pth, type = "win.binary")[, c(1:3, 5)] # contains the current versions
 ```
@@ -144,6 +153,7 @@ Checking for updated versions of the packages currently stored in the
 miniCRAN repository:
 
 ``` r
+
 # Check if updated packages are available
 oldPackages(path = pth, repos = mirror, type = "source")[, 1:3] # should need update
 oldPackages(path = pth, repos = mirror, type = "win.binary")[, 1:3] # should be current
@@ -156,6 +166,7 @@ update all packages. Be careful using this option if you want to keep
 certain packages at an older version.
 
 ``` r
+
 # Update available packages
 updatePackages(path = pth, repos = mirror, type = "source", ask = FALSE) # should need update
 updatePackages(path = pth, repos = mirror, type = "win.binary", ask = FALSE) # should be current
